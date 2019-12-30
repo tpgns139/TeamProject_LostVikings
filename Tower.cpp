@@ -11,12 +11,6 @@ Tower::~Tower()
 {
 }
 
-<<<<<<< HEAD
-HRESULT Tower::init(mapInfo info)
-{
-	MapObj::init(info);
-	return S_OK;
-=======
 void Tower::update()
 {
 	_count++;
@@ -46,7 +40,6 @@ void Tower::update()
 	
 	_enemy.rc = RectMakeCenter(_enemy.x - CAMERA->getCameraXpos()+ _enemy.img->getFrameWidth()/2,
 		_enemy.y - CAMERA->getCameraYpos()+ _enemy.img->getFrameHeight()/2, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
->>>>>>> origin/gunhee
 }
 
 
