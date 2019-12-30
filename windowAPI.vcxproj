@@ -168,6 +168,7 @@
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="MapObj.h" />
     <ClInclude Include="Meat.h" />
+    <ClInclude Include="Olaf.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="playGround.h" />
@@ -207,6 +208,7 @@
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="MapObj.cpp" />
     <ClCompile Include="Meat.cpp" />
+    <ClCompile Include="Olaf.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="playGround.cpp" />

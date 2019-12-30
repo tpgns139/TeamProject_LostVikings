@@ -44,7 +44,7 @@ HRESULT Baleog::init(PlayerName playerName)
 }
 void Baleog::update()
 {
-	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
+	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x-CAMERA->getCameraXpos(), _playerInfo.position.y-CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 }
 
 void Baleog::render()
