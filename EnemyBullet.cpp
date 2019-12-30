@@ -71,3 +71,4 @@ void EnemyBullet::removeBullet(int arrNum)
 {
 	_vBullet.erase(_vBullet.begin() + arrNum); 
 }
+

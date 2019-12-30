@@ -18,7 +18,7 @@ HRESULT EnemyManager::init()
 	setEnemy(); //에너미를 세팅해주는 함수
 	_Ebullet = new EnemyBullet;
 	_Ebullet->init(50);
-
+	collisionTestRect = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2, 30, 30);
 
 	return S_OK;
 }
@@ -39,7 +39,7 @@ void EnemyManager::update()
 	{
 		enemyBulletFire();
 	}
-
+	collision();
 }
 
 void EnemyManager::render()
@@ -49,7 +49,7 @@ void EnemyManager::render()
 		(*_viEm)->render();
 	}
 	_Ebullet->render();
-	
+	Rectangle(getMemDC(),collisionTestRect);
 }
 
 void EnemyManager::setEnemy()
@@ -102,4 +102,19 @@ void EnemyManager::enemyBulletFire()
 
 		_Ebullet->bulletFire(rc.left, (rc.top + rc.bottom) / 2, 5.0f);
 	}
+}
+
+void EnemyManager::collision()
+{
+	RECT temp;
+
+	for (int i = 0; i <_Ebullet->getVBullet().size();i++)
+	{
+		if (IntersectRect(&temp, &_Ebullet->getVBullet()[i].rc, &collisionTestRect))
+		{
+			_Ebullet->removeBullet(i);
+		}
+	}
+
+
 }

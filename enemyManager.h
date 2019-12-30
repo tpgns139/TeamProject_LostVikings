@@ -30,6 +30,7 @@ public:
 	void render();
 	void setEnemy(); //에너미 세팅
 	void enemyBulletFire();
+	void collision();
 	vector<Enemy*> getEnemy() { return _vEm; }
 	vector<Enemy*>::iterator getViEnemy() { return _viEm; }
 };
