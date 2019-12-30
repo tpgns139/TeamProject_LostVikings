@@ -1,35 +1,46 @@
 #pragma once
 #include "gameNode.h"
 
-class enemy : public gameNode
+
+struct ENEMY
 {
+	image* img;
+	float  x, y;
+
+	float speed;
+	float angle;
+	RECT rc;
+	int count;
+};
+
+
+class Enemy : public gameNode
+
+{
+
 protected:
-	image* _imageName;
-	RECT _rc;
-	
-	int _currentFrameX;		//프레임이미지 1개를 가지가 각각 다른 프레임을 유지하려고
-	int _currentFrameY;
 
-	int _count;				//프레임 카운트용
-	int _fireCount;			//총알 발사용
-	int _rndFireCount;		//랜덤하게 쏠 변수
 
+
+	ENEMY _enemy;
+	int _bulletMax;
+	float _range;
+	int _currentFrameX, _currentFrameY;  //읽어들이는 현재 프레임 위치
+	int _count; //프레임 재생 속도
+	int _rndFireCount; //총알발사 랜덤 주기
+	int _enemyfirecount;
 public:
-	enemy();
-	~enemy();
+	Enemy();
+	~Enemy();
 
-	HRESULT init();
-	HRESULT init(const char* imageName, POINT position);
+	virtual HRESULT init(const char* imagename, POINT position);
+
 	void release();
-	void update();
-	void render();
+	virtual void update();
+   	void render();
+	virtual void move();
+	
 
-	void move();
-	void draw();
-
-	bool bulletCountFire();		//총알 쏘라고 신호를 줄 함수
-
-	inline RECT getRect() { return _rc; }
-
+	RECT getEnemyRect() { return _enemy.rc; }
 };
 

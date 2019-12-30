@@ -64,6 +64,12 @@
     <Filter Include="playGround\Player">
       <UniqueIdentifier>{22c09428-5108-40b5-b019-4aed9941c236}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\EnemyManager">
+      <UniqueIdentifier>{893a3053-7486-4f6d-8065-5fd308840bfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\EnemyManager\Enemy">
+      <UniqueIdentifier>{b8cfe0e1-55a2-44d6-a483-39f50ef17f2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -183,6 +189,24 @@
     <ClInclude Include="Olaf.h">
       <Filter>playGround\Player</Filter>
     </ClInclude>
+    <ClInclude Include="SecurityRobot.h">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Tower.h">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>playGround\EnemyManager</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>playGround\EnemyManager</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBullet.h">
+      <Filter>playGround\EnemyManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -286,6 +310,24 @@
     </ClCompile>
     <ClCompile Include="Olaf.cpp">
       <Filter>playGround\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="SecurityRobot.cpp">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Tower.cpp">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>playGround\EnemyManager</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>playGround\EnemyManager</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBullet.cpp">
+      <Filter>playGround\EnemyManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
