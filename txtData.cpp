@@ -65,7 +65,6 @@ vector<string> txtData::txtLoad(const char* loadFileName)
 	ReadFile(file, _text, GetFileSize(loadFileName), &read, NULL);
 
 	CloseHandle(file);
-	
 	return charArraySeparation(_text);
 }
 

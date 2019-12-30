@@ -150,15 +150,20 @@
     <ClInclude Include="action.h" />
     <ClInclude Include="animation.h" />
     <ClInclude Include="Baleog.h" />
+    <ClInclude Include="BlueTile.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
+    <ClInclude Include="ElectricField.h" />
+    <ClInclude Include="ElectricFieldTwoType.h" />
+    <ClInclude Include="Elevator.h" />
     <ClInclude Include="Eric.h" />
     <ClInclude Include="Fruit.h" />
     <ClInclude Include="gameNode.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="GravityZone.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
     <ClInclude Include="item.h" />
@@ -168,11 +173,14 @@
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="MapObj.h" />
     <ClInclude Include="Meat.h" />
+    <ClInclude Include="Olaf.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="playGround.h" />
+    <ClInclude Include="Portal.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
+    <ClInclude Include="RedTile.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="Shoes.h" />
@@ -180,24 +188,32 @@
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="ThornBush.h" />
     <ClInclude Include="timeManager.h" />
     <ClInclude Include="timer.h" />
+    <ClInclude Include="Tower.h" />
     <ClInclude Include="txtData.h" />
     <ClInclude Include="utils.h" />
+    <ClInclude Include="Wall.h" />
     <ClInclude Include="windowAPI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="action.cpp" />
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="Baleog.cpp" />
+    <ClCompile Include="BlueTile.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
+    <ClCompile Include="ElectricField.cpp" />
+    <ClCompile Include="ElectricFieldTwoType.cpp" />
+    <ClCompile Include="Elevator.cpp" />
     <ClCompile Include="Eric.cpp" />
     <ClCompile Include="Fruit.cpp" />
     <ClCompile Include="gameNode.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="GravityZone.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />
     <ClCompile Include="item.cpp" />
@@ -207,10 +223,13 @@
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="MapObj.cpp" />
     <ClCompile Include="Meat.cpp" />
+    <ClCompile Include="Olaf.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="playGround.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="progressBar.cpp" />
+    <ClCompile Include="RedTile.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="Shoes.cpp" />
     <ClCompile Include="soundManager.cpp" />
@@ -220,10 +239,13 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="ThornBush.cpp" />
     <ClCompile Include="timeManager.cpp" />
     <ClCompile Include="timer.cpp" />
+    <ClCompile Include="Tower.cpp" />
     <ClCompile Include="txtData.cpp" />
     <ClCompile Include="utils.cpp" />
+    <ClCompile Include="Wall.cpp" />
     <ClCompile Include="windowAPI.cpp" />
   </ItemGroup>
   <ItemGroup>

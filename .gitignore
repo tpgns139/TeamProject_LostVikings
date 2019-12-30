@@ -10,7 +10,6 @@
 # Precompiled Headers
 *.gch
 *.pch
-*.dll
 # Compiled Dynamic libraries
 *.so
 *.dylib
@@ -24,7 +23,6 @@
 *.lai
 *.la
 *.a
-*.lib
 
 # Executables
 *.exe
@@ -41,7 +39,6 @@
 *.idb
 *.mp3
 *.enc
-
 
 
 ./.vs/
