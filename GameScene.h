@@ -2,6 +2,7 @@
 #include"gameNode.h"
 #include "itemManager.h"
 #include"PlayerManager.h"
+#include "uiManager.h"
 class GameScene:public gameNode
 {
 private:
@@ -10,6 +11,7 @@ private:
 	int currentX;
 	itemManager* _im;
 	PlayerManager* _pm;
+	uiManager* _ui;
 public:
 	
 	GameScene();

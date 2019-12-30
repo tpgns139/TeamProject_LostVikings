@@ -42,6 +42,8 @@ HRESULT GameScene::init()
 
 	_im->setPlayerMemoryAdrressLink(_pm);
 
+	_ui = new uiManager;
+	_ui->init();
 	return S_OK;
 }
 
@@ -53,11 +55,11 @@ void GameScene::update()
 
 		currentX++;
 		if (currentX > IMAGEMANAGER->findImage("ThornBush")->getMaxFrameX())currentX = 0;
-	}
+	}*/
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		cout << CAMERA->getCameraXpos() + _ptMouse.x << "," << CAMERA->getCameraYpos() + _ptMouse.y << endl;
-	}*/
+	}
 
 	_im->update();
 	_pm->update();
@@ -106,8 +108,10 @@ void GameScene::render()
 	IMAGEMANAGER->findImage("RedTile")->frameRender(getMemDC(), 2624 - CAMERA->getCameraXpos(), 1040 - CAMERA->getCameraYpos(), currentX, 0);
 	*/
 	IMAGEMANAGER->findImage("¹è°æ")->render(getMemDC(), 0, 0, CAMERA->getCameraXpos(), CAMERA->getCameraYpos(), WINSIZEX, WINSIZEY);
-	_im->render();
+	
 	_pm->render();
+	_im->render();
+	_ui->render();
 }
 
 void GameScene::release()
