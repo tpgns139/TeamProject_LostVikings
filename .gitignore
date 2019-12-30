@@ -23,7 +23,6 @@
 *.lai
 *.la
 *.a
-*.lib
 
 # Executables
 *.exe
@@ -42,7 +41,7 @@
 *.enc
 
 
-
+./.vs/
 ./DirectTool/Debug/
 ./_Resources/
 ../Debug/
