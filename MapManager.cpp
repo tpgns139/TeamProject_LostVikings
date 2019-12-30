@@ -116,11 +116,6 @@ void MapManager::charArraySeparationforMap(char charArray[])
 		mapIns->init(ins);
 		_elevator.push_back(mapIns);
 		break;
-	case tower:
-		mapIns = new Tower;
-		mapIns->init(ins);
-		_colObj.push_back(mapIns);
-		break;
 	case portal:
 		mapIns = new Portal;
 		mapIns->init(ins);

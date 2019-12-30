@@ -3,6 +3,7 @@
 #include "itemManager.h"
 #include"PlayerManager.h"
 #include"MapManager.h"
+#include "EnemyManager.h"
 class GameScene:public gameNode
 {
 private:
@@ -12,6 +13,7 @@ private:
 	itemManager* _im;
 	PlayerManager* _pm;
 	MapManager* _mm;
+	EnemyManager* _em;
 public:
 	
 	GameScene();

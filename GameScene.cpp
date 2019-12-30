@@ -38,6 +38,8 @@ HRESULT GameScene::init()
 	_pm = new PlayerManager;
 	_pm->init();
 
+	_em = new EnemyManager;
+	_em->init();
 	_im->setPlayerMemoryAdrressLink(_pm);
 	_mm = new MapManager;
 	_mm->init();
@@ -46,22 +48,13 @@ HRESULT GameScene::init()
 
 void GameScene::update()
 {
-	count++;
-	if (count % 5 == 0)
-	{
 
-		currentX++;
-		if (currentX > IMAGEMANAGER->findImage("ThornBush")->getMaxFrameX())currentX = 0;
-	}
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-	{
-		cout << CAMERA->getCameraXpos() + _ptMouse.x << "," << CAMERA->getCameraYpos() + _ptMouse.y << endl;
-	}
 
 	_im->update();
 	_pm->update();
 
 	_mm->update();
+	_em->update();
 }
 
 void GameScene::render()
@@ -111,6 +104,7 @@ void GameScene::render()
 	_mm->render();
 	_im->render();
 	_pm->render();
+	_em->render();
 }
 
 void GameScene::release()

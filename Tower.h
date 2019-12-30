@@ -1,10 +1,16 @@
 #pragma once
-#include"MapObj.h"
-class Tower:public MapObj
+#include "Enemy.h"
+
+
+class Tower :public Enemy
 {
 public:
 	Tower();
 	~Tower();
 	virtual HRESULT init(mapInfo info);
+
+	
+	void update();
+
 };
 
