@@ -6,13 +6,13 @@
 #include "Fruit.h"
 #include "item.h"
 #include <vector>
-
+class PlayerManager;
 class itemManager :public gameNode
 {
 private:
 	vector<item*>				_vItem;
 	vector<item*> ::iterator	_viItem;
-
+	PlayerManager* _pm;
 
 
 public:
@@ -28,7 +28,7 @@ public:
 	virtual void setItem();
 	virtual void collision();
 	virtual void removeItem(int arrNum);
-	//void setPlayerMemoryAdrressLink(player* player) { _player = player; }
+	void setPlayerMemoryAdrressLink(PlayerManager* player) { _pm = player; }
 
 };
 

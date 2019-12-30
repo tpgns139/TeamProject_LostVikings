@@ -40,6 +40,8 @@ HRESULT GameScene::init()
 	_pm = new PlayerManager;
 	_pm->init();
 
+	_im->setPlayerMemoryAdrressLink(_pm);
+
 	return S_OK;
 }
 

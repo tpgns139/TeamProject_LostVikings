@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "itemManager.h"
-
+#include"PlayerManager.h"
 
 itemManager::itemManager()
 {
@@ -19,7 +19,7 @@ HRESULT itemManager::init()
 	IMAGEMANAGER->addImage("Fruit", "과일.bmp", 50, 56, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("Meat", "고기.bmp", 70, 75, true, RGB(255, 0, 255));
 
-
+	
 
 
 

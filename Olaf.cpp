@@ -13,7 +13,7 @@ Olaf::~Olaf()
 
 HRESULT Olaf::init(PlayerName playerName)
 {
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 void Olaf::update()
