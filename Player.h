@@ -8,13 +8,16 @@ enum PlayerName {
 struct Playerinfo
 {
 	image* _image;
+	PlayerName _playerName;
 	RECT _rc;
 	POINT position;
 	int HP;
 	int MaxHP;
 	int count;
 	int _CurrentFrameX, _CurrentFrameY;
-	PlayerName _playerName;
+	float gravity;
+	float speed;
+	bool isDrop; //떨어지는중이니
 };
 class Player :public gameNode
 {

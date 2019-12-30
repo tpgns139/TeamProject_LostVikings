@@ -174,13 +174,13 @@
     <ClInclude Include="Player.h">
       <Filter>playGround\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Eric.h">
-      <Filter>playGround\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Baleog.h">
       <Filter>playGround\Player</Filter>
     </ClInclude>
     <ClInclude Include="Olaf.h">
+      <Filter>playGround\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Erik.h">
       <Filter>playGround\Player</Filter>
     </ClInclude>
   </ItemGroup>
@@ -278,13 +278,13 @@
     <ClCompile Include="Player.cpp">
       <Filter>playGround\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Eric.cpp">
-      <Filter>playGround\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Baleog.cpp">
       <Filter>playGround\Player</Filter>
     </ClCompile>
     <ClCompile Include="Olaf.cpp">
+      <Filter>playGround\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Erik.cpp">
       <Filter>playGround\Player</Filter>
     </ClCompile>
   </ItemGroup>
