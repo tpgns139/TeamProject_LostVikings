@@ -189,6 +189,33 @@
     <ClInclude Include="Olaf.h">
       <Filter>playGround\Player</Filter>
     </ClInclude>
+    <ClInclude Include="ThornBush.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Elevator.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="BlueTile.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="RedTile.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="ElectricField.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityZone.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="ElectricFieldTwoType.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
     <ClInclude Include="SecurityRobot.h">
       <Filter>playGround\EnemyManager\Enemy</Filter>
     </ClInclude>
@@ -206,6 +233,9 @@
     </ClInclude>
     <ClInclude Include="EnemyBullet.h">
       <Filter>playGround\EnemyManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Tower.h">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -311,6 +341,33 @@
     <ClCompile Include="Olaf.cpp">
       <Filter>playGround\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="ThornBush.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Elevator.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="BlueTile.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="RedTile.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="ElectricField.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityZone.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="ElectricFieldTwoType.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
     <ClCompile Include="SecurityRobot.cpp">
       <Filter>playGround\EnemyManager\Enemy</Filter>
     </ClCompile>
@@ -328,6 +385,9 @@
     </ClCompile>
     <ClCompile Include="EnemyBullet.cpp">
       <Filter>playGround\EnemyManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Tower.cpp">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

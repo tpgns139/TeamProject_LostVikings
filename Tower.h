@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Enemy.h"
 
 
@@ -12,6 +11,5 @@ public:
 	
 	void update();
 
-	
 };
 

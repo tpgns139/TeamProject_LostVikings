@@ -15,16 +15,14 @@ HRESULT GameScene::init()
 	IMAGEMANAGER->addFrameImage("character", "character.bmp", 0, 0, 325, 200, 4, 2, true, RGB(255, 0, 255));
 
 
-	IMAGEMANAGER->addFrameImage("Elevator", "Elevator.bmp", 0, 0, 400, 350, 4, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("character", "character.bmp", 0, 0, 325, 200, 4, 2, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addFrameImage("묘비", "묘비.bmp", 0, 0, 891, 73, 11, 1, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addFrameImage("ThornBush", "ThornBush.bmp", 0, 0, 600, 97, 3, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("ElectricField", "ElectricField.bmp", 0, 0, 600, 27, 3, 1, true, RGB(255, 0, 255));
+	
 
-	IMAGEMANAGER->addFrameImage("BlueTile", "BlueTile.bmp", 0, 0, 212, 53, 4, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("RedTile", "RedTile.bmp", 0, 0, 212, 53, 4, 1, true, RGB(255, 0, 255));
+	
+	
 
 	count = 0;
 	IMAGEMANAGER->addImage("고기", "고기.bmp", 70, 75, true, RGB(255, 0, 255));
@@ -32,7 +30,7 @@ HRESULT GameScene::init()
 	IMAGEMANAGER->addImage("신발", "신발.bmp", 50, 56, true, RGB(255, 0, 255));
 
 	*/
-
+	
 	IMAGEMANAGER->addImage("배경", "Map.bmp", 4000, 1984, true, RGB(255, 0, 255));
 	_im = new itemManager;
 	_im->init();
@@ -43,26 +41,19 @@ HRESULT GameScene::init()
 	_em = new EnemyManager;
 	_em->init();
 	_im->setPlayerMemoryAdrressLink(_pm);
-
+	_mm = new MapManager;
+	_mm->init();
 	return S_OK;
 }
 
 void GameScene::update()
 {
-	/*count++;
-	if (count % 5 == 0)
-	{
 
-		currentX++;
-		if (currentX > IMAGEMANAGER->findImage("ThornBush")->getMaxFrameX())currentX = 0;
-	}*/
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-	{
-		cout << CAMERA->getCameraXpos() + _ptMouse.x << "," << CAMERA->getCameraYpos() + _ptMouse.y << endl;
-	}
 
 	_im->update();
 	_pm->update();
+
+	_mm->update();
 	_em->update();
 }
 
@@ -108,7 +99,9 @@ void GameScene::render()
 
 	IMAGEMANAGER->findImage("RedTile")->frameRender(getMemDC(), 2624 - CAMERA->getCameraXpos(), 1040 - CAMERA->getCameraYpos(), currentX, 0);
 	*/
+	
 	IMAGEMANAGER->findImage("배경")->render(getMemDC(), 0, 0, CAMERA->getCameraXpos(), CAMERA->getCameraYpos(), WINSIZEX, WINSIZEY);
+	_mm->render();
 	_im->render();
 	_pm->render();
 	_em->render();

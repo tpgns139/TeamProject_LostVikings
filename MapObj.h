@@ -1,14 +1,38 @@
 #pragma once
-class MapObj
+#include"gameNode.h"
+enum mapKinds
 {
-private:
+	wall,
+	elevator,
+	tower,
+	portal,
+	thornbush,
+	blueTile,
+	redTile,
+	electricField,
+	gravityZone,
+	electricFieldTwoType
+};
+struct mapInfo
+{
 	float _x, _y;
+	float width, height;
+	mapKinds _mapkinds;
+	int currentX;
 	RECT _rc;
 	image* _image;
+	int timeCount;
+};
+class MapObj
+{
+protected:
+	mapInfo _mapInfo;
 public:
 	MapObj();
 	~MapObj();
 
-	HRESULT init(float x, float y, string imageName);
+	virtual HRESULT init(mapInfo info);
+	virtual void update();
+	virtual void render();
 };
 
