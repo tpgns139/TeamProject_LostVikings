@@ -189,9 +189,6 @@
     <ClInclude Include="Olaf.h">
       <Filter>playGround\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Tower.h">
-      <Filter>playGround\Map</Filter>
-    </ClInclude>
     <ClInclude Include="ThornBush.h">
       <Filter>playGround\Map</Filter>
     </ClInclude>
@@ -236,6 +233,9 @@
     </ClInclude>
     <ClInclude Include="EnemyBullet.h">
       <Filter>playGround\EnemyManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Tower.h">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -344,9 +344,6 @@
     <ClCompile Include="Wall.cpp">
       <Filter>playGround\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Tower.cpp">
-      <Filter>playGround\Map</Filter>
-    </ClCompile>
     <ClCompile Include="ThornBush.cpp">
       <Filter>playGround\Map</Filter>
     </ClCompile>
@@ -388,6 +385,9 @@
     </ClCompile>
     <ClCompile Include="EnemyBullet.cpp">
       <Filter>playGround\EnemyManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Tower.cpp">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
