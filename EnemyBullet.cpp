@@ -61,6 +61,7 @@ void EnemyBullet::bulletMove()
 	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end(); ++_viBullet)
 	{
 		_viBullet->x += _viBullet->speed;
+		
 		_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
 			10,10);
 		
