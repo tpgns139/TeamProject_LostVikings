@@ -17,7 +17,7 @@ HRESULT EnemyManager::init()
 {
 	setEnemy(); //에너미를 세팅해주는 함수
 	_Ebullet = new Bullet;
-	_Ebullet->init();
+	_Ebullet->init("에너미불릿");
 	collisionTestRect = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2, 30, 30);
 
 	return S_OK;
