@@ -108,6 +108,7 @@ void GameScene::render()
 	IMAGEMANAGER->findImage("¹è°æ")->render(getMemDC(), 0, 0, CAMERA->getCameraXpos(), CAMERA->getCameraYpos(), WINSIZEX, WINSIZEY);
 	_im->render();
 	_pm->render();
+	
 }
 
 void GameScene::release()
