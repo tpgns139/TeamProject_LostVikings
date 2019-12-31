@@ -17,7 +17,7 @@ HRESULT EnemyManager::init()
 {
 	setEnemy(); //에너미를 세팅해주는 함수
 	_Ebullet = new EnemyBullet;
-	_Ebullet->init(50);
+	_Ebullet->init();
 	collisionTestRect = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2, 30, 30);
 
 	return S_OK;
@@ -35,7 +35,7 @@ void EnemyManager::update()
 		(*_viEm)->update();
 	}
 	_Ebullet->update();
-	if (KEYMANAGER->isOnceKeyDown('X'))
+	if (KEYMANAGER->isStayKeyDown('X'))
 	{
 		enemyBulletFire();
 	}
@@ -100,7 +100,7 @@ void EnemyManager::enemyBulletFire()
 	{
 		RECT rc = _vEm[i]->getEnemyRect();
 
-		_Ebullet->bulletFire(rc.left, (rc.top + rc.bottom) / 2, 5.0f);
+		_Ebullet->bulletFire(_vEm[i]->getX(), _vEm[i]->getY(), 5.0f);
 	}
 }
 

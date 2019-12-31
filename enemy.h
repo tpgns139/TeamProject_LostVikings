@@ -40,7 +40,8 @@ public:
    	void render();
 	virtual void move();
 	
-
+	float getX() { return _enemy.x; }
+	float getY() { return _enemy.y; }
 	RECT getEnemyRect() { return _enemy.rc; }
 };
 
