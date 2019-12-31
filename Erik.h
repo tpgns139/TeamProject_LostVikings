@@ -29,6 +29,7 @@ private:
 	ERIKSTATE _state;
 	RECT test;
 	RECT test2;
+	RECT ground;
 
 	int headingCount;
 	int stunCount;
@@ -37,6 +38,7 @@ private:
 	float jumpPower; //점프력
 	bool isJump;	//점프중이니
 	bool isAtk;	    //공격이니?
+
 public:
 	Erik();
 	~Erik();

@@ -46,21 +46,32 @@ void Player::move()
 {
 	if (KEYMANAGER->isStayKeyDown('A'))
 	{
+		_dir = LEFT;
 		_playerInfo.position.x -= _playerInfo.speed;
 	}
 	if (KEYMANAGER->isOnceKeyUp('A'))
 	{
+		_dir = LEFT;
 		_playerInfo.position.x -= _playerInfo.speed;
 	}
 
 	if (KEYMANAGER->isStayKeyDown('D'))
 	{
+		_dir = RIGHT;
 		_playerInfo.position.x += _playerInfo.speed;
 	}
 	if (KEYMANAGER->isOnceKeyUp('D'))
 	{
+		_dir = RIGHT;
 		_playerInfo.position.x -= _playerInfo.speed;
 	}
 
+
+}
+
+void Player::collsion()
+{
+	//사다리 충돌
+	//벽충돌
 
 }
