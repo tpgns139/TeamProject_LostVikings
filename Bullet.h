@@ -13,7 +13,7 @@ struct tagBullet
 
 };
 
-class EnemyBullet : public gameNode
+class Bullet : public gameNode
 {
 
 private:
@@ -24,8 +24,8 @@ private:
 	int _bulletMax;
 	float _range;
 public:
-	EnemyBullet();
-	~EnemyBullet();
+	Bullet();
+	~Bullet();
 
 	HRESULT init();
 	void release();
