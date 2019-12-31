@@ -27,7 +27,7 @@ public:
 	EnemyBullet();
 	~EnemyBullet();
 
-	HRESULT init(int bulletMax);
+	HRESULT init();
 	void release();
 	void update();
 	void render();

@@ -11,9 +11,9 @@ EnemyBullet::~EnemyBullet()
 {
 }
 
-HRESULT EnemyBullet::init(int bulletMax)
+HRESULT EnemyBullet::init()
 {
-	_bulletMax = bulletMax;
+	
 
 
 	return S_OK;
@@ -36,14 +36,14 @@ void EnemyBullet::render()
 		 
 		if (KEYMANAGER->isToggleKey(VK_F1))
 		{
-			Rectangle(getMemDC(), _viBullet->rc);
+			RectangleMakeCenter(getMemDC(),_viBullet->x-CAMERA->getCameraXpos(),_viBullet->y-CAMERA->getCameraYpos(),10,10);
 		}
 	}
 }
 
 void EnemyBullet::bulletFire(float x, float y, float speed)
 {
-	if (_bulletMax < _vBullet.size()) return;
+	
 
 	tagBullet bullet;
 	ZeroMemory(&bullet, sizeof(tagBullet));
