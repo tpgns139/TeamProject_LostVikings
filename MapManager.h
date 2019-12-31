@@ -10,18 +10,27 @@
 #include"ElectricField.h"
 #include"GravityZone.h"
 #include"ElectricFieldTwoType.h"
+#include"Ladder.h"
 
 class MapManager
 {
 private:
 	vector<string> _textData;
+
+
 	vector<MapObj*> _notColObj;
+	vector<MapObj*> _colObj;
+
+
 	vector<MapObj*> _portal;
 	vector<MapObj*> _ladder;
-	vector<MapObj*> _colObj;
+	vector<MapObj*> _wall;
 	vector<MapObj*> _elevator;
 	vector<MapObj*> _gravityZone;
-	vector<MapObj*> _wall;
+	
+
+
+
 public:
 	MapManager();
 	~MapManager();

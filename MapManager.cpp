@@ -49,6 +49,10 @@ void MapManager::update()
 	{
 		_elevator[i]->update();
 	}
+	for (int i = 0;i < _ladder.size();i++)
+	{
+		_ladder[i]->update();
+	}
 }
 void MapManager::render()
 {
@@ -67,6 +71,10 @@ void MapManager::render()
 	for (int i = 0;i < _elevator.size();i++)
 	{
 		_elevator[i]->render();
+	}
+	for (int i = 0;i < _ladder.size();i++)
+	{
+		_ladder[i]->render();
 	}
 }
 void MapManager::charArraySeparationforMap(char charArray[])
@@ -111,21 +119,49 @@ void MapManager::charArraySeparationforMap(char charArray[])
 		mapIns->init(ins);
 		_wall.push_back(mapIns);
 		break;
+
 	case elevator:
 		mapIns = new Elevator;
 		mapIns->init(ins);
 		_elevator.push_back(mapIns);
 		break;
+
 	case portal:
 		mapIns = new Portal;
 		mapIns->init(ins);
 		_portal.push_back(mapIns);
 		break;
+
+	case gravityZone:
+		mapIns = new GravityZone;
+		mapIns->init(ins);
+		_gravityZone.push_back(mapIns);
+		break;
+
+	case ladder:
+		mapIns = new Ladder;
+		mapIns->init(ins);
+		_ladder.push_back(mapIns);
+		break;
+
 	case thornbush:
 		mapIns = new ThornBush;
 		mapIns->init(ins);
 		_colObj.push_back(mapIns);
 		break;
+
+	case electricField:
+		mapIns = new ElectricField;
+		mapIns->init(ins);
+		_colObj.push_back(mapIns);
+		break;
+
+	case electricFieldTwoType:
+		mapIns = new ElectricFieldTwoType;
+		mapIns->init(ins);
+		_colObj.push_back(mapIns);
+		break;
+
 	case blueTile:
 		mapIns = new BlueTile;
 		mapIns->init(ins);
@@ -135,21 +171,6 @@ void MapManager::charArraySeparationforMap(char charArray[])
 		mapIns = new RedTile;
 		mapIns->init(ins);
 		_notColObj.push_back(mapIns);
-		break;
-	case electricField:
-		mapIns = new ElectricField;
-		mapIns->init(ins);
-		_colObj.push_back(mapIns);
-		break;
-	case gravityZone:
-		mapIns = new GravityZone;
-		mapIns->init(ins);
-		_gravityZone.push_back(mapIns);
-		break;
-	case electricFieldTwoType:
-		mapIns = new ElectricFieldTwoType;
-		mapIns->init(ins);
-		_colObj.push_back(mapIns);
 		break;
 	}
 

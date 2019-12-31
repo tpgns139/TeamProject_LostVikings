@@ -237,6 +237,9 @@
     <ClInclude Include="Erik.h">
       <Filter>playGround\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Ladder.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -388,6 +391,9 @@
     </ClCompile>
     <ClCompile Include="Erik.cpp">
       <Filter>playGround\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Ladder.cpp">
+      <Filter>playGround\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

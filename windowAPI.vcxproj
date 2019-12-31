@@ -173,6 +173,7 @@
     <ClInclude Include="itemManager.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="keyManager.h" />
+    <ClInclude Include="Ladder.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="MapObj.h" />
     <ClInclude Include="Meat.h" />
@@ -228,6 +229,7 @@
     <ClCompile Include="itemManager.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="keyManager.cpp" />
+    <ClCompile Include="Ladder.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="MapObj.cpp" />
     <ClCompile Include="Meat.cpp" />

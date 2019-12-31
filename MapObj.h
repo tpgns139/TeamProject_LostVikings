@@ -11,7 +11,8 @@ enum mapKinds
 	redTile,
 	electricField,
 	gravityZone,
-	electricFieldTwoType
+	electricFieldTwoType,
+	ladder
 };
 struct mapInfo
 {
