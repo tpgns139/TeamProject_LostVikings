@@ -52,6 +52,7 @@ HRESULT GameScene::init()
 void GameScene::update()
 {
 
+	CAMERA->update();
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		cout << CAMERA->getCameraXpos() + _ptMouse.x << "," << CAMERA->getCameraYpos() + _ptMouse.y << endl;
