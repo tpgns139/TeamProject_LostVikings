@@ -11,6 +11,9 @@
 #include"GravityZone.h"
 #include"ElectricFieldTwoType.h"
 #include"Ladder.h"
+#include "EnemyManager.h"
+
+class EnemyManager;
 
 class MapManager
 {
@@ -27,7 +30,7 @@ private:
 	vector<MapObj*> _wall;
 	vector<MapObj*> _elevator;
 	vector<MapObj*> _gravityZone;
-	
+	EnemyManager* _em;
 
 
 
@@ -39,5 +42,8 @@ public:
 	void update();
 	void render();
 	void charArraySeparationforMap(char charArray[]);
+	vector<MapObj*> getWall() { return _wall; }
+
+	void setEmMemoryAddressLink(EnemyManager* em) { _em = em; }
 };
 
