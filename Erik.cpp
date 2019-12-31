@@ -13,6 +13,7 @@ Erik::~Erik()
 
 HRESULT Erik::init(PlayerName playerName)
 {
+	
 	//에릭 이미지//
 	IMAGEMANAGER->addFrameImage("E_idle1", "image/erikImage/idle1.bmp", 336, 200, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("E_idle2", "image/erikImage/idle2.bmp", 563, 200, 6, 2, true, RGB(255, 0, 255));
@@ -56,9 +57,8 @@ HRESULT Erik::init(PlayerName playerName)
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y,
 		_playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
-	test = RectMake(WINSIZEX / 2, WINSIZEY / 2-50, 100, 100);
-	test2 = RectMakeCenter(WINSIZEX / 2-300, WINSIZEY / 2 - 50, 100, 300); //사다리용
-	ground = RectMakeCenter(WINSIZEX / 2, WINSIZEY - 100, 1000, 100);
+
+	Player::MakeRect();
 
 	return S_OK;
 }
@@ -67,14 +67,11 @@ void Erik::update()
 {
 	//_playerInfo.isDrop = true;
 
-
-	test = RectMake(WINSIZEX / 2 + 300, WINSIZEY / 2 - 50, 100, 100);
-	test2 = RectMakeCenter(WINSIZEX / 2 - 300, WINSIZEY / 2 - 50, 100, 300); //사다리용
-	ground = RectMakeCenter(WINSIZEX / 2, WINSIZEY - 100, 1000, 100);
+	
 
 	if((_state != E_up)&&(_state != E_attack_after))
 	{
-		Frame(20);
+		Frame(10);
 	}
 
 	
@@ -99,11 +96,7 @@ void Erik::update()
 		}
 	}
 
-	RECT temp;
-	if (IntersectRect(&temp, &_playerInfo._rc, &ground))
-	{
-		
-	}
+
 
 	cout << _state << endl;
 
@@ -115,14 +108,14 @@ void Erik::render()
 	{
 	RectangleMake(getMemDC(), _playerInfo._rc.left, _playerInfo._rc.top, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 	}
-	Rectangle(getMemDC(), test);
-	Rectangle(getMemDC(), test2);
-	Rectangle(getMemDC(), ground);
+
+
 	char str[128];
 	sprintf_s(str, "헤딩 카운트 :%d", headingCount);
 	TextOut(getMemDC(), WINSIZEX / 2, 100, str, strlen(str));
 	_playerInfo._image->frameRender(getMemDC(), _playerInfo._rc.left, _playerInfo._rc.top, _playerInfo._CurrentFrameX, _playerInfo._image->getFrameY());
 
+	Player::render();
 }
 
 void Erik::KeyControl()
@@ -175,26 +168,26 @@ void Erik::KeyControl()
 		_state = E_idle1;
 		_playerInfo._CurrentFrameX = 0;
 	}
-		//벽충돌
-		RECT temp;
-		if ((_state != E_atk) && (IntersectRect(&temp, &_playerInfo._rc, &test)))
-		{
-			_state = E_push;
-			headingCount = 0;
-			//_playerInfo.position.x -= _playerInfo.speed;
-			
+		////벽충돌
+		//RECT temp;
+		//if ((_state != E_atk))// && (IntersectRect(&temp, &_playerInfo._rc, &test)))
+		//{
+		//	_state = E_push;
+		//	headingCount = 0;
+		//	//_playerInfo.position.x -= _playerInfo.speed;
+		//	
 
-		}
-		if ((_state == E_atk) && (IntersectRect(&temp, &_playerInfo._rc, &test)))
-		{
-			headingCount = 0;
+		//}
+		//if ((_state == E_atk))// && (IntersectRect(&temp, &_playerInfo._rc, &test)))
+		//{
+		//	headingCount = 0;
 
-			_state = E_attack_after;
-			_playerInfo._rc.left -= 100;
-			_playerInfo._rc.right -= 100;
+		//	_state = E_attack_after;
+		//	_playerInfo._rc.left -= 100;
+		//	_playerInfo._rc.right -= 100;
 
-			_playerInfo.position.x -= 100;
-		}
+		//	_playerInfo.position.x -= 100;
+		//}
 	
 		if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 		{
@@ -205,7 +198,7 @@ void Erik::KeyControl()
 		}
 		//사다리 충돌
 	//	RECT temp;
-		if (IntersectRect(&temp, &_playerInfo._rc, &test2))
+		/*if (IntersectRect(&temp, &_playerInfo._rc, &test2))
 		{
 			headingCount = 0;
 			if (KEYMANAGER->isStayKeyDown('W'))
@@ -225,7 +218,7 @@ void Erik::KeyControl()
 				_Direction = RIGHT;
 				_state = E_jump;
 			}
-		}
+		}*/
 		//상태정의 스위치문//
 	switch (_state)
 	{

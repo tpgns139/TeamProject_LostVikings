@@ -77,6 +77,8 @@ void Olaf::render()
 void Olaf::KeyControl()
 {
 
+
+
 }
 
 void Olaf::Frame(int FrameX)

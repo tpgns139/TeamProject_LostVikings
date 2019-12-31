@@ -27,9 +27,7 @@ class Erik: public Player
 private:
 
 	ERIKSTATE _state;
-	RECT test;
-	RECT test2;
-	RECT ground;
+
 
 	int headingCount;
 	int stunCount;
