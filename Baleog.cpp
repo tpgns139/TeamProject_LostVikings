@@ -112,7 +112,7 @@ void Baleog::Keycontrol()
 		if (_BaleogState == BALEOG_LEFTIDLE || _BaleogState == BALEOG_LEFTMOVE)
 		{
 			_Direction = LEFT;
-			_playerInfo._CurrentFrameX = -1;
+			_playerInfo._CurrentFrameX = 0;
 			_playerInfo._CurrentFrameY = 1;
 			_BaleogState = BALEOG_LEFTATTACK;
 
