@@ -13,8 +13,9 @@ Baleog::~Baleog()
 
 HRESULT Baleog::init(PlayerName playerName)
 {
+	
 	//밸로그 이미지//
-//IMAGEMANAGER->addFrameImage("Bidle3", "image/baleogImage/idle3.bmp", 0, 0, 79, 200, 1, 2, true, RGB(255, 0, 255));
+	//IMAGEMANAGER->addFrameImage("Bidle3", "image/baleogImage/idle3.bmp", 0, 0, 79, 200, 1, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("B_idle1", "image/baleogImage/idle1.bmp", 0, 0, 325, 200, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("B_idle2", "image/baleogImage/idle2.bmp", 0, 0, 484, 200, 5, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("B_attak1", "image/baleogImage/attak1.bmp", 400, 200, 4, 2, true, RGB(255, 0, 255));
@@ -41,7 +42,7 @@ HRESULT Baleog::init(PlayerName playerName)
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 	_playerInfo.speed = 1.0f;
 
-	rc = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2 + 200, 100, 100);
+	Player::MakeRect();
 
 	return S_OK;
 }
@@ -51,16 +52,21 @@ void Baleog::update()
 	Keycontrol();
 	Player::update();
 	//벨로그 렉트 업데이트
-	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x-CAMERA->getCameraXpos(), _playerInfo.position.y-CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
+	//_playerInfo._rc = RectMakeCenter(_playerInfo.position.x-CAMERA->getCameraXpos(), _playerInfo.position.y-CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
 	rc = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2 + 50, 100, 100);
 }
 
 void Baleog::render()
 {
-	Rectangle(getMemDC(), rc);
-	_playerInfo._image->frameRender(getMemDC(), _playerInfo.position.x,_playerInfo.position.y,_playerInfo._CurrentFrameX,_playerInfo._CurrentFrameY);
-	Rectangle(getMemDC(), _playerInfo._rc);		//벨로그렉트 생성
+
+	_playerInfo._image->frameRender(getMemDC(), _playerInfo._rc.left,_playerInfo._rc.top,_playerInfo._CurrentFrameX,_playerInfo._CurrentFrameY);
+	if (KEYMANAGER->isToggleKey('1'))
+	{
+		Rectangle(getMemDC(), _playerInfo._rc);		//벨로그렉트 생성
+	}
+	
+	Player::render();	//벨로그 사다리충돌 렉트
 }
 
 void Baleog::Keycontrol()
@@ -129,15 +135,33 @@ void Baleog::Keycontrol()
 	}
 	if (KEYMANAGER->isOnceKeyDown('F'))																										//벨로그 화살공격
 	{
-
-		_playerInfo._image->setFrameY(0);
-		_BaleogState = BALEOG_RIGHTBOWATTACK;
+		if (_BaleogState == BALEOG_RIGHTIDLE || _BaleogState == BALEOG_RIGHTMOVE)
+		{
+			_playerInfo._image->setFrameY(0);
+			_BaleogState = BALEOG_RIGHTBOWATTACK;
+		}
+		if (_BaleogState == BALEOG_LEFTIDLE || _BaleogState == BALEOG_LEFTMOVE)
+		{
+			_playerInfo._image->setFrameY(1);
+			_BaleogState = BALEOG_LEFTBOWATTACK;
+		}
 	}
 
 	if (KEYMANAGER->isOnceKeyUp('F'))																										//벨로그 화살공격 떼었을때
 	{
-		_playerInfo._image->setFrameY(0);
-		_BaleogState = BALEOG_RIGHTIDLE;
+		if (_BaleogState == BALEOG_RIGHTBOWATTACK)
+		{
+			_playerInfo._image->setFrameY(0);
+			_playerInfo._CurrentFrameX = 0;
+			_BaleogState = BALEOG_RIGHTIDLE;
+
+		}
+		if (_BaleogState == BALEOG_LEFTBOWATTACK)
+		{
+			_playerInfo._image->setFrameY(1);
+			_playerInfo._CurrentFrameX = 0;
+			_BaleogState = BALEOG_LEFTIDLE;
+		}	
 	}
 	switch (_BaleogState)																													//벨로그 스테이트 
 	{
@@ -165,6 +189,11 @@ void Baleog::Keycontrol()
 	case BALEOG_LEFTBOWATTACK:
 		_playerInfo._image = IMAGEMANAGER->findImage("B_attack_bow");
 		break;
+	case BALEOG_PUSH:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_push");
+		break;
+	case BALEOG_UP:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_up");
 	default:
 		break;
 	}

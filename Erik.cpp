@@ -13,6 +13,7 @@ Erik::~Erik()
 
 HRESULT Erik::init(PlayerName playerName)
 {
+	
 	//에릭 이미지//
 	IMAGEMANAGER->addFrameImage("E_idle1", "image/erikImage/idle1.bmp", 336, 200, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("E_idle2", "image/erikImage/idle2.bmp", 563, 200, 6, 2, true, RGB(255, 0, 255));
@@ -56,8 +57,8 @@ HRESULT Erik::init(PlayerName playerName)
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y,
 		_playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
-	test = RectMake(WINSIZEX / 2, WINSIZEY / 2-50, 100, 100);
-	test2 = RectMakeCenter(WINSIZEX / 2-300, WINSIZEY / 2 - 50, 100, 300); //사다리용
+	//test = RectMake(WINSIZEX / 2, WINSIZEY / 2-50, 100, 100);
+	//test2 = RectMakeCenter(WINSIZEX / 2-300, WINSIZEY / 2 - 50, 100, 300); //사다리용
 
 
 	return S_OK;
@@ -66,8 +67,8 @@ HRESULT Erik::init(PlayerName playerName)
 void Erik::update()
 {
 	//_playerInfo.isDrop = true;
-	test = RectMake(WINSIZEX / 2 + 300, WINSIZEY / 2 - 50, 100, 100);
-	test2 = RectMakeCenter(WINSIZEX / 2 - 300, WINSIZEY / 2 - 50, 100, 300); //사다리용
+	//test = RectMake(WINSIZEX / 2 + 300, WINSIZEY / 2 - 50, 100, 100);
+	//test2 = RectMakeCenter(WINSIZEX / 2 - 300, WINSIZEY / 2 - 50, 100, 300); //사다리용
 	
 
 	if((_state != E_up)&&(_state != E_attack_after))
@@ -108,8 +109,8 @@ void Erik::render()
 	{
 	RectangleMake(getMemDC(), _playerInfo._rc.left, _playerInfo._rc.top, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 	}
-	Rectangle(getMemDC(), test);
-	Rectangle(getMemDC(), test2);
+	//Rectangle(getMemDC(), test);
+	//Rectangle(getMemDC(), test2);
 	char str[128];
 	sprintf_s(str, "%d", headingCount);
 	TextOut(getMemDC(), WINSIZEX / 2, 100, str, strlen(str));

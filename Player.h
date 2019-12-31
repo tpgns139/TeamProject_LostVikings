@@ -15,7 +15,8 @@ struct Playerinfo
 {
 	image* _image;
 	PlayerName _playerName;
-	RECT _rc;
+	RECT _rc, _underRc;
+	
 	POINT position;
 	int HP;
 	int MaxHP;
@@ -37,7 +38,9 @@ protected:
 public:
 	Player();
 	~Player();
+	
 	virtual HRESULT init(PlayerName playerName);
+	void MakeRect();
 	virtual void update();
 	virtual void render();
 	virtual void KeyControl();	//각자 입력받을 KeyControl()함수
