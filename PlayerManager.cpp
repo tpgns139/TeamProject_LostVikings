@@ -17,6 +17,12 @@ HRESULT PlayerManager::init()
 	_Baleog->init(PN_BALEOG);
 	_vPlayer.push_back(_Baleog);
 
+	Player* _Erik = new Erik;
+	_Erik->init(PN_ERIK);
+	_vPlayer.push_back(_Erik);
+
+
+
 	return S_OK;
 }
 
@@ -26,6 +32,7 @@ void PlayerManager::update()
 	{
 		_vPlayer[i]->update();
 	}
+
 }
 
 void PlayerManager::render()
@@ -34,4 +41,5 @@ void PlayerManager::render()
 	{
 		_vPlayer[i]->render();
 	}
+
 }

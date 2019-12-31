@@ -1,6 +1,6 @@
 #pragma once
 #include "Player.h"
-#include "Eric.h"
+#include "Erik.h"
 #include"Baleog.h"
 class EnemyManager;
 class PlayerManager
@@ -8,6 +8,7 @@ class PlayerManager
 private:
 	EnemyManager* _em;
 	vector<Player*> _vPlayer;
+	
 public:
 	PlayerManager();
 	~PlayerManager();

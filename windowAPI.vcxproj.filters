@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="소스 파일">
@@ -180,9 +180,6 @@
     <ClInclude Include="Player.h">
       <Filter>playGround\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Eric.h">
-      <Filter>playGround\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Baleog.h">
       <Filter>playGround\Player</Filter>
     </ClInclude>
@@ -236,6 +233,9 @@
     </ClInclude>
     <ClInclude Include="Tower.h">
       <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Erik.h">
+      <Filter>playGround\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -332,9 +332,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>playGround\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Eric.cpp">
-      <Filter>playGround\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Baleog.cpp">
       <Filter>playGround\Player</Filter>
     </ClCompile>
@@ -388,6 +385,9 @@
     </ClCompile>
     <ClCompile Include="Tower.cpp">
       <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Erik.cpp">
+      <Filter>playGround\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
