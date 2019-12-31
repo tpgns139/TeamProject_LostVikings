@@ -30,7 +30,7 @@ HRESULT GameScene::init()
 	IMAGEMANAGER->addImage("신발", "신발.bmp", 50, 56, true, RGB(255, 0, 255));
 
 	*/
-	
+	IMAGEMANAGER->addImage("에너미불릿", "에너미불릿.bmp", 43, 19, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("배경", "Map.bmp", 4000, 1984, true, RGB(255, 0, 255));
 	_im = new itemManager;
 	_im->init();
@@ -63,6 +63,11 @@ void GameScene::update()
 
 	_mm->update();
 	_em->update();
+
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	{
+		cout << CAMERA->getCameraXpos() + _ptMouse.x << "," << CAMERA->getCameraYpos() + _ptMouse.y << endl;
+	}
 }
 
 void GameScene::render()

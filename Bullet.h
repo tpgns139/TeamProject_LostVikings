@@ -20,14 +20,14 @@ private:
 	vector<tagBullet>			 _vBullet;
 	vector<tagBullet>::iterator  _viBullet;
 
-	const char* _name;
+	const char* _imgname;
 	int _bulletMax;
 	float _range;
 public:
 	Bullet();
 	~Bullet();
 
-	HRESULT init();
+	HRESULT init(const char * imagename);
 	void release();
 	void update();
 	void render();
