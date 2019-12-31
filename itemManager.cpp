@@ -62,7 +62,7 @@ void itemManager::setItem()
 
 	item* item2;
 	item2 = new Key;
-	item2->init("Key", PointMake(3900, 1722));
+	item2->init("Key", PointMake(3790, 1722));
 	_vItem.push_back(item2);
 
 	item* item3;
