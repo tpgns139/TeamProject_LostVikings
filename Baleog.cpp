@@ -15,7 +15,7 @@ HRESULT Baleog::init(PlayerName playerName)
 {
 	//밸로그 이미지//
 //IMAGEMANAGER->addFrameImage("Bidle3", "image/baleogImage/idle3.bmp", 0, 0, 79, 200, 1, 2, true, RGB(255, 0, 255));
-	_playerInfo._image = IMAGEMANAGER->addFrameImage("B_idle1", "image/baleogImage/idle1.bmp", 0, 0, 325, 200, 4, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("B_idle1", "image/baleogImage/idle1.bmp", 0, 0, 325, 200, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("B_idle2", "image/baleogImage/idle2.bmp", 0, 0, 484, 200, 5, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("B_attak1", "image/baleogImage/attak1.bmp", 400, 200, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("B_attack2", "image/baleogImage/attack2.bmp", 400, 200, 4, 2, true, RGB(255, 0, 255));
@@ -32,22 +32,164 @@ HRESULT Baleog::init(PlayerName playerName)
 	IMAGEMANAGER->addFrameImage("B_teleport", "image/baleogImage/teleport.bmp", 677, 200, 7, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("B_up", "image/baleogImage/up.bmp", 325, 100, 4, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("B_up_end", "image/baleogImage/up_end.bmp", 200, 100, 2, 1, true, RGB(255, 0, 255));
-
+	_playerInfo._image = IMAGEMANAGER->findImage("B_idle1");
 	_playerInfo.position.x = WINSIZEX / 2;		//벨로그 x좌표
 	_playerInfo.position.y = WINSIZEY / 2;		//벨로그 y좌표
 	_playerInfo.count = 0;						//벨로그 프레임 카운트0;
 	_playerInfo._CurrentFrameX = _playerInfo._CurrentFrameY = 0;		//벨로그 프레임 x,y 초기화
 	_playerInfo._playerName = playerName;		//캐릭터 이미지 설정
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());		//벨로그 렉트
-	return S_OK;
 
+	rc = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2 + 200, 100, 100);
+
+	return S_OK;
 }
 void Baleog::update()
 {
+
+	BaleogKeycontroll();
+	Player::update();
+
+	//벨로그 프레임 값
+	Frame();
+	//벨로그 렉트 업데이트
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x-CAMERA->getCameraXpos(), _playerInfo.position.y-CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
+
+	rc = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2 + 50, 100, 100);
 }
 
 void Baleog::render()
 {
-	Rectangle(getMemDC(), _playerInfo._rc);
+	Rectangle(getMemDC(), rc);
+	_playerInfo._image->frameRender(getMemDC(), _playerInfo.position.x,_playerInfo.position.y,_playerInfo._CurrentFrameX,_playerInfo._CurrentFrameY);
+	Rectangle(getMemDC(), _playerInfo._rc);		//벨로그렉트 생성
 }
+
+void Baleog::BaleogKeycontroll()
+{
+	if (KEYMANAGER->isStayKeyDown('A'))
+	{
+		_Direction = LEFT;
+		_playerInfo._CurrentFrameY = 1;
+		_BaleogState = BALEOG_LEFTMOVE;
+	}
+	if (KEYMANAGER->isOnceKeyUp('A'))
+	{
+		_Direction = LEFT;
+		_playerInfo._image->getMaxFrameX();
+		_playerInfo._CurrentFrameX = 0;
+		_playerInfo._CurrentFrameY = 1;
+		_BaleogState = BALEOG_LEFTIDLE;
+	
+	}
+	if (KEYMANAGER->isStayKeyDown('D'))
+	{
+		_Direction = RIGHT;
+		_playerInfo._CurrentFrameY = 0;
+		_BaleogState = BALEOG_RIGHTMOVE;
+	}
+	if (KEYMANAGER->isOnceKeyUp('D'))
+	{
+		_Direction = RIGHT;
+		_playerInfo._CurrentFrameX = 0;
+		_playerInfo._CurrentFrameY = 0;
+		_BaleogState = BALEOG_RIGHTIDLE;
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+	{
+		if (_BaleogState == BALEOG_RIGHTIDLE || _BaleogState == BALEOG_RIGHTMOVE)
+		{
+			_Direction = RIGHT;
+			_playerInfo._CurrentFrameX = 0;
+			_playerInfo._CurrentFrameY = 0;
+			_BaleogState = BALEOG_RIGHTATTACK;
+			
+		}
+		if (_BaleogState == BALEOG_LEFTIDLE || _BaleogState == BALEOG_LEFTMOVE)
+		{
+			_Direction = LEFT;
+			_playerInfo._CurrentFrameX = -1;
+			_playerInfo._CurrentFrameY = 1;
+			_BaleogState = BALEOG_LEFTATTACK;
+
+		}
+
+	}
+	
+	
+		
+	
+
+	//if (KEYMANAGER->isOnceKeyUp(VK_SPACE))
+	//{
+	//	
+	//	_playerInfo._image->setFrameY(0);
+	//	_BaleogState = BALEOG_RIGHTIDLE;
+	//	
+	//}
+	if (KEYMANAGER->isOnceKeyDown('F'))
+	{
+		_playerInfo._image->setFrameY(0);
+		_BaleogState = BALEOG_RIGHTBOWATTACK;
+	}
+	if (KEYMANAGER->isOnceKeyUp('F'))
+	{
+		_playerInfo._image->setFrameY(0);
+		_BaleogState = BALEOG_RIGHTIDLE;
+	}
+
+
+	switch (_BaleogState)
+	{
+	case BALEOG_RIGHTIDLE:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_idle1");	
+		break;
+	case BALEOG_LEFTIDLE:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_idle1");		
+		break;
+	case BALEOG_RIGHTMOVE:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_run");
+		break;
+	case BALEOG_LEFTMOVE:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_run");
+		break;
+	case BALEOG_LEFTATTACK:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_attak1");
+		break;
+	case BALEOG_RIGHTATTACK:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_attak1");
+		break;
+	case BALEOG_RIGHTBOWATTACK:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_attack_bow");
+		break;
+	case BALEOG_LEFTBOWATTACK:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_attack_bow");
+		break;
+	default:
+		break;
+	}
+}
+
+void Baleog::Frame()
+{
+	_playerInfo.count++;
+	if (_playerInfo.count % 20 == 0)
+	{
+		if (_Direction == RIGHT)
+		{
+			_playerInfo._CurrentFrameX++;
+			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX()) _playerInfo._CurrentFrameX = 0;
+			
+			
+		}
+		else if (_Direction == LEFT)
+		{
+			_playerInfo._CurrentFrameX--;
+			if (_playerInfo._CurrentFrameX < 0)_playerInfo._CurrentFrameX =_playerInfo._image->getMaxFrameX();
+			
+		}
+	
+	}
+	cout << _playerInfo._CurrentFrameX<<"," <<_playerInfo._image->getMaxFrameX() << endl;
+}
+

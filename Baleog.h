@@ -8,15 +8,30 @@ enum BALEOGSTATE
 	BALEOG_RIGHTMOVE,
 	BALEOG_LEFTMOVE,
 	BALEOG_LEFTATTACK,
-	BALEOG_RIGHTATTACK
+	BALEOG_RIGHTATTACK,
+	BALEOG_RIGHTBOWATTACK,
+	BALEOG_LEFTBOWATTACK
+};
+enum Direction
+{
+	RIGHT,
+	LEFT
 };
 class Baleog:public Player
 {
+private:
+	BALEOGSTATE _BaleogState;
+	Direction _Direction;
+	RECT rc;
 public:
 	Baleog();
 	~Baleog();
 	virtual HRESULT init(PlayerName playerName);
 	virtual void update();
 	virtual void render();
+
+	void BaleogKeycontroll();
+	void Frame();
+	void ReFrame();
 };
 

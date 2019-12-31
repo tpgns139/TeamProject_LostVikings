@@ -31,4 +31,5 @@ public:
 	virtual HRESULT init(PlayerName playerName);
 	virtual void update();
 	virtual void render();
+	virtual void CyKeycontrol();
 };
