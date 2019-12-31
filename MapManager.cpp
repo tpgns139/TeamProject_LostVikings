@@ -53,9 +53,17 @@ void MapManager::update()
 	{
 		_ladder[i]->update();
 	}
+	for (int i = 0;i < _wall.size();i++)
+	{
+		_wall[i]->update();
+	}
 }
 void MapManager::render()
 {
+	for (int i = 0;i < _wall.size();i++)
+	{
+		_wall[i]->render();
+	}
 	for (int i = 0;i < _notColObj.size();i++)
 	{
 		_notColObj[i]->render();
