@@ -42,6 +42,7 @@ public:
 	
 	float getX() { return _enemy.x; }
 	float getY() { return _enemy.y; }
+	ENEMY getEnemyInfo() { return _enemy; }
 	RECT getEnemyRect() { return _enemy.rc; }
 };
 
