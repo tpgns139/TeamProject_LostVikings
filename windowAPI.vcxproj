@@ -199,6 +199,8 @@
     <ClInclude Include="timer.h" />
     <ClInclude Include="Tower.h" />
     <ClInclude Include="txtData.h" />
+    <ClInclude Include="ui.h" />
+    <ClInclude Include="uiManager.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="windowAPI.h" />
@@ -256,6 +258,8 @@
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="Tower.cpp" />
     <ClCompile Include="txtData.cpp" />
+    <ClCompile Include="ui.cpp" />
+    <ClCompile Include="uiManager.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="windowAPI.cpp" />

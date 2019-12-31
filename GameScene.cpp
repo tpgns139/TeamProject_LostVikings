@@ -43,12 +43,19 @@ HRESULT GameScene::init()
 	_im->setPlayerMemoryAdrressLink(_pm);
 	_mm = new MapManager;
 	_mm->init();
+
+	_ui = new uiManager;
+	_ui->init();
 	return S_OK;
 }
 
 void GameScene::update()
 {
 
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	{
+		cout << CAMERA->getCameraXpos() + _ptMouse.x << "," << CAMERA->getCameraYpos() + _ptMouse.y << endl;
+	}
 
 	_im->update();
 	_pm->update();
@@ -105,6 +112,7 @@ void GameScene::render()
 	_im->render();
 	_pm->render();
 	_em->render();
+	_ui->render();
 }
 
 void GameScene::release()

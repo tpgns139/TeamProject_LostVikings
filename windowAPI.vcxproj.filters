@@ -73,6 +73,9 @@
     <Filter Include="playGround\Bullets">
       <UniqueIdentifier>{4f6df1c7-03db-4e01-a314-a6f26be0921b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\UI">
+      <UniqueIdentifier>{78a5fd22-2c21-40d3-99dd-5003d5c7f6ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -243,6 +246,12 @@
     <ClInclude Include="Bullet.h">
       <Filter>playGround\Bullets</Filter>
     </ClInclude>
+    <ClInclude Include="uiManager.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ui.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -397,6 +406,12 @@
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>playGround\Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="uiManager.cpp">
+      <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ui.cpp">
+      <Filter>playGround\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
