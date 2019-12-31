@@ -40,6 +40,7 @@ void EnemyManager::update()
 		enemyBulletFire();
 	}
 	collision();
+	
 }
 
 void EnemyManager::render()

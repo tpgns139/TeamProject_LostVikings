@@ -48,6 +48,7 @@ void Camera::update()
 		{
 			_cameraYPos=0;
 		}
+
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
@@ -57,6 +58,12 @@ void Camera::update()
 			_cameraYPos = IMAGEMANAGER->findImage("배경")->getHeight()-WINSIZEY;
 		}
 	
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('Q'))
+	{
+		cout << "카메라 X : " << CAMERA->getCameraXpos() << endl;
+		cout << "카메라 Y : " << CAMERA->getCameraYpos() << endl;
 	}
 }
 
