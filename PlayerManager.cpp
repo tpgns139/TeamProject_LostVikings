@@ -13,9 +13,9 @@ PlayerManager::~PlayerManager()
 
 HRESULT PlayerManager::init()
 {
-	Player* _Baleog = new Baleog;
+	/*Player* _Baleog = new Baleog;
 	_Baleog->init(PN_BALEOG);
-	_vPlayer.push_back(_Baleog);
+	_vPlayer.push_back(_Baleog);*/
 
 	Player* _Erik = new Erik;
 	_Erik->init(PN_ERIK);

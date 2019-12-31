@@ -52,7 +52,7 @@ HRESULT Erik::init(PlayerName playerName)
 	stunCount =headingCount = 0;
 	
 
-	_playerInfo._image = IMAGEMANAGER->findImage("E_run");
+	_playerInfo._image = IMAGEMANAGER->findImage("E_idle2");
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y,
 		_playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
@@ -65,7 +65,9 @@ HRESULT Erik::init(PlayerName playerName)
 
 void Erik::update()
 {
-	_playerInfo.isDrop = true;
+	//_playerInfo.isDrop = true;
+
+
 	test = RectMake(WINSIZEX / 2 + 300, WINSIZEY / 2 - 50, 100, 100);
 	test2 = RectMakeCenter(WINSIZEX / 2 - 300, WINSIZEY / 2 - 50, 100, 300); //사다리용
 	ground = RectMakeCenter(WINSIZEX / 2, WINSIZEY - 100, 1000, 100);
@@ -103,7 +105,7 @@ void Erik::update()
 		
 	}
 
-	
+	cout << _state << endl;
 
 }
 
@@ -117,7 +119,7 @@ void Erik::render()
 	Rectangle(getMemDC(), test2);
 	Rectangle(getMemDC(), ground);
 	char str[128];
-	sprintf_s(str, "%d", headingCount);
+	sprintf_s(str, "헤딩 카운트 :%d", headingCount);
 	TextOut(getMemDC(), WINSIZEX / 2, 100, str, strlen(str));
 	_playerInfo._image->frameRender(getMemDC(), _playerInfo._rc.left, _playerInfo._rc.top, _playerInfo._CurrentFrameX, _playerInfo._image->getFrameY());
 
@@ -129,9 +131,8 @@ void Erik::KeyControl()
 	if (KEYMANAGER->isStayKeyDown('A'))
 	{
 		headingCount++;
-		_dir = LEFT;
+		_Direction = LEFT;
 		_playerInfo._image->setFrameY(2);
-
 		if (_state != E_atk) _state = E_run;
 
 		if (KEYMANAGER->isOnceKeyDown('F'))
@@ -142,48 +143,46 @@ void Erik::KeyControl()
 			//}
 		}
 	}
-		if (KEYMANAGER->isOnceKeyUp('A'))
-		{
-			_dir = LEFT;
-			headingCount = 0;
-			_state = E_idle1;
-			_playerInfo._CurrentFrameX = 0;
-		}
-	//오른쪽
-		RECT temp;
-		if ((_state != E_up) && (KEYMANAGER->isStayKeyDown('D'))&& !(IntersectRect(&temp, &_playerInfo._rc, &test)))
-		{
-			_dir = RIGHT;
-			_playerInfo._image->setFrameY(0);
-			_state = E_run;
-			headingCount++;
+	if (KEYMANAGER->isOnceKeyUp('A'))
+	{
+		_Direction = LEFT;
+		headingCount = 0;
+		_state = E_idle1;
+		_playerInfo._CurrentFrameX = 0;
+	}
 
-			if (KEYMANAGER->isOnceKeyDown('F'))
-			{
+	//오른쪽
+	if ((_state != E_up) && (KEYMANAGER->isStayKeyDown('D')))
+	{
+		_Direction = RIGHT;
+		_playerInfo._image->setFrameY(0);
+		headingCount++;
+		if (_state != E_atk) _state = E_run;
+		if (KEYMANAGER->isOnceKeyDown('F'))
+		{
 			//if (headingCount >= 50)
 			//{
-				_state = E_atk;
+			_state = E_atk;
 			//}
-			}
 		}
-		if (KEYMANAGER->isOnceKeyUp('D'))// && !(IntersectRect(&temp, &_playerInfo._rc, &test))) //떼면
-		{
-			_dir = RIGHT;
-			_playerInfo._image->setFrameY(0);
-			headingCount = 0;
-			_state = E_idle1;
-			_playerInfo._CurrentFrameX = 0;
-
-
-		}
-
+	}
+	
+	if (KEYMANAGER->isOnceKeyUp('D'))
+	{
+		_Direction = RIGHT;
+		_playerInfo._image->setFrameY(0);
+		headingCount = 0;
+		_state = E_idle1;
+		_playerInfo._CurrentFrameX = 0;
+	}
 		//벽충돌
-		//RECT temp;
+		RECT temp;
 		if ((_state != E_atk) && (IntersectRect(&temp, &_playerInfo._rc, &test)))
 		{
 			_state = E_push;
 			headingCount = 0;
-			_playerInfo.position.x -= _playerInfo.speed;
+			//_playerInfo.position.x -= _playerInfo.speed;
+			
 
 		}
 		if ((_state == E_atk) && (IntersectRect(&temp, &_playerInfo._rc, &test)))
@@ -196,9 +195,7 @@ void Erik::KeyControl()
 
 			_playerInfo.position.x -= 100;
 		}
-		
 	
-		
 		if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 		{
 			_state = E_jump;
@@ -207,7 +204,7 @@ void Erik::KeyControl()
 			_playerInfo.gravity = 0.05f;
 		}
 		//사다리 충돌
-		//RECT temp;
+	//	RECT temp;
 		if (IntersectRect(&temp, &_playerInfo._rc, &test2))
 		{
 			headingCount = 0;
@@ -225,26 +222,21 @@ void Erik::KeyControl()
 			}
 			if (KEYMANAGER->isStayKeyDown('D'))
 			{
-				_dir = RIGHT;
+				_Direction = RIGHT;
 				_state = E_jump;
-				
 			}
 		}
-		cout << _playerInfo.speed << endl;
 		//상태정의 스위치문//
 	switch (_state)
 	{
 	case E_idle1:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_idle1");
-		
+		_playerInfo._image = IMAGEMANAGER->findImage("E_idle1");	
 		break;
 	case E_idle2:
 		_playerInfo._image = IMAGEMANAGER->findImage("E_idle2");
-	
 		break;
 	case E_idle3:
 		_playerInfo._image = IMAGEMANAGER->findImage("E_idle3");
-	
 		break;
 	case E_jump:
 		_playerInfo._image = IMAGEMANAGER->findImage("E_jump"); //ㅇㅋ
@@ -260,8 +252,7 @@ void Erik::KeyControl()
 		_playerInfo._image = IMAGEMANAGER->findImage("E_run"); //ㅇㅋ
 		break;
 	case E_atk:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_atk"); //ㅇㅋ
-		
+		_playerInfo._image = IMAGEMANAGER->findImage("E_atk"); //ㅇㅋ	
 		break;
 	case E_attcked1:
 		_playerInfo._image = IMAGEMANAGER->findImage("E_attcked1");
@@ -313,13 +304,13 @@ void Erik::Frame(int FrameX)
 	_playerInfo.count++;
 	if (_playerInfo.count % FrameX == 0)
 	{
-		if (_dir == RIGHT)
+		if (_Direction == RIGHT)
 		{
 			_playerInfo._CurrentFrameX++;
-			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX() - 1) _playerInfo._CurrentFrameX = 0;
+			if (_playerInfo._CurrentFrameX >= _playerInfo._image->getMaxFrameX() - 1) _playerInfo._CurrentFrameX =0;
 			_playerInfo.count = 0;
 		}
-		else if (_dir == LEFT)
+		else if (_Direction == LEFT)
 		{
 			_playerInfo._CurrentFrameX--;
 			if (_playerInfo._CurrentFrameX < 0)_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();

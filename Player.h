@@ -6,12 +6,11 @@ enum PlayerName {
 	PN_BALEOG,
 	PN_OLAF
 };
-enum direction
+enum Direction
 {
 	RIGHT,
 	LEFT
 };
-
 struct Playerinfo
 {
 	image* _image;
@@ -33,7 +32,7 @@ class Player :public gameNode
 protected:
 
 	Playerinfo _playerInfo;
-	direction _dir; //왼쪽 오른쪽 방향
+	Direction _Direction;
 
 public:
 	Player();
