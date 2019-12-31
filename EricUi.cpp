@@ -1,19 +1,18 @@
 #include "stdafx.h"
-#include "ui.h"
+#include "EricUi.h"
 
 
-ui::ui()
+EricUi::EricUi()
 {
 }
 
 
-ui::~ui()
+EricUi::~EricUi()
 {
 }
 
-HRESULT ui::init(const char * imageName, POINT position)
+HRESULT EricUi::init(const char * imageName, POINT position)
 {
-	
 	_imageName = IMAGEMANAGER->findImage(imageName);
 	_position.x = position.x;
 	_position.y = position.y;
@@ -21,23 +20,22 @@ HRESULT ui::init(const char * imageName, POINT position)
 	return S_OK;
 }
 
-
-
-void ui::release()
-{
-}
-
-void ui::update()
+void EricUi::release()
 {
 
 }
 
-void ui::render()
+void EricUi::update()
+{
+
+}
+void EricUi::render()
 {
 	draw();
 }
 
-void ui::draw()
+void EricUi::draw()
 {
 	_imageName->render(getMemDC(), _position.x, _position.y);
+
 }

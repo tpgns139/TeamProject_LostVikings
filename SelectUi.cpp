@@ -1,19 +1,18 @@
 #include "stdafx.h"
-#include "ui.h"
+#include "SelectUi.h"
 
 
-ui::ui()
+SelectUi::SelectUi()
 {
 }
 
 
-ui::~ui()
+SelectUi::~SelectUi()
 {
 }
 
-HRESULT ui::init(const char * imageName, POINT position)
+HRESULT SelectUi::init(const char * imageName, POINT position)
 {
-	
 	_imageName = IMAGEMANAGER->findImage(imageName);
 	_position.x = position.x;
 	_position.y = position.y;
@@ -21,23 +20,23 @@ HRESULT ui::init(const char * imageName, POINT position)
 	return S_OK;
 }
 
-
-
-void ui::release()
-{
-}
-
-void ui::update()
+void SelectUi::release()
 {
 
 }
 
-void ui::render()
+void SelectUi::update()
+{
+	
+}
+
+void SelectUi::render()
 {
 	draw();
 }
 
-void ui::draw()
+void SelectUi::draw()
 {
 	_imageName->render(getMemDC(), _position.x, _position.y);
+
 }

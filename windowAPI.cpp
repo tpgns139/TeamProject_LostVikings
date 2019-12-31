@@ -73,7 +73,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 			TranslateMessage(&message);
 			DispatchMessage(&message);
 		}
-		else
+		else 
 		{
 			TIMEMANAGER->update(60.0f);
 			_pg.update();

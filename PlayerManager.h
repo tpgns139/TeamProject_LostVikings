@@ -17,5 +17,7 @@ public:
 	void update();
 	void render();
 	void setAddressEnemyManager(EnemyManager* em) { _em = em; }
+
+	vector<Player*> get_vPlayer() { return _vPlayer; }
 };
 

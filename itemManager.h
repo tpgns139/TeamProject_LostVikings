@@ -6,6 +6,7 @@
 #include "Fruit.h"
 #include "item.h"
 #include <vector>
+
 class PlayerManager;
 class itemManager :public gameNode
 {
