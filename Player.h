@@ -1,9 +1,15 @@
 #pragma once
 #include"gameNode.h"
+
 enum PlayerName {
 	PN_ERIK,
 	PN_BALEOG,
 	PN_OLAF
+};
+enum Direction
+{
+	RIGHT,
+	LEFT
 };
 struct Playerinfo
 {
@@ -18,12 +24,15 @@ struct Playerinfo
 	float gravity;
 	float speed;
 	bool isDrop; //떨어지는중이니
+	bool isLadder; //사다리 상태니?
+
 };
 class Player :public gameNode
 {
 protected:
 
 	Playerinfo _playerInfo;
+	Direction _Direction;
 
 public:
 	Player();
@@ -31,5 +40,6 @@ public:
 	virtual HRESULT init(PlayerName playerName);
 	virtual void update();
 	virtual void render();
-	virtual void CyKeycontrol();
+	virtual void KeyControl();	//각자 입력받을 KeyControl()함수
+	void move();				//공통으로 움직일 함수;
 };

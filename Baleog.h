@@ -12,11 +12,7 @@ enum BALEOGSTATE
 	BALEOG_RIGHTBOWATTACK,
 	BALEOG_LEFTBOWATTACK
 };
-enum Direction
-{
-	RIGHT,
-	LEFT
-};
+
 class Baleog:public Player
 {
 private:
@@ -30,8 +26,7 @@ public:
 	virtual void update();
 	virtual void render();
 
-	void BaleogKeycontroll();
+	void Keycontrol();
 	void Frame();
-	void ReFrame();
 };
 
