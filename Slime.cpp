@@ -11,31 +11,48 @@ Slime::~Slime()
 {
 }
 
+HRESULT Slime::init(const char * imagename, POINT position)
+{
+	Enemy::init(imagename,position);
+	_enemy.speed = 3        ;
+	return S_OK;
+}
+
 void Slime::update()
 {
+	Enemy::update();
 	_count++;
-	if (_count %8 == 0)
-	{
-		if (_currentFrameX > _enemy.img->getMaxFrameX()) _currentFrameX = 0;
-		_enemy.img->setFrameX(_currentFrameX);
-		_currentFrameX++;
-		_count = 0;
-	}
-	_enemy.speed = 10;
+	_enemy.img->setFrameX(_currentFrameX);
 	move();
 
-	_enemy.rc = RectMakeCenter(_enemy.x - CAMERA->getCameraXpos() + _enemy.img->getFrameWidth() / 2,
-	_enemy.y - CAMERA->getCameraYpos() + _enemy.img->getFrameHeight() / 2, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
+	_count++;
+	_enemy.img->setFrameX(_currentFrameX);
+	if (_currentFrameX == 0 && _count % 40 == 0)
+	{
+
+		_currentFrameX = 2; 
+		_count = 0;
+
+	}
+	else if (_currentFrameX == 2 && _count % 20 == 0)
+	{
+		_currentFrameX =3;
+		_count = 0; 
+	}
+	else if (_currentFrameX == 3 && _count %18 == 0)
+	{
+		_currentFrameX = 0;
+		_count = 0;
+	}
+	if (_currentFrameX>=1)
+	{
+		_enemy.x += _enemy.speed;
+	}
+	
 }
 
 void Slime::move()
 {
-	slimeMoveCount++;
-
-	if (_count % 8 == 0)
-	{
-		_enemy.x += _enemy.speed;
 	
-	}
 }
 

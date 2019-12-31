@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Enemy.h"
-
+#include "MapManager.h"
 
 Enemy::Enemy()
 {
@@ -25,6 +25,8 @@ HRESULT Enemy::init(const char* imagename, POINT position)
 
 	_enemy.img = IMAGEMANAGER->findImage(imagename);
 	_enemy.rc = RectMakeCenter(position.x, position.y, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
+	_enemy.leftcolcheckrc = RectMakeCenter(position.x- _enemy.img->getFrameWidth()/2, position.y, 3, _enemy.img->getFrameHeight()-10);
+	_enemy.rightcolcheckrc = RectMakeCenter(position.x - _enemy.img->getFrameWidth() / 2, position.y, 3, _enemy.img->getFrameHeight()-10);
 	_count = 0;
 
 
@@ -39,7 +41,26 @@ void Enemy::release()
 
 void Enemy::update()
 {
-
+	/*_enemy.rc = RectMakeCenter(_enemy.x - CAMERA->getCameraXpos() + _enemy.img->getFrameWidth() / 2,
+		_enemy.y - CAMERA->getCameraYpos() + _enemy.img->getFrameHeight() / 2, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());*/
+	_enemy.leftcolcheckrc = RectMakeCenter(_enemy.x - CAMERA->getCameraXpos(), _enemy.y - CAMERA->getCameraYpos() + _enemy.img->getFrameHeight() / 2
+		, 10, _enemy.img->getFrameHeight()-10);
+	_enemy.rightcolcheckrc = RectMakeCenter(_enemy.x - CAMERA->getCameraXpos() + _enemy.img->getFrameWidth(), _enemy.y - CAMERA->getCameraYpos() + _enemy.img->getFrameHeight() / 2
+		, 10, _enemy.img->getFrameHeight()-10);
+	RECT temp;
+	for (int i = 0; i < _mapManager->getWall().size(); i++)
+	{
+		if (IntersectRect(&temp, &_mapManager->getWall()[i]->getRect(), &_enemy.rightcolcheckrc))
+		{
+			_enemy.speed *= -1;
+		}
+		if (IntersectRect(&temp, &_mapManager->getWall()[i]->getRect(), &_enemy.leftcolcheckrc))
+		{
+			_enemy.speed *= -1;
+		}
+	
+	}
+	cout << _enemy.speed << endl;
 }
 
 void Enemy::render()
@@ -47,6 +68,13 @@ void Enemy::render()
 	if (KEYMANAGER->isToggleKey(VK_F1))
 	{
 		Rectangle(getMemDC(), _enemy.rc);
+		Rectangle(getMemDC(), _enemy.leftcolcheckrc);
+		Rectangle(getMemDC(), _enemy.rightcolcheckrc);
+	}
+	for (int i = 0; i < _mapManager->getWall().size(); i++)
+	{
+		RECT temp = _mapManager->getWall()[i]->getRect();
+		Rectangle(getMemDC(), temp);
 	}
 	_enemy.img->frameRender(getMemDC(), _enemy.x - CAMERA->getCameraXpos(), _enemy.y - CAMERA->getCameraYpos());
 }
