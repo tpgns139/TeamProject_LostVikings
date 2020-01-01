@@ -26,5 +26,4 @@ void Wall::update()
 }
 void Wall::render()
 {
-	Rectangle(_backBuffer->getMemDC(), _mapInfo._rc);
 }

@@ -11,6 +11,7 @@
 #include"GravityZone.h"
 #include"ElectricFieldTwoType.h"
 #include"Ladder.h"
+#include"column.h"
 
 class MapManager
 {
@@ -28,7 +29,7 @@ private:
 	vector<MapObj*> _elevator;
 	vector<MapObj*> _gravityZone;
 	
-
+	int colCount;
 
 
 public:
@@ -39,5 +40,6 @@ public:
 	void update();
 	void render();
 	void charArraySeparationforMap(char charArray[]);
+	void zOrderRender();
 };
 

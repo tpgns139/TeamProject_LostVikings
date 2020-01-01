@@ -49,5 +49,4 @@ void Baleog::update()
 
 void Baleog::render()
 {
-	Rectangle(getMemDC(), _playerInfo._rc);
 }

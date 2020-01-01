@@ -102,9 +102,6 @@
     <ClInclude Include="singletonBase.h">
       <Filter>2DGameFramework\SingletonBase</Filter>
     </ClInclude>
-    <ClInclude Include="randomFunction.h">
-      <Filter>?�더 ?�일</Filter>
-    </ClInclude>
     <ClInclude Include="keyManager.h">
       <Filter>2DGameFramework\Manager</Filter>
     </ClInclude>
@@ -251,6 +248,12 @@
     </ClInclude>
     <ClInclude Include="ui.h">
       <Filter>playGround\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="randomFunction.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="column.h">
+      <Filter>playGround\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -412,6 +415,9 @@
     </ClCompile>
     <ClCompile Include="ui.cpp">
       <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="column.cpp">
+      <Filter>playGround\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

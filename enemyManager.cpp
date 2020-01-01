@@ -49,7 +49,7 @@ void EnemyManager::render()
 		(*_viEm)->render();
 	}
 	_Ebullet->render();
-	Rectangle(getMemDC(),collisionTestRect);
+	//Rectangle(getMemDC(),collisionTestRect);
 }
 
 void EnemyManager::setEnemy()

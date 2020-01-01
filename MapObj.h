@@ -12,7 +12,8 @@ enum mapKinds
 	electricField,
 	gravityZone,
 	electricFieldTwoType,
-	ladder
+	ladder,
+	Column
 };
 struct mapInfo
 {
@@ -35,5 +36,6 @@ public:
 	virtual HRESULT init(mapInfo info);
 	virtual void update();
 	virtual void render();
+	mapKinds getMapType() { return _mapInfo._mapkinds; }
 };
 

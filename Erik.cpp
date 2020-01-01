@@ -104,15 +104,6 @@ void Erik::update()
 
 void Erik::render()
 {
-	if (KEYMANAGER->isToggleKey('1'))
-	{
-	RectangleMake(getMemDC(), _playerInfo._rc.left, _playerInfo._rc.top, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
-	}
-	Rectangle(getMemDC(), test);
-	Rectangle(getMemDC(), test2);
-	char str[128];
-	sprintf_s(str, "%d", headingCount);
-	TextOut(getMemDC(), WINSIZEX / 2, 100, str, strlen(str));
 
 	_playerInfo._image->frameRender(getMemDC(), _playerInfo._rc.left, _playerInfo._rc.top, _playerInfo._CurrentFrameX, _playerInfo._image->getFrameY());
 
