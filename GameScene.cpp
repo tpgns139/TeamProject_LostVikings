@@ -58,10 +58,10 @@ void GameScene::update()
 		cout << CAMERA->getCameraXpos() + _ptMouse.x << "," << CAMERA->getCameraYpos() + _ptMouse.y << endl;
 	}
 
-	_im->update();
-	_pm->update();
+	/*_im->update();*/
+	/*_pm->update();*/
 
-	_mm->update();
+	/*_mm->update();*/
 	_em->update();
 
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
@@ -114,13 +114,11 @@ void GameScene::render()
 	*/
 	
 	IMAGEMANAGER->findImage("¹è°æ")->render(getMemDC(), 0, 0, CAMERA->getCameraXpos(), CAMERA->getCameraYpos(), WINSIZEX, WINSIZEY);
-	
 	_mm->render();
 	_pm->render();
 	_im->render();
 	_mm->zOrderRender();
 	_em->render();
-	_ui->render();
 }
 
 void GameScene::release()

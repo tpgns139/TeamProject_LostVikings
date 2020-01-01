@@ -11,6 +11,7 @@ struct ENEMY
 	float angle;
 	RECT rc;
 	int count;
+	bool leftMove = false;
 };
 
 
