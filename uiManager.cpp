@@ -86,7 +86,6 @@ void uiManager::setUi()
 	ui* ui3;
 	ui3 = new OlafUi;
 	ui3->init("울라프흑백", PointMake(475, 641));
-	//ui3->init("울라프활성", 475, WINSIZEY - 115);
 	_vUi.push_back(ui3);
 
 
