@@ -78,11 +78,20 @@ void Player::update()
 		{
 			_playerInfo.isDrop = true;
 		}
-	}
-
-
-	//KeyControl();
 	
+	}
+	for (int i = 0; i < _MapManager->getWall().size(); i++)
+	{
+		
+		RECT temp2;
+		if (IntersectRect(&temp2, &_playerInfo._leftRc, &_MapManager->getWall()[i]->getRect()))
+		{
+			_playerInfo._leftRc.left = _MapManager->getWall()[i]->getRect().right;
+			
+		}
+
+	}
+	//KeyControl();
 }
 
 void Player::render()

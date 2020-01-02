@@ -91,8 +91,6 @@ void Baleog::KeyControl()
 		_playerInfo._CurrentFrameY = 1;
 		_BaleogState = BALEOG_LEFTIDLE;
 		_playerInfo.position.x -= _playerInfo.speed;
-
-
 	}
 	if (KEYMANAGER->isStayKeyDown('D'))
 	{
@@ -116,7 +114,7 @@ void Baleog::KeyControl()
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
-		if (_BaleogState == BALEOG_RIGHTIDLE || _BaleogState == BALEOG_RIGHTMOVE)		//벨로그 공격키 
+		if (_BaleogState == BALEOG_RIGHTIDLE)		//벨로그 공격키 
 		{
 			_Direction = RIGHT;
 			_playerInfo._CurrentFrameX = 0;
@@ -124,7 +122,7 @@ void Baleog::KeyControl()
 			_BaleogState = BALEOG_RIGHTATTACK;
 
 		}
-		if (_BaleogState == BALEOG_LEFTIDLE || _BaleogState == BALEOG_LEFTMOVE)
+		if (_BaleogState == BALEOG_LEFTIDLE)
 		{
 			_Direction = LEFT;
 			_playerInfo._CurrentFrameX = 0;
