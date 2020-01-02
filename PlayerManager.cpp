@@ -47,16 +47,10 @@ void PlayerManager::update()
 
 	if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
 	{
-		PlayerNumber++;
-		if (PlayerNumber >= _vPlayer.size())
-		{
-			PlayerNumber = 0;
-		}
-	
-		_nowPlayer = _vPlayer[PlayerNumber];
+		setNowPlayer();
 		CAMERA->moveTo(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y, 0.5f);
 	}
-
+	
 	_Pbullet->update();
 	_nowPlayer->KeyControl();
 	if (KEYMANAGER->isOnceKeyDown('P'))
@@ -77,7 +71,7 @@ void PlayerManager::update()
 		_vPlayer[i]->update();
 	}
 	
-	
+
 }
 
 void PlayerManager::render()
@@ -101,4 +95,16 @@ void PlayerManager::playerBulletFire()
 				(rc.top + rc.bottom) / 2 + 50, 5.0f);
 		}
 	}
+}
+
+void PlayerManager::setNowPlayer()
+{
+	PlayerNumber++;
+	if (PlayerNumber >= _vPlayer.size())
+	{
+		PlayerNumber = 0;
+	}
+
+	_nowPlayer = _vPlayer[PlayerNumber];
+	
 }

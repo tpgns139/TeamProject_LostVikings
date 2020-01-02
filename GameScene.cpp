@@ -58,6 +58,8 @@ HRESULT GameScene::init()
 	_ui = new uiManager;
 	_ui->setPlayerManager(_pm);
 	_ui->init();
+
+	_changeNowPlayer = false;
 	
 	return S_OK;
 }
@@ -67,11 +69,11 @@ void GameScene::update()
 	if (!_selectUi) 
 	{
 		CAMERA->update();
-		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+		if (_changeNowPlayer) 
 		{
-			cout << CAMERA->getCameraXpos() + _ptMouse.x << "," << CAMERA->getCameraYpos() + _ptMouse.y << endl;
+			CAMERA->moveTo(_pm->get_nPlayer()->getPlayerPos().x, _pm->get_nPlayer()->getPlayerPos().y, 0.5f);
+			_changeNowPlayer = false;
 		}
-
 		_im->update();
 		_pm->update();
 
@@ -89,6 +91,11 @@ void GameScene::update()
 		if (KEYMANAGER->isOnceKeyDown(VK_TAB))
 		{
 			_selectUi = false;
+		}
+		if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
+		{
+			_pm->setNowPlayer();
+			_changeNowPlayer = true;
 		}
 	}
 	_ui->update();

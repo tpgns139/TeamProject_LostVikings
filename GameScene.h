@@ -17,6 +17,8 @@ private:
 	EnemyManager* _em;
 	uiManager* _ui;
 
+
+	bool _changeNowPlayer;
 	bool _selectUi;
 public:
 	
