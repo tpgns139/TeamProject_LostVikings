@@ -13,6 +13,7 @@ SecurityRobot::~SecurityRobot()
 
 void SecurityRobot::update()
 {
+	Enemy::update();
 	_count++;
 	if (_count % 25 == 0)
 	{
@@ -26,6 +27,5 @@ void SecurityRobot::update()
 	move();
 
 	
-	_enemy.rc = RectMakeCenter(_enemy.x -CAMERA->getCameraXpos() + _enemy.img->getFrameWidth() / 2, 
-		_enemy.y - CAMERA->getCameraYpos() + _enemy.img->getFrameHeight() / 2, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
+	
 }

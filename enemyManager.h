@@ -6,7 +6,9 @@
 #include "Enemy.h"
 #include "Bullet.h"
 #include <vector>
+#include "MapManager.h"
 
+class MapManager;
 class EnemyManager : public gameNode
 {
 
@@ -14,7 +16,7 @@ private:
 
 	typedef vector<Enemy*>           vEnemy;
 	typedef vector<Enemy*>::iterator viEnemy;
-
+	MapManager* _mapManager;
 	Bullet* _Ebullet;
 	vEnemy _vEm;
 	viEnemy _viEm;
@@ -33,5 +35,7 @@ public:
 	void collision();
 	vector<Enemy*> getEnemy() { return _vEm; }
 	vector<Enemy*>::iterator getViEnemy() { return _viEm; }
+
+	void setMemoryAddressLink(MapManager* mm) { _mapManager = mm; }
 };
 

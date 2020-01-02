@@ -38,14 +38,20 @@ HRESULT GameScene::init()
 	_pm = new PlayerManager;
 	_pm->init();
 
-	_em = new EnemyManager;
-	_em->init();
 	_im->setPlayerMemoryAdrressLink(_pm);
 	_mm = new MapManager;
 	_mm->init();
 
+	_em = new EnemyManager;
+	_em->setMemoryAddressLink(_mm);
+	_em->init();
+	
+	
+
 	_ui = new uiManager;
 	_ui->init();
+		
+	
 	return S_OK;
 }
 
