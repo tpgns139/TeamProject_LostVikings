@@ -56,8 +56,9 @@ HRESULT GameScene::init()
 	_selectUi = false;
 
 	_ui = new uiManager;
-	_ui->init();
 	_ui->setPlayerManager(_pm);
+	_ui->init();
+	
 	return S_OK;
 }
 

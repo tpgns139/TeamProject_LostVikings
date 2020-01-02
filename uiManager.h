@@ -31,6 +31,11 @@ enum Olaf3
 	O_OFF,
 	O_DEATH
 };
+struct uiInfo 
+{
+	vector<item*> _itemList;
+	vector<POINT> _itemPos;
+};
 class PlayerManager;
 class uiManager : public gameNode
 {
@@ -66,6 +71,8 @@ private:
 
 	POINTS pos;
 	PlayerManager* _pm;
+
+	vector<uiInfo*> _playerItemVector;
 
 public:
 	uiManager();

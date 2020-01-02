@@ -4,9 +4,9 @@
 #include"Baleog.h"
 #include "Olaf.h"
 #include "Bullet.h"
-
-class EnemyManager;
 class MapManager;
+class EnemyManager;
+
 
 class PlayerManager
 {
