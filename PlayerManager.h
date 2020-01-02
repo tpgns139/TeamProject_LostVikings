@@ -16,6 +16,7 @@ private:
 	vector<Player*> _vPlayer;
 	Player* _nowPlayer;
 	Playerinfo _playerinfo;
+
 	int PlayerNumber;
 	
 public:

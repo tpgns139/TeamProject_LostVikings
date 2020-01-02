@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "MapManager.h"
 
+
 Player::Player()
 {
 }
@@ -13,6 +14,7 @@ Player::~Player()
 
 HRESULT Player::init(PlayerName playerName)
 {
+
 	//현재 가지고있는 아이템은 0개
 	_itemKind.Fruit = 0;
 	_itemKind.Key = 0;
@@ -28,11 +30,28 @@ HRESULT Player::init(PlayerName playerName)
 
 void Player::MakeRect()
 {
-	_playerInfo._underRc = RectMake( _playerInfo.position.x - _playerInfo._image->getFrameWidth() / 2, _playerInfo._image->getFrameHeight() / 2 + _playerInfo.position.y ,80, 10);
+	//플레이어 중력값
+
+
+	_playerInfo._underRc = RectMakeCenter(_playerInfo.position.x  + _playerInfo._image->getFrameWidth() / 2,
+		_playerInfo.position.y  + _playerInfo._image->getFrameHeight(),
+		_playerInfo._image->getFrameWidth(), 5);
+	_playerInfo._leftRc = RectMakeCenter(_playerInfo.position.x ,
+		_playerInfo.position.y  + _playerInfo._image->getFrameHeight() / 2,
+		5, _playerInfo._image->getFrameWidth());
+
+	_playerInfo._rightRc = RectMakeCenter(_playerInfo.position.x  + _playerInfo._image->getFrameWidth(),
+		_playerInfo.position.y + _playerInfo._image->getFrameHeight() / 2,
+		5, _playerInfo._image->getFrameWidth());
 }
 
 void Player::update()
 {
+	//캐릭터 충돌렉트 설정
+
+	MakeRect();
+
+
 	//중력값용//
 	if (_playerInfo.isDrop)
 	{
@@ -44,9 +63,7 @@ void Player::update()
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y,
 		_playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
-	_playerInfo._underRc = RectMake(_playerInfo.position.x - _playerInfo._image->getFrameWidth() / 2,
-		_playerInfo._image->getFrameHeight() / 2 + _playerInfo.position.y,
-		80, 10);
+
 
 	for (int i = 0;i < _MapManager->getWall().size();i++)
 	{
@@ -63,22 +80,24 @@ void Player::update()
 		}
 	}
 
-	KeyControl();
+
+	//KeyControl();
 	move();
 }
 
 void Player::render()
 {
-	Rectangle(getMemDC(), _playerInfo._underRc);
+	RectangleMake(getMemDC(), 
+		_playerInfo._underRc.left-CAMERA->getCameraXpos(),
+		_playerInfo._underRc.top-CAMERA->getCameraYpos(),
+		_playerInfo._image->getFrameWidth(),5);			//캐릭터 바닥렉트
+	Rectangle(getMemDC(), _playerInfo._leftRc);				//캐릭터 왼쪽 충돌렉트
+	Rectangle(getMemDC(), _playerInfo._rightRc);			//캐릭터 오른쪽 충돌렉트
 }
-
-
 
 void Player::KeyControl()
 {
 }
-
-
 
 void Player::move()
 {

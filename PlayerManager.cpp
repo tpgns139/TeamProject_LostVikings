@@ -30,6 +30,9 @@ HRESULT PlayerManager::init()
 	_vPlayer.push_back(_Olaf);
 	PlayerNumber = 0;
 
+
+	PlayerNumber = 2; //일단 올라프테스트하기위에 넣음 나중에지워야함
+
 	_nowPlayer = _vPlayer[PlayerNumber];
 
 	
@@ -40,22 +43,27 @@ HRESULT PlayerManager::init()
 
 void PlayerManager::update()
 {
-	if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
-	{
-		PlayerNumber++;
-		if (PlayerNumber >= _vPlayer.size())
+	
+		if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
 		{
-			PlayerNumber = 0;
+			PlayerNumber++;
+			if (PlayerNumber >= _vPlayer.size())
+			{
+				PlayerNumber = 0;
+			}
+			_nowPlayer = _vPlayer[PlayerNumber];
+			CAMERA->moveTo(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y, 0.5f);
 		}
-		_nowPlayer = _vPlayer[PlayerNumber];
-		CAMERA->moveTo(_nowPlayer->getPlayerPos().x+CAMERA->getCameraXpos(),
-			_nowPlayer->getPlayerPos().y+CAMERA->getCameraYpos(),
-			2.0f);
-	}
+	
 	
 
-	_nowPlayer->update();
-
+	_nowPlayer->KeyControl();
+	for (int i = 0;i < _vPlayer.size();i++)
+	{
+		_vPlayer[i]->update();
+	}
+	
+	
 }
 
 void PlayerManager::render()

@@ -34,7 +34,6 @@ HRESULT MapManager::init()
 
 	Player* _player;
 
-
 	return S_OK;
 }
 void MapManager::update()

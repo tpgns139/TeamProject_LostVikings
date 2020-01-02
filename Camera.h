@@ -33,6 +33,7 @@ public:
 	float getCameraYpos() { return _cameraYPos; }
 	void moveTo(float endX, float endY, float time);
 	void movingPoint();
+	bool isMoving() { return _isMoving; }
 	
 };
 

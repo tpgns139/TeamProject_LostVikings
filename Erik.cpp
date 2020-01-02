@@ -47,11 +47,21 @@ HRESULT Erik::init(PlayerName playerNme)
 	isJump = false;
 
 	stunCount =headingCount = 0;
-	
 
 	_playerInfo._image = IMAGEMANAGER->findImage("E_idle2");
-	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y,
-		_playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
+
+	_playerInfo._rc = RectMakeCenter(
+		_playerInfo.position.x,
+		_playerInfo.position.y,
+		_playerInfo._image->getFrameWidth(),
+		_playerInfo._image->getFrameHeight());
+
+	_playerInfo._image = IMAGEMANAGER->findImage("E_run");
+	
+	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x ,
+		_playerInfo.position.y ,
+		_playerInfo._image->getFrameWidth(),
+		_playerInfo._image->getFrameHeight());
 
 	Player::MakeRect();
 
@@ -71,7 +81,6 @@ void Erik::update()
 	if(_state != E_attack_after)
 	{
 		KeyControl();
-		
 	}
 
 	if (_state == E_attack_after)
@@ -87,6 +96,12 @@ void Erik::update()
 			}
 		}
 	}
+
+	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, 
+		_playerInfo.position.y ,
+		_playerInfo._image->getFrameWidth(),
+		_playerInfo._image->getFrameHeight());
+
 	
 
 
@@ -97,14 +112,22 @@ void Erik::render()
 
 	if (KEYMANAGER->isToggleKey('1'))
 	{
-		RectangleMake(getMemDC(), _playerInfo._rc.left, _playerInfo._rc.top, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
+
+	RectangleMake(getMemDC(), _playerInfo.position.x - CAMERA->getCameraXpos(),
+		_playerInfo.position.y - CAMERA->getCameraYpos(),
+		_playerInfo._image->getFrameWidth(),
+		_playerInfo._image->getFrameHeight());
 	}
 
 
 	char str[128];
 	sprintf_s(str, "헤딩 카운트 :%d", headingCount);
 	TextOut(getMemDC(), WINSIZEX / 2, 100, str, strlen(str));
-	_playerInfo._image->frameRender(getMemDC(), _playerInfo.position.x-CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._CurrentFrameX, _playerInfo._image->getFrameY());
+	_playerInfo._image->frameRender(getMemDC(),
+		_playerInfo.position.x-CAMERA->getCameraXpos(),
+		_playerInfo.position.y - CAMERA->getCameraYpos(),
+		_playerInfo._CurrentFrameX,
+		_playerInfo._image->getFrameY());
 
 	Player::render();
 }
@@ -144,10 +167,7 @@ void Erik::KeyControl()
 		if (_state != E_atk) _state = E_run;
 		if (KEYMANAGER->isOnceKeyDown('F'))
 		{
-			//if (headingCount >= 50)
-			//{
 			_state = E_atk;
-			//}
 		}
 	}
 	
@@ -208,16 +228,6 @@ void Erik::Frame(int FrameX)
 			_playerInfo.count = 0;
 		}
 	}
-	//_count++;
-
-	//if (_count % 5 == 0)
-	//{
-	//	if (_currentFrameX >= _img->getMaxFrameX()) _currentFrameX = 0;
-
-	//	_img->setFrameX(_currentFrameX);			// setFrameX에 봐야하는 프레임 x값을 매개변수로 보내준다. 
-	//	_currentFrameX++;								// 다음 이미지를 보기 위해 값을 증가시킨다.
-	//	_count = 0;										// 카운트를 초기화 해준다.
-	//}
 }
 
 void Erik::stateImage()
