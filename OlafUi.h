@@ -1,21 +1,21 @@
 #pragma once
-#include "gameNode.h"
-
-class ui :public gameNode
+#include "ui.h"
+class OlafUi : public ui
 {
-protected:
-	image* _imageName;
+private:
 
-	POINT _position;
+
 
 public:
-	ui();
-	~ui();
+	OlafUi();
+	~OlafUi();
+
 
 	virtual HRESULT init(const char* imageName, POINT position);
 	virtual void release();
 	virtual void update();
 	virtual void render();
 	virtual void draw();
+
 };
 

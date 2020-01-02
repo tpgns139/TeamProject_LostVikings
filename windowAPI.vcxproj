@@ -150,6 +150,7 @@
     <ClInclude Include="action.h" />
     <ClInclude Include="animation.h" />
     <ClInclude Include="Baleog.h" />
+    <ClInclude Include="BaleogUi.h" />
     <ClInclude Include="BlueTile.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="Camera.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="EricUi.h" />
     <ClInclude Include="Erik.h" />
     <ClInclude Include="Fruit.h" />
     <ClInclude Include="gameNode.h" />
@@ -179,7 +181,9 @@
     <ClInclude Include="MapObj.h" />
     <ClInclude Include="Meat.h" />
     <ClInclude Include="Olaf.h" />
+    <ClInclude Include="OlafUi.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerHpUi.h" />
     <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="playGround.h" />
     <ClInclude Include="Portal.h" />
@@ -189,6 +193,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="SecurityRobot.h" />
+    <ClInclude Include="SelectUi.h" />
     <ClInclude Include="Shoes.h" />
     <ClInclude Include="singletonBase.h" />
     <ClInclude Include="Slime.h" />
@@ -210,6 +215,7 @@
     <ClCompile Include="action.cpp" />
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="Baleog.cpp" />
+    <ClCompile Include="BaleogUi.cpp" />
     <ClCompile Include="BlueTile.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -222,6 +228,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="EricUi.cpp" />
     <ClCompile Include="Erik.cpp" />
     <ClCompile Include="Fruit.cpp" />
     <ClCompile Include="gameNode.cpp" />
@@ -238,7 +245,9 @@
     <ClCompile Include="MapObj.cpp" />
     <ClCompile Include="Meat.cpp" />
     <ClCompile Include="Olaf.cpp" />
+    <ClCompile Include="OlafUi.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerHpUi.cpp" />
     <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="playGround.cpp" />
     <ClCompile Include="Portal.cpp" />
@@ -246,6 +255,7 @@
     <ClCompile Include="RedTile.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="SecurityRobot.cpp" />
+    <ClCompile Include="SelectUi.cpp" />
     <ClCompile Include="Shoes.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="soundManager.cpp" />

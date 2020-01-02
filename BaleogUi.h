@@ -1,16 +1,16 @@
 #pragma once
-#include "gameNode.h"
-
-class ui :public gameNode
+#include "ui.h"
+class BaleogUi : public ui
 {
-protected:
-	image* _imageName;
+private:
 
-	POINT _position;
+	int _currentHP;
+
 
 public:
-	ui();
-	~ui();
+	BaleogUi();
+	~BaleogUi();
+
 
 	virtual HRESULT init(const char* imageName, POINT position);
 	virtual void release();

@@ -1,21 +1,23 @@
 #pragma once
-#include "gameNode.h"
+#include "ui.h"
 
-class ui :public gameNode
+class EricUi : public ui
 {
-protected:
-	image* _imageName;
+private:
 
-	POINT _position;
+
+
 
 public:
-	ui();
-	~ui();
+	EricUi();
+	~EricUi();
+
 
 	virtual HRESULT init(const char* imageName, POINT position);
 	virtual void release();
 	virtual void update();
 	virtual void render();
 	virtual void draw();
+
 };
 
