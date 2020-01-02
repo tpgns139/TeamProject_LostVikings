@@ -55,24 +55,34 @@ void EnemyManager::render()
 
 void EnemyManager::setEnemy()
 {
-
-	//Enemy* Sl;
-	//Sl = new Slime;
-
-	//Sl->init("SlimeMove", PointMake(3560,1310));
-
-	//_vEm.push_back(Sl);
-	for (int i = 0; i < 2; i++)
 	{
 		Enemy* Sl;
 		Sl = new Slime;
-
-		Sl->init("SlimeMove", PointMake(1900+300*i, 1460));
+		Sl->init("SlimeMove", PointMake(3560, 1310), 0);
 		Sl->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sl);
 	}
+
+	{
+		Enemy* Sl;
+		Sl = new Slime;
+		Sl->init("SlimeMove1", PointMake(1900 + 300, 1460), 1);
+		Sl->setMemoryAddressLink(_mapManager);
+		_vEm.push_back(Sl);
+	}
+
+	{
+		Enemy* Sl;
+		Sl = new Slime;
+		Sl->init("SlimeMove2", PointMake(1400 , 1460), 2);
+		Sl->setMemoryAddressLink(_mapManager);
+		_vEm.push_back(Sl);
+	}
+
+	
+
+	
 //
-////	collisionTestRect = RectMakeCenter(WINSIZEX / 2 + 200, WINSIZEY - 50, 20, 80);
 //
 //	Enemy* Sr;
 //	Sr = new SecurityRobot;
