@@ -11,6 +11,7 @@ enum Direction
 	RIGHT,
 	LEFT
 };
+
 struct itemKind
 {
 	int Fruit;
@@ -18,12 +19,13 @@ struct itemKind
 	int Key;
 	int Shoes;
 };
+
 struct Playerinfo
 {
 	image* _image;
 	PlayerName _playerName;
-	RECT _rc, _underRc;
-	
+	RECT _rc, _underRc, _leftRc,_rightRc;
+
 	POINT position;
 	int HP;
 	int MaxHP;
@@ -35,20 +37,22 @@ struct Playerinfo
 	bool isDrop; //떨어지는중이니
 	bool isLadder; //사다리 상태니?
 
-};
 
+};
 
 class MapManager;
 
 class Player :public gameNode
 {
 protected:
-
+	
 	Playerinfo _playerInfo;
 	Direction _Direction;
 	itemKind _itemKind;
-
 	MapManager* _MapManager;
+
+	
+
 
 public:
 	Player();
@@ -63,5 +67,5 @@ public:
 	virtual RECT getRect() { return _playerInfo._rc; }
 	void collsion();
 	void setLink(MapManager* MapManager) { _MapManager = MapManager; }
-
+	POINT getPlayerPos() { return _playerInfo.position; }
 };

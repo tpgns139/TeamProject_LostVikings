@@ -14,6 +14,10 @@ private:
 	EnemyManager* _em;
 	MapManager* _MapManager;
 	vector<Player*> _vPlayer;
+	Player* _nowPlayer;
+	Playerinfo _playerinfo;
+
+	int PlayerNumber;
 	
 public:
 	PlayerManager();

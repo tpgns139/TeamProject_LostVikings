@@ -1,5 +1,7 @@
 #pragma once
 #include"Player.h"
+#define SIZE 15
+#include "Erik.h"
 
 enum OLAFSTATE
 {
@@ -27,8 +29,6 @@ enum OLAFSTATE
 	O_up_end
 };
 
-
-
 class Olaf:public Player
 {
 private:
@@ -39,6 +39,11 @@ private:
 	bool shieldPosision; //true일때 top //false일때 정면
 	
 
+	RECT shieldUp;	//방패
+	RECT shieldFront;	//방패
+	
+	int shieldX; //방패x좌표값
+
 
 public:
 	Olaf();
@@ -48,5 +53,12 @@ public:
 	virtual void render();
 	void KeyControl();
 	void Frame(int FrameX);
+
+	void shiedMake();
+
+	RECT getShildUp() {return shieldUp;}
+	RECT getShildFront() { return shieldFront; }
+
 };
+
 

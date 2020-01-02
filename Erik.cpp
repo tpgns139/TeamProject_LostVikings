@@ -47,13 +47,24 @@ HRESULT Erik::init(PlayerName playerNme)
 	isJump = false;
 
 	stunCount =headingCount = 0;
-	
 
 	_playerInfo._image = IMAGEMANAGER->findImage("E_idle2");
-	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y,
-		_playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
+
+	_playerInfo._rc = RectMakeCenter(
+		_playerInfo.position.x,
+		_playerInfo.position.y,
+		_playerInfo._image->getFrameWidth(),
+		_playerInfo._image->getFrameHeight());
+
+	_playerInfo._image = IMAGEMANAGER->findImage("E_run");
+	
+	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x ,
+		_playerInfo.position.y ,
+		_playerInfo._image->getFrameWidth(),
+		_playerInfo._image->getFrameHeight());
 
 	Player::MakeRect();
+
 
 	return S_OK;
 }
@@ -61,6 +72,16 @@ HRESULT Erik::init(PlayerName playerNme)
 void Erik::update()
 {
 
+	Player::update();
+	
+
+		Player::move();
+
+
+	if (_state != E_attack_after)
+	{
+		//KeyControl();
+	}
 	
 
 	if((_state != E_up)&&(_state != E_attack_after))
@@ -68,11 +89,7 @@ void Erik::update()
 		Frame(10);
 	}
 
-	if(_state != E_attack_after)
-	{
-		KeyControl();
-	Player::update();
-	}
+	
 
 	if (_state == E_attack_after)
 	{
@@ -87,6 +104,12 @@ void Erik::update()
 			}
 		}
 	}
+
+	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, 
+		_playerInfo.position.y ,
+		_playerInfo._image->getFrameWidth(),
+		_playerInfo._image->getFrameHeight());
+
 	
 
 
@@ -97,14 +120,22 @@ void Erik::render()
 
 	if (KEYMANAGER->isToggleKey('1'))
 	{
-	RectangleMake(getMemDC(), _playerInfo._rc.left, _playerInfo._rc.top, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
+
+	RectangleMake(getMemDC(), _playerInfo.position.x - CAMERA->getCameraXpos(),
+		_playerInfo.position.y - CAMERA->getCameraYpos(),
+		_playerInfo._image->getFrameWidth(),
+		_playerInfo._image->getFrameHeight());
 	}
 
 
 	char str[128];
 	sprintf_s(str, "헤딩 카운트 :%d", headingCount);
 	TextOut(getMemDC(), WINSIZEX / 2, 100, str, strlen(str));
-	_playerInfo._image->frameRender(getMemDC(), _playerInfo._rc.left, _playerInfo._rc.top, _playerInfo._CurrentFrameX, _playerInfo._image->getFrameY());
+	_playerInfo._image->frameRender(getMemDC(),
+		_playerInfo.position.x-CAMERA->getCameraXpos(),
+		_playerInfo.position.y - CAMERA->getCameraYpos(),
+		_playerInfo._CurrentFrameX,
+		_playerInfo._image->getFrameY());
 
 	Player::render();
 }
@@ -118,6 +149,8 @@ void Erik::KeyControl()
 		_Direction = LEFT;
 		_playerInfo._image->setFrameY(2);
 		if (_state != E_atk) _state = E_run;
+		_playerInfo.position.x -= _playerInfo.speed;
+	
 
 		if (KEYMANAGER->isOnceKeyDown('F'))
 		{
@@ -133,6 +166,7 @@ void Erik::KeyControl()
 		headingCount = 0;
 		_state = E_idle1;
 		_playerInfo._CurrentFrameX = 0;
+		_playerInfo.position.x -= _playerInfo.speed;
 	}
 
 	//오른쪽
@@ -141,13 +175,11 @@ void Erik::KeyControl()
 		_Direction = RIGHT;
 		_playerInfo._image->setFrameY(0);
 		headingCount++;
+		_playerInfo.position.x += _playerInfo.speed;
 		if (_state != E_atk) _state = E_run;
 		if (KEYMANAGER->isOnceKeyDown('F'))
 		{
-			//if (headingCount >= 50)
-			//{
 			_state = E_atk;
-			//}
 		}
 	}
 	
@@ -158,61 +190,21 @@ void Erik::KeyControl()
 		headingCount = 0;
 		_state = E_idle1;
 		_playerInfo._CurrentFrameX = 0;
+		_playerInfo.position.x += _playerInfo.speed;
+
 	}
-		////벽충돌
-		//RECT temp;
-		//if ((_state != E_atk))// && (IntersectRect(&temp, &_playerInfo._rc, &test)))
-		//{
-		//	_state = E_push;
-		//	headingCount = 0;
-		//	//_playerInfo.position.x -= _playerInfo.speed;
-		//	
+		
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE)&&jumpCount<1)
+	{
+		jumpCount++;
+		_state = E_jump;
+		isJump = true;
+		_playerInfo.jumpPower = 3.0f;
+		_playerInfo.gravity = 0.05f;
 
-		//}
-		//if ((_state == E_atk))// && (IntersectRect(&temp, &_playerInfo._rc, &test)))
-		//{
-		//	headingCount = 0;
-
-		//	_state = E_attack_after;
-		//	_playerInfo._rc.left -= 100;
-		//	_playerInfo._rc.right -= 100;
-
-		//	_playerInfo.position.x -= 100;
-		//}
-		if (KEYMANAGER->isOnceKeyDown(VK_SPACE)&&jumpCount<1)
-		{
-			jumpCount++;
-			_state = E_jump;
-			isJump = true;
-			_playerInfo.jumpPower = 3.0f;
-			_playerInfo.gravity = 0.05f;
-
-		}
-		//사다리 충돌
-	//	RECT temp;
-		/*if (IntersectRect(&temp, &_playerInfo._rc, &test2))
-		{
-			headingCount = 0;
-			if (KEYMANAGER->isStayKeyDown('W'))
-			{
-				_state = E_up;
-				Frame(30);
-				_playerInfo.position.y -= 1;
-			}
-			if (KEYMANAGER->isStayKeyDown('S'))
-			{
-				_state = E_up;
-				Frame(30);
-				_playerInfo.position.y += 1;
-			}
-			if (KEYMANAGER->isStayKeyDown('D'))
-			{
-				_Direction = RIGHT;
-				_state = E_jump;
-			}
-		}*/
-		//상태정의 스위치문//
-		stateImage();
+	}
+	stateImage();
+	
 	//점프용//
 	if (isJump)
 	{
@@ -221,7 +213,7 @@ void Erik::KeyControl()
 		if (_playerInfo.jumpPower <= 0)
 		{
 			isJump = false;
-			_state = E_idle2;
+			_state = E_idle1;
 		}
 	}
 
@@ -230,7 +222,6 @@ void Erik::KeyControl()
 		jumpCount = 0;
 	}
 
-	cout <<"점프카운트 :"<< jumpCount << endl;
 }
 
 void Erik::Frame(int FrameX)
@@ -251,16 +242,6 @@ void Erik::Frame(int FrameX)
 			_playerInfo.count = 0;
 		}
 	}
-	//_count++;
-
-	//if (_count % 5 == 0)
-	//{
-	//	if (_currentFrameX >= _img->getMaxFrameX()) _currentFrameX = 0;
-
-	//	_img->setFrameX(_currentFrameX);			// setFrameX에 봐야하는 프레임 x값을 매개변수로 보내준다. 
-	//	_currentFrameX++;								// 다음 이미지를 보기 위해 값을 증가시킨다.
-	//	_count = 0;										// 카운트를 초기화 해준다.
-	//}
 }
 
 void Erik::stateImage()

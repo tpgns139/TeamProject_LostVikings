@@ -15,8 +15,6 @@
 #include "EnemyManager.h"
 
 class EnemyManager;
-
-
 class Player;
 
 class MapManager
@@ -34,10 +32,7 @@ private:
 	vector<MapObj*> _wall;
 	vector<MapObj*> _elevator;
 	vector<MapObj*> _gravityZone;
-	
 	int colCount;
-
-
 
 
 public:
