@@ -9,6 +9,8 @@ inline POINT PointMake(int x, int y)
 	POINT pt = { x, y };
 
 	return pt;
+
+	
 }
 
 //          선긋기  뿌려줄DC, 시작좌표X, 시작좌표Y, 끝좌표X, 끝좌표Y

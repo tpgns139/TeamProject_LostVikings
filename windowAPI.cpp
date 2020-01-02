@@ -47,7 +47,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 		hInstance,
 		NULL);
 
-	setWindowsSize(WINSTARTX, WINSTARTY, WINSIZEX, WINSIZEY);
+	setWindowsSize(WINSTARTX, WINSTARTY, WINSIZEX, WINSIZEY + 156);
 
 	ShowWindow(_hWnd, cmdShow);
 
@@ -73,7 +73,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 			TranslateMessage(&message);
 			DispatchMessage(&message);
 		}
-		else
+		else 
 		{
 			TIMEMANAGER->update(60.0f);
 			_pg.update();

@@ -252,6 +252,24 @@
     <ClInclude Include="randomFunction.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="column.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="BaleogUi.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="EricUi.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="OlafUi.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHpUi.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectUi.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -411,6 +429,24 @@
       <Filter>playGround\UI</Filter>
     </ClCompile>
     <ClCompile Include="ui.cpp">
+      <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="column.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="BaleogUi.cpp">
+      <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="OlafUi.cpp">
+      <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="EricUi.cpp">
+      <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHpUi.cpp">
+      <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectUi.cpp">
       <Filter>playGround\UI</Filter>
     </ClCompile>
   </ItemGroup>

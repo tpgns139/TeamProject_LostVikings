@@ -27,7 +27,7 @@ void Ladder::update()
 
 void Ladder::render()
 {
-	Rectangle(_backBuffer->getMemDC(), _mapInfo._rc);
+	//Rectangle(_backBuffer->getMemDC(), _mapInfo._rc);
 }
 
 

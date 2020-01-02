@@ -19,7 +19,10 @@ HRESULT MapManager::init()
 	IMAGEMANAGER->addFrameImage("GravityZone", "GravityZone.bmp", 0, 0, 400, 350, 4, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("ThornBush", "ThornBush.bmp", 0, 0, 600, 97, 3, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("ElectricFieldTwoType", "ElectricFieldTwoType.bmp", 0, 0, 12300, 50, 6, 1, true, RGB(255, 0, 255));
-
+	IMAGEMANAGER->addImage("LongSizeColumn", "LongSize.bmp", 51, 349, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("MiddleSizeColumn", "MiddleSize.bmp", 49, 250, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("ShortSizeColumn", "ShortSize.bmp", 49, 250, true, RGB(255, 0, 255));
+	colCount = 0;
 
 	_textData =TXTDATA->txtLoad("MapInfo.txt");
 	for (int i = 0;i < _textData.size();i++)
@@ -61,6 +64,7 @@ void MapManager::update()
 	{
 		_wall[i]->update();
 	}
+	
 }
 void MapManager::render()
 {
@@ -70,7 +74,10 @@ void MapManager::render()
 	}
 	for (int i = 0;i < _notColObj.size();i++)
 	{
-		_notColObj[i]->render();
+		if (_notColObj[i]->getMapType() != Column) 
+		{
+			_notColObj[i]->render();
+		}
 	}
 	for (int i = 0;i < _colObj.size();i++)
 	{
@@ -92,6 +99,7 @@ void MapManager::render()
 void MapManager::charArraySeparationforMap(char charArray[])
 {
 	int dataNum = 0;
+	imageKinds colKinds=LongSize;
 	char* temp;
 	const char* separator = ",";	//±¸ºÐÀÚ
 	char* token;
@@ -118,6 +126,12 @@ void MapManager::charArraySeparationforMap(char charArray[])
 
 		case 3:
 			ins._mapkinds = (mapKinds)atoi(token);
+			break;
+		case 4:
+			if (ins._mapkinds == Column)
+			{
+				colKinds= (imageKinds)atoi(token);
+			}
 			break;
 		}
 		dataNum++;
@@ -184,6 +198,24 @@ void MapManager::charArraySeparationforMap(char charArray[])
 		mapIns->init(ins);
 		_notColObj.push_back(mapIns);
 		break;
+	case Column:
+		colCount++;
+		mapIns = new column;
+		mapIns->init(ins);
+		((column*)mapIns)->setImage(colKinds);
+		_notColObj.push_back(mapIns);
+		break;
 	}
 
+}
+
+void MapManager::zOrderRender()
+{
+	for (int i = 0;i < _notColObj.size();i++)
+	{
+		if (_notColObj[i]->getMapType() == Column) 
+		{
+			_notColObj[i]->render();
+		}
+	}
 }

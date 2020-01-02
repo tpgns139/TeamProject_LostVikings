@@ -11,6 +11,10 @@
 #include"GravityZone.h"
 #include"ElectricFieldTwoType.h"
 #include"Ladder.h"
+#include"column.h"
+#include "EnemyManager.h"
+
+class EnemyManager;
 
 
 class Player;
@@ -31,7 +35,8 @@ private:
 	vector<MapObj*> _elevator;
 	vector<MapObj*> _gravityZone;
 	
-	Player* _player;
+	int colCount;
+
 
 
 
@@ -43,7 +48,7 @@ public:
 	void update();
 	void render();
 	void charArraySeparationforMap(char charArray[]);
-
+	void zOrderRender();
 	vector<MapObj*> getWall() { return _wall; }
 };
 

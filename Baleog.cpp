@@ -59,7 +59,6 @@ void Baleog::update()
 
 void Baleog::render()
 {
-
 	_playerInfo._image->frameRender(getMemDC(), _playerInfo._rc.left,_playerInfo._rc.top,_playerInfo._CurrentFrameX,_playerInfo._CurrentFrameY);
 	if (KEYMANAGER->isToggleKey('1'))
 	{
@@ -219,5 +218,4 @@ void Baleog::Frame()
 		}
 	}
 }
-
 

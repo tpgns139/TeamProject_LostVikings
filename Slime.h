@@ -6,9 +6,12 @@ class Slime :public Enemy
 public:
 	Slime();
 	~Slime();
+	int slimeMoveCount = 0;
 
-	void update();
-	
+	virtual HRESULT init(const char* imagename, POINT position);
+	virtual void update();
+
+	virtual void move();
 	
 
 };

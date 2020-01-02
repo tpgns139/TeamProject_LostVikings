@@ -1,6 +1,8 @@
 #pragma once
 #include "gameNode.h"
+#include "Wall.h"
 
+class MapManager;
 
 struct ENEMY
 {
@@ -9,8 +11,10 @@ struct ENEMY
 
 	float speed;
 	float angle;
-	RECT rc;
+	RECT rc, leftcolcheckrc, rightcolcheckrc;
 	int count;
+	bool isMove = false;
+	
 };
 
 
@@ -21,7 +25,7 @@ class Enemy : public gameNode
 protected:
 
 
-
+	MapManager* _mapManager;
 	ENEMY _enemy;
 	int _bulletMax;
 	float _range;
@@ -44,5 +48,9 @@ public:
 	float getY() { return _enemy.y; }
 	ENEMY getEnemyInfo() { return _enemy; }
 	RECT getEnemyRect() { return _enemy.rc; }
+
+	void setMemoryAddressLink(MapManager* mm) { _mapManager = mm; }
+	
+
 };
 

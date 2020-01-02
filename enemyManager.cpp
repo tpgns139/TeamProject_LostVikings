@@ -40,6 +40,7 @@ void EnemyManager::update()
 		enemyBulletFire();
 	}
 	collision();
+	
 }
 
 void EnemyManager::render()
@@ -49,7 +50,7 @@ void EnemyManager::render()
 		(*_viEm)->render();
 	}
 	_Ebullet->render();
-	Rectangle(getMemDC(),collisionTestRect);
+	//Rectangle(getMemDC(),collisionTestRect);
 }
 
 void EnemyManager::setEnemy()
@@ -67,7 +68,7 @@ void EnemyManager::setEnemy()
 		Sl = new Slime;
 
 		Sl->init("SlimeMove", PointMake(1900+300*i, 1460));
-
+		Sl->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sl);
 	}
 //
