@@ -37,7 +37,7 @@ private:
 	
 	bool isJump;	//점프중이니
 	bool isAtk;	    //공격이니?
-
+	
 
 
 public:

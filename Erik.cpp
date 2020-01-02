@@ -78,7 +78,7 @@ void Erik::update()
 
 	if (_state != E_attack_after)
 	{
-	//	KeyControl();
+		KeyControl();
 	}
 	
 
@@ -122,12 +122,12 @@ void Erik::update()
 		_playerInfo._image->getFrameWidth(),
 		_playerInfo._image->getFrameHeight());
 
-
-
-	
-
 	Player::update();
-
+	if (_playerInfo.isJump)
+	{
+		jumpCount++;
+	}
+	cout << "ÂÀÇÁÄ«¿îÆ®"<<jumpCount << endl;
 }
 
 void Erik::render()
@@ -160,8 +160,8 @@ void Erik::render()
 void Erik::KeyControl()
 {
 	//¿ÞÂÊ
-
-	if (KEYMANAGER->isOnceKeyDown('A'))
+	
+	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
 	{
 		_playerInfo._CurrentFrameX = 0;
 		_Direction = LEFT;
@@ -170,7 +170,7 @@ void Erik::KeyControl()
 		_playerInfo.position.x -= _playerInfo.speed;
 	}
 
-	if (KEYMANAGER->isStayKeyDown('A'))
+	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 
 		headingCount++;
@@ -180,12 +180,12 @@ void Erik::KeyControl()
 		if ((_state != E_atk) && (_state != E_jump)) _state = E_run;
 		_playerInfo.position.x -= _playerInfo.speed;
 	}
-	if (KEYMANAGER->isOnceKeyDown('F'))
+	if (KEYMANAGER->isOnceKeyDown('D'))
 	{
 		_state = E_atk;
 	}
 
-	if (KEYMANAGER->isOnceKeyUp('A'))
+	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 	{
 		_Direction = LEFT;
 		headingCount = 0;
@@ -196,7 +196,7 @@ void Erik::KeyControl()
 
 
 
-	if ((_state != E_up) && (KEYMANAGER->isStayKeyDown('D')))
+	if ((_state != E_up) && (KEYMANAGER->isStayKeyDown(VK_RIGHT)))
 	{
 		_Direction = RIGHT;
 		_playerInfo._image->setFrameY(0);
@@ -209,7 +209,7 @@ void Erik::KeyControl()
 		}
 	}
 
-	if (KEYMANAGER->isOnceKeyUp('D'))
+	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 	{
 		_Direction = RIGHT;
 		_playerInfo._image->setFrameY(0);
@@ -220,37 +220,31 @@ void Erik::KeyControl()
 
 	}
 
-	if (KEYMANAGER->isOnceKeyDown(VK_SPACE) && (jumpCount == 0))
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE) && isJump == false &&jumpCount ==0)
 	{
-
-
 		_Direction = LEFT;
-		jumpCount++;
+	
 		_state = E_jump;
-		isJump = true;
+		_playerInfo.isJump = true;
 		_playerInfo.jumpPower = 5.0f;
 		_playerInfo.gravity = 0.05f;
-
 	}
-
 
 	stateImage();
 
 	//Á¡ÇÁ¿ë//
-	if (isJump)
+	if (_playerInfo.isJump)
 	{
 		_playerInfo.position.y -= _playerInfo.jumpPower;
 		_playerInfo.jumpPower -= _playerInfo.gravity;
-		if (_playerInfo.jumpPower <= 0)
+
+		if (jumpCount > 27)
 		{
-			isJump = false;
-			_state = E_idle1;
+			_playerInfo.isJump = false;
+			jumpCount = 0;
 		}
 	}
-	if (!isJump)
-	{
-		jumpCount = 0;
-	}
+	
 }
 
 

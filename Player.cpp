@@ -61,7 +61,7 @@ void Player::update()
 
 
 	collsion();
-
+	_playerInfo._underRcBottom = _playerInfo._underRc.bottom;
 	for (int i = 0; i < _MapManager->getWall().size(); i++)
 	{
 		
@@ -113,6 +113,7 @@ void Player::collsion()
 		{
 			_playerInfo._underRc.bottom = _MapManager->getWall()[i]->getRect().top;
 			_playerInfo.isDrop = false;
+			_playerInfo.isJump = false;
 
 			break;
 		}

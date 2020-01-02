@@ -28,7 +28,8 @@ struct Playerinfo
 	float jumpPower;
 	bool isDrop; //떨어지는중이니
 	bool isLadder; //사다리 상태니?
-
+	bool isJump;
+	float _underRcBottom;
 	vector<item*> _vPlayerItem;
 };
 
