@@ -23,7 +23,6 @@ HRESULT Player::init(PlayerName playerName)
 	_playerInfo.gravity = 0;
 	_playerInfo.isDrop = true;
 
-	_playerInfo.position.x = WINSIZEX / 2;
 	return S_OK;
 }
 
