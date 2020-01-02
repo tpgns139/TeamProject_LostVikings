@@ -58,3 +58,8 @@ void SecurityRobot::update()
 	
 	
 }
+
+bool SecurityRobot::bulletCountFire()
+{
+	return false;
+}

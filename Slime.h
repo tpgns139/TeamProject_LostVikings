@@ -12,7 +12,7 @@ public:
 	virtual void update();
 
 	virtual void move();
-	
+	virtual bool bulletCountFire();
 
 };
 

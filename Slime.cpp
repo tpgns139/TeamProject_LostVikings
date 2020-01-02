@@ -96,3 +96,8 @@ void Slime::move()
 	
 }
 
+bool Slime::bulletCountFire()
+{
+	return false;
+}
+

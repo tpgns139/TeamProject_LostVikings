@@ -42,4 +42,9 @@ void Tower::update()
 		_enemy.y - CAMERA->getCameraYpos()+ _enemy.img->getFrameHeight()/2, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
 }
 
+bool Tower::bulletCountFire()
+{
+	return false;
+}
+
 
