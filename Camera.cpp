@@ -20,7 +20,11 @@ HRESULT Camera::init(float x, float y)
 
 void Camera::update()
 {
-	movingPoint();
+	if (_isMoving) 
+	{
+		movingPoint();
+	}
+	
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 
@@ -72,9 +76,32 @@ void Camera::moveTo(float endX, float endY, float time)
 {
 	if (!_isMoving)
 	{
+		if (endX - WINSIZEX / 2 > 0) 
+		{
+			_endX = endX - WINSIZEX / 2;
+		}
+		else if (endX + WINSIZEX / 2 > IMAGEMANAGER->findImage("배경")->getWidth())
+		{
+			_endX = IMAGEMANAGER->findImage("배경")->getWidth() - WINSIZEX;
+		}
+		else
+		{
+			_endX = 0;
+		}
 
-		_endX = endX-WINSIZEX/2;
-		_endY = endY-WINSIZEY/2;
+		if (endY - WINSIZEY / 2 > 0)
+		{
+			_endY = endY - WINSIZEY / 2;
+		}
+		else if (endX + WINSIZEY / 2 > IMAGEMANAGER->findImage("배경")->getHeight())
+		{
+			_endY = IMAGEMANAGER->findImage("배경")->getHeight()-WINSIZEY;
+		}
+		else
+		{
+			_endY = 0;
+		}
+
 
 		_travelRange = getDistance(_cameraXPos, _cameraYPos, _endX, _endY);
 

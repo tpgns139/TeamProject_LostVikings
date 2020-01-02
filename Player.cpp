@@ -81,7 +81,7 @@ void Player::update()
 	}
 
 
-	KeyControl();
+	//KeyControl();
 	move();
 }
 

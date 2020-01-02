@@ -228,16 +228,6 @@ void Erik::Frame(int FrameX)
 			_playerInfo.count = 0;
 		}
 	}
-	//_count++;
-
-	//if (_count % 5 == 0)
-	//{
-	//	if (_currentFrameX >= _img->getMaxFrameX()) _currentFrameX = 0;
-
-	//	_img->setFrameX(_currentFrameX);			// setFrameX에 봐야하는 프레임 x값을 매개변수로 보내준다. 
-	//	_currentFrameX++;								// 다음 이미지를 보기 위해 값을 증가시킨다.
-	//	_count = 0;										// 카운트를 초기화 해준다.
-	//}
 }
 
 void Erik::stateImage()

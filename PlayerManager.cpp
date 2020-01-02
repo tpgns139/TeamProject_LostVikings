@@ -43,20 +43,25 @@ HRESULT PlayerManager::init()
 
 void PlayerManager::update()
 {
-	if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
-	{
-		PlayerNumber++;
-		if (PlayerNumber >= _vPlayer.size())
+	
+		if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
 		{
-			PlayerNumber = 0;
+			PlayerNumber++;
+			if (PlayerNumber >= _vPlayer.size())
+			{
+				PlayerNumber = 0;
+			}
+			_nowPlayer = _vPlayer[PlayerNumber];
+			CAMERA->moveTo(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y, 0.5f);
 		}
-		_nowPlayer = _vPlayer[PlayerNumber];
-		CAMERA->moveTo(WINSIZEX, WINSIZEY, 2.0f);
-	}
+	
 	
 
-	_nowPlayer->update();
-
+	_nowPlayer->KeyControl();
+	for (int i = 0;i < _vPlayer.size();i++)
+	{
+		_vPlayer[i]->update();
+	}
 	
 	
 }
