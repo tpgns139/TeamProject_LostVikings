@@ -27,10 +27,7 @@ void Ladder::update()
 
 void Ladder::render()
 {
-	RectangleMake(_backBuffer->getMemDC(), _mapInfo._rc.left-CAMERA->getCameraXpos()
-		,_mapInfo._rc.top-CAMERA->getCameraYpos(),
-		_mapInfo.width,
-		_mapInfo.height);
+	
 }
 
 

@@ -44,7 +44,6 @@ void itemManager::update()
 void itemManager::render()
 {
 
-	Rectangle(getMemDC(), test);
 	for (_viItem = _vItem.begin(); _viItem != _vItem.end(); ++_viItem)
 	{
 		(*_viItem)->render();
