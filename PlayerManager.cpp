@@ -48,9 +48,10 @@ void PlayerManager::update()
 			PlayerNumber = 0;
 		}
 		_nowPlayer = _vPlayer[PlayerNumber];
-		CAMERA->moveTo(_nowPlayer->getPlayerPos().x+CAMERA->getCameraXpos(),
-			_nowPlayer->getPlayerPos().y+CAMERA->getCameraYpos(),
-			2.0f);
+		//CAMERA->moveTo(_nowPlayer->getPlayerPos().x+CAMERA->getCameraXpos(),
+			//_nowPlayer->getPlayerPos().y+CAMERA->getCameraYpos(),
+			//2.0f);
+		CAMERA->moveTo(WINSIZEX, WINSIZEY, 2.0f);
 	}
 	
 

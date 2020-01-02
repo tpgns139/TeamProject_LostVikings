@@ -97,6 +97,8 @@ void Erik::render()
 
 	if (KEYMANAGER->isToggleKey('1'))
 	{
+		
+		
 		RectangleMake(getMemDC(), _playerInfo._rc.left, _playerInfo._rc.top, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 	}
 

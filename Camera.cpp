@@ -21,7 +21,7 @@ HRESULT Camera::init(float x, float y)
 void Camera::update()
 {
 	movingPoint();
-	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+	/*if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 
 		_cameraXPos -= 10;
@@ -59,7 +59,7 @@ void Camera::update()
 			_cameraYPos = IMAGEMANAGER->findImage("배경")->getHeight()-WINSIZEY;
 		}
 	
-	}
+	}*/
 
 	if (KEYMANAGER->isOnceKeyDown('Q'))
 	{
@@ -73,12 +73,12 @@ void Camera::moveTo(float endX, float endY, float time)
 	if (!_isMoving)
 	{
 
-		_endX = endX;
-		_endY = endY;
+		_endX = endX-WINSIZEX/2;
+		_endY = endY-WINSIZEY/2;
 
-		_travelRange = getDistance(_cameraXPos+WINSIZEX/2, _cameraYPos+WINSIZEY/2, _endX, _endY);
+		_travelRange = getDistance(_cameraXPos, _cameraYPos, _endX, _endY);
 
-		_angle = getAngle(_cameraXPos + WINSIZEX / 2, _cameraYPos + WINSIZEY / 2, _endX, _endY);
+		_angle = getAngle(_cameraXPos, _cameraYPos , _endX, _endY);
 
 		_worldTimeCount = TIMEMANAGER->getWorldTime();
 
@@ -99,8 +99,6 @@ void Camera::movingPoint()
 	//포인트를 도착지점까지 각도와 속도를 맞춰서 원하는 시간에 도달케 한다
 	_cameraXPos = _cameraXPos + cosf(_angle) * moveSpeed;
 	_cameraYPos=_cameraYPos + (-sinf(_angle) * moveSpeed);
-
-	float time = TIMEMANAGER->getElapsedTime();
 
 	if (_time + _worldTimeCount <= TIMEMANAGER->getWorldTime())
 	{
