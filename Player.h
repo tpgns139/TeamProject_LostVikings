@@ -65,7 +65,11 @@ public:
 	virtual void KeyControl();	//각자 입력받을 KeyControl()함수
 	void move();				//공통으로 움직일 함수;
 	virtual RECT getRect() { return _playerInfo._rc; }
+<<<<<<< HEAD
+
+=======
 	void collsion();
 	void setLink(MapManager* MapManager) { _MapManager = MapManager; }
 	POINT getPlayerPos() { return _playerInfo.position; }
+>>>>>>> 5b4b4f26836cdc081cdb1c67145351b401643a6b
 };

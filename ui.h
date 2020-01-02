@@ -17,5 +17,7 @@ public:
 	virtual void update();
 	virtual void render();
 	virtual void draw();
+	POINT get_position() { return _position; }
+
 };
 
