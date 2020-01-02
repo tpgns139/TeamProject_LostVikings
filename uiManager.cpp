@@ -39,8 +39,7 @@ HRESULT uiManager::init()
 
 	setUi();
 
-	/*_ui = new image;
-	_ui = IMAGEMANAGER->findImage("UIƲ");*/
+
 	return S_OK;
 }    
 

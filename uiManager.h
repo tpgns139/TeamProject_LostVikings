@@ -11,6 +11,7 @@
 #include "OlafUi.h"
 #include "PlayerHpUi.h"
 #include "SelectUi.h"
+#include "Inven.h"
 
 
 class uiManager : public gameNode

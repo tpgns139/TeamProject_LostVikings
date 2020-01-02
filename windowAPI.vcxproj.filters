@@ -267,6 +267,9 @@
     <ClInclude Include="SelectUi.h">
       <Filter>playGround\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Inven.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -441,6 +444,9 @@
       <Filter>playGround\UI</Filter>
     </ClCompile>
     <ClCompile Include="SelectUi.cpp">
+      <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Inven.cpp">
       <Filter>playGround\UI</Filter>
     </ClCompile>
   </ItemGroup>

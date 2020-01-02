@@ -45,4 +45,5 @@ public:
 	void move();				//공통으로 움직일 함수;
 
 	virtual RECT getRect() { return _playerInfo._rc; }
+
 };
