@@ -47,18 +47,21 @@ HRESULT Erik::init(PlayerName playerNme)
 	isJump = false;
 
 	stunCount =headingCount = 0;
-	
 
-<<<<<<< HEAD
 	_playerInfo._image = IMAGEMANAGER->findImage("E_idle2");
-	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y,
-		_playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
-=======
+
+	_playerInfo._rc = RectMakeCenter(
+		_playerInfo.position.x,
+		_playerInfo.position.y,
+		_playerInfo._image->getFrameWidth(),
+		_playerInfo._image->getFrameHeight());
+
 	_playerInfo._image = IMAGEMANAGER->findImage("E_run");
 	
-	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
-
->>>>>>> origin/SON
+	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x ,
+		_playerInfo.position.y ,
+		_playerInfo._image->getFrameWidth(),
+		_playerInfo._image->getFrameHeight());
 
 	Player::MakeRect();
 
@@ -67,13 +70,9 @@ HRESULT Erik::init(PlayerName playerNme)
 
 void Erik::update()
 {
-<<<<<<< HEAD
 
 	Player::update();
 
-=======
-	
->>>>>>> origin/SON
 	if((_state != E_up)&&(_state != E_attack_after))
 	{
 		Frame(10);
@@ -82,12 +81,7 @@ void Erik::update()
 	if(_state != E_attack_after)
 	{
 		KeyControl();
-<<<<<<< HEAD
-		
-=======
->>>>>>> origin/SON
 	}
-	Player::update();
 
 	if (_state == E_attack_after)
 	{
@@ -102,11 +96,12 @@ void Erik::update()
 			}
 		}
 	}
-<<<<<<< HEAD
-=======
-	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
->>>>>>> origin/SON
+	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, 
+		_playerInfo.position.y ,
+		_playerInfo._image->getFrameWidth(),
+		_playerInfo._image->getFrameHeight());
+
 	
 
 
@@ -128,10 +123,12 @@ void Erik::render()
 	char str[128];
 	sprintf_s(str, "헤딩 카운트 :%d", headingCount);
 	TextOut(getMemDC(), WINSIZEX / 2, 100, str, strlen(str));
-	_playerInfo._image->frameRender(getMemDC(), _playerInfo.position.x-CAMERA->getCameraXpos(),
+	_playerInfo._image->frameRender(getMemDC(),
+		_playerInfo.position.x-CAMERA->getCameraXpos(),
 		_playerInfo.position.y - CAMERA->getCameraYpos(),
 		_playerInfo._CurrentFrameX,
 		_playerInfo._image->getFrameY());
+
 	Player::render();
 }
 
@@ -170,10 +167,7 @@ void Erik::KeyControl()
 		if (_state != E_atk) _state = E_run;
 		if (KEYMANAGER->isOnceKeyDown('F'))
 		{
-			//if (headingCount >= 50)
-			//{
 			_state = E_atk;
-			//}
 		}
 	}
 	
