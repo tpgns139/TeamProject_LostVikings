@@ -92,3 +92,4 @@ void itemManager::removeItem(int arrNum)
 	_vItem.erase(_vItem.begin() + arrNum);
 
 }
+

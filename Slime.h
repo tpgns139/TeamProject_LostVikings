@@ -8,7 +8,7 @@ public:
 	~Slime();
 
 
-	virtual HRESULT init(const char* imagename, POINT position, int num);
+	virtual HRESULT init(const char* imagename, POINT position, int num, float speed);
 	virtual void update();
 
 	virtual void move();

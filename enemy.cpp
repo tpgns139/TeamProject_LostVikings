@@ -11,7 +11,7 @@ Enemy::~Enemy()
 {
 }
 
-HRESULT Enemy::init(const char* imagename, POINT position, int num)
+HRESULT Enemy::init(const char* imagename, POINT position, int num,float speed)
 {
 	IMAGEMANAGER->addFrameImage("SlimeMove", "슬라임이동.bmp", 336, 163, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("SlimeAtk", "슬라임공격.bmp", 168, 152, 2, 2, true, RGB(255, 0, 255));
@@ -72,6 +72,11 @@ void Enemy::render()
 
 void Enemy::move()
 {
+}
+
+bool Enemy::bulletCountFire()
+{
+	return false;
 }
 
 
