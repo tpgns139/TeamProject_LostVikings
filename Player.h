@@ -61,5 +61,6 @@ public:
 	void setLink(MapManager* MapManager) { _MapManager = MapManager; }
 	POINT getPlayerPos() { return _playerInfo.position; }
 	Playerinfo* getPlayerInfo() { return &_playerInfo; }
+	Direction getPlayerDirection() { return _Direction; }
 
 };

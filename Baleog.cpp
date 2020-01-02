@@ -73,6 +73,23 @@ void Baleog::render()
 	Player::render();	//벨로그 사다리충돌 렉트
 }
 
+void Baleog::clickedFbutton()
+{
+	if (_BaleogState == BALEOG_RIGHTBOWATTACK)
+	{
+		_playerInfo._image->setFrameY(0);
+		_playerInfo._CurrentFrameX = 0;
+		_BaleogState = BALEOG_RIGHTIDLE;
+
+	}
+	if (_BaleogState == BALEOG_LEFTBOWATTACK)
+	{
+		_playerInfo._image->setFrameY(1);
+		_playerInfo._CurrentFrameX = 0;
+		_BaleogState = BALEOG_LEFTIDLE;
+	}
+}
+
 void Baleog::KeyControl()
 {
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
@@ -175,8 +192,9 @@ void Baleog::KeyControl()
 			_playerInfo._image->setFrameY(1);
 			_playerInfo._CurrentFrameX = 0;
 			_BaleogState = BALEOG_LEFTIDLE;
-		}	
+		}
 	}
+
 	switch (_BaleogState)											//벨로그 스테이트 
 	{
 	case BALEOG_RIGHTIDLE:
@@ -212,7 +230,7 @@ void Baleog::KeyControl()
 		break;
 	}
 
-	}
+}
 
 
 void Baleog::Frame()

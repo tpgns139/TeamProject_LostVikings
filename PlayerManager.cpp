@@ -52,11 +52,22 @@ void PlayerManager::update()
 	}
 	
 	_Pbullet->update();
-	_nowPlayer->KeyControl();
-	if (KEYMANAGER->isOnceKeyDown('P'))
+	if (_nowPlayer->getPlayerInfo()->_playerName == PN_BALEOG)
 	{
-		playerBulletFire();
+		cout << _nowPlayer->getPlayerDirection() << endl;
 	}
+	if (KEYMANAGER->isOnceKeyUp('F'))
+	{
+		
+		if (_nowPlayer->getPlayerInfo()->_playerName == PN_BALEOG) 
+		{
+			playerBulletFire();
+			((Baleog*)_nowPlayer)->clickedFbutton();
+			cout << _nowPlayer->getPlayerDirection() << endl;
+		}
+
+	}
+	_nowPlayer->KeyControl();
 	if (!CAMERA->isMoving()) 
 	{
 		_nowPlayer->KeyControl();
@@ -85,16 +96,19 @@ void PlayerManager::render()
 
 void PlayerManager::playerBulletFire()
 {
-	for (int i = 0; i < _vPlayer.size(); i++)
-	{
-		if (_vPlayer[i]->getPlayerInfo()->_playerName == PN_BALEOG)
-		{
-			RECT rc = _vPlayer[i]->getRect();
 
-			_Pbullet->bulletFire(rc.left,
-				(rc.top + rc.bottom) / 2 + 50, 5.0f);
-		}
+	RECT rc = _nowPlayer->getRect();
+	if (_nowPlayer->getPlayerDirection() == RIGHT) 
+	{
+		_Pbullet->bulletFire(rc.right,
+			(rc.top + rc.bottom) / 2 + 50, -5.0f);
 	}
+	else if (_nowPlayer->getPlayerDirection() == LEFT)
+	{
+		_Pbullet->bulletFire(rc.left,
+			(rc.top + rc.bottom) / 2 + 50, 5.0f);
+	}
+	
 }
 
 void PlayerManager::setNowPlayer()
