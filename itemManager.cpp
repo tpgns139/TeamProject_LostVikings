@@ -70,6 +70,7 @@ void itemManager::setItem()
 	item4 = new Meat;
 	item4->init("Meat", PointMake(594, 1226));
 	_vItem.push_back(item4);
+
 }
 
 void itemManager::collision()
@@ -81,11 +82,16 @@ void itemManager::collision()
 			RECT temp;
 			if (IntersectRect(&temp, &_vItem[i]->getRect(), &_pm->get_vPlayer()[j]->getRect()))
 			{
+				Inven* Inven;
+				_vItem[i] = new item;
+				_vInven.push_back(Inven);
 				removeItem(i);
 			}	
 		}
 	}
+	
 }
+
 
 void itemManager::removeItem(int arrNum)
 {

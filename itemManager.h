@@ -5,6 +5,8 @@
 #include "Meat.h"
 #include "Fruit.h"
 #include "item.h"
+#include "uiManager.h"
+#include "Inven.h"
 #include <vector>
 
 class PlayerManager;
@@ -13,6 +15,12 @@ class itemManager :public gameNode
 private:
 	vector<item*>				_vItem;
 	vector<item*> ::iterator	_viItem;
+
+	vector<Inven*> _vInven;
+	vector<Inven*> ::iterator _viInven;
+		
+
+
 	PlayerManager* _pm;
 
 
