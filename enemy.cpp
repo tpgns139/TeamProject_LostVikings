@@ -64,8 +64,6 @@ void Enemy::update()
 
 void Enemy::render()
 {
-	
-	
 	_enemy.img->frameRender(getMemDC(), _enemy.x - CAMERA->getCameraXpos(), _enemy.y - CAMERA->getCameraYpos());
 }
 
