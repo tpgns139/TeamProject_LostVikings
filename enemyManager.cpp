@@ -159,5 +159,7 @@ void EnemyManager::collision()
 		}
 	}
 
+	
+
 
 }

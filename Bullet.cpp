@@ -37,7 +37,7 @@ void Bullet::render()
 		{
 			Rectangle(_backBuffer->getMemDC(), _viBullet->rc);
 		}
-		_viBullet->img->render(getMemDC(), _viBullet->rc.left,_viBullet->rc.top);
+		_viBullet->img->render(getMemDC(), _viBullet->rc.left - CAMERA->getCameraXpos(),_viBullet->rc.top - CAMERA->getCameraYpos());
 
 		
 		
@@ -66,7 +66,7 @@ void Bullet::bulletMove()
 	{
 		_viBullet->x -= _viBullet->speed;
 		
-		_viBullet->rc = RectMakeCenter(_viBullet->x - CAMERA->getCameraXpos(), _viBullet->y - CAMERA->getCameraYpos(),
+		_viBullet->rc = RectMakeCenter(_viBullet->x, _viBullet->y,
 			_viBullet->img->getWidth(), _viBullet->img->getHeight());
 		if (_viBullet->x - CAMERA->getCameraXpos() >WINSIZEX || _viBullet->x - CAMERA->getCameraXpos() <0)
 		{

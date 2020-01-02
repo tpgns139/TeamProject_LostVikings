@@ -30,6 +30,8 @@ HRESULT PlayerManager::init()
 	_vPlayer.push_back(_Olaf);
 	PlayerNumber = 0;
 
+	_Pbullet = new Bullet;
+	_Pbullet->init("왼쪽화살");
 
 	PlayerNumber = 2; //일단 올라프테스트하기위에 넣음 나중에지워야함
 
@@ -55,11 +57,13 @@ void PlayerManager::update()
 
 			CAMERA->moveTo(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y, 0.5f);
 		}
-	
+		_Pbullet->update();
 			_nowPlayer->KeyControl();
-	
-
-	
+			if (KEYMANAGER->isOnceKeyDown('P'))
+			{
+				
+				playerBulletFire();
+			}
 
 	for (int i = 0;i < _vPlayer.size();i++)
 	{
@@ -75,5 +79,17 @@ void PlayerManager::render()
 	{
 		_vPlayer[i]->render();
 	}
+	_Pbullet->render();
+}
 
+void PlayerManager::playerBulletFire()
+{
+	for (int i = 0; i < _vPlayer.size(); i++)
+	{
+		
+		RECT rc = _vPlayer[i]->getRect();
+
+		_Pbullet->bulletFire(rc.left,
+			(rc.top+rc.bottom)/2+50 , 5.0f);
+	}
 }

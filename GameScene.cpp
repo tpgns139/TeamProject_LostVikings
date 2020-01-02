@@ -32,7 +32,8 @@ HRESULT GameScene::init()
 	*/
 	IMAGEMANAGER->addImage("에너미불릿", "에너미불릿.bmp", 43, 19, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("배경", "Map.bmp", 4000, 1984, true, RGB(255, 0, 255));
-
+	IMAGEMANAGER->addImage("오른화살", "arrowright.bmp", 37, 20, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("왼쪽화살", "arrowleft.bmp", 37, 20, true, RGB(255, 0, 255));
 	_im = new itemManager;
 	_im->init();
 

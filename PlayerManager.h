@@ -3,7 +3,7 @@
 #include "Erik.h"
 #include"Baleog.h"
 #include "Olaf.h"
-
+#include "Bullet.h"
 
 class EnemyManager;
 class MapManager;
@@ -16,7 +16,7 @@ private:
 	vector<Player*> _vPlayer;
 	Player* _nowPlayer;
 	Playerinfo _playerinfo;
-
+	Bullet* _Pbullet;
 	int PlayerNumber;
 	
 public:
@@ -26,7 +26,7 @@ public:
 	HRESULT init();
 	void update();
 	void render();
-
+	void playerBulletFire();
 	void setAddressEnemyManager(EnemyManager* em) { _em = em; }
 	vector<Player*> get_vPlayer() { return _vPlayer; }
 	void setAddressMapManager(MapManager* MapManager) { _MapManager = MapManager; }
