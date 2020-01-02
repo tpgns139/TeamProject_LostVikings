@@ -177,22 +177,14 @@ void Erik::KeyControl()
 		_Direction = LEFT;
 		_playerInfo._image->setFrameY(2);
 
-		if ((_state != E_atk)&&(_state!=E_jump)) _state = E_run;
+		if ((_state != E_atk) && (_state != E_jump)) _state = E_run;
 		_playerInfo.position.x -= _playerInfo.speed;
-<<<<<<< HEAD
-	
-		if (KEYMANAGER->isOnceKeyDown('F'))
-		{
-			_state = E_atk;
-		}
-=======
->>>>>>> origin/sunghyun
 	}
 	if (KEYMANAGER->isOnceKeyDown('F'))
 	{
 		_state = E_atk;
 	}
-	
+
 	if (KEYMANAGER->isOnceKeyUp('A'))
 	{
 		_Direction = LEFT;
@@ -216,7 +208,7 @@ void Erik::KeyControl()
 			_state = E_atk;
 		}
 	}
-	
+
 	if (KEYMANAGER->isOnceKeyUp('D'))
 	{
 		_Direction = RIGHT;
@@ -227,10 +219,10 @@ void Erik::KeyControl()
 		_playerInfo.position.x += _playerInfo.speed;
 
 	}
-		
-	if(KEYMANAGER->isOnceKeyDown(VK_SPACE)&&(jumpCount==0))
+
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE) && (jumpCount == 0))
 	{
-		
+
 
 		_Direction = LEFT;
 		jumpCount++;
@@ -243,7 +235,7 @@ void Erik::KeyControl()
 
 
 	stateImage();
-	
+
 	//а║га©К//
 	if (isJump)
 	{
@@ -260,6 +252,8 @@ void Erik::KeyControl()
 		jumpCount = 0;
 	}
 }
+
+
 
 void Erik::Frame(int FrameX)
 {
