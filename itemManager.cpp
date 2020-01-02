@@ -92,6 +92,8 @@ void itemManager::setItem()
 	item4 = new Meat;
 	item4->init("Meat", PointMake(WINSIZEX+100, WINSIZEY/2),meat);
 	_vItem.push_back(item4);
+
+ 
 }
 
 void itemManager::collision()
@@ -110,11 +112,11 @@ void itemManager::collision()
 			}
 		}
 	}
-
 }
+
 
 void itemManager::removeItem(int arrNum)
 {
 	_vItem.erase(_vItem.begin() + arrNum);
-
+	
 }

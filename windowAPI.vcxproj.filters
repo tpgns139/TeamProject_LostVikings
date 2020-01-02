@@ -79,6 +79,9 @@
     <Filter Include="playGround\UI">
       <UniqueIdentifier>{78a5fd22-2c21-40d3-99dd-5003d5c7f6ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\Inven">
+      <UniqueIdentifier>{e74c9dc4-41e5-402e-8edb-c7274640a7a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -274,7 +277,7 @@
       <Filter>playGround\UI</Filter>
     </ClInclude>
     <ClInclude Include="Inven.h">
-      <Filter>playGround\UI</Filter>
+      <Filter>playGround\Inven</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -456,7 +459,7 @@
       <Filter>playGround\UI</Filter>
     </ClCompile>
     <ClCompile Include="Inven.cpp">
-      <Filter>playGround\UI</Filter>
+      <Filter>playGround\Inven</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

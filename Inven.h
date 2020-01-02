@@ -26,6 +26,5 @@ public:
 
 	vector<Inven*> get_vInven() { return _vInven; }
 	vector<Inven*>::iterator get_viInven() { return _viInven; }
-
 };
 
