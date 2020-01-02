@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MapManager.h"
-
+#include "Player.h"
 
 MapManager::MapManager()
 {
@@ -31,6 +31,10 @@ HRESULT MapManager::init()
 		char* ins= (char *)_textData[i].c_str();
 		charArraySeparationforMap(ins);
 	}
+
+	Player* _player;
+
+
 	return S_OK;
 }
 void MapManager::update()

@@ -36,12 +36,15 @@ HRESULT GameScene::init()
 	_im = new itemManager;
 	_im->init();
 
+	_mm = new MapManager;
+	_mm->init();
+
 	_pm = new PlayerManager;
+	_pm->setAddressMapManager(_mm);
 	_pm->init();
 
 	_im->setPlayerMemoryAdrressLink(_pm);
-	_mm = new MapManager;
-	_mm->init();
+
 
 	_em = new EnemyManager;
 	_em->setMemoryAddressLink(_mm);
@@ -51,8 +54,6 @@ HRESULT GameScene::init()
 
 	_ui = new uiManager;
 	_ui->init();
-		
-	
 	return S_OK;
 }
 

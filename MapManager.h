@@ -16,6 +16,9 @@
 
 class EnemyManager;
 
+
+class Player;
+
 class MapManager
 {
 private:
@@ -33,7 +36,8 @@ private:
 	vector<MapObj*> _gravityZone;
 	
 	int colCount;
-	EnemyManager* _em;
+
+
 
 
 public:
@@ -46,7 +50,5 @@ public:
 	void charArraySeparationforMap(char charArray[]);
 	void zOrderRender();
 	vector<MapObj*> getWall() { return _wall; }
-
-	void setEmMemoryAddressLink(EnemyManager* em) { _em = em; }
 };
 
