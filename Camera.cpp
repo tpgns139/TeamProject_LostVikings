@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Camera.h"
 
-
 Camera::Camera()
 {
 }
@@ -15,11 +14,17 @@ HRESULT Camera::init(float x, float y)
 {
 	_cameraXPos = x;
 	_cameraYPos = y;
+	_isMoving = false;
 	return S_OK;
 }
 
 void Camera::update()
 {
+	if (_isMoving) 
+	{
+		movingPoint();
+	}
+	
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 
@@ -48,6 +53,7 @@ void Camera::update()
 		{
 			_cameraYPos=0;
 		}
+
 	}
 	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
@@ -58,25 +64,76 @@ void Camera::update()
 		}
 	
 	}
+
+	if (KEYMANAGER->isOnceKeyDown('Q'))
+	{
+		cout << "카메라 X : " << CAMERA->getCameraXpos() << endl;
+		cout << "카메라 Y : " << CAMERA->getCameraYpos() << endl;
+	}
 }
 
-void Camera::cameraMove(CameraMoveDir dir, float speed)
+void Camera::moveTo(float endX, float endY, float time)
 {
-	switch (dir)
+	if (!_isMoving)
 	{
-	case updir:
-		_cameraYPos += speed;
-		break;
-	case downdir:
-		_cameraYPos -= speed;
-		break;
-	case leftdir:
-		_cameraXPos -= speed;
-		break;
-	case rightdir:
-		_cameraXPos += speed;
-		break;
-	default:
-		break;
+		if (endX - WINSIZEX / 2 > 0) 
+		{
+			_endX = endX - WINSIZEX / 2;
+		}
+		else if (endX + WINSIZEX / 2 > IMAGEMANAGER->findImage("배경")->getWidth())
+		{
+			_endX = IMAGEMANAGER->findImage("배경")->getWidth() - WINSIZEX;
+		}
+		else
+		{
+			_endX = 0;
+		}
+
+		if (endY - WINSIZEY / 2 > 0)
+		{
+			_endY = endY - WINSIZEY / 2;
+		}
+		else if (endX + WINSIZEY / 2 > IMAGEMANAGER->findImage("배경")->getHeight())
+		{
+			_endY = IMAGEMANAGER->findImage("배경")->getHeight()-WINSIZEY;
+		}
+		else
+		{
+			_endY = 0;
+		}
+
+
+		_travelRange = getDistance(_cameraXPos, _cameraYPos, _endX, _endY);
+
+		_angle = getAngle(_cameraXPos, _cameraYPos , _endX, _endY);
+
+		_worldTimeCount = TIMEMANAGER->getWorldTime();
+
+		_time = time;
+
+		_isMoving = true;
+
+	}
+}
+void Camera::movingPoint()
+{
+	if (!_isMoving) return;
+	float elapsedTime = TIMEMANAGER->getElapsedTime();
+
+	//200정도의 거리를 2초에 걸쳐서 도달해야한다면 속도값을 구해줌
+	float moveSpeed = (elapsedTime / _time) * _travelRange;
+
+	//포인트를 도착지점까지 각도와 속도를 맞춰서 원하는 시간에 도달케 한다
+	_cameraXPos = _cameraXPos + cosf(_angle) * moveSpeed;
+	_cameraYPos=_cameraYPos + (-sinf(_angle) * moveSpeed);
+
+	if (_time + _worldTimeCount <= TIMEMANAGER->getWorldTime())
+	{
+		_worldTimeCount = TIMEMANAGER->getWorldTime();
+		_cameraXPos = _endX;
+		_cameraYPos = _endY;
+
+		_isMoving = false;
+
 	}
 }

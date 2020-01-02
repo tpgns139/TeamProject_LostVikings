@@ -38,10 +38,6 @@ void itemManager::update()
 		(*_viItem)->update();
 	}
 
-
-
-
-
 	collision();
 }
 
@@ -103,11 +99,13 @@ void itemManager::collision()
 			RECT temp;
 			if (IntersectRect(&temp, &_vItem[i]->getRect(), &_pm->get_vPlayer()[j]->getRect()))
 			{
+
 				//_vItem[i]->init("Fruit", PointMake(_ui->get_position().x+50, WINSIZEY- 300));
 				//_vItem[i]->init("Fruit", PointMake(test.left+10, WINSIZEY - 300));
 				//_vInven.push_back(_vItem.size());
 				//_inven->get_vInven.push_back(_vItem[i]);
 			//	_pm->get_vPlayer()[j]-
+
 				removeItem(i);
 			}
 		}

@@ -64,6 +64,9 @@
     <Filter Include="playGround\Player">
       <UniqueIdentifier>{22c09428-5108-40b5-b019-4aed9941c236}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\Player\Bullet">
+      <UniqueIdentifier>{470db5c8-b1b1-465b-8b02-dbf48fc15795}</UniqueIdentifier>
+    </Filter>
     <Filter Include="playGround\EnemyManager">
       <UniqueIdentifier>{893a3053-7486-4f6d-8065-5fd308840bfd}</UniqueIdentifier>
     </Filter>
@@ -252,6 +255,9 @@
     <ClInclude Include="randomFunction.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="column.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
     <ClInclude Include="BaleogUi.h">
       <Filter>playGround\UI</Filter>
     </ClInclude>
@@ -430,6 +436,9 @@
     </ClCompile>
     <ClCompile Include="ui.cpp">
       <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="column.cpp">
+      <Filter>playGround\Map</Filter>
     </ClCompile>
     <ClCompile Include="BaleogUi.cpp">
       <Filter>playGround\UI</Filter>

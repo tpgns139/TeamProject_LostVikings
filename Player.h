@@ -6,17 +6,26 @@ enum PlayerName {
 	PN_BALEOG,
 	PN_OLAF
 };
-enum direction
+enum Direction
 {
 	RIGHT,
 	LEFT
+};
+
+struct itemKind
+{
+	int Fruit;
+	int Meat;
+	int Key;
+	int Shoes;
 };
 
 struct Playerinfo
 {
 	image* _image;
 	PlayerName _playerName;
-	RECT _rc;
+	RECT _rc, _underRc, _leftRc,_rightRc;
+
 	POINT position;
 	int HP;
 	int MaxHP;
@@ -24,26 +33,43 @@ struct Playerinfo
 	int _CurrentFrameX, _CurrentFrameY;
 	float gravity;
 	float speed;
+	float jumpPower;
 	bool isDrop; //떨어지는중이니
 	bool isLadder; //사다리 상태니?
 
+
 };
+
+class MapManager;
+
 class Player :public gameNode
 {
 protected:
-
+	
 	Playerinfo _playerInfo;
-	direction _dir; //왼쪽 오른쪽 방향
+	Direction _Direction;
+	itemKind _itemKind;
+	MapManager* _MapManager;
+
+	
+
 
 public:
 	Player();
 	~Player();
+	
 	virtual HRESULT init(PlayerName playerName);
+	void MakeRect();
 	virtual void update();
 	virtual void render();
 	virtual void KeyControl();	//각자 입력받을 KeyControl()함수
 	void move();				//공통으로 움직일 함수;
-
 	virtual RECT getRect() { return _playerInfo._rc; }
+<<<<<<< HEAD
 
+=======
+	void collsion();
+	void setLink(MapManager* MapManager) { _MapManager = MapManager; }
+	POINT getPlayerPos() { return _playerInfo.position; }
+>>>>>>> 5b4b4f26836cdc081cdb1c67145351b401643a6b
 };

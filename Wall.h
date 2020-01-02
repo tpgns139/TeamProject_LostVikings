@@ -7,5 +7,9 @@ public:
 	~Wall();
 
 	virtual HRESULT init(mapInfo info);
+	virtual void update();
+	virtual void render();
+
+	RECT getWallRect() { return _mapInfo._rc; }
 };
 

@@ -154,6 +154,7 @@
     <ClInclude Include="BlueTile.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="column.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="BlueTile.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="column.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="ElectricField.cpp" />
