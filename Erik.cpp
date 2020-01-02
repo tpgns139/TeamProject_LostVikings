@@ -11,9 +11,9 @@ Erik::~Erik()
 {
 }
 
-HRESULT Erik::init(PlayerName playerName)
+HRESULT Erik::init(PlayerName playerNme)
 {
-	
+	Player::init(playerNme);
 	//에릭 이미지//
 	IMAGEMANAGER->addFrameImage("E_idle1", "image/erikImage/idle1.bmp", 336, 200, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("E_idle2", "image/erikImage/idle2.bmp", 563, 200, 6, 2, true, RGB(255, 0, 255));
@@ -32,31 +32,26 @@ HRESULT Erik::init(PlayerName playerName)
 	IMAGEMANAGER->addFrameImage("E_push", "image/erikImage/push.bmp", 388, 200, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("E_die_fall", "image/erikImage/die_fall.bmp", 640, 200, 6, 2, true, RGB(255, 0, 255));
 
-
 	_playerInfo._playerName = PN_ERIK;
+
 	_playerInfo.count = _playerInfo._CurrentFrameX = _playerInfo._CurrentFrameY = 0;
 	_playerInfo.HP = 3;
 	_playerInfo.MaxHP = 3;
 	_playerInfo.position.x = WINSIZEX / 2 - 100;
-	_playerInfo.position.y = WINSIZEY / 2;
-	_playerInfo.speed = 2.0f;
+	_playerInfo.position.y = WINSIZEY / 2 - 45;
+	_playerInfo.speed = 3.0f;
+
 	PlusSpeed = 0;
+	jumpCount = 0;
 	_playerInfo.isLadder = false;
-	_playerInfo.isDrop = false;
 	isJump = false;
-	
 
-
-	_playerInfo.gravity = 0;
-	jumpPower = 0;
-	PlusSpeed = 0;
 	stunCount =headingCount = 0;
 	
 
 	_playerInfo._image = IMAGEMANAGER->findImage("E_idle2");
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y,
 		_playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
-
 
 	Player::MakeRect();
 
@@ -65,7 +60,6 @@ HRESULT Erik::init(PlayerName playerName)
 
 void Erik::update()
 {
-	//_playerInfo.isDrop = true;
 
 	
 
@@ -74,8 +68,6 @@ void Erik::update()
 		Frame(10);
 	}
 
-	
-	
 	if(_state != E_attack_after)
 	{
 		KeyControl();
@@ -91,14 +83,12 @@ void Erik::update()
 			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX() - 1)
 			{
 				_playerInfo._CurrentFrameX = 0;
-				_state = E_idle2;
+				_state = E_idle1;
 			}
 		}
 	}
+	
 
-
-
-	cout << _state << endl;
 
 }
 
@@ -188,13 +178,14 @@ void Erik::KeyControl()
 
 		//	_playerInfo.position.x -= 100;
 		//}
-	
-		if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+		if (KEYMANAGER->isOnceKeyDown(VK_SPACE)&&jumpCount<1)
 		{
+			jumpCount++;
 			_state = E_jump;
 			isJump = true;
-			jumpPower = 3;
+			_playerInfo.jumpPower = 3.0f;
 			_playerInfo.gravity = 0.05f;
+
 		}
 		//사다리 충돌
 	//	RECT temp;
@@ -220,76 +211,25 @@ void Erik::KeyControl()
 			}
 		}*/
 		//상태정의 스위치문//
-	switch (_state)
-	{
-	case E_idle1:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_idle1");	
-		break;
-	case E_idle2:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_idle2");
-		break;
-	case E_idle3:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_idle3");
-		break;
-	case E_jump:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_jump"); //ㅇㅋ
-	
-		break;
-	case E_up:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_up"); //ㅇㅋ;
-		break;
-	case E_drop:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_drop");
-		break;
-	case E_run:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_run"); //ㅇㅋ
-		break;
-	case E_atk:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_atk"); //ㅇㅋ	
-		break;
-	case E_attcked1:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_attcked1");
-		break;
-	case E_attack_after:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_attack_after");//ㅇㅋ
-		break;
-	case E_up_end:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_up_end");
-		break;
-	case E_push:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_push"); //ㅇㅋ
-		break;
-	case E_die:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_die");
-		break;
-	case E_die_divide:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_die_divide");
-		break;
-	case E_die_electric:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_die_electric");
-		break;
-	case E_die_falls:
-		_playerInfo._image = IMAGEMANAGER->findImage("E_die_falls");
-		break;
-	}
+		stateImage();
 	//점프용//
 	if (isJump)
 	{
-		_playerInfo.position.y -= jumpPower;
-		jumpPower -= _playerInfo.gravity;
-		if (jumpPower <= 0)
+		_playerInfo.position.y -= _playerInfo.jumpPower;
+		_playerInfo.jumpPower -= _playerInfo.gravity;
+		if (_playerInfo.jumpPower <= 0)
 		{
 			isJump = false;
 			_state = E_idle2;
 		}
 	}
-	//중력값용//
-	if (_playerInfo.isDrop)
+
+	if (!isJump)
 	{
-		_playerInfo.position.y -= jumpPower; //위와 동일
-		jumpPower -= _playerInfo.gravity; //중력값만큼 파워를 빼줌
-		_playerInfo.gravity += 0.0002f; // 중력값을 ++해서 더빨리떨어지게
+		jumpCount = 0;
 	}
+
+	cout <<"점프카운트 :"<< jumpCount << endl;
 }
 
 void Erik::Frame(int FrameX)
@@ -320,6 +260,61 @@ void Erik::Frame(int FrameX)
 	//	_currentFrameX++;								// 다음 이미지를 보기 위해 값을 증가시킨다.
 	//	_count = 0;										// 카운트를 초기화 해준다.
 	//}
+}
+
+void Erik::stateImage()
+{
+	switch (_state)
+	{
+	case E_idle1:
+		_playerInfo._image = IMAGEMANAGER->findImage("E_idle1");
+		break;
+	case E_idle2:
+		_playerInfo._image = IMAGEMANAGER->findImage("E_idle2");
+		break;
+	case E_idle3:
+		_playerInfo._image = IMAGEMANAGER->findImage("E_idle3");
+		break;
+	case E_jump:
+		_playerInfo._image = IMAGEMANAGER->findImage("E_jump");			
+		break;
+	case E_up:
+		_playerInfo._image = IMAGEMANAGER->findImage("E_up");			
+		break;
+	case E_drop:
+		_playerInfo._image = IMAGEMANAGER->findImage("E_drop");
+		break;
+	case E_run:
+		_playerInfo._image = IMAGEMANAGER->findImage("E_run");			
+		break;
+	case E_atk:
+		_playerInfo._image = IMAGEMANAGER->findImage("E_atk");			
+		break;
+	case E_attcked1:
+		_playerInfo._image = IMAGEMANAGER->findImage("E_attcked1");
+		break;
+	case E_attack_after:
+		_playerInfo._image = IMAGEMANAGER->findImage("E_attack_after");	
+		break;
+	case E_up_end:
+		_playerInfo._image = IMAGEMANAGER->findImage("E_up_end");
+		break;
+	case E_push:
+		_playerInfo._image = IMAGEMANAGER->findImage("E_push");			
+		break;
+	case E_die:
+		_playerInfo._image = IMAGEMANAGER->findImage("E_die");
+		break;
+	case E_die_divide:
+		_playerInfo._image = IMAGEMANAGER->findImage("E_die_divide");
+		break;
+	case E_die_electric:
+		_playerInfo._image = IMAGEMANAGER->findImage("E_die_electric");
+		break;
+	case E_die_falls:
+		_playerInfo._image = IMAGEMANAGER->findImage("E_die_falls");
+		break;
+	}
 }
 
 

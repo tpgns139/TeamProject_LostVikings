@@ -1,86 +1,58 @@
 #include "stdafx.h"
-#include "enemy.h"
+#include "Enemy.h"
 
 
-enemy::enemy()
+Enemy::Enemy()
 {
 }
 
 
-enemy::~enemy()
+Enemy::~Enemy()
 {
 }
 
-HRESULT enemy::init()
+HRESULT Enemy::init(const char* imagename, POINT position)
 {
+	IMAGEMANAGER->addFrameImage("SlimeMove", "슬라임이동.bmp", 336, 163, 4, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("SlimeAtk", "슬라임공격.bmp", 168, 152, 2, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("SecurityRobotMove", "경비로봇이동.bmp", 420, 132, 6, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("SecurityRobotAtk", "경비로봇공격.bmp", 210, 135, 3, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("Tower", "포탑.bmp", 200, 80, 2, 1, true, RGB(255, 0, 255));
 
-	return S_OK;
-}
-
-HRESULT enemy::init(const char * imageName, POINT position)
-{
 	_currentFrameX = _currentFrameY = 0;
-	_count = _fireCount = 0;
+	_enemy.x = position.x;
+	_enemy.y = position.y;
 
-	_imageName = IMAGEMANAGER->findImage(imageName);
+	_enemy.img = IMAGEMANAGER->findImage(imagename);
+	_enemy.rc = RectMakeCenter(position.x, position.y, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
+	_count = 0;
 
-	_rndFireCount = RND->getFromIntTo(1, 1000);
 
-	_rc = RectMakeCenter(position.x, position.y,
-		_imageName->getFrameWidth(), _imageName->getFrameHeight());
-
+	_rndFireCount = RND->getFromIntTo(1, 100);
 
 	return S_OK;
 }
 
-void enemy::release()
+void Enemy::release()
 {
 }
 
-void enemy::update()
+void Enemy::update()
 {
-	_count++;
 
-	if (_count % 2 == 0)
+}
+
+void Enemy::render()
+{
+	if (KEYMANAGER->isToggleKey(VK_F1))
 	{
-		if (_currentFrameX >= _imageName->getMaxFrameX()) _currentFrameX = 0;
-
-		_imageName->setFrameX(_currentFrameX);
-		_currentFrameX++;
-		_count = 0;
+		Rectangle(getMemDC(), _enemy.rc);
 	}
-
+	_enemy.img->frameRender(getMemDC(), _enemy.x - CAMERA->getCameraXpos(), _enemy.y - CAMERA->getCameraYpos());
 }
 
-
-void enemy::render()
-{
-	draw();
-}
-
-
-void enemy::move()
+void Enemy::move()
 {
 }
 
 
-void enemy::draw()
-{
-	_imageName->frameRender(getMemDC(), _rc.left, _rc.top, _currentFrameX, _currentFrameY);
-}
-
-bool enemy::bulletCountFire()
-{
-	_fireCount++;
-
-	if (_fireCount % _rndFireCount == 0)
-	{
-		_fireCount = 0;
-		_rndFireCount = RND->getFromIntTo(1, 1000);
-
-		return true;
-	}
-
-
-	return false;
-}

@@ -44,19 +44,17 @@ HRESULT Olaf::init(PlayerName playerName)
 	_playerInfo.count = _playerInfo._CurrentFrameX = _playerInfo._CurrentFrameY = 0;
 	_playerInfo.HP = 3;
 	_playerInfo.MaxHP = 3;
-	_playerInfo.isDrop = false;
-	_playerInfo.speed = 2.0f;
+	_playerInfo.isDrop = true;
+	_playerInfo.speed = 3.0f;
 	_playerInfo.position.x = WINSIZEX / 2 + 200;
-	_playerInfo.position.y = WINSIZEY / 2;
-	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x,
-		_playerInfo.position.y,
-		_playerInfo._image->getFrameWidth(),
-		_playerInfo._image->getFrameHeight());
+	_playerInfo.position.y = WINSIZEY / 2 - 45;
 
-	
+	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x,_playerInfo.position.y,_playerInfo._image->getFrameWidth(),_playerInfo._image->getFrameHeight());
+
+	//shield
 
 
-
+	Player::MakeRect();
 
 
 	return S_OK;
@@ -72,10 +70,90 @@ void Olaf::update()
 void Olaf::render()
 {
 	_playerInfo._image->frameRender(getMemDC(), _playerInfo._rc.left, _playerInfo._rc.top);
+	Player::render();
+
 }
 
 void Olaf::KeyControl()
 {
+
+
+	if (KEYMANAGER->isStayKeyDown('A'))
+	{
+		//_Ostate = ;
+	}
+
+
+
+
+
+
+	switch (_Ostate)
+	{
+	case O_front_idle1:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_front_idle1");
+		break;
+	case O_front_idle2:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_front_idle2");
+		break;
+	case O_front_idle3:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_front_idle3");
+		break;
+	case O_top_idle1:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_top_idle1");
+		break;
+	case O_top_idle2:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_top_idle2");
+		break;
+	case O_attcked1:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_attcked1");
+		break;
+	case O_die:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_die");
+		break;
+	case O_die_divide:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_die_divide");
+		break;
+	case O_die_electric:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_die_electric");
+		break;
+	case O_die_fall:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_die_fall");
+		break;
+	case O_drop:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_drop");
+		break;
+	case O_drop_after:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_drop_after");
+		break;
+	case O_fly1:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_fly1");
+		break;
+	case O_fly2:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_fly2");
+		break;
+	case O_front_run:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_front_run");
+		break;
+	case O_jump:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_jump");
+		break;
+	case O_push:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_push");
+		break;
+	case O_top_run:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_top_run");
+		break;
+	case O_up:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_up");
+		break;
+	case O_up_end:
+		_playerInfo._image = IMAGEMANAGER->findImage("O_up_end");
+		break;
+	}
+
+
+
 
 
 

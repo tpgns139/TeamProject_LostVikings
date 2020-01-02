@@ -218,7 +218,6 @@ void Baleog::Frame()
 
 		}
 	}
-	cout << _playerInfo._CurrentFrameX << "," << _playerInfo._image->getMaxFrameX() << endl;
 }
 
 

@@ -36,7 +36,7 @@ private:
 	OLAFSTATE _Ostate;
 
 	RECT shield;
-	bool shieldPosision;
+	bool shieldPosision; //true일때 top //false일때 정면
 	
 
 

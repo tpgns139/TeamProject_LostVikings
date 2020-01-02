@@ -31,11 +31,12 @@ private:
 
 	int headingCount;
 	int stunCount;
-
+	int jumpCount;
 	float PlusSpeed;
-	float jumpPower; //점프력
+	
 	bool isJump;	//점프중이니
 	bool isAtk;	    //공격이니?
+
 
 public:
 	Erik();
@@ -45,6 +46,7 @@ public:
 	void render();
 	void KeyControl();
 	void Frame(int FrameX);
+	void stateImage();
 	
 	
 };
