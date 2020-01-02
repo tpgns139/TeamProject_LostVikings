@@ -11,6 +11,14 @@ SecurityRobot::~SecurityRobot()
 {
 }
 
+HRESULT SecurityRobot::init(const char * imagename, POINT position, int num)
+{
+
+	Enemy::init(imagename, position, num);
+	_enemy.speed = 3;
+	return S_OK;
+}
+
 void SecurityRobot::update()
 {
 	Enemy::update();
