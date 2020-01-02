@@ -38,10 +38,6 @@ void itemManager::update()
 		(*_viItem)->update();
 	}
 
-
-
-
-
 	collision();
 }
 
@@ -78,14 +74,17 @@ void itemManager::setItem()
 
 void itemManager::collision()
 {
-	/*for (int i = 0; i < _vItem.size(); i++)
+	for (int i = 0; i < _vItem.size(); i++)
 	{
-		RECT temp;
-		if (IntersectRect(&temp, &_vItem[i]->getRect(), &))
+		for (int j = 0; j < _pm->get_vPlayer().size(); j++)
 		{
-			removeItem(i);
+			RECT temp;
+			if (IntersectRect(&temp, &_vItem[i]->getRect(), &_pm->get_vPlayer()[j]->getRect()))
+			{
+				removeItem(i);
+			}	
 		}
-	}*/
+	}
 }
 
 void itemManager::removeItem(int arrNum)

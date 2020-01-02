@@ -1,6 +1,8 @@
 #pragma once
 #include"Player.h"
+
 #define SIZE 15
+
 
 enum OLAFSTATE
 {
@@ -36,12 +38,19 @@ private:
 
 	OLAFSTATE _Ostate;
 
+
 	RECT shieldUp;	//방패
 	RECT shieldFront;	//방패
 	bool shieldPosision; //true일때 top //false일때 front
 	
 	int shieldX; //방패x좌표값
 	
+
+
+	RECT shield;
+	bool shieldPosision; //true일때 top //false일때 정면
+	
+
 
 public:
 	Olaf();
@@ -52,9 +61,5 @@ public:
 	void KeyControl();
 	void Frame(int FrameX);
 	void shiedMake();
-
-	
-
-
 };
 

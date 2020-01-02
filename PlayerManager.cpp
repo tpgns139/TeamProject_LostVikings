@@ -30,7 +30,9 @@ HRESULT PlayerManager::init()
 	_vPlayer.push_back(_Olaf);
 	PlayerNumber = 0;
 
+
 	PlayerNumber = 2; //일단 올라프테스트하기위에 넣음 나중에지워야함
+
 
 	_nowPlayer = _vPlayer[PlayerNumber];
 
@@ -50,13 +52,14 @@ void PlayerManager::update()
 			PlayerNumber = 0;
 		}
 		_nowPlayer = _vPlayer[PlayerNumber];
+
+		CAMERA->moveTo(_nowPlayer->getPlayerPos().x+CAMERA->getCameraXpos(),
+			_nowPlayer->getPlayerPos().y+CAMERA->getCameraYpos(),
+			2.0f);
 	}
 	
 
-	_nowPlayer->update();
-	
-
-	
+	_nowPlayer->update();	
 }
 
 void PlayerManager::render()

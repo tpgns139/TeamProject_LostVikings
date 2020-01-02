@@ -32,17 +32,25 @@ HRESULT GameScene::init()
 	*/
 	IMAGEMANAGER->addImage("에너미불릿", "에너미불릿.bmp", 43, 19, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("배경", "Map.bmp", 4000, 1984, true, RGB(255, 0, 255));
+
 	_im = new itemManager;
 	_im->init();
 
-	_pm = new PlayerManager;
-	_pm->init();
-
-	_em = new EnemyManager;
-	_em->init();
-	_im->setPlayerMemoryAdrressLink(_pm);
 	_mm = new MapManager;
 	_mm->init();
+
+	_pm = new PlayerManager;
+	_pm->setAddressMapManager(_mm);
+	_pm->init();
+
+	_im->setPlayerMemoryAdrressLink(_pm);
+
+
+	_em = new EnemyManager;
+	_em->setMemoryAddressLink(_mm);
+	_em->init();
+	
+	
 
 	_ui = new uiManager;
 	_ui->init();
@@ -63,15 +71,12 @@ void GameScene::update()
 
 	_mm->update();
 	_em->update();
-
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-	{
-		cout << CAMERA->getCameraXpos() + _ptMouse.x << "," << CAMERA->getCameraYpos() + _ptMouse.y << endl;
-	}
+	_ui->update();
 }
 
 void GameScene::render()
 {
+
 	/*
 	IMAGEMANAGER->findImage("character")->frameRender(getMemDC(), 1800 - CAMERA->getCameraXpos(), 1090 - CAMERA->getCameraYpos(), 0, 0);
 	IMAGEMANAGER->findImage("ericIdle")->frameRender(getMemDC(), 1800 - CAMERA->getCameraXpos(), 1090 - CAMERA->getCameraYpos(), 0, 0);
@@ -110,10 +115,14 @@ void GameScene::render()
 	IMAGEMANAGER->findImage("RedTile")->frameRender(getMemDC(), 2624 - CAMERA->getCameraXpos(), 1040 - CAMERA->getCameraYpos(), currentX, 0);
 	*/
 	
+
+
 	IMAGEMANAGER->findImage("배경")->render(getMemDC(), 0, 0, CAMERA->getCameraXpos(), CAMERA->getCameraYpos(), WINSIZEX, WINSIZEY);
 	_mm->render();
-	_im->render();
 	_pm->render();
+
+	_im->render();
+	_mm->zOrderRender();
 	_em->render();
 	_ui->render();
 }
