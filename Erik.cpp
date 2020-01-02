@@ -172,18 +172,27 @@ void Erik::KeyControl()
 
 	if (KEYMANAGER->isStayKeyDown('A'))
 	{
+
 		headingCount++;
 		_Direction = LEFT;
 		_playerInfo._image->setFrameY(2);
 
 		if ((_state != E_atk)&&(_state!=E_jump)) _state = E_run;
 		_playerInfo.position.x -= _playerInfo.speed;
+<<<<<<< HEAD
 	
 		if (KEYMANAGER->isOnceKeyDown('F'))
 		{
 			_state = E_atk;
 		}
+=======
+>>>>>>> origin/sunghyun
 	}
+	if (KEYMANAGER->isOnceKeyDown('F'))
+	{
+		_state = E_atk;
+	}
+	
 	if (KEYMANAGER->isOnceKeyUp('A'))
 	{
 		_Direction = LEFT;
@@ -222,22 +231,16 @@ void Erik::KeyControl()
 	if(KEYMANAGER->isOnceKeyDown(VK_SPACE)&&(jumpCount==0))
 	{
 		
-		_playerInfo._CurrentFrameX = 0;
 
-		jumpCount = 1;
-
-		if (_Direction == LEFT)_playerInfo._image->setFrameY(1);
-		if(_Direction == RIGHT) _playerInfo._image->setFrameY(0);
-
+		_Direction = LEFT;
+		jumpCount++;
 		_state = E_jump;
-		
 		isJump = true;
 		_playerInfo.jumpPower = 5.0f;
 		_playerInfo.gravity = 0.05f;
 
 	}
 
-	cout << jumpCount << endl;
 
 	stateImage();
 	
@@ -249,13 +252,13 @@ void Erik::KeyControl()
 		if (_playerInfo.jumpPower <= 0)
 		{
 			isJump = false;
+			_state = E_idle1;
 		}
 	}
-
-
-		
-	
-
+	if (!isJump)
+	{
+		jumpCount = 0;
+	}
 }
 
 void Erik::Frame(int FrameX)

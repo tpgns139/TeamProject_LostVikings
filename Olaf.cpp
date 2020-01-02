@@ -87,17 +87,6 @@ void Olaf::update()
 
 	shiedMake();
 
-	//RECT temp;
-	/*if(IntersectRect(&temp,&_playerInfo._rc ,&shieldUp))
-	{
-		_playerInfo._rc.bottom = shieldUp.top;
-			_playerInfo.isDrop = false;
-	}
-	else
-	{
-		_playerInfo.isDrop = true;
-	}*/
-
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
 
@@ -122,9 +111,6 @@ void Olaf::render()
 
 void Olaf::KeyControl()
 {
-
-	//방패버그있음;
-
 	//왼쪽//
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{

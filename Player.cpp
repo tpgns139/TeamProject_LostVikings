@@ -62,9 +62,33 @@ void Player::update()
 
 	collsion();
 
+	for (int i = 0;i < _MapManager->getWall().size();i++)
+	{
+		RECT temp;
+		if(IntersectRect(&temp, &_playerInfo._underRc, &_MapManager->getWall()[i]->getRect()))
+		{
+			_playerInfo._underRc.bottom = _MapManager->getWall()[i]->getRect().top;
+			_playerInfo.isDrop = false;
+			break;
+		}
+		else
+		{
+			_playerInfo.isDrop = true;
+		}
+	
+	}
+	for (int i = 0; i < _MapManager->getWall().size(); i++)
+	{
+		
+		RECT temp2;
+		if (IntersectRect(&temp2, &_playerInfo._leftRc, &_MapManager->getWall()[i]->getRect()))
+		{
+			_playerInfo._leftRc.left = _MapManager->getWall()[i]->getRect().right;
+			
+		}
 
-	
-	
+	}
+	//KeyControl();
 }
 
 void Player::render()
