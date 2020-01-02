@@ -49,7 +49,8 @@ HRESULT GameScene::init()
 	_em = new EnemyManager;
 	_em->setMemoryAddressLink(_mm);
 	_em->init();
-
+	
+	
 
 	_ui = new uiManager;
 	_ui->init();
@@ -75,7 +76,6 @@ void GameScene::update()
 
 void GameScene::render()
 {
-
 	IMAGEMANAGER->findImage("¹è°æ")->render(getMemDC(), 0, 0, CAMERA->getCameraXpos(), CAMERA->getCameraYpos(), WINSIZEX, WINSIZEY);
 	_mm->render();
 	_pm->render();

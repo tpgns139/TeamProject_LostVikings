@@ -10,6 +10,7 @@
 #include <vector>
 
 class PlayerManager;
+
 class itemManager :public gameNode
 {
 private:

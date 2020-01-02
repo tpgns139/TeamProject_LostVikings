@@ -14,15 +14,15 @@ uiManager::~uiManager()
 HRESULT uiManager::init()
 {
 	 
-	IMAGEMANAGER->addImage("에릭활성", "에릭활성.bmp", 82, 65, true, RGB(255, 0, 255));
+	Erik = IMAGEMANAGER->addImage("에릭활성", "에릭활성.bmp", 82, 65, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("에릭죽음", "에릭죽음.bmp", 82, 65, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("에릭흑백", "에릭흑백.bmp", 82, 65, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addImage("벨로그흑백", "벨로그흑백.bmp", 82, 65, true, RGB(255, 0, 255));
+	Baleog = IMAGEMANAGER->addImage("벨로그흑백", "벨로그흑백.bmp", 82, 65, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("벨로그죽음", "벨로그죽음.bmp", 82, 65, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("벨로그활성", "벨로그활성.bmp", 82, 65, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addImage("울라프흑백", "울라프흑백.bmp", 82, 65, false, RGB(0, 0, 0));
+	Olaf = IMAGEMANAGER->addImage("울라프흑백", "울라프흑백.bmp", 82, 65, false, RGB(0, 0, 0));
 	IMAGEMANAGER->addImage("울라프활성", "울라프활성.bmp", 82, 65, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("울라프죽음", "울라프죽음.bmp", 82, 65, true, RGB(255, 0, 255));
 
@@ -38,6 +38,10 @@ HRESULT uiManager::init()
 	_selectUi1 = IMAGEMANAGER->findImage("선택UI");
 	_selectUi2 = IMAGEMANAGER->findImage("선택UI");
 
+
+	_Erik1 = E_ON;
+	_Baleog2 = B_OFF;
+	_Olaf3 = O_OFF;
 
 	setUi();
 
@@ -57,22 +61,50 @@ void uiManager::update()
 	{
 		(*_viUi)->update();
 	}
+
+	if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
+	{
+		if (_Erik1 == E_ON && _Baleog2 == B_OFF && _Olaf3 == O_OFF)
+		{
+			_Erik1 = E_OFF;
+			_Baleog2 = B_ON;
+			_Olaf3 = O_OFF;
+		}
+		if (_Erik1 == E_OFF && _Baleog2 == B_ON && _Olaf3 == O_OFF)
+		{
+			_Erik1 = E_OFF;
+			_Baleog2 = B_OFF;
+			_Olaf3 = O_ON;
+		}
+		if (_Erik1 == E_OFF && _Baleog2 == B_OFF && _Olaf3 == O_ON)
+		{
+			_Erik1 = E_ON;
+			_Baleog2 = B_OFF;
+			_Olaf3 = O_OFF;
+		}
+	}
+
 }
 
 void uiManager::render()
 {
 	_ui->render(getMemDC(), 0, WINSIZEY);
+	
 
 	for (_viUi = _vUi.begin(); _viUi != _vUi.end(); ++_viUi)
 	{
 		(*_viUi)->render();
 	}
+
+	Erik->render(getMemDC(), 117, 641);
+	Baleog->render(getMemDC(), 296, 641);
+	Olaf->render(getMemDC(), 475, 641);
 	
 }
 
 void uiManager::setUi()
 {
-	ui* ui1;
+	/*ui* ui1;
 	ui1 = new EricUi;
 	ui1->init("에릭활성", PointMake(117, 641));
 	_vUi.push_back(ui1);
@@ -86,7 +118,7 @@ void uiManager::setUi()
 	ui* ui3;
 	ui3 = new OlafUi;
 	ui3->init("울라프흑백", PointMake(475, 641));
-	_vUi.push_back(ui3);
+	_vUi.push_back(ui3);*/
 
 
 	for (int i = 0; i < 3; i++)
