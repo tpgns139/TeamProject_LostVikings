@@ -49,7 +49,7 @@ HRESULT Baleog::init(PlayerName playerName)
 void Baleog::update()
 {
 	Frame();
-	//Keycontrol();
+	//KeyControl();
 	Player::update();
 	Player::move();
 	//벨로그 렉트 업데이트
@@ -73,13 +73,15 @@ void Baleog::render()
 	Player::render();	//벨로그 사다리충돌 렉트
 }
 
-void Baleog::Keycontrol()
+void Baleog::KeyControl()
 {
 	if (KEYMANAGER->isStayKeyDown('A'))
 	{
 		_Direction = LEFT;
 		_playerInfo._CurrentFrameY = 1;												//벨로그 왼쪽이동
 		_BaleogState = BALEOG_LEFTMOVE;
+		_playerInfo.position.x -= _playerInfo.speed;
+
 	}
 	if (KEYMANAGER->isOnceKeyUp('A'))
 	{
@@ -88,6 +90,8 @@ void Baleog::Keycontrol()
 		_playerInfo._CurrentFrameX = 0;
 		_playerInfo._CurrentFrameY = 1;
 		_BaleogState = BALEOG_LEFTIDLE;
+		_playerInfo.position.x -= _playerInfo.speed;
+
 
 	}
 	if (KEYMANAGER->isStayKeyDown('D'))
@@ -95,8 +99,11 @@ void Baleog::Keycontrol()
 		_Direction = RIGHT;															//벨로그 오른쪽이동
 		_playerInfo._CurrentFrameY = 0;
 		_BaleogState = BALEOG_RIGHTMOVE;
+		_playerInfo.position.x += _playerInfo.speed;
+
 		RECT temp;
 		//if(IntersectRect(&temp, &_playerInfo._rc, ))
+
 	}
 	if (KEYMANAGER->isOnceKeyUp('D'))
 	{
@@ -104,6 +111,8 @@ void Baleog::Keycontrol()
 		_playerInfo._CurrentFrameX = 0;												//벨로그 오른쪽 눌렀다 떼었을때
 		_playerInfo._CurrentFrameY = 0;
 		_BaleogState = BALEOG_RIGHTIDLE;
+		_playerInfo.position.x += _playerInfo.speed;
+
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
