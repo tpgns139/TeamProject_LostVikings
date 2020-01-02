@@ -60,23 +60,10 @@ void Player::update()
 
 
 
-	for (int i = 0;i < _MapManager->getWall().size();i++)
-	{
-		RECT temp;
-		if(IntersectRect(&temp, &_playerInfo._underRc, &_MapManager->getWall()[i]->getRect()))
-		{
-			_playerInfo._underRc.bottom = _MapManager->getWall()[i]->getRect().top;
-			_playerInfo.isDrop = false;
-			break;
-		}
-		else
-		{
-			_playerInfo.isDrop = true;
-		}
-	}
+	collsion();
 
 
-	//KeyControl();
+	
 	
 }
 
@@ -110,7 +97,21 @@ void Player::KeyControl()
 
 void Player::collsion()
 {
+	for (int i = 0;i < _MapManager->getWall().size();i++)
+	{
+		RECT temp;
+		if (IntersectRect(&temp, &_playerInfo._underRc, &_MapManager->getWall()[i]->getRect()))
+		{
+			_playerInfo._underRc.bottom = _MapManager->getWall()[i]->getRect().top;
+			_playerInfo.isDrop = false;
 
+			break;
+		}
+		else
+		{
+			_playerInfo.isDrop = true;
+		}
+	}
 }
 
 void Player::move()

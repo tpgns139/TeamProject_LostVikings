@@ -53,9 +53,9 @@ public:
 	virtual void render();
 	void KeyControl();
 	void Frame(int FrameX);
-
+	void _dis();
 	void shiedMake();
-
+	
 	RECT getShildUp() {return shieldUp;}
 	RECT getShildFront() { return shieldFront; }
 
