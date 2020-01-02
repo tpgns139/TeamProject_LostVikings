@@ -93,10 +93,12 @@ void PlayerManager::playerBulletFire()
 {
 	for (int i = 0; i < _vPlayer.size(); i++)
 	{
-		
-		RECT rc = _vPlayer[i]->getRect();
+		if (_vPlayer[i]->getPlayerInfo()->_playerName == PN_BALEOG)
+		{
+			RECT rc = _vPlayer[i]->getRect();
 
-		_Pbullet->bulletFire(rc.left,
-			(rc.top+rc.bottom)/2+50 , 5.0f);
+			_Pbullet->bulletFire(rc.left,
+				(rc.top + rc.bottom) / 2 + 50, 5.0f);
+		}
 	}
 }
