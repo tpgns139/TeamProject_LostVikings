@@ -34,8 +34,7 @@ HRESULT PlayerManager::init()
 	PlayerNumber = 2; //일단 올라프테스트하기위에 넣음 나중에지워야함
 
 	_nowPlayer = _vPlayer[PlayerNumber];
-
-	
+	CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
 	 //에릭->벨로그->올라프
 
 	return S_OK;
@@ -43,21 +42,26 @@ HRESULT PlayerManager::init()
 
 void PlayerManager::update()
 {
-	
-		if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
-		{
-			PlayerNumber++;
-			if (PlayerNumber >= _vPlayer.size())
-			{
-				PlayerNumber = 0;
-			}
-			_nowPlayer = _vPlayer[PlayerNumber];
 
-			CAMERA->moveTo(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y, 0.5f);
+	if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
+	{
+		PlayerNumber++;
+		if (PlayerNumber >= _vPlayer.size())
+		{
+			PlayerNumber = 0;
 		}
-	
-			_nowPlayer->KeyControl();
-	
+		_nowPlayer = _vPlayer[PlayerNumber];
+
+		CAMERA->moveTo(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y, 0.5f);
+	}
+
+
+	if (!CAMERA->isMoving()) 
+	{
+		_nowPlayer->KeyControl();
+		CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
+	}
+
 
 	
 
