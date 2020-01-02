@@ -11,14 +11,16 @@ SecurityRobot::~SecurityRobot()
 {
 }
 
-HRESULT SecurityRobot::init(const char * imagename, POINT position, int num)
+HRESULT SecurityRobot::init(const char * imagename, POINT position, int num,float speed)
 {
 	IMAGEMANAGER->addFrameImage("SecurityRobotMove1", "경비로봇이동.bmp", 420, 132, 6, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("SecurityRobotAtk1", "경비로봇공격.bmp", 210, 135, 3, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("SecurityRobotMove2", "경비로봇이동.bmp", 420, 132, 6, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("SecurityRobotAtk2", "경비로봇공격.bmp", 210, 135, 3, 2, true, RGB(255, 0, 255));
-	Enemy::init(imagename, position, num);
-	_enemy.speed = -3;
+	IMAGEMANAGER->addFrameImage("SecurityRobotMove3", "경비로봇이동.bmp", 420, 132, 6, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("SecurityRobotAtk3", "경비로봇공격.bmp", 210, 135, 3, 2, true, RGB(255, 0, 255));
+	Enemy::init(imagename, position, num, speed);
+	_enemy.speed = speed;
 	return S_OK;
 }
 
@@ -55,4 +57,9 @@ void SecurityRobot::update()
 
 	
 	
+}
+
+bool SecurityRobot::bulletCountFire()
+{
+	return false;
 }

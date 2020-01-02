@@ -10,6 +10,6 @@ public:
 
 	
 	void update();
-
+	virtual bool bulletCountFire();
 };
 
