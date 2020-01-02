@@ -40,7 +40,7 @@ HRESULT Baleog::init(PlayerName playerName)
 	_playerInfo._CurrentFrameX = _playerInfo._CurrentFrameY = 0;		//벨로그 프레임 x,y 초기화
 	_playerInfo._playerName = playerName;		//캐릭터 이미지 설정
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
-	_playerInfo.speed = 1.0f;
+	_playerInfo.speed = 2.0f;
 	_playerInfo.gravity = 0;
 	Player::MakeRect();
 
@@ -61,15 +61,15 @@ void Baleog::update()
 void Baleog::render()
 {
 
-	_playerInfo._image->frameRender(getMemDC(),
-		_playerInfo.position.x - CAMERA->getCameraXpos(), 
-		_playerInfo.position.y - CAMERA->getCameraYpos(), 
-		_playerInfo._CurrentFrameX, _playerInfo._CurrentFrameY);
 
 	if (KEYMANAGER->isToggleKey('1'))
 	{
 		RectangleMake(getMemDC(), _playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 	}
+	_playerInfo._image->frameRender(getMemDC(),
+		_playerInfo.position.x - CAMERA->getCameraXpos(), 
+		_playerInfo.position.y - CAMERA->getCameraYpos(), 
+		_playerInfo._CurrentFrameX, _playerInfo._CurrentFrameY);
 	Player::render();	//벨로그 사다리충돌 렉트
 }
 
@@ -220,7 +220,7 @@ void Baleog::KeyControl()
 void Baleog::Frame()
 {
 	_playerInfo.count++;
-	if (_playerInfo.count % 20 == 0)
+	if (_playerInfo.count % 10 == 0)
 	{
 		if (_Direction == RIGHT)
 		{
