@@ -16,19 +16,17 @@ enum BALEOGSTATE
 
 };
 
-class Baleog:public Player
+class Baleog :public Player
 {
 private:
 	BALEOGSTATE _BaleogState;
-	Direction _Direction;
-	RECT rc;
 public:
 	Baleog();
 	~Baleog();
 	virtual HRESULT init(PlayerName playerName);
 	virtual void update();
 	virtual void render();
-
+	void clickedFbutton();
 	void KeyControl();
 	void Frame();
 };

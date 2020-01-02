@@ -140,8 +140,7 @@ void Olaf::KeyControl()
 
 	}
 
-	cout<<"Y값"<<_playerInfo._image->getFrameY() << endl;
-	cout <<"방향 "<< _Direction << endl;
+
 
 	//오른쪽
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
