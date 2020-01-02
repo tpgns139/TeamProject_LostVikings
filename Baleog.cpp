@@ -35,7 +35,7 @@ HRESULT Baleog::init(PlayerName playerName)
 	IMAGEMANAGER->addFrameImage("B_up_end", "image/baleogImage/up_end.bmp", 200, 100, 2, 1, true, RGB(255, 0, 255));
 	_playerInfo._image = IMAGEMANAGER->findImage("B_idle1");
 	_playerInfo.position.x = WINSIZEX / 2;		//벨로그 x좌표
-	_playerInfo.position.y = WINSIZEY / 2;		//벨로그 y좌표
+	_playerInfo.position.y = WINSIZEY / 2-100;		//벨로그 y좌표
 	_playerInfo.count = 0;						//벨로그 프레임 카운트0;
 	_playerInfo._CurrentFrameX = _playerInfo._CurrentFrameY = 0;		//벨로그 프레임 x,y 초기화
 	_playerInfo._playerName = playerName;		//캐릭터 이미지 설정
@@ -52,19 +52,22 @@ void Baleog::update()
 	Keycontrol();
 	Player::update();
 	//벨로그 렉트 업데이트
-	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x-CAMERA->getCameraXpos(), _playerInfo.position.y-CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
+	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
 	//rc = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2 + 50, 100, 100);
 }
 
 void Baleog::render()
 {
-	_playerInfo._image->frameRender(getMemDC(), _playerInfo._rc.left,_playerInfo._rc.top,_playerInfo._CurrentFrameX,_playerInfo._CurrentFrameY); 
 
+	_playerInfo._image->frameRender(getMemDC(),
+		_playerInfo.position.x - CAMERA->getCameraXpos(), 
+		_playerInfo.position.y - CAMERA->getCameraYpos(), 
+		_playerInfo._CurrentFrameX, _playerInfo._CurrentFrameY);
 
 	if (KEYMANAGER->isToggleKey('1'))
 	{
-		Rectangle(getMemDC(), _playerInfo._rc);		//벨로그렉트 생성 토글키로 확인
+		RectangleMake(getMemDC(), _playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 	}
 	Player::render();	//벨로그 사다리충돌 렉트
 }

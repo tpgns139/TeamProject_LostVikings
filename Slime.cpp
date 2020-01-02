@@ -87,7 +87,6 @@ void Slime::update()
 			_enemy.x += _enemy.speed;
 		}
 	}
-	cout << "_currentFrameX:" << _currentFrameX << endl;
 
 	
 }
