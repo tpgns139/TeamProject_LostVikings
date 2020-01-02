@@ -1,6 +1,7 @@
 #pragma once
 #include"Player.h"
 
+
 enum ERIKSTATE
 {
 	E_idle1,
@@ -27,7 +28,7 @@ class Erik: public Player
 private:
 
 	ERIKSTATE _state;
-
+	MapManager* _mm;
 
 	int headingCount;
 	int stunCount;
@@ -49,6 +50,8 @@ public:
 	void Frame(int FrameX);
 	void stateImage();
 	
+	int getJC() { return jumpCount; }
+	int setJC(int x) { jumpCount = x; }
 	
 };
 
