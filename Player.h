@@ -65,4 +65,5 @@ public:
 	void move();				//공통으로 움직일 함수;
 
 	void setLink(MapManager* MapManager) { _MapManager = MapManager; }
+	
 };

@@ -108,6 +108,7 @@ void Olaf::update()
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
 	
+	
 }
 
 void Olaf::render()

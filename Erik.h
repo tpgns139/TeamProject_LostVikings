@@ -45,7 +45,7 @@ public:
 	void render();
 	void KeyControl();
 	void Frame(int FrameX);
-	
+
 	
 };
 

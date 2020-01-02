@@ -1,8 +1,6 @@
 #pragma once
 #include"Player.h"
 #define SIZE 15
-#include "Erik.h"
-//#include ".h"
 
 enum OLAFSTATE
 {
@@ -43,6 +41,7 @@ private:
 	int shieldX; //방패x좌표값
 	
 
+
 public:
 	Olaf();
 	~Olaf();
@@ -53,8 +52,6 @@ public:
 	void Frame(int FrameX);
 	void shiedMake();
 
-	RECT getShildUp() {return shieldUp;}
-	RECT getShildFront() { return shieldFront; }
 	
 
 
