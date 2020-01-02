@@ -68,9 +68,9 @@ void Player::update()
 	for (int i = 0;i < _MapManager->getWall().size();i++)
 	{
 		RECT temp;
-		if(IntersectRect(&temp, &_playerInfo._rc, &_MapManager->getWall()[i]->getRect()))
+		if(IntersectRect(&temp, &_playerInfo._underRc, &_MapManager->getWall()[i]->getRect()))
 		{
-			_playerInfo._rc.bottom = _MapManager->getWall()[i]->getRect().top;
+			_playerInfo._underRc.bottom = _MapManager->getWall()[i]->getRect().top;
 			_playerInfo.isDrop = false;
 			break;
 		}
@@ -82,7 +82,7 @@ void Player::update()
 
 
 	//KeyControl();
-	move();
+	
 }
 
 void Player::render()
@@ -101,14 +101,14 @@ void Player::KeyControl()
 
 void Player::move()
 {
-	if (KEYMANAGER->isStayKeyDown('A'))
+	/*if (KEYMANAGER->isStayKeyDown('A'))
 	{
 		_Direction = LEFT;
 		_playerInfo.position.x -= _playerInfo.speed;
 	}
 	if (KEYMANAGER->isOnceKeyUp('A'))
 	{
-	_Direction = LEFT;
+		_Direction = LEFT;
 		_playerInfo.position.x -= _playerInfo.speed;
 	}
 
@@ -121,7 +121,7 @@ void Player::move()
 	{
 		_Direction = RIGHT;
 		_playerInfo.position.x -= _playerInfo.speed;
-	}
+	}*/
 }
 
 void Player::collsion()
