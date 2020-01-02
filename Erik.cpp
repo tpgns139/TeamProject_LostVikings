@@ -54,8 +54,9 @@ HRESULT Erik::init(PlayerName playerName)
 	
 
 	_playerInfo._image = IMAGEMANAGER->findImage("E_run");
-	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y,
-		_playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
+	
+	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
+
 
 	//test = RectMake(WINSIZEX / 2, WINSIZEY / 2-50, 100, 100);
 	//test2 = RectMakeCenter(WINSIZEX / 2-300, WINSIZEY / 2 - 50, 100, 300); //사다리용
@@ -66,11 +67,7 @@ HRESULT Erik::init(PlayerName playerName)
 
 void Erik::update()
 {
-	//_playerInfo.isDrop = true;
-	//test = RectMake(WINSIZEX / 2 + 300, WINSIZEY / 2 - 50, 100, 100);
-	//test2 = RectMakeCenter(WINSIZEX / 2 - 300, WINSIZEY / 2 - 50, 100, 300); //사다리용
 	
-
 	if((_state != E_up)&&(_state != E_attack_after))
 	{
 		Frame(20);
@@ -81,8 +78,8 @@ void Erik::update()
 	if(_state != E_attack_after)
 	{
 		KeyControl();
-	Player::update();
 	}
+	Player::update();
 
 	if (_state == E_attack_after)
 	{
@@ -98,6 +95,7 @@ void Erik::update()
 			}
 		}
 	}
+	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
 	
 
@@ -107,7 +105,7 @@ void Erik::render()
 {
 	if (KEYMANAGER->isToggleKey('1'))
 	{
-	RectangleMake(getMemDC(), _playerInfo._rc.left, _playerInfo._rc.top, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
+	RectangleMake(getMemDC(), _playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 	}
 	//Rectangle(getMemDC(), test);
 	//Rectangle(getMemDC(), test2);
@@ -115,8 +113,8 @@ void Erik::render()
 	sprintf_s(str, "%d", headingCount);
 	TextOut(getMemDC(), WINSIZEX / 2, 100, str, strlen(str));
 
-	_playerInfo._image->frameRender(getMemDC(), _playerInfo._rc.left, _playerInfo._rc.top, _playerInfo._CurrentFrameX, _playerInfo._image->getFrameY());
-
+	_playerInfo._image->frameRender(getMemDC(), _playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._CurrentFrameX, _playerInfo._CurrentFrameY);
+	Player::render();
 }
 
 void Erik::KeyControl()
