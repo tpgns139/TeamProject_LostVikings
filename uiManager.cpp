@@ -60,13 +60,13 @@ void uiManager::update()
 
 void uiManager::render()
 {
-	/*_ui->render(getMemDC(), 0, WINSIZEY);
-	_Eric->render(getMemDC(),117,WINSIZEY +41);
+	_ui->render(getMemDC(), 0, WINSIZEY);
+	/*_Eric->render(getMemDC(),117,WINSIZEY +41);
 	_Baleog->render(getMemDC(), 296, WINSIZEY+41);
 	_Olaf->render(getMemDC(), 475, WINSIZEY + 41);
 	_selectUi->render(getMemDC(), 198, WINSIZEY+39);
 	_playerHp->render(getMemDC(), 121, WINSIZEY +106);
-	_playerHp->render(getMemDC(), 141, WINSIZEY + 106);*/
+	_playerHp->render(getMemDC(), 141, WINSIZEY + 106);
 	_playerHp->render(getMemDC(), 161, WINSIZEY + 106);
 	for (_viUi = _vUi.begin(); _viUi != _vUi.end(); ++_viUi)
 	{

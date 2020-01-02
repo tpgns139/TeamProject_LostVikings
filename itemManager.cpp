@@ -38,10 +38,6 @@ void itemManager::update()
 		(*_viItem)->update();
 	}
 
-
-
-
-
 	collision();
 }
 
@@ -85,9 +81,6 @@ void itemManager::collision()
 			RECT temp;
 			if (IntersectRect(&temp, &_vItem[i]->getRect(), &_pm->get_vPlayer()[j]->getRect()))
 			{
-				//_vItem[i]->init("Fruit", PointMake(100,WINSIZEY- 300));
-				
-
 				removeItem(i);
 			}	
 		}
