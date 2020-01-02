@@ -159,60 +159,18 @@ void Erik::KeyControl()
 		_state = E_idle1;
 		_playerInfo._CurrentFrameX = 0;
 	}
-		////벽충돌
-		//RECT temp;
-		//if ((_state != E_atk))// && (IntersectRect(&temp, &_playerInfo._rc, &test)))
-		//{
-		//	_state = E_push;
-		//	headingCount = 0;
-		//	//_playerInfo.position.x -= _playerInfo.speed;
-		//	
+		
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE)&&jumpCount<1)
+	{
+		jumpCount++;
+		_state = E_jump;
+		isJump = true;
+		_playerInfo.jumpPower = 3.0f;
+		_playerInfo.gravity = 0.05f;
 
-		//}
-		//if ((_state == E_atk))// && (IntersectRect(&temp, &_playerInfo._rc, &test)))
-		//{
-		//	headingCount = 0;
-
-		//	_state = E_attack_after;
-		//	_playerInfo._rc.left -= 100;
-		//	_playerInfo._rc.right -= 100;
-
-		//	_playerInfo.position.x -= 100;
-		//}
-		if (KEYMANAGER->isOnceKeyDown(VK_SPACE)&&jumpCount<1)
-		{
-			jumpCount++;
-			_state = E_jump;
-			isJump = true;
-			_playerInfo.jumpPower = 3.0f;
-			_playerInfo.gravity = 0.05f;
-
-		}
-		//사다리 충돌
-	//	RECT temp;
-		/*if (IntersectRect(&temp, &_playerInfo._rc, &test2))
-		{
-			headingCount = 0;
-			if (KEYMANAGER->isStayKeyDown('W'))
-			{
-				_state = E_up;
-				Frame(30);
-				_playerInfo.position.y -= 1;
-			}
-			if (KEYMANAGER->isStayKeyDown('S'))
-			{
-				_state = E_up;
-				Frame(30);
-				_playerInfo.position.y += 1;
-			}
-			if (KEYMANAGER->isStayKeyDown('D'))
-			{
-				_Direction = RIGHT;
-				_state = E_jump;
-			}
-		}*/
-		//상태정의 스위치문//
-		stateImage();
+	}
+	stateImage();
+	
 	//점프용//
 	if (isJump)
 	{
@@ -221,7 +179,7 @@ void Erik::KeyControl()
 		if (_playerInfo.jumpPower <= 0)
 		{
 			isJump = false;
-			_state = E_idle2;
+			_state = E_idle1;
 		}
 	}
 
