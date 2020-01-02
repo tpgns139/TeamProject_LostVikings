@@ -53,27 +53,43 @@ HRESULT GameScene::init()
 	_em->setMemoryAddressLink(_mm);
 	_em->init();
 	
-	
+	_selectUi = false;
 
 	_ui = new uiManager;
 	_ui->init();
+	_ui->setPlayerManager(_pm);
 	return S_OK;
 }
 
 void GameScene::update()
 {
-
-	CAMERA->update();
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	if (!_selectUi) 
 	{
-		cout << CAMERA->getCameraXpos() + _ptMouse.x << "," << CAMERA->getCameraYpos() + _ptMouse.y << endl;
+		CAMERA->update();
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+		{
+			cout << CAMERA->getCameraXpos() + _ptMouse.x << "," << CAMERA->getCameraYpos() + _ptMouse.y << endl;
+		}
+
+		_im->update();
+		_pm->update();
+
+		_mm->update();
+		_em->update();
+		_ui->setSelect(_selectUi);
+		if (KEYMANAGER->isOnceKeyDown(VK_TAB))
+		{
+			_selectUi = true;
+		}
 	}
-
-	_im->update();
-	_pm->update();
-
-	_mm->update();
-	_em->update();
+	else
+	{
+		_ui->setSelect(_selectUi);
+		if (KEYMANAGER->isOnceKeyDown(VK_TAB))
+		{
+			_selectUi = false;
+		}
+	}
 	_ui->update();
 }
 

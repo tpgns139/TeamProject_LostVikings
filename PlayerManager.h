@@ -30,5 +30,6 @@ public:
 	void setAddressEnemyManager(EnemyManager* em) { _em = em; }
 	vector<Player*> get_vPlayer() { return _vPlayer; }
 	void setAddressMapManager(MapManager* MapManager) { _MapManager = MapManager; }
+	Player* get_nPlayer() { return _nowPlayer; }
 };
 
