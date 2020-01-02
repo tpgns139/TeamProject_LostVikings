@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="소스 파일">
@@ -67,6 +67,18 @@
     <Filter Include="playGround\Player\Bullet">
       <UniqueIdentifier>{470db5c8-b1b1-465b-8b02-dbf48fc15795}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\EnemyManager">
+      <UniqueIdentifier>{893a3053-7486-4f6d-8065-5fd308840bfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\EnemyManager\Enemy">
+      <UniqueIdentifier>{b8cfe0e1-55a2-44d6-a483-39f50ef17f2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Bullets">
+      <UniqueIdentifier>{4f6df1c7-03db-4e01-a314-a6f26be0921b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\UI">
+      <UniqueIdentifier>{78a5fd22-2c21-40d3-99dd-5003d5c7f6ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -94,7 +106,7 @@
       <Filter>2DGameFramework\SingletonBase</Filter>
     </ClInclude>
     <ClInclude Include="randomFunction.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>?�더 ?�일</Filter>
     </ClInclude>
     <ClInclude Include="keyManager.h">
       <Filter>2DGameFramework\Manager</Filter>
@@ -183,8 +195,65 @@
     <ClInclude Include="Olaf.h">
       <Filter>playGround\Player</Filter>
     </ClInclude>
+    <ClInclude Include="ThornBush.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Elevator.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="BlueTile.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="RedTile.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="ElectricField.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityZone.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="ElectricFieldTwoType.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="SecurityRobot.h">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Tower.h">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>playGround\EnemyManager</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>playGround\EnemyManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Tower.h">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClInclude>
     <ClInclude Include="Erik.h">
       <Filter>playGround\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Ladder.h">
+      <Filter>playGround\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>playGround\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="uiManager.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ui.h">
+      <Filter>playGround\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -287,8 +356,65 @@
     <ClCompile Include="Olaf.cpp">
       <Filter>playGround\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="ThornBush.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Elevator.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="BlueTile.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="RedTile.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="ElectricField.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityZone.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="ElectricFieldTwoType.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="SecurityRobot.cpp">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Tower.cpp">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>playGround\EnemyManager</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>playGround\EnemyManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Tower.cpp">
+      <Filter>playGround\EnemyManager\Enemy</Filter>
+    </ClCompile>
     <ClCompile Include="Erik.cpp">
       <Filter>playGround\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Ladder.cpp">
+      <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>playGround\Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="uiManager.cpp">
+      <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ui.cpp">
+      <Filter>playGround\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

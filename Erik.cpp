@@ -116,7 +116,7 @@ void Erik::render()
 	TextOut(getMemDC(), WINSIZEX / 2, 100, str, strlen(str));
 
 	_playerInfo._image->frameRender(getMemDC(), _playerInfo._rc.left, _playerInfo._rc.top, _playerInfo._CurrentFrameX, _playerInfo._image->getFrameY());
-
+	Player::render();
 }
 
 void Erik::KeyControl()

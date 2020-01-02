@@ -1,120 +1,120 @@
 #include "stdafx.h"
-#include "enemyManager.h"
-#include "spaceShip.h"
 
-enemyManager::enemyManager()
+#include "EnemyManager.h"
+
+
+
+EnemyManager::EnemyManager()
 {
 }
 
 
-enemyManager::~enemyManager()
+EnemyManager::~EnemyManager()
 {
 }
 
-HRESULT enemyManager::init()
+HRESULT EnemyManager::init()
 {
-	_bullet = new bullet;
-	_bullet->init("총알", 30, WINSIZEY);
+	setEnemy(); //에너미를 세팅해주는 함수
+	_Ebullet = new Bullet;
+	_Ebullet->init("에너미불릿");
+	collisionTestRect = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2, 30, 30);
 
 	return S_OK;
 }
 
-void enemyManager::release()
+void EnemyManager::release()
 {
 }
 
-void enemyManager::update()
+void EnemyManager::update()
 {
-	for (_viMinion = _vMinion.begin(); _viMinion != _vMinion.end(); ++_viMinion)
+
+	for (_viEm = _vEm.begin(); _viEm != _vEm.end(); ++_viEm)
 	{
-		(*_viMinion)->update();
+		(*_viEm)->update();
 	}
-
-	_bullet->update();
-	minionBulletFire();
-
+	_Ebullet->update();
+	if (KEYMANAGER->isOnceKeyDown('X'))
+	{
+		enemyBulletFire();
+	}
 	collision();
 }
 
-void enemyManager::render()
+void EnemyManager::render()
 {
-	for (_viMinion = _vMinion.begin(); _viMinion != _vMinion.end(); ++_viMinion)
+	for (_viEm = _vEm.begin(); _viEm != _vEm.end(); ++_viEm)
 	{
-		(*_viMinion)->render();
+		(*_viEm)->render();
 	}
-
-	_bullet->render();
+	_Ebullet->render();
+	Rectangle(getMemDC(),collisionTestRect);
 }
 
-void enemyManager::setMinion()
+void EnemyManager::setEnemy()
 {
-	
-	for (int i = 0; i < 3; i++)
-	{
-		for (int j = 0; j < 6; j++)
-		{
-			enemy* ufo;
-			ufo = new minion;
-			ufo->init("enemy", PointMake(80 + j * 80, 80 + i * 100));
 
-			_vMinion.push_back(ufo);
+	//Enemy* Sl;
+	//Sl = new Slime;
+
+	//Sl->init("SlimeMove", PointMake(3560,1310));
+
+	//_vEm.push_back(Sl);
+	for (int i = 0; i < 2; i++)
+	{
+		Enemy* Sl;
+		Sl = new Slime;
+
+		Sl->init("SlimeMove", PointMake(1900+300*i, 1460));
+
+		_vEm.push_back(Sl);
+	}
+//
+////	collisionTestRect = RectMakeCenter(WINSIZEX / 2 + 200, WINSIZEY - 50, 20, 80);
+//
+//	Enemy* Sr;
+//	Sr = new SecurityRobot;
+//	Sr->init("SecurityRobotMove", PointMake(500,1375));
+//	_vEm.push_back(Sr);
+//
+//	for (int i = 0; i < 2; i++) 
+//	{
+//		Enemy* Sr;
+//		Sr = new SecurityRobot;
+//		Sr->init("SecurityRobotMove", PointMake(2200+900*i,375));
+//		_vEm.push_back(Sr);
+//	}
+//
+//	Enemy* To;
+//	To = new Tower;
+//	To->init("Tower", PointMake(3850,1760));
+//	_vEm.push_back(To);
+//	
+
+}
+
+void EnemyManager::enemyBulletFire()
+{
+	for (int i = 0; i < _vEm.size(); i++)
+	{
+		RECT rc = _vEm[i]->getEnemyRect();
+
+		_Ebullet->bulletFire(_vEm[i]->getX() + _vEm[i]->getEnemyInfo().img->getFrameWidth(), _vEm[i]->getY() + _vEm[i]->getEnemyInfo().img->getFrameHeight()/2, 2.0f);
+	}
+}
+
+void EnemyManager::collision()
+{
+	RECT temp;
+
+	for (int i = 0; i <_Ebullet->getVBullet().size();i++)
+	{
+		if (IntersectRect(&temp, &_Ebullet->getVBullet()[i].rc, &collisionTestRect))
+		{
+			_Ebullet->removeBullet(i);
 		}
 	}
 
 
-}
-
-void enemyManager::minionBulletFire()
-{
-	for (_viMinion = _vMinion.begin(); _viMinion != _vMinion.end(); ++_viMinion)
-	{
-		//미니언 벡터안에 담겨있는 미니언의 총알발사 신호가  true면
-		if ((*_viMinion)->bulletCountFire())
-		{
-			RECT rc = (*_viMinion)->getRect();
-
-			/*
-				_bullet->bulletFire(rc.left + (rc.right - rc.left) / 2,
-				rc.bottom + 5, -(PI / 2), 7.0f);
-			*/
-			_bullet->bulletFire(rc.left + (rc.right - rc.left) / 2,
-				rc.bottom + 5, 
-				getAngle((rc.left + rc.right) / 2,
-					(rc.top + rc.bottom) / 2, 
-					_ship->getShipImage()->getCenterX(),
-					_ship->getShipImage()->getCenterY()),
-				7.0f);
-
-		
-		}
-	}
-
-}
-
-void enemyManager::removeMinion(int arrNum)
-{
-	_vMinion.erase(_vMinion.begin() + arrNum);
-}
-
-void enemyManager::collision()
-{
-	for (int i = 0; i < _bullet->getVBullet().size(); i++)
-	{
-		RECT temp;
-		RECT rc = RectMakeCenter(_ship->getShipImage()->getCenterX(),
-			_ship->getShipImage()->getCenterY(),
-			_ship->getShipImage()->getWidth(),
-			_ship->getShipImage()->getHeight());
-
-		if (IntersectRect(&temp, &_bullet->getVBullet()[i].rc, &rc))
-		{
-			//우주선이 총알에 피격되었을때 체력을 닳게해줘랑
-			_ship->hitDamage(10);
-			_bullet->removeBullet(i);
-			break;
-		}
-
-
-	}
-	
 }

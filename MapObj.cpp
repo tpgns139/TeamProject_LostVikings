@@ -11,11 +11,18 @@ MapObj::~MapObj()
 {
 }
 
-HRESULT MapObj::init(float x, float y, string imageName)
+HRESULT MapObj::init(mapInfo info)
 {
-	_x = x;
-	_y = y;
-	_image = IMAGEMANAGER->findImage(imageName);
-	//_rc= RectangleMake(gameNode::getMemDC(),)
+	_mapInfo = info;
+	_mapInfo.currentX = 0;
+	_mapInfo.timeCount = 0;
 	return S_OK;
+}
+
+void MapObj::update()
+{
+}
+
+void MapObj::render()
+{
 }

@@ -7,7 +7,7 @@ protected:
 	image* _imageName;
 	image* _item;
 	RECT _rc;
-
+	POINT _position;
 public:
 	item();
 	~item();
@@ -20,5 +20,5 @@ public:
 	virtual void draw();
 	virtual RECT getRect() { return _rc; }
 	//virtual image* getItemImage() { return _item; }
-
+	
 };
