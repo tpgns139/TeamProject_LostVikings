@@ -1,6 +1,6 @@
 #pragma once
 #include"gameNode.h"
-
+#include "item.h"
 enum PlayerName {
 	PN_ERIK,
 	PN_BALEOG,
@@ -10,14 +10,6 @@ enum Direction
 {
 	RIGHT,
 	LEFT
-};
-
-struct itemKind
-{
-	int Fruit;
-	int Meat;
-	int Key;
-	int Shoes;
 };
 
 struct Playerinfo
@@ -37,7 +29,7 @@ struct Playerinfo
 	bool isDrop; //떨어지는중이니
 	bool isLadder; //사다리 상태니?
 
-
+	vector<item*> _vPlayerItem;
 };
 
 class MapManager;
@@ -48,7 +40,6 @@ protected:
 	
 	Playerinfo _playerInfo;
 	Direction _Direction;
-	itemKind _itemKind;
 	MapManager* _MapManager;
 
 	
@@ -68,4 +59,5 @@ public:
 	void collsion();
 	void setLink(MapManager* MapManager) { _MapManager = MapManager; }
 	POINT getPlayerPos() { return _playerInfo.position; }
+	Playerinfo* getPlayerInfo() { return &_playerInfo; }
 };

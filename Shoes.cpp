@@ -11,13 +11,9 @@ Shoes::~Shoes()
 {
 }
 
-HRESULT Shoes::init(const char * imageName, POINT position)
+HRESULT Shoes::init(const char * imageName, POINT position,itemKinds kinds)
 {
-	_imageName = IMAGEMANAGER->findImage(imageName);
-	_position.x = position.x;
-	_position.y = position.y;
-	_rc = RectMakeCenter(position.x, position.y,
-		_imageName->getWidth(), _imageName->getHeight());
+	item::init(imageName,position,kinds);
 	return S_OK;
 }
 
@@ -27,9 +23,7 @@ void Shoes::release()
 
 void Shoes::update()
 {
-	_rc = RectMakeCenter(_position.x - CAMERA->getCameraXpos(),
-		_position.y - CAMERA->getCameraYpos(),
-		_imageName->getWidth(), _imageName->getHeight());
+	item::update();
 }
 
 void Shoes::render()
@@ -39,6 +33,6 @@ void Shoes::render()
 
 void Shoes::draw()
 {
-	_imageName->render(getMemDC(), _rc.left, _rc.top);
+	item::draw();
 
 }

@@ -75,7 +75,7 @@ void Baleog::render()
 
 void Baleog::KeyControl()
 {
-	if (KEYMANAGER->isStayKeyDown('A'))
+	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 		_Direction = LEFT;
 		_playerInfo._CurrentFrameY = 1;												//벨로그 왼쪽이동
@@ -83,7 +83,7 @@ void Baleog::KeyControl()
 		_playerInfo.position.x -= _playerInfo.speed;
 
 	}
-	if (KEYMANAGER->isOnceKeyUp('A'))
+	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 	{
 		_Direction = LEFT;
 		_playerInfo._image->getMaxFrameX();											//벨로그 왼쪽 눌렀다 떼었을때
@@ -94,7 +94,7 @@ void Baleog::KeyControl()
 
 
 	}
-	if (KEYMANAGER->isStayKeyDown('D'))
+	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
 		_Direction = RIGHT;															//벨로그 오른쪽이동
 		_playerInfo._CurrentFrameY = 0;
@@ -105,7 +105,7 @@ void Baleog::KeyControl()
 		//if(IntersectRect(&temp, &_playerInfo._rc, ))
 
 	}
-	if (KEYMANAGER->isOnceKeyUp('D'))
+	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 	{
 		_Direction = RIGHT;
 		_playerInfo._CurrentFrameX = 0;												//벨로그 오른쪽 눌렀다 떼었을때

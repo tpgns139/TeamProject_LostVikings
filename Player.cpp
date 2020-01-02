@@ -15,11 +15,6 @@ Player::~Player()
 HRESULT Player::init(PlayerName playerName)
 {
 
-	//현재 가지고있는 아이템은 0개
-	_itemKind.Fruit = 0;
-	_itemKind.Key = 0;
-	_itemKind.Meat = 0;
-	_itemKind.Shoes = 0;
 
 
 	_playerInfo.gravity = 0;

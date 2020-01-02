@@ -20,56 +20,8 @@ HRESULT Camera::init(float x, float y)
 
 void Camera::update()
 {
-	if (_isMoving) 
-	{
-		movingPoint();
-	}
-	
-	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
-	{
 
-		_cameraXPos -= 10;
-		if (_cameraXPos < 0)
-		{
-			_cameraXPos = 0;
-		}
-	
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
-	{
-
-		_cameraXPos += 10;
-	
-		if (_cameraXPos + WINSIZEX > IMAGEMANAGER->findImage("배경")->getWidth())
-		{
-			_cameraXPos = IMAGEMANAGER->findImage("배경")->getWidth() - WINSIZEX;
-		}
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_UP))
-	{
-		_cameraYPos -= 10;
-	
-		if (_cameraYPos < 0)
-		{
-			_cameraYPos=0;
-		}
-
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
-	{
-		_cameraYPos += 10;
-		if (_cameraYPos + WINSIZEY > IMAGEMANAGER->findImage("배경")->getHeight())
-		{
-			_cameraYPos = IMAGEMANAGER->findImage("배경")->getHeight()-WINSIZEY;
-		}
-	
-	}
-
-	if (KEYMANAGER->isOnceKeyDown('Q'))
-	{
-		cout << "카메라 X : " << CAMERA->getCameraXpos() << endl;
-		cout << "카메라 Y : " << CAMERA->getCameraYpos() << endl;
-	}
+	movingPoint();
 }
 
 void Camera::moveTo(float endX, float endY, float time)

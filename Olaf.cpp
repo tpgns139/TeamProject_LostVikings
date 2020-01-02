@@ -121,16 +121,10 @@ void Olaf::KeyControl()
 {
 
 
-	if (KEYMANAGER->isStayKeyDown('A'))
-	{
-		//_Ostate = ;
-	}
-
-
 	//방패버그있음;
 
 	//왼쪽//
-	if (KEYMANAGER->isStayKeyDown('A'))
+	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 		_Direction= LEFT;
 		_playerInfo._image->setFrameY(1);
@@ -139,13 +133,13 @@ void Olaf::KeyControl()
 		_playerInfo.position.x -= _playerInfo.speed;
 
 	}
-	if (KEYMANAGER->isOnceKeyDown('A'))
+	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
 	{
 		_Direction = LEFT;
 		_playerInfo._image->setFrameY(1);
 
 	}
-	if (KEYMANAGER->isOnceKeyUp('A'))
+	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 	{
 		_Direction = LEFT;
 		_playerInfo._image->setFrameY(1);
@@ -159,7 +153,7 @@ void Olaf::KeyControl()
 
 
 	//오른쪽
-	if (KEYMANAGER->isStayKeyDown('D'))
+	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
 		_Direction = RIGHT;
 		_playerInfo._image->setFrameY(0);
@@ -169,13 +163,13 @@ void Olaf::KeyControl()
 		_playerInfo.position.x += _playerInfo.speed;
 
 	}
-	if (KEYMANAGER->isOnceKeyDown('D'))
+	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
 	{
 		_Direction = RIGHT;
 		_playerInfo._image->setFrameY(0);
 
 	}
-	if (KEYMANAGER->isOnceKeyUp('D'))
+	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 	{
 		_Direction = RIGHT;
 		_playerInfo._image->setFrameY(0);

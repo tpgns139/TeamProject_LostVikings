@@ -70,45 +70,47 @@ void itemManager::setItem()
 {
 	item* item1;
 	item1 = new Shoes;
-	item1->init("Shoes", PointMake(1300, 186));
+	item1->init("Shoes", PointMake(1300, 186),shoes);
 	_vItem.push_back(item1);
 
 	item* item2;
 	item2 = new Key;
-	item2->init("Key", PointMake(3790, 1722));
+	item2->init("Key", PointMake(3790, 1722),key);
 	_vItem.push_back(item2);
 
 	item* item3;
 	item3 = new Fruit;
-	item3->init("Fruit", PointMake(1355, 1476));
+	item3->init("Fruit", PointMake(1355, 1476),fruit);
 	_vItem.push_back(item3);
 
 	item* item4;
 	item4 = new Meat;
-	item4->init("Meat", PointMake(594, 1226));
+	item4->init("Meat", PointMake(594, 1226),meat);
+	_vItem.push_back(item4);
+
+	item* item5;
+	item4 = new Meat;
+	item4->init("Meat", PointMake(WINSIZEX+100, WINSIZEY/2),meat);
 	_vItem.push_back(item4);
 }
 
 void itemManager::collision()
 {
-	for (int i = 0; i < _vItem.size(); i++)
+
+	for (int j = 0; j < _pm->get_vPlayer().size(); j++)
 	{
-		for (int j = 0; j < _pm->get_vPlayer().size(); j++)
+		for (int i = 0; i < _vItem.size(); i++)
 		{
 			RECT temp;
 			if (IntersectRect(&temp, &_vItem[i]->getRect(), &_pm->get_vPlayer()[j]->getRect()))
 			{
-
-				//_vItem[i]->init("Fruit", PointMake(_ui->get_position().x+50, WINSIZEY- 300));
-				//_vItem[i]->init("Fruit", PointMake(test.left+10, WINSIZEY - 300));
-				//_vInven.push_back(_vItem.size());
-				//_inven->get_vInven.push_back(_vItem[i]);
-			//	_pm->get_vPlayer()[j]-
-
+				_pm->get_vPlayer()[j]->getPlayerInfo()->_vPlayerItem.push_back(_vItem[i]);
 				removeItem(i);
+				break;
 			}
 		}
 	}
+
 }
 
 void itemManager::removeItem(int arrNum)
