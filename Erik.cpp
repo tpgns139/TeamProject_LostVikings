@@ -137,6 +137,8 @@ void Erik::render()
 		_playerInfo._CurrentFrameX,
 		_playerInfo._image->getFrameY());
 
+
+
 	Player::render();
 }
 

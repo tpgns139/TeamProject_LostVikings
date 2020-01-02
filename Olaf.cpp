@@ -134,7 +134,6 @@ void Olaf::KeyControl()
 	{
 		_Direction= LEFT;
 		_playerInfo._image->setFrameY(1);
-
 		if (!shieldPosision)_Ostate = O_front_run;
 		if (shieldPosision)_Ostate = O_top_run;
 		_playerInfo.position.x -= _playerInfo.speed;
