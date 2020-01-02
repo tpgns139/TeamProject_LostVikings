@@ -21,7 +21,7 @@ HRESULT Camera::init(float x, float y)
 void Camera::update()
 {
 	movingPoint();
-	/*if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 
 		_cameraXPos -= 10;
@@ -59,7 +59,7 @@ void Camera::update()
 			_cameraYPos = IMAGEMANAGER->findImage("¹è°æ")->getHeight()-WINSIZEY;
 		}
 	
-	}*/
+	}
 
 	if (KEYMANAGER->isOnceKeyDown('Q'))
 	{
