@@ -20,84 +20,36 @@ HRESULT Camera::init(float x, float y)
 
 void Camera::update()
 {
-	if (_isMoving) 
-	{
-		movingPoint();
-	}
-	
-	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
-	{
 
-		_cameraXPos -= 10;
-		if (_cameraXPos < 0)
-		{
-			_cameraXPos = 0;
-		}
-	
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
-	{
-
-		_cameraXPos += 10;
-	
-		if (_cameraXPos + WINSIZEX > IMAGEMANAGER->findImage("배경")->getWidth())
-		{
-			_cameraXPos = IMAGEMANAGER->findImage("배경")->getWidth() - WINSIZEX;
-		}
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_UP))
-	{
-		_cameraYPos -= 10;
-	
-		if (_cameraYPos < 0)
-		{
-			_cameraYPos=0;
-		}
-
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
-	{
-		_cameraYPos += 10;
-		if (_cameraYPos + WINSIZEY > IMAGEMANAGER->findImage("배경")->getHeight())
-		{
-			_cameraYPos = IMAGEMANAGER->findImage("배경")->getHeight()-WINSIZEY;
-		}
-	
-	}
-
-	if (KEYMANAGER->isOnceKeyDown('Q'))
-	{
-		cout << "카메라 X : " << CAMERA->getCameraXpos() << endl;
-		cout << "카메라 Y : " << CAMERA->getCameraYpos() << endl;
-	}
+	movingPoint();
 }
 
 void Camera::moveTo(float endX, float endY, float time)
 {
 	if (!_isMoving)
 	{
-		if (endX - WINSIZEX / 2 > 0) 
+		if (endX - WINSIZEX / 2 > 0&& endX + WINSIZEX / 2 < _backgroundWidth)
 		{
 			_endX = endX - WINSIZEX / 2;
 		}
-		else if (endX + WINSIZEX / 2 > IMAGEMANAGER->findImage("배경")->getWidth())
+		else if (endX + WINSIZEX / 2 > _backgroundWidth)
 		{
-			_endX = IMAGEMANAGER->findImage("배경")->getWidth() - WINSIZEX;
+			_endX = _backgroundWidth - WINSIZEX;
 		}
 		else
 		{
 			_endX = 0;
 		}
 
-		if (endY - WINSIZEY / 2 > 0)
+		if (endY - WINSIZEY / 2 > 0&& endX + WINSIZEY / 2 < _backGroundHeight)
 		{
 			_endY = endY - WINSIZEY / 2;
 		}
-		else if (endX + WINSIZEY / 2 > IMAGEMANAGER->findImage("배경")->getHeight())
+		else if (endY + WINSIZEY / 2 > _backGroundHeight)
 		{
-			_endY = IMAGEMANAGER->findImage("배경")->getHeight()-WINSIZEY;
+			_endY = _backGroundHeight -WINSIZEY;
 		}
-		else
+		else if(endY - WINSIZEY / 2 < 0)
 		{
 			_endY = 0;
 		}
@@ -135,5 +87,34 @@ void Camera::movingPoint()
 
 		_isMoving = false;
 
+	}
+}
+
+void Camera::setCameraPos(float x,float y)
+{
+	if (x - WINSIZEX / 2 > 0&& x + WINSIZEX / 2 < _backgroundWidth)
+	{
+		_cameraXPos = x - WINSIZEX / 2;
+	}
+	else if (x + WINSIZEX / 2 > _backgroundWidth)
+	{
+		_cameraXPos = _backgroundWidth - WINSIZEX;
+	}
+	else if(x - WINSIZEX / 2 < 0)
+	{
+		_cameraXPos = 0;
+	}
+
+	if (y - WINSIZEY / 2 > 0&& y + WINSIZEY / 2 < _backGroundHeight)
+	{
+		_cameraYPos = y - WINSIZEY / 2;
+	}
+	else if (y + WINSIZEY / 2 > _backGroundHeight)
+	{
+		_cameraYPos = IMAGEMANAGER->findImage("배경")->getHeight() - WINSIZEY;
+	}
+	else if(y - WINSIZEY / 2 < 0)
+	{
+		_cameraYPos = 0;
 	}
 }

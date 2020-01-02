@@ -22,7 +22,7 @@ private:
 	float _travelRange;			//가야하는 거리
 	float _worldTimeCount;
 	float _time;
-
+	float _backgroundWidth, _backGroundHeight;
 
 public:
 	Camera();
@@ -34,6 +34,10 @@ public:
 	void moveTo(float endX, float endY, float time);
 	void movingPoint();
 	bool isMoving() { return _isMoving; }
-	
+	void setCameraPos(float x, float y);
+
+	void setBackGroundWidth(float width) { _backgroundWidth = width; }
+	void setBackGroundHeight(float height) { _backGroundHeight = height; }
+
 };
 

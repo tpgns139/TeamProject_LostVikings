@@ -5,17 +5,25 @@
 #include "Meat.h"
 #include "Fruit.h"
 #include "item.h"
+#include "uiManager.h"
+#include "Inven.h"
 #include <vector>
 
+#include "uiManager.h"
+#include "ui.h"
+#include "Inven.h"
 class PlayerManager;
+
 class itemManager :public gameNode
 {
 private:
 	vector<item*>				_vItem;
 	vector<item*> ::iterator	_viItem;
 	PlayerManager* _pm;
+	image* _shoes;
 
 
+	RECT test;
 public:
 	itemManager();
 	~itemManager();

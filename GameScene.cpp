@@ -34,6 +34,8 @@ HRESULT GameScene::init()
 	IMAGEMANAGER->addImage("배경", "Map.bmp", 4000, 1984, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("오른화살", "arrowright.bmp", 37, 20, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("왼쪽화살", "arrowleft.bmp", 37, 20, true, RGB(255, 0, 255));
+	CAMERA->setBackGroundWidth(IMAGEMANAGER->findImage("배경")->getWidth());
+	CAMERA->setBackGroundHeight(IMAGEMANAGER->findImage("배경")->getHeight());
 	_im = new itemManager;
 	_im->init();
 
@@ -50,7 +52,8 @@ HRESULT GameScene::init()
 	_em = new EnemyManager;
 	_em->setMemoryAddressLink(_mm);
 	_em->init();
-
+	
+	
 
 	_ui = new uiManager;
 	_ui->init();
@@ -76,7 +79,6 @@ void GameScene::update()
 
 void GameScene::render()
 {
-
 	IMAGEMANAGER->findImage("배경")->render(getMemDC(), 0, 0, CAMERA->getCameraXpos(), CAMERA->getCameraYpos(), WINSIZEX, WINSIZEY);
 	_mm->render();
 	_pm->render();

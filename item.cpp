@@ -11,8 +11,9 @@ item::~item()
 {
 }
 
-HRESULT item::init(const char * imageName, POINT position)
+HRESULT item::init(const char * imageName, POINT position,itemKinds kinds)
 {
+	_kinds = kinds;
 	_imageName = IMAGEMANAGER->findImage(imageName);
 	_position.x = position.x;
 	_position.y = position.y;
@@ -27,8 +28,8 @@ void item::release()
 
 void item::update()
 {
-	_rc = RectMakeCenter(_position.x - CAMERA->getCameraXpos(),
-		_position.y - CAMERA->getCameraYpos(),
+	_rc = RectMakeCenter(_position.x ,
+		_position.y ,
 		_imageName->getWidth(), _imageName->getHeight());
 }
 
@@ -39,6 +40,6 @@ void item::render()
 
 void item::draw()
 {
-	_imageName->render(getMemDC(), _rc.left, _rc.top);
+	_imageName->render(getMemDC(), _rc.left-CAMERA->getCameraXpos(), _rc.top-CAMERA->getCameraYpos());
 
 }

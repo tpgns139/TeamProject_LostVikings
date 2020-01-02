@@ -87,18 +87,10 @@ void Olaf::update()
 
 	shiedMake();
 
-	//RECT temp;
-	/*if(IntersectRect(&temp,&_playerInfo._rc ,&shieldUp))
-	{
-		_playerInfo._rc.bottom = shieldUp.top;
-			_playerInfo.isDrop = false;
-	}
-	else
-	{
-		_playerInfo.isDrop = true;
-	}*/
-
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
+
+
+
 
 }
 
@@ -108,7 +100,7 @@ void Olaf::render()
 	{
 		RectangleMake(getMemDC(), _playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 	}
-	_playerInfo._image->frameRender(getMemDC(), _playerInfo.position.x-CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._CurrentFrameX, _playerInfo._CurrentFrameY);
+	_playerInfo._image->frameRender(getMemDC(), _playerInfo.position.x-CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._CurrentFrameX,_playerInfo._image->getFrameY());
 	
 	Player::render();
 
@@ -119,37 +111,27 @@ void Olaf::render()
 
 void Olaf::KeyControl()
 {
-
-
-	if (KEYMANAGER->isStayKeyDown('A'))
-	{
-		//_Ostate = ;
-	}
-
-
-	//방패버그있음;
-
 	//왼쪽//
-	if (KEYMANAGER->isStayKeyDown('A'))
+	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-		_Direction= LEFT;
-		_playerInfo._image->setFrameY(1);
-
+		
+		_Direction = LEFT;
+		_playerInfo._image->setFrameY(2);
 		if (!shieldPosision)_Ostate = O_front_run;
 		if (shieldPosision)_Ostate = O_top_run;
 		_playerInfo.position.x -= _playerInfo.speed;
 
 	}
-	if (KEYMANAGER->isOnceKeyDown('A'))
+	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
 	{
 		_Direction = LEFT;
-		_playerInfo._image->setFrameY(1);
+		_playerInfo._image->setFrameY(2);
 
 	}
-	if (KEYMANAGER->isOnceKeyUp('A'))
+	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 	{
 		_Direction = LEFT;
-		_playerInfo._image->setFrameY(1);
+		_playerInfo._image->setFrameY(2);
 
 		_playerInfo._CurrentFrameX = 0;
 		if (!shieldPosision)_Ostate = O_front_idle1;
@@ -158,9 +140,11 @@ void Olaf::KeyControl()
 
 	}
 
+	cout<<"Y값"<<_playerInfo._image->getFrameY() << endl;
+	cout <<"방향 "<< _Direction << endl;
 
 	//오른쪽
-	if (KEYMANAGER->isStayKeyDown('D'))
+	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
 		_Direction = RIGHT;
 		_playerInfo._image->setFrameY(0);
@@ -170,13 +154,13 @@ void Olaf::KeyControl()
 		_playerInfo.position.x += _playerInfo.speed;
 
 	}
-	if (KEYMANAGER->isOnceKeyDown('D'))
+	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
 	{
 		_Direction = RIGHT;
 		_playerInfo._image->setFrameY(0);
 
 	}
-	if (KEYMANAGER->isOnceKeyUp('D'))
+	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 	{
 		_Direction = RIGHT;
 		_playerInfo._image->setFrameY(0);
@@ -291,6 +275,19 @@ void Olaf::Frame(int FrameX)
 			_playerInfo.count = 0;
 		}
 	}
+}
+
+void Olaf::_dis()
+{
+	if (_Direction == LEFT)
+	{
+		_playerInfo._image->setFrameY(2);
+	}
+	if (_Direction == RIGHT)
+	{
+		_playerInfo._image->setFrameY(0);
+	}
+
 }
 
 void Olaf::shiedMake()

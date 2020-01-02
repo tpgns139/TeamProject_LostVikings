@@ -11,13 +11,9 @@ Key::~Key()
 {
 }
 
-HRESULT Key::init(const char * imageName, POINT position)
+HRESULT Key::init(const char * imageName, POINT position, itemKinds kinds)
 {
-	_imageName = IMAGEMANAGER->findImage(imageName);
-	_position.x = position.x;
-	_position.y = position.y;
-	_rc = RectMakeCenter(position.x, position.y,
-		_imageName->getWidth(), _imageName->getHeight());
+	item::init(imageName, position, kinds);
 	return S_OK;
 }
 
@@ -28,9 +24,7 @@ void Key::release()
 void Key::update()
 {
 
-	_rc = RectMakeCenter(_position.x-CAMERA->getCameraXpos(),
-		_position.y-CAMERA->getCameraYpos(),
-		_imageName->getWidth(), _imageName->getHeight());
+	item::update();
 }
 
 void Key::render()
@@ -40,6 +34,6 @@ void Key::render()
 
 void Key::draw()
 {
-	_imageName->render(getMemDC(), _rc.left, _rc.top);
+	item::draw();
 
 }

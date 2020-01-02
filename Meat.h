@@ -10,7 +10,7 @@ public:
 	Meat();
 	~Meat();
 
-	virtual HRESULT init(const char* imageName, POINT position);
+	virtual HRESULT init(const char* imageName, POINT position, itemKinds kinds);
 	virtual void release();
 	virtual void update();
 	virtual void render();

@@ -14,7 +14,6 @@ enum BALEOGSTATE
 	BALEOG_PUSH,
 	BALEOG_UP,
 
-
 };
 
 class Baleog:public Player

@@ -35,7 +35,9 @@ void Bullet::render()
 	{
 		if (KEYMANAGER->isToggleKey(VK_F1))
 		{
-			Rectangle(_backBuffer->getMemDC(), _viBullet->rc);
+			
+			
+			(_backBuffer->getMemDC(), _viBullet->rc);
 		}
 		_viBullet->img->render(getMemDC(), _viBullet->rc.left - CAMERA->getCameraXpos(),_viBullet->rc.top - CAMERA->getCameraYpos());
 

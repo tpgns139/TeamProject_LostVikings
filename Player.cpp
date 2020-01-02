@@ -15,11 +15,6 @@ Player::~Player()
 HRESULT Player::init(PlayerName playerName)
 {
 
-	//현재 가지고있는 아이템은 0개
-	_itemKind.Fruit = 0;
-	_itemKind.Key = 0;
-	_itemKind.Meat = 0;
-	_itemKind.Shoes = 0;
 
 
 	_playerInfo.gravity = 0;
@@ -34,7 +29,7 @@ void Player::MakeRect()
 
 
 	_playerInfo._underRc = RectMakeCenter(_playerInfo.position.x  + _playerInfo._image->getFrameWidth() / 2,
-		_playerInfo.position.y  + _playerInfo._image->getFrameHeight()+7,
+		_playerInfo.position.y  + _playerInfo._image->getFrameHeight() + 7,
 		_playerInfo._image->getFrameWidth(), 5);
 	_playerInfo._leftRc = RectMakeCenter(_playerInfo.position.x ,
 		_playerInfo.position.y  + _playerInfo._image->getFrameHeight() / 2,
@@ -65,13 +60,60 @@ void Player::update()
 
 
 
+	collsion();
+
+	for (int i = 0; i < _MapManager->getWall().size(); i++)
+	{
+		
+		RECT temp2;
+		if (IntersectRect(&temp2, &_playerInfo._leftRc, &_MapManager->getWall()[i]->getRect()))
+		{
+			_playerInfo._leftRc.left = _MapManager->getWall()[i]->getRect().right;
+			
+		}
+
+	}
+	//KeyControl();
+}
+
+void Player::render()
+{
+	if(KEYMANAGER->isToggleKey('1'))
+	{
+		RectangleMake(getMemDC(), 
+			_playerInfo._underRc.left-CAMERA->getCameraXpos(),
+			_playerInfo._underRc.top-CAMERA->getCameraYpos(),
+			_playerInfo._image->getFrameWidth(),5);			//캐릭터 바닥렉트
+		RectangleMake(getMemDC(),
+			_playerInfo._leftRc.left - CAMERA->getCameraXpos(),
+			_playerInfo._leftRc.top - CAMERA->getCameraYpos(),
+			5, _playerInfo._image->getFrameHeight());
+		RectangleMake(getMemDC(),
+			_playerInfo._rightRc.left - CAMERA->getCameraXpos(),
+			_playerInfo._rightRc.top - CAMERA->getCameraYpos(),
+			5, _playerInfo._image->getFrameHeight());
+
+		//Rectangle(getMemDC(), _playerInfo._leftRc);				//캐릭터 왼쪽 충돌렉트
+		//Rectangle(getMemDC(), _playerInfo._rightRc);			//캐릭터 오른쪽 충돌렉트
+	}
+}
+
+void Player::KeyControl()
+{
+}
+
+
+
+void Player::collsion()
+{
 	for (int i = 0;i < _MapManager->getWall().size();i++)
 	{
 		RECT temp;
-		if(IntersectRect(&temp, &_playerInfo._underRc, &_MapManager->getWall()[i]->getRect()))
+		if (IntersectRect(&temp, &_playerInfo._underRc, &_MapManager->getWall()[i]->getRect()))
 		{
 			_playerInfo._underRc.bottom = _MapManager->getWall()[i]->getRect().top;
 			_playerInfo.isDrop = false;
+
 			break;
 		}
 		else
@@ -79,52 +121,9 @@ void Player::update()
 			_playerInfo.isDrop = true;
 		}
 	}
-
-
-	//KeyControl();
-	
-}
-
-void Player::render()
-{
-	RectangleMake(getMemDC(), 
-		_playerInfo._underRc.left-CAMERA->getCameraXpos(),
-		_playerInfo._underRc.top-CAMERA->getCameraYpos(),
-		_playerInfo._image->getFrameWidth(),5);			//캐릭터 바닥렉트
-	Rectangle(getMemDC(), _playerInfo._leftRc);				//캐릭터 왼쪽 충돌렉트
-	Rectangle(getMemDC(), _playerInfo._rightRc);			//캐릭터 오른쪽 충돌렉트
-}
-
-void Player::KeyControl()
-{
 }
 
 void Player::move()
-{
-	/*if (KEYMANAGER->isStayKeyDown('A'))
-	{
-		_Direction = LEFT;
-		_playerInfo.position.x -= _playerInfo.speed;
-	}
-	if (KEYMANAGER->isOnceKeyUp('A'))
-	{
-		_Direction = LEFT;
-		_playerInfo.position.x -= _playerInfo.speed;
-	}
-
-	if (KEYMANAGER->isStayKeyDown('D'))
-	{
-		_Direction = RIGHT;
-		_playerInfo.position.x += _playerInfo.speed;
-	}
-	if (KEYMANAGER->isOnceKeyUp('D'))
-	{
-		_Direction = RIGHT;
-		_playerInfo.position.x -= _playerInfo.speed;
-	}*/
-}
-
-void Player::collsion()
 {
 
 }
