@@ -41,7 +41,6 @@ private:
 
 	RECT shieldUp;	//방패
 	RECT shieldFront;	//방패
-	bool shieldPosision; //true일때 top //false일때 front
 	
 	int shieldX; //방패x좌표값
 
