@@ -30,7 +30,7 @@ public:
 	virtual void update();
 	virtual void render();
 
-	void Keycontrol();
+	void KeyControl();
 	void Frame();
 };
 

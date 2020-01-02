@@ -52,12 +52,15 @@ void PlayerManager::update()
 				PlayerNumber = 0;
 			}
 			_nowPlayer = _vPlayer[PlayerNumber];
+
 			CAMERA->moveTo(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y, 0.5f);
 		}
 	
+			_nowPlayer->KeyControl();
 	
 
-	_nowPlayer->KeyControl();
+	
+
 	for (int i = 0;i < _vPlayer.size();i++)
 	{
 		_vPlayer[i]->update();

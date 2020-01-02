@@ -32,7 +32,8 @@ HRESULT Olaf::init(PlayerName playerName)
 	IMAGEMANAGER->addFrameImage("O_fly1", "image/olafImage/fly1.bmp", 206, 200, 2, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("O_fly2", "image/olafImage/fly2.bmp", 176, 200, 2, 2, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addFrameImage("O_front_run", "image/olafImage/front_run.bmp", 583, 200, 6, 2, true, RGB(255, 0, 255));
+	//이거 수정
+	IMAGEMANAGER->addFrameImage("O_front_run", "image/olafImage/front_run.bmp", 776, 198,8, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("O_jump", "image/olafImage/jump.bmp", 200, 200, 2, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("O_push", "image/olafImage/push.bmp", 413, 200, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("O_top_run", "image/olafImage/top_run.bmp", 848, 200, 8, 2, true, RGB(255, 0, 255));
@@ -55,22 +56,7 @@ HRESULT Olaf::init(PlayerName playerName)
 
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x,_playerInfo.position.y,_playerInfo._image->getFrameWidth(),_playerInfo._image->getFrameHeight());
 
-	//shield
-	//_playerInfo._rc = RectMakeCenter(_playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
-
-	//shieldX = _playerInfo._image->getFrameWidth() / 2;
-
-
-	/*shieldUp=RectMakeCenter(_playerInfo.position.x,
-						  _playerInfo.position.y- _playerInfo._image->getFrameHeight()/2,
-						  _playerInfo._image->getFrameWidth(),
-							SIZE);
-
-	shieldFront = RectMakeCenter(_playerInfo.position.x+ _playerInfo._image->getFrameWidth()/2,
-								 _playerInfo.position.y,
-									SIZE,
-							    	_playerInfo._image->getFrameWidth());*/
-
+	
 
 	shieldPosision = false;
 
@@ -86,8 +72,9 @@ void Olaf::update()
 {
 	
 	Frame(20);
-	KeyControl();
+	//KeyControl();
 	Player::update();
+	//Player::move();
 
 	if (_Direction == LEFT)
 	{
@@ -147,14 +134,16 @@ void Olaf::KeyControl()
 	{
 		_Direction= LEFT;
 		_playerInfo._image->setFrameY(1);
-
 		if (!shieldPosision)_Ostate = O_front_run;
 		if (shieldPosision)_Ostate = O_top_run;
+		_playerInfo.position.x -= _playerInfo.speed;
+
 	}
 	if (KEYMANAGER->isOnceKeyDown('A'))
 	{
 		_Direction = LEFT;
 		_playerInfo._image->setFrameY(1);
+
 	}
 	if (KEYMANAGER->isOnceKeyUp('A'))
 	{
@@ -164,6 +153,8 @@ void Olaf::KeyControl()
 		_playerInfo._CurrentFrameX = 0;
 		if (!shieldPosision)_Ostate = O_front_idle1;
 		if (shieldPosision)_Ostate = O_top_idle1;
+		_playerInfo.position.x -= _playerInfo.speed;
+
 	}
 
 
@@ -175,11 +166,14 @@ void Olaf::KeyControl()
 
 		if (!shieldPosision)_Ostate = O_front_run;
 		if (shieldPosision)_Ostate = O_top_run;
+		_playerInfo.position.x += _playerInfo.speed;
+
 	}
 	if (KEYMANAGER->isOnceKeyDown('D'))
 	{
 		_Direction = RIGHT;
 		_playerInfo._image->setFrameY(0);
+
 	}
 	if (KEYMANAGER->isOnceKeyUp('D'))
 	{
@@ -189,6 +183,7 @@ void Olaf::KeyControl()
 		_playerInfo._CurrentFrameX = 0;
 		if (!shieldPosision)_Ostate = O_front_idle1;
 		if (shieldPosision)_Ostate = O_top_idle1;
+		_playerInfo.position.x += _playerInfo.speed;
 	}
 
 

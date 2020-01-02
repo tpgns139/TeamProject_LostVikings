@@ -38,6 +38,7 @@ private:
 	bool isAtk;	    //공격이니?
 
 
+
 public:
 	Erik();
 	~Erik();
