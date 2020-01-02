@@ -65,6 +65,7 @@ HRESULT Erik::init(PlayerName playerNme)
 
 	Player::MakeRect();
 
+
 	return S_OK;
 }
 
@@ -72,16 +73,23 @@ void Erik::update()
 {
 
 	Player::update();
+	
+
+		Player::move();
+
+
+	if (_state != E_attack_after)
+	{
+		//KeyControl();
+	}
+	
 
 	if((_state != E_up)&&(_state != E_attack_after))
 	{
 		Frame(10);
 	}
 
-	if(_state != E_attack_after)
-	{
-		KeyControl();
-	}
+	
 
 	if (_state == E_attack_after)
 	{
@@ -141,6 +149,8 @@ void Erik::KeyControl()
 		_Direction = LEFT;
 		_playerInfo._image->setFrameY(2);
 		if (_state != E_atk) _state = E_run;
+		_playerInfo.position.x -= _playerInfo.speed;
+	
 
 		if (KEYMANAGER->isOnceKeyDown('F'))
 		{
@@ -156,6 +166,7 @@ void Erik::KeyControl()
 		headingCount = 0;
 		_state = E_idle1;
 		_playerInfo._CurrentFrameX = 0;
+		_playerInfo.position.x -= _playerInfo.speed;
 	}
 
 	//¿À¸¥ÂÊ
@@ -164,6 +175,7 @@ void Erik::KeyControl()
 		_Direction = RIGHT;
 		_playerInfo._image->setFrameY(0);
 		headingCount++;
+		_playerInfo.position.x += _playerInfo.speed;
 		if (_state != E_atk) _state = E_run;
 		if (KEYMANAGER->isOnceKeyDown('F'))
 		{
@@ -178,6 +190,8 @@ void Erik::KeyControl()
 		headingCount = 0;
 		_state = E_idle1;
 		_playerInfo._CurrentFrameX = 0;
+		_playerInfo.position.x += _playerInfo.speed;
+
 	}
 		
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE)&&jumpCount<1)

@@ -32,7 +32,8 @@ HRESULT Olaf::init(PlayerName playerName)
 	IMAGEMANAGER->addFrameImage("O_fly1", "image/olafImage/fly1.bmp", 206, 200, 2, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("O_fly2", "image/olafImage/fly2.bmp", 176, 200, 2, 2, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addFrameImage("O_front_run", "image/olafImage/front_run.bmp", 583, 200, 6, 2, true, RGB(255, 0, 255));
+	//이거 수정
+	IMAGEMANAGER->addFrameImage("O_front_run", "image/olafImage/front_run.bmp", 768, 198,8, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("O_jump", "image/olafImage/jump.bmp", 200, 200, 2, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("O_push", "image/olafImage/push.bmp", 413, 200, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("O_top_run", "image/olafImage/top_run.bmp", 848, 200, 8, 2, true, RGB(255, 0, 255));
@@ -86,8 +87,9 @@ void Olaf::update()
 {
 	
 	Frame(20);
-	KeyControl();
+	//KeyControl();
 	Player::update();
+	//Player::move();
 
 	if (_Direction == LEFT)
 	{

@@ -49,8 +49,9 @@ HRESULT Baleog::init(PlayerName playerName)
 void Baleog::update()
 {
 	Frame();
-	Keycontrol();
+	//Keycontrol();
 	Player::update();
+	Player::move();
 	//벨로그 렉트 업데이트
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
