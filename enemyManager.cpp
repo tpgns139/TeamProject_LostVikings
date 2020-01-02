@@ -74,30 +74,40 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* Sl;
 		Sl = new Slime;
-		Sl->init("SlimeMove2", PointMake(1400 , 1460), 2);
+		Sl->init("SlimeMove2", PointMake(1400, 1460), 2);
 		Sl->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sl);
 	}
 
-	//Enemy* Sr;
-	//Sr = new SecurityRobot;
-	//Sr->init("SecurityRobotMove", PointMake(500,1375),1);
-	//Sr->setMemoryAddressLink(_mapManager);
-	//_vEm.push_back(Sr);
+	{
+		Enemy* Sr;
+		Sr = new SecurityRobot;
+		Sr->init("SecurityRobotMove", PointMake(500, 1375), 0);
+		Sr->setMemoryAddressLink(_mapManager);
+		_vEm.push_back(Sr);
+	}
 
-	//for (int i = 0; i < 2; i++) 
-	//{
-	//	Enemy* Sr;
-	//	Sr = new SecurityRobot;
-	//	Sr->init("SecurityRobotMove", PointMake(2200+900*i,375),1);
-	//	Sr->setMemoryAddressLink(_mapManager);
-	//	_vEm.push_back(Sr);
-	//}
+
+	{
+		Enemy* Sr;
+		Sr = new SecurityRobot;
+		Sr->init("SecurityRobotMove1", PointMake(3100, 375), 1);
+		Sr->setMemoryAddressLink(_mapManager);
+		_vEm.push_back(Sr);
+	}
+
+	{
+		Enemy* Sr;
+		Sr = new SecurityRobot;
+		Sr->init("SecurityRobotMove2", PointMake(2200, 375), 2);
+		Sr->setMemoryAddressLink(_mapManager);
+		_vEm.push_back(Sr);
+	}
 
 	{
 		Enemy* To;
 		To = new Tower;
-		To->init("Tower", PointMake(3850, 1760), 3);
+		To->init("Tower", PointMake(3850, 1760),0);
 		To->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(To);
 	}
