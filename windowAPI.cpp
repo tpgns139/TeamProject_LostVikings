@@ -57,13 +57,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 
 		return 0;
 	}
-	/*
-	while (GetMessage(&message, 0, 0, 0))
-	{
-		TranslateMessage(&message);
-		DispatchMessage(&message);
-	}
-	*/
+
+
 
 	while (true)
 	{

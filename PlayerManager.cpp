@@ -30,17 +30,13 @@ HRESULT PlayerManager::init()
 	_Olaf->setLink(_MapManager);
 	_vPlayer.push_back(_Olaf);
 
-
+	_nowPlayer = _Erik;
 	return S_OK;
 }
 
 void PlayerManager::update()
 {
-	for (int i = 0; i < _vPlayer.size(); i++)
-	{
-		_vPlayer[i]->update();
-	}
-
+	_nowPlayer->update();
 }
 
 void PlayerManager::render()

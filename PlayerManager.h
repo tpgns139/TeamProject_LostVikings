@@ -14,6 +14,7 @@ private:
 	EnemyManager* _em;
 	MapManager* _MapManager;
 	vector<Player*> _vPlayer;
+	Player* _nowPlayer;
 	
 public:
 	PlayerManager();
