@@ -146,14 +146,14 @@ void Baleog::KeyControl()
 			_BaleogState = BALEOG_LEFTIDLE;
 		}
 	}
-	if (KEYMANAGER->isOnceKeyDown('F'))							//벨로그 화살공격
+	if (KEYMANAGER->isOnceKeyDown('D'))							//벨로그 화살공격
 	{
-		if (_BaleogState == BALEOG_RIGHTIDLE || _BaleogState == BALEOG_RIGHTMOVE)
+		if (_BaleogState == BALEOG_RIGHTIDLE)
 		{
 			_playerInfo._image->setFrameY(0);
 			_BaleogState = BALEOG_RIGHTBOWATTACK;
 		}
-		if (_BaleogState == BALEOG_LEFTIDLE || _BaleogState == BALEOG_LEFTMOVE)
+		if (_BaleogState == BALEOG_LEFTIDLE)
 		{
 			_playerInfo._image->setFrameY(1);
 			_playerInfo._image->setFrameX(6);
@@ -161,7 +161,7 @@ void Baleog::KeyControl()
 		}
 	}
 
-	if (KEYMANAGER->isOnceKeyUp('F'))							//벨로그 화살공격 떼었을때
+	if (KEYMANAGER->isOnceKeyUp('D'))							//벨로그 화살공격 떼었을때
 	{
 		if (_BaleogState == BALEOG_RIGHTBOWATTACK)
 		{
