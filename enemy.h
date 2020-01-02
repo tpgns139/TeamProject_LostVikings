@@ -31,7 +31,7 @@ protected:
 	float _range;
 	int _currentFrameX, _currentFrameY;  //읽어들이는 현재 프레임 위치
 	int _count, _count2; //프레임 재생 속도
-	int _rndFirecount; //총알발사 랜덤 주기
+	
 	int _firecount;
 	
 	

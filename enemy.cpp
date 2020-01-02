@@ -30,7 +30,7 @@ HRESULT Enemy::init(const char* imagename, POINT position, int num,float speed)
 	_count = 0;
 	_count2 = 0;
 
-	_rndFirecount = RND->getFromIntTo(1, 100);
+	
 
 	return S_OK;
 }
@@ -76,6 +76,7 @@ void Enemy::move()
 
 bool Enemy::bulletCountFire()
 {
+	
 	return false;
 }
 
