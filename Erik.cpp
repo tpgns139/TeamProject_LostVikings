@@ -80,7 +80,7 @@ void Erik::update()
 
 	if (_state != E_attack_after)
 	{
-		//KeyControl();
+	//	KeyControl();
 	}
 	
 
