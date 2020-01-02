@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Enemy.h"
-
+#include "MapManager.h"
 
 Enemy::Enemy()
 {
@@ -11,7 +11,7 @@ Enemy::~Enemy()
 {
 }
 
-HRESULT Enemy::init(const char* imagename, POINT position)
+HRESULT Enemy::init(const char* imagename, POINT position, int num)
 {
 	IMAGEMANAGER->addFrameImage("SlimeMove", "슬라임이동.bmp", 336, 163, 4, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("SlimeAtk", "슬라임공격.bmp", 168, 152, 2, 2, true, RGB(255, 0, 255));
@@ -25,8 +25,10 @@ HRESULT Enemy::init(const char* imagename, POINT position)
 
 	_enemy.img = IMAGEMANAGER->findImage(imagename);
 	_enemy.rc = RectMakeCenter(position.x, position.y, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
+	_enemy.leftcolcheckrc = RectMakeCenter(position.x- _enemy.img->getFrameWidth()/2, position.y, 3, _enemy.img->getFrameHeight()-10);
+	_enemy.rightcolcheckrc = RectMakeCenter(position.x - _enemy.img->getFrameWidth() / 2, position.y, 3, _enemy.img->getFrameHeight()-10);
 	_count = 0;
-
+	_count2 = 0;
 
 	_rndFireCount = RND->getFromIntTo(1, 100);
 
@@ -39,15 +41,32 @@ void Enemy::release()
 
 void Enemy::update()
 {
-
+	/*_enemy.rc = RectMakeCenter(_enemy.x - CAMERA->getCameraXpos() + _enemy.img->getFrameWidth() / 2,
+		_enemy.y - CAMERA->getCameraYpos() + _enemy.img->getFrameHeight() / 2, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());*/
+	_enemy.leftcolcheckrc = RectMakeCenter(_enemy.x , _enemy.y + _enemy.img->getFrameHeight() / 2
+		, 10, _enemy.img->getFrameHeight()-10);
+	_enemy.rightcolcheckrc = RectMakeCenter(_enemy.x + _enemy.img->getFrameWidth(), _enemy.y  + _enemy.img->getFrameHeight() / 2
+		, 10, _enemy.img->getFrameHeight()-10);
+	RECT temp;
+	for (int i = 0; i < _mapManager->getWall().size(); i++)
+	{
+		if (IntersectRect(&temp, &_mapManager->getWall()[i]->getRect(), &_enemy.rightcolcheckrc))//||_enemy.x + (_enemy.img->getFrameWidth()) >WINSIZEX+CAMERA->getCameraXpos()) <-플레이어 무브랑 같이 처리해야함,카메라가 움직이지 않는 조건 추가
+		{
+			_enemy.speed *= -1;
+			_currentFrameX = 1;
+		}
+		if (IntersectRect(&temp, &_mapManager->getWall()[i]->getRect(), &_enemy.leftcolcheckrc))//||_enemy.x<0+CAMERA->getCameraXpos())
+		{
+			_enemy.speed *= -1;
+			_currentFrameX = 2;
+		}
+	
+	}
 }
 
 void Enemy::render()
 {
-	if (KEYMANAGER->isToggleKey(VK_F1))
-	{
-		Rectangle(getMemDC(), _enemy.rc);
-	}
+
 	_enemy.img->frameRender(getMemDC(), _enemy.x - CAMERA->getCameraXpos(), _enemy.y - CAMERA->getCameraYpos());
 }
 

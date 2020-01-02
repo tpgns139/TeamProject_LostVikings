@@ -52,14 +52,18 @@ void Baleog::update()
 	Keycontrol();
 	Player::update();
 	//벨로그 렉트 업데이트
-	//_playerInfo._rc = RectMakeCenter(_playerInfo.position.x-CAMERA->getCameraXpos(), _playerInfo.position.y-CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
+	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
-	rc = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2 + 50, 100, 100);
+	//rc = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2 + 50, 100, 100);
 }
 
 void Baleog::render()
 {
-	_playerInfo._image->frameRender(getMemDC(), _playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._CurrentFrameX, _playerInfo._CurrentFrameY);
+
+	_playerInfo._image->frameRender(getMemDC(),
+		_playerInfo.position.x - CAMERA->getCameraXpos(), 
+		_playerInfo.position.y - CAMERA->getCameraYpos(), 
+		_playerInfo._CurrentFrameX, _playerInfo._CurrentFrameY);
 
 	if (KEYMANAGER->isToggleKey('1'))
 	{
@@ -221,5 +225,4 @@ void Baleog::Frame()
 		}
 	}
 }
-
 

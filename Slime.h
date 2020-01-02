@@ -7,8 +7,11 @@ public:
 	Slime();
 	~Slime();
 
-	void update();
-	
+
+	virtual HRESULT init(const char* imagename, POINT position, int num);
+	virtual void update();
+
+	virtual void move();
 	
 
 };

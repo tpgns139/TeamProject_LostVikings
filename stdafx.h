@@ -25,7 +25,7 @@ using namespace std;
 #include "txtData.h"
 #include "soundManager.h"
 #include "sceneManager.h"
-#include"Camera.h"
+#include "Camera.h"
 
 using namespace SEVENTEEN_UTIL;
 

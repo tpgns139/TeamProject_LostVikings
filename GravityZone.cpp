@@ -20,8 +20,8 @@ HRESULT GravityZone::init(mapInfo info)
 
 void GravityZone::update()
 {
-	_mapInfo._rc = RectMake(_mapInfo._x - CAMERA->getCameraXpos(),
-		_mapInfo._y - CAMERA->getCameraYpos(),
+	_mapInfo._rc = RectMake(_mapInfo._x ,
+		_mapInfo._y,
 		_mapInfo.width,
 		_mapInfo.height);
 	if (_mapInfo.timeCount % 10 == 0)
@@ -38,7 +38,7 @@ void GravityZone::update()
 void GravityZone::render()
 {
 	_mapInfo._image->frameRender(_backBuffer->getMemDC(),
-		_mapInfo._rc.left
-		, _mapInfo._rc.top,
+		_mapInfo._rc.left-CAMERA->getCameraXpos()
+		, _mapInfo._rc.top-CAMERA->getCameraYpos(),
 		_mapInfo.currentX, 0);
 }

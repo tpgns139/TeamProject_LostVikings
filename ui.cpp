@@ -13,6 +13,7 @@ ui::~ui()
 
 HRESULT ui::init(const char * imageName, POINT position)
 {
+	
 	_imageName = IMAGEMANAGER->findImage(imageName);
 	_position.x = position.x;
 	_position.y = position.y;
@@ -20,15 +21,23 @@ HRESULT ui::init(const char * imageName, POINT position)
 	return S_OK;
 }
 
+
+
 void ui::release()
 {
 }
 
 void ui::update()
 {
+
 }
 
 void ui::render()
 {
-	_imageName->render(getMemDC(),_imageName->getWidth(), _imageName->getHeight());
+	draw();
+}
+
+void ui::draw()
+{
+	_imageName->render(getMemDC(), _position.x, _position.y);
 }

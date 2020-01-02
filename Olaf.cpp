@@ -32,6 +32,10 @@ HRESULT Olaf::init(PlayerName playerName)
 	IMAGEMANAGER->addFrameImage("O_fly1", "image/olafImage/fly1.bmp", 206, 200, 2, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("O_fly2", "image/olafImage/fly2.bmp", 176, 200, 2, 2, true, RGB(255, 0, 255));
 
+	IMAGEMANAGER->addFrameImage("O_front_run", "image/olafImage/front_run.bmp", 583, 200, 6, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("O_jump", "image/olafImage/jump.bmp", 200, 200, 2, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("O_push", "image/olafImage/push.bmp", 413, 200, 4, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("O_top_run", "image/olafImage/top_run.bmp", 848, 200, 8, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("O_front_run", "image/olafImage/front_run.bmp", 776, 198, 8, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("O_top_run", "image/olafImage/top_run.bmp", 848, 200, 8, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("O_jump", "image/olafImage/jump.bmp", 200, 200, 2, 2, true, RGB(255, 0, 255));
@@ -49,6 +53,9 @@ HRESULT Olaf::init(PlayerName playerName)
 	_playerInfo.position.x = WINSIZEX / 2 + 200;
 	_playerInfo.position.y = WINSIZEY / 2 - 45;
 
+	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x,_playerInfo.position.y,_playerInfo._image->getFrameWidth(),_playerInfo._image->getFrameHeight());
+
+	//shield
 	//_playerInfo._rc = RectMakeCenter(_playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
 	//shieldX = _playerInfo._image->getFrameWidth() / 2;
@@ -78,7 +85,6 @@ HRESULT Olaf::init(PlayerName playerName)
 void Olaf::update()
 {
 	
-
 	Frame(20);
 	KeyControl();
 	Player::update();
@@ -107,8 +113,6 @@ void Olaf::update()
 
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
-	
-	
 }
 
 void Olaf::render()
@@ -125,8 +129,17 @@ void Olaf::render()
 	if(!shieldPosision)Rectangle(getMemDC(), shieldFront);
 }
 
+
 void Olaf::KeyControl()
 {
+
+
+	if (KEYMANAGER->isStayKeyDown('A'))
+	{
+		//_Ostate = ;
+	}
+
+
 	//방패버그있음;
 
 	//왼쪽//
@@ -196,8 +209,6 @@ void Olaf::KeyControl()
 		if(shieldPosision)_Ostate =  O_top_idle1;
 	}
 
-
-
 	switch (_Ostate)
 	{
 	case O_front_idle1:
@@ -262,12 +273,9 @@ void Olaf::KeyControl()
 		break;
 	}
 
-
-
-
-
-
 }
+
+
 
 void Olaf::Frame(int FrameX)
 {

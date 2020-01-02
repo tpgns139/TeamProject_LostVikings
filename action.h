@@ -3,6 +3,7 @@
 
 typedef void(*CALLBACK_FUNCTION)(void);
 
+
 class action : public gameNode
 {
 private:
@@ -14,8 +15,10 @@ private:
 	float _travelRange;			//가야하는 거리
 	float _worldTimeCount;
 	float _time;		
-
-	bool _isMoving;
+	bool _imageMoving;
+	bool _pointMoving;
+	
+	POINT _chasePoint;
 
 	CALLBACK_FUNCTION _callbackFunction;
 	
@@ -30,9 +33,10 @@ public:
 
 	void moveTo(image* image, float endX, float endY, float time);
 	void moveTo(image* image, float endX, float endY, float time, CALLBACK_FUNCTION cbFunction);
+	void moveTo(float startX, float startY, float endX, float endY, float time);
 
 	void moving();
-
-	bool getIsMoving() { return _isMoving; }
+	bool getimageMoving() { return _imageMoving; }
+	bool getPointMoving() { return _pointMoving; }
 };
 

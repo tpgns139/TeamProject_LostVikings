@@ -7,6 +7,7 @@ protected:
 	image* _imageName;
 
 	POINT _position;
+
 public:
 	ui();
 	~ui();
@@ -15,6 +16,6 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render();
-
+	virtual void draw();
 };
 

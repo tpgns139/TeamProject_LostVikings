@@ -19,12 +19,15 @@ HRESULT Wall::init(mapInfo info)
 
 void Wall::update()
 {
-	_mapInfo._rc = RectMake(_mapInfo._x - CAMERA->getCameraXpos(),
-		_mapInfo._y - CAMERA->getCameraYpos(),
+	_mapInfo._rc = RectMake(_mapInfo._x ,
+		_mapInfo._y ,
 		_mapInfo.width,
 		_mapInfo.height);
 }
 void Wall::render()
 {
-	Rectangle(_backBuffer->getMemDC(), _mapInfo._rc);
+	RectangleMake(_backBuffer->getMemDC(), _mapInfo._rc.left - CAMERA->getCameraXpos()
+		, _mapInfo._rc.top - CAMERA->getCameraYpos(),
+		_mapInfo.width,
+		_mapInfo.height);
 }
