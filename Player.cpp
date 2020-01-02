@@ -34,7 +34,7 @@ void Player::MakeRect()
 
 
 	_playerInfo._underRc = RectMakeCenter(_playerInfo.position.x  + _playerInfo._image->getFrameWidth() / 2,
-		_playerInfo.position.y  + _playerInfo._image->getFrameHeight(),
+		_playerInfo.position.y  + _playerInfo._image->getFrameHeight()+7,
 		_playerInfo._image->getFrameWidth(), 5);
 	_playerInfo._leftRc = RectMakeCenter(_playerInfo.position.x ,
 		_playerInfo.position.y  + _playerInfo._image->getFrameHeight() / 2,

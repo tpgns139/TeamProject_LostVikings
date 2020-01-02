@@ -35,11 +35,9 @@ void EnemyManager::update()
 		(*_viEm)->update();
 	}
 	_Ebullet->update();
-	if (KEYMANAGER->isOnceKeyDown('X'))
-	{
-		enemyBulletFire();
-	}
-	collision();
+	
+	enemyBulletFire();
+	towerBulletFire();
 	
 }
 
@@ -124,11 +122,28 @@ void EnemyManager::setEnemy()
 
 void EnemyManager::enemyBulletFire()
 {
+	/*for (int i = 0; i < _vEm.size(); i++)
+	{
+		if (_vEm[i]->bulletCountFire())
+		{
+			RECT rc = _vEm[i]->getEnemyRect();
+
+			_Ebullet->bulletFire(_vEm[i]->getX() + _vEm[i]->getEnemyInfo().img->getFrameWidth(), _vEm[i]->getY() + _vEm[i]->getEnemyInfo().img->getFrameHeight() / 2, 2.0f);
+		}
+	}*/
+}
+
+void EnemyManager::towerBulletFire()
+{
 	for (int i = 0; i < _vEm.size(); i++)
 	{
-		RECT rc = _vEm[i]->getEnemyRect();
+		if (_vEm[i]->bulletCountFire())
+		{
+			RECT rc = _vEm[i]->getEnemyRect();
 
-		_Ebullet->bulletFire(_vEm[i]->getX() + _vEm[i]->getEnemyInfo().img->getFrameWidth(), _vEm[i]->getY() + _vEm[i]->getEnemyInfo().img->getFrameHeight()/2, 2.0f);
+			_Ebullet->bulletFire(_vEm[i]->getX(),
+				_vEm[i]->getY() + 20, 5.0f);
+		}
 	}
 }
 

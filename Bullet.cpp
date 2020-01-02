@@ -64,7 +64,7 @@ void Bullet::bulletMove()
 {
 	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end();)
 	{
-		_viBullet->x += _viBullet->speed;
+		_viBullet->x -= _viBullet->speed;
 		
 		_viBullet->rc = RectMakeCenter(_viBullet->x - CAMERA->getCameraXpos(), _viBullet->y - CAMERA->getCameraYpos(),
 			_viBullet->img->getWidth(), _viBullet->img->getHeight());

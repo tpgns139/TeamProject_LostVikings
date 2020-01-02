@@ -46,7 +46,7 @@ bool Tower::bulletCountFire()
 {
 	_firecount++;
 
-	if (_firecount % 70 == 0)
+	if (_firecount % 72 == 0)
 	{
 		_firecount = 0;
 		return true;
