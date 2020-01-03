@@ -80,13 +80,33 @@ void Player::update()
 		RECT temp2;
 		if (IntersectRect(&temp2, &_playerInfo._rc, &_MapManager->getColWall()[i]->getRect()))
 		{
-
+			switch (_playerInfo._playerName)
+			{
+			case PN_ERIK:
+				if (((Erik*)(this))->getState() == E_run)
+				{
+					((Erik*)(this))->setState(E_push);
+				}
+				break;
+			case PN_BALEOG:
+				if (((Baleog*)(this))->getState() == BALEOG_RIGHTMOVE||
+					((Baleog*)(this))->getState() == BALEOG_LEFTMOVE)
+				{
+					((Baleog*)(this))->setState(BALEOG_PUSH);
+				}
+				break;
+			case PN_OLAF:
+				if (((Olaf*)(this))->getState() == O_front_run||
+					((Olaf*)(this))->getState() == O_top_run)
+				{
+					((Olaf*)(this))->setState(O_push);
+				}
+				break;
+			}
 			_playerInfo._leftRc.left = _MapManager->getWall()[i]->getRect().right;
-			
-
-
 			if (_Direction == LEFT)
 			{
+				
 				if ( _MapManager->getColWall()[i]->getRect().right < _playerInfo.position.x) 
 				{
 					_playerInfo.position.x = 

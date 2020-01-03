@@ -74,7 +74,9 @@ void PlayerManager::update()
 	for (int i = 0;i < _vPlayer.size();i++)
 	{
 		_vPlayer[i]->update();
-		//static_cast<Olaf*>(_vPlayer[2])->getShield();
+
+
+		//((Olaf*)(_vPlayer[2]))->getShieldFront();
 		
 	}
 

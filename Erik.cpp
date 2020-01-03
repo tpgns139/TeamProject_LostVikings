@@ -104,9 +104,9 @@ void Erik::update()
 			}
 		}
 	}
-
+	cout << _state << endl;
 	Player::update();
-
+	stateImage();
 }
 
 void Erik::render()
@@ -217,7 +217,6 @@ void Erik::KeyControl()
 		_playerInfo.gravity = 0.05f;
 	}
 
-	stateImage();
 	//а║га©К//
 	if (isJump)
 	{
