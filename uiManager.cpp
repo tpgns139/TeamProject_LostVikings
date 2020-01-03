@@ -13,10 +13,10 @@ uiManager::~uiManager()
 
 HRESULT uiManager::init()
 {
-	IMAGEMANAGER->addFrameImage("MeatFrame", "고기2.bmp", 100, 56, 2, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("FruitFrame", "과일2.bmp", 100, 56, 2, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("KeyFrame", "키2.bmp", 100, 48, 2, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("ShoesFrame", "신발2.bmp", 100, 56, 2, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("MeatFrame", "고기2.bmp", 70, 39, 2, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("FruitFrame", "과일2.bmp", 70, 39, 2, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("KeyFrame", "키2.bmp", 70, 36, 2, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("ShoesFrame", "신발2.bmp", 70, 39, 2, 1, true, RGB(255, 0, 255));
 	Erik = IMAGEMANAGER->addImage("에릭활성", "에릭활성.bmp", 82, 65, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("에릭죽음", "에릭죽음.bmp", 82, 65, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("에릭흑백", "에릭흑백.bmp", 82, 65, true, RGB(255, 0, 255));
@@ -57,7 +57,7 @@ HRESULT uiManager::init()
 	{
 		_playerItemVector.push_back(new uiInfo);
 	}
-
+	
 	return S_OK;
 }    
 
@@ -81,16 +81,16 @@ void uiManager::update()
 			for (int j = 0;j < _pm->get_vPlayer()[i]->getPlayerInfo()->_vPlayerItem.size();j++)
 			{
 				ins->_itemList.push_back(_pm->get_vPlayer()[i]->getPlayerInfo()->_vPlayerItem[j]);
-				ins->_itemPos.push_back(PointMake(198 + (j%2) * 39, 639 + (j/2) * 20));
-				_playerItemVector[0]=ins;
+				ins->_itemPos.push_back(PointMake(198 + (j % 2) * 39, 639 + (j / 2) * 20));
+				_playerItemVector[0] = ins;
 				cout << j << endl;
 			}
-			break;
+				break;
 		case PN_BALEOG:
 			for (int j = 0;j < _pm->get_vPlayer()[i]->getPlayerInfo()->_vPlayerItem.size();j++)
 			{
 				ins->_itemList.push_back(_pm->get_vPlayer()[i]->getPlayerInfo()->_vPlayerItem[j]);
-				ins->_itemPos.push_back(PointMake(378 + (j%2) * 39, 639 + (j/2) * 20));
+				ins->_itemPos.push_back(PointMake(378 + (j % 2) * 39, 639 + (j / 2) * 20));
 				_playerItemVector[1] = ins;
 			}
 			break;
@@ -98,38 +98,17 @@ void uiManager::update()
 			for (int j = 0;j < _pm->get_vPlayer()[i]->getPlayerInfo()->_vPlayerItem.size();j++)
 			{
 				ins->_itemList.push_back(_pm->get_vPlayer()[i]->getPlayerInfo()->_vPlayerItem[j]);
-				ins->_itemPos.push_back(PointMake(556 + (j%2) * 39, 639 + (j/2) * 20));
+				ins->_itemPos.push_back(PointMake(556 + (j % 2) * 39, 639 + (j / 2) * 20));
 				_playerItemVector[2] = ins;
 			}
 			break;
-		}
-			
+
 		
 
-	}
-	if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
-	{
-		if (_Erik1 == E_ON && _Baleog2 == B_OFF && _Olaf3 == O_OFF)
-		{
-			_Erik1 = E_OFF;
-			_Baleog2 = B_ON;
-			_Olaf3 = O_OFF;
 		}
-		if (_Erik1 == E_OFF && _Baleog2 == B_ON && _Olaf3 == O_OFF)
-		{
-			_Erik1 = E_OFF;
-			_Baleog2 = B_OFF;
-			_Olaf3 = O_ON;
-		}
-		if (_Erik1 == E_OFF && _Baleog2 == B_OFF && _Olaf3 == O_ON)
-		{
-			_Erik1 = E_ON;
-			_Baleog2 = B_OFF;
-			_Olaf3 = O_OFF;
-		}
-	}
 
-
+	}
+	keyControl();
 }
 
 void uiManager::render()
@@ -152,18 +131,21 @@ void uiManager::render()
 					_playerItemVector[i]->_itemPos[j].x,
 					_playerItemVector[i]->_itemPos[j].y,
 					0,0);
+				
 				break;
 			case meat:
 				IMAGEMANAGER->findImage("MeatFrame")->frameRender(getMemDC(),
 					_playerItemVector[i]->_itemPos[j].x,
 					_playerItemVector[i]->_itemPos[j].y,
 					0, 0);
+			
 				break;
 			case key:
 				IMAGEMANAGER->findImage("KeyFrame")->frameRender(getMemDC(),
 					_playerItemVector[i]->_itemPos[j].x,
 					_playerItemVector[i]->_itemPos[j].y,
 					0, 0);
+			
 				break;
 			case shoes:
 				IMAGEMANAGER->findImage("ShoesFrame")->frameRender(getMemDC(),
@@ -174,6 +156,13 @@ void uiManager::render()
 			}
 		}
 	}
+	
+	//누구의 몇번째 아이템
+	
+
+
+
+
 	Erik->render(getMemDC(), 117, 641);
 	Baleog->render(getMemDC(), 296, 641);
 	Olaf->render(getMemDC(), 475, 641);
@@ -221,6 +210,7 @@ void uiManager::render()
 			);
 		}
 	}
+	keyControl();
 }
 
 void uiManager::setUi()
@@ -249,6 +239,7 @@ void uiManager::setUi()
 		ui6->init("체력", PointMake(479 + i * 20, 706), Hp);
 		_vUi.push_back(ui6);
 	}
+
 	ui* ui7;
 	ui7 = new SelectUi;
 	ui7->init("선택uiFrame", PointMake(_selectUiX, _selectUiY), Pointer);
@@ -264,29 +255,147 @@ void uiManager::setUi()
 	ui9->init("선택uiFrame", PointMake(_selectUiX2, _selectUiY2), Pointer);
 	_vSelctUi.push_back(ui9);
 
+	
+
+
+	
 }
 
 void uiManager::setState()
 {
+
+	
+
+	
 	switch (_pm->get_nPlayer()->getPlayerInfo()->_playerName)
 	{
+		
 	case PN_ERIK:
 		Erik = IMAGEMANAGER->findImage("에릭활성");
-		Baleog = IMAGEMANAGER->findImage("벨로그흑백");
-		Olaf = IMAGEMANAGER->findImage("울라프흑백");
+		if (_baleog == false)
+		{
+			Baleog = IMAGEMANAGER->findImage("벨로그흑백");
+		}
+		if (_olaf== false)
+		{
+			Olaf = IMAGEMANAGER->findImage("울라프흑백");
+		}
+		if (KEYMANAGER->isOnceKeyDown(VK_F1))
+		{
+			_pm->get_nPlayer()->getPlayerInfo()->HP = 0;
+		}
+
 		_selectNum = 0;
 		break;
 	case PN_BALEOG:
-		Baleog = IMAGEMANAGER->findImage("벨로그활성");
-		Erik = IMAGEMANAGER->findImage("에릭흑백");
-		Olaf = IMAGEMANAGER->findImage("울라프흑백");
-		_selectNum = 1;
+		
+			Baleog = IMAGEMANAGER->findImage("벨로그활성");
+			if (_eric == false)
+			{
+				Erik = IMAGEMANAGER->findImage("에릭흑백");
+			}
+			if (_olaf==false)
+			{
+				Olaf = IMAGEMANAGER->findImage("울라프흑백");
+			}
+			
+			if (KEYMANAGER->isOnceKeyDown(VK_F2))
+			{
+				_pm->get_nPlayer()->getPlayerInfo()->HP = 0;
+			}
+			_selectNum = 1;
+			break;
+
+		
+	case PN_OLAF:
+			if (_baleog == false)
+			{
+				Baleog = IMAGEMANAGER->findImage("벨로그흑백");
+			}
+			if (_eric == false)
+			{
+				Erik = IMAGEMANAGER->findImage("에릭흑백");
+			}
+			Olaf = IMAGEMANAGER->findImage("울라프활성");
+			
+			if (KEYMANAGER->isOnceKeyDown(VK_F3))
+			{
+				_pm->get_nPlayer()->getPlayerInfo()->HP = 0;
+			}
+			_selectNum = 2;
+			break;
+		
+		
+		
+	}
+
+
+
+
+
+	switch (_pm->get_nPlayer()->getPlayerInfo()->_playerName)
+	{
+	case PN_ERIK:
+
+		if (_pm->get_nPlayer()->getPlayerInfo()->HP == 0)
+		{
+			_eric = true;
+			if (_eric == true)
+			{
+				Erik = IMAGEMANAGER->findImage("에릭죽음");	
+			}
+		}
+		break;
+
+	case PN_BALEOG:
+		if (_pm->get_nPlayer()->getPlayerInfo()->HP == 0)
+		{
+			_baleog = true;
+			if (_baleog = true)
+			{
+				Baleog = IMAGEMANAGER->findImage("벨로그죽음");
+			}
+			
+		}
 		break;
 	case PN_OLAF:
-		Baleog = IMAGEMANAGER->findImage("벨로그흑백");
-		Erik = IMAGEMANAGER->findImage("에릭흑백");
-		Olaf = IMAGEMANAGER->findImage("울라프활성");
-		_selectNum = 2;
+		if (_pm->get_nPlayer()->getPlayerInfo()->HP == 0)
+		{
+			_olaf = true;
+			if (_olaf==true)
+			{
+				Olaf = IMAGEMANAGER->findImage("울라프죽음");
+			}
+		}
+		break;
+	}
+}
+
+void uiManager::keyControl()
+{
+
+
+	switch (_selectNum)
+	{
+	case 0:
+		for (int i = 0;i < _vSelctUi.size();i++)
+		{
+			if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
+			{
+				_vSelctUi[i]->set_position().x;
+				
+
+				
+			}
+		}
+		break;
+
+	case 1:
+
+		break;
+
+	case 2:
+
 		break;
 
 	}

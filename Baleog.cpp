@@ -42,6 +42,8 @@ HRESULT Baleog::init(PlayerName playerName)
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 	_playerInfo.speed = 2.0f;
 	_playerInfo.gravity = 0;
+	_playerInfo.HP = 3;
+	_playerInfo.MaxHP = 3;
 	Player::MakeRect();
 
 	return S_OK;

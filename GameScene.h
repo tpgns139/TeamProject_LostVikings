@@ -16,10 +16,10 @@ private:
 	MapManager* _mm;
 	EnemyManager* _em;
 	uiManager* _ui;
-
-
 	bool _changeNowPlayer;
 	bool _selectUi;
+	bool eric;
+	int pNum;
 public:
 	
 	GameScene();

@@ -22,7 +22,7 @@ private:
 	PlayerManager* _pm;
 	image* _shoes;
 
-
+	int _itemNum;
 	RECT test;
 public:
 	itemManager();

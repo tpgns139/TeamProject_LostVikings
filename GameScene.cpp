@@ -66,14 +66,20 @@ HRESULT GameScene::init()
 
 void GameScene::update()
 {
-	if (!_selectUi) 
+
+
+
+
+	if (!_selectUi)
 	{
+
 		CAMERA->update();
-		if (_changeNowPlayer) 
+		if (_changeNowPlayer)
 		{
 			CAMERA->moveTo(_pm->get_nPlayer()->getPlayerPos().x, _pm->get_nPlayer()->getPlayerPos().y, 0.5f);
 			_changeNowPlayer = false;
 		}
+
 		_im->update();
 		_pm->update();
 
@@ -85,6 +91,7 @@ void GameScene::update()
 			_selectUi = true;
 		}
 	}
+
 	else
 	{
 		_ui->setSelect(_selectUi);
@@ -92,11 +99,19 @@ void GameScene::update()
 		{
 			_selectUi = false;
 		}
-		if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
-		{
-			_pm->setNowPlayer();
-			_changeNowPlayer = true;
-		}
+
+		
+
+	
+			if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
+			{
+
+				_pm->setNowPlayer();
+				_changeNowPlayer = true;
+
+			}
+		
+		
 	}
 	_ui->update();
 }

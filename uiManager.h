@@ -64,11 +64,14 @@ private:
 	image* _selectUiFrame;
 	int _currentPoint;
 	int _currentFrameX;
+	bool _eric;
+	bool _baleog;
+	bool _olaf;
 
 	bool _select;
 	int _selectNum;
 	int _timeTick;
-
+	int _itemNum;
 	POINTS pos;
 	PlayerManager* _pm;
 
@@ -84,9 +87,14 @@ public:
 	virtual void render();
 	virtual void setUi();
 	virtual void setState();
+	virtual void keyControl();
 	virtual image* getUiImage() { return _ui; }
 	int setSelectUi() { int _SelectUiX; }
 	void setPlayerManager(PlayerManager* pm) { _pm = pm; }
 	void setSelect(bool select) { _select = select; }
+	bool getEric() { return _eric; }
+	void getBaleog(bool baleog) { _baleog = baleog; }
+	void getOlaf(bool olaf) { _olaf = olaf; }
+
 };
 
