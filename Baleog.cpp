@@ -84,7 +84,7 @@ void Baleog::KeyControl()
 			_playerInfo._CurrentFrameY = 0;
 			_BaleogState = BALEOG_RIGHTATTACK;
 		}
-		if (_BaleogState == BALEOG_LEFTIDLE|| _BaleogState == BALEOG_LEFTMOVE)
+		if (_BaleogState == BALEOG_LEFTIDLE || _BaleogState == BALEOG_LEFTMOVE)
 		{
 			_Direction = LEFT;
 			_playerInfo._CurrentFrameX = 0;
@@ -180,7 +180,7 @@ void Baleog::KeyControl()
 			_playerInfo.position.x += _playerInfo.speed;
 		}
 	}
-	
+
 	switch (_BaleogState)											//벨로그 스테이트 
 	{
 	case BALEOG_RIGHTIDLE:
@@ -215,7 +215,7 @@ void Baleog::KeyControl()
 	default:
 		break;
 	}
-	}
+}
 
 void Baleog::Frame()
 {
