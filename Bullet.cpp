@@ -105,7 +105,7 @@ void Bullet::bulletMove()
 
 void Bullet::removeBullet(int arrNum)
 {
-	EFFECTMANAGER->play("EnemyBulletDestroy", (_vBullet.begin() + arrNum)->x-CAMERA->getCameraXpos(), (_vBullet.begin() + arrNum)->y-CAMERA->getCameraYpos());
+	EFFECTMANAGER->play("EnemyBulletDestroy", (_vBullet.begin() + arrNum)->x, (_vBullet.begin() + arrNum)->y);
 	_vBullet.erase(_vBullet.begin() + arrNum); 
 }
 

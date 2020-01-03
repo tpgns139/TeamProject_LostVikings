@@ -18,7 +18,7 @@ HRESULT EnemyManager::init()
 	setEnemy(); //에너미를 세팅해주는 함수
 	_Ebullet = new Bullet;
 	_Ebullet->init("에너미불릿");
-	
+	EFFECTMANAGER->addEffect("EnemyDead", "묘비.bmp", 891,73, 81, 73, 1.0f, 0.1f, 50);
 	
 	return S_OK;
 }
@@ -65,7 +65,7 @@ void EnemyManager::update()
 
 	_Ebullet->update();
 	collision();
-
+	
 	
 }
 
@@ -187,6 +187,8 @@ void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
 
 void EnemyManager::removeEnemy(int arrNum)
 {
+	EFFECTMANAGER->play("EnemyDead", (*(_vEm.begin() + arrNum))->getEnemyInfo().x , (*(_vEm.begin() + arrNum))->getEnemyInfo().y );
+	cout << (*(_vEm.begin() + arrNum))->getEnemyInfo().x << "," << (*_vEm.begin() + arrNum)->getEnemyInfo().y  << endl;
 	_vEm.erase(_vEm.begin() + arrNum);
 
 }

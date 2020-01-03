@@ -152,9 +152,8 @@ void PlayerManager::Bulletcollsion()
 			if (IntersectRect(&temp, &_Pbullet->getVBullet()[j].rc, &_em->getEnemy()[i]->getEnemyRect()))
 			{
 				_Pbullet->removeBullet(j);
-
+				_em->removeEnemy(i);
 			}
-
 		}
 	}
 	
