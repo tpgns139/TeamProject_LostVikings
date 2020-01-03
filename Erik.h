@@ -57,5 +57,6 @@ public:
 	void stateImage();
 	ERIKSTATE getState() { return _state; }
 	void setState(ERIKSTATE state) { _state = state; }
+	void setSpeed(float speed) { PlusSpeed = speed; }
 };
 

@@ -64,11 +64,6 @@ HRESULT Erik::init(PlayerName playerNme)
 
 void Erik::update()
 {
-	if (_state != E_attack_after)
-	{
-	//	KeyControl();
-	}
-	
 
 	if((_state != E_up)&&(_state != E_attack_after)&&(_state != E_jump))
 	{
@@ -163,11 +158,30 @@ void Erik::KeyControl()
 		}
 	
 	}
+	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
+	{
+		_Direction = LEFT;
+		headingCount = 0;
 
-
-
-	cout << "사다리니?" << _playerInfo.isLadder << endl;
-
+		if (_state == E_push)
+		{
+			setSpeed(0.0f);
+		}
+		_state = E_idle1;
+		_playerInfo._CurrentFrameX = 0;
+	}
+	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
+	{
+		_Direction = RIGHT;
+		_playerInfo._image->setFrameY(0);
+		headingCount = 0;
+		if (_state == E_push)
+		{
+			setSpeed(0.0f);
+		}
+		_state = E_idle1;
+		_playerInfo._CurrentFrameX = 0;
+	}
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 		
@@ -183,45 +197,27 @@ void Erik::KeyControl()
 
 		if ((_state != E_atk) && (_state != E_jump)&&(_state != E_push)) _state = E_run;
 
-		_playerInfo.position.x -= _playerInfo.speed - PlusSpeed;
+		_playerInfo.position.x += PlusSpeed;
 		if ((_state!=E_jump)&&(headingCount>100) &&(KEYMANAGER->isOnceKeyDown('F')))
 		{
 			_state = E_atk;
 		}
 	}
-
-	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
-	{
-		_Direction = LEFT;
-		headingCount = 0;
-		_state = E_idle1;
-
-		_playerInfo._CurrentFrameX = 0;
-	}
-
 	if ((_state != E_up) && (KEYMANAGER->isStayKeyDown(VK_RIGHT)))
 	{
-		if (PlusSpeed<3)PlusSpeed += 0.1f;
-		
+		if (PlusSpeed < 3)PlusSpeed += 0.1f;
+
 		_Direction = RIGHT;
 		_playerInfo._image->setFrameY(0);
 		headingCount++;
 		if ((_state != E_atk) && (_state != E_jump)) _state = E_run;
-		_playerInfo.position.x += _playerInfo.speed + PlusSpeed;
+		_playerInfo.position.x += PlusSpeed;
 		if ((headingCount > 100) && (KEYMANAGER->isOnceKeyDown('F'))) //박치기하려면 움직임 카운트가 100이상
 		{
 			_state = E_atk;
 		}
 	}
-
-	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
-	{
-		_Direction = RIGHT;
-		_playerInfo._image->setFrameY(0);
-		headingCount = 0;
-		_state = E_idle1;
-		_playerInfo._CurrentFrameX = 0;
-	}
+	
 
 	if (_Direction == LEFT)
 	{
