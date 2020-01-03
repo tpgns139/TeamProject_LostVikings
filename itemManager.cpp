@@ -79,7 +79,7 @@ void itemManager::setItem()
 
 	item* item5;
 	item4 = new Meat;
-	item4->init("Meat", PointMake(WINSIZEX+100, WINSIZEY/2),meat);
+	item4->init("Meat", PointMake(WINSIZEX+100, WINSIZEY/2+40),meat);
 	_vItem.push_back(item4);
 
  

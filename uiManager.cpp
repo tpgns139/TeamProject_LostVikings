@@ -81,7 +81,7 @@ void uiManager::update()
 			for (int j = 0;j < _pm->get_vPlayer()[i]->getPlayerInfo()->_vPlayerItem.size();j++)
 			{
 				ins->_itemList.push_back(_pm->get_vPlayer()[i]->getPlayerInfo()->_vPlayerItem[j]);
-				ins->_itemPos.push_back(PointMake(198 + j * 39, 639 + i * 20));
+				ins->_itemPos.push_back(PointMake(198 + (j%2) * 39, 639 + (j/2) * 20));
 				_playerItemVector[0]=ins;
 				cout << j << endl;
 			}
@@ -90,7 +90,7 @@ void uiManager::update()
 			for (int j = 0;j < _pm->get_vPlayer()[i]->getPlayerInfo()->_vPlayerItem.size();j++)
 			{
 				ins->_itemList.push_back(_pm->get_vPlayer()[i]->getPlayerInfo()->_vPlayerItem[j]);
-				ins->_itemPos.push_back(PointMake(378 + j * 39, 639 + i * 20));
+				ins->_itemPos.push_back(PointMake(378 + (j%2) * 39, 639 + (j/2) * 20));
 				_playerItemVector[1] = ins;
 			}
 			break;
@@ -98,7 +98,7 @@ void uiManager::update()
 			for (int j = 0;j < _pm->get_vPlayer()[i]->getPlayerInfo()->_vPlayerItem.size();j++)
 			{
 				ins->_itemList.push_back(_pm->get_vPlayer()[i]->getPlayerInfo()->_vPlayerItem[j]);
-				ins->_itemPos.push_back(PointMake(556 + j * 39, 639 + i * 20));
+				ins->_itemPos.push_back(PointMake(556 + (j%2) * 39, 639 + (j/2) * 20));
 				_playerItemVector[2] = ins;
 			}
 			break;

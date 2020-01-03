@@ -75,11 +75,6 @@ void Erik::update()
 
 	//Player::collsion();
 
-
-	if (_state != E_attack_after)
-	{
-		KeyControl();
-	}
 	
 
 	if((_state != E_up)&&(_state != E_attack_after))
