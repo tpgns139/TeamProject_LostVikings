@@ -89,7 +89,7 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* Sl;
 		Sl = new Slime;
-		Sl->init("SlimeMove", PointMake(3560, 1310), 0,3);
+		Sl->init("SlimeMove", PointMake(3560, 1310), 0,2);
 		Sl->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sl);
 	}
@@ -97,7 +97,7 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* Sl;
 		Sl = new Slime;
-		Sl->init("SlimeMove1", PointMake(2200, 1460), 1,3);
+		Sl->init("SlimeMove1", PointMake(2200, 1460), 1,2);
 		Sl->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sl);
 	}
