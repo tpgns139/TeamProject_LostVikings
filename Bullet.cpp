@@ -15,8 +15,10 @@ HRESULT Bullet::init(const char * imagename)
 {
 	
 	_imgname = imagename;
-	EFFECTMANAGER->addEffect("EnemyBulletDestroy", "¿¡³Ê¹ÌºÒ¸´ÀÌÆåÆ®.bmp", 150, 50, 50, 50, 1.0f, 1.0f, 50);
+	EFFECTMANAGER->addEffect("EnemyBulletDestroy", "¿¡³Ê¹ÌºÒ¸´ÀÌÆåÆ®.bmp", 150, 50, 50, 50, 1.0f, 0.2f, 50);
+	EFFECTMANAGER->addEffect("PlayerBulletDestroy", "brokenarrow.bmp", 150, 20, 30, 20, 1.0f, 0.2f, 50);
 	return S_OK;
+
 }
 
 void Bullet::release()
@@ -42,6 +44,7 @@ void Bullet::render()
 		
 	}
 }
+
 void Bullet::frameRender()
 {
 	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end(); ++_viBullet)
@@ -103,9 +106,19 @@ void Bullet::bulletMove()
 	}
 }
 
-void Bullet::removeBullet(int arrNum)
+void Bullet::removeEnemyBullet(int arrNum)
 {
 	EFFECTMANAGER->play("EnemyBulletDestroy", (_vBullet.begin() + arrNum)->x, (_vBullet.begin() + arrNum)->y);
 	_vBullet.erase(_vBullet.begin() + arrNum); 
 }
 
+void Bullet::removePlayerBullet(int arrNum)
+{
+	EFFECTMANAGER->play("PlayerBulletDestroy", (_vBullet.begin() + arrNum)->x, (_vBullet.begin() + arrNum)->y-10);
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}
+
+void Bullet::removeBullet(int arrNum)
+{
+	_vBullet.erase(_vBullet.begin() + arrNum);
+}

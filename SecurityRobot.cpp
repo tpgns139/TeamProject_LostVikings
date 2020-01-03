@@ -31,7 +31,7 @@ void SecurityRobot::update()
 
 	_count++;
 
-	if (_count %24 == 0)
+	if (_count %12== 0)
 	{
 
 		if (_enemy.speed < 0)
@@ -63,7 +63,7 @@ bool SecurityRobot::bulletCountFire()
 
 	_firecount++;
 
-	if (_firecount % 70 == 0)
+	if (_firecount % 35 == 0)
 	{
 		_firecount = 0;
 		return true;
