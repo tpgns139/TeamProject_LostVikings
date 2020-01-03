@@ -76,6 +76,7 @@ void GameScene::update()
 		{
 			_selectUi = true;
 		}
+		EFFECTMANAGER->update();
 	}
 	else
 	{
@@ -92,7 +93,6 @@ void GameScene::update()
 		}
 			
 	}
-	
 
 	
 }
@@ -101,12 +101,14 @@ void GameScene::render()
 {
 
 	IMAGEMANAGER->findImage("¹è°æ")->render(getMemDC(), 0, 0, CAMERA->getCameraXpos(), CAMERA->getCameraYpos(), WINSIZEX, WINSIZEY);
+	
 	_mm->render();
 	_pm->render();
 	_im->render();
 	_em->render();
 	_mm->zOrderRender();
 	_ui->render();
+	EFFECTMANAGER->render();
 }
 
 void GameScene::release()

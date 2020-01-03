@@ -18,7 +18,7 @@ HRESULT EnemyManager::init()
 	setEnemy(); //에너미를 세팅해주는 함수
 	_Ebullet = new Bullet;
 	_Ebullet->init("에너미불릿");
-	
+	EFFECTMANAGER->addEffect("EnemyDead", "묘비2.bmp", 1701,73, 81, 73, 1.0f, 0.15f, 50);
 	
 	return S_OK;
 }
@@ -34,27 +34,40 @@ void EnemyManager::update()
 	{
 		(*_viEm)->update();
 
+		RECT temp;
 		if ((*_viEm)->getEnemyInfo().name == slime)
 		{
-			
-			if ((*_viEm)->getEnemyInfo().speed < 0)
+			if (IntersectRect(&temp, &(*_viEm)->getEnemyRect() , &_playerManager->get_nPlayer()->getRect()))
 			{
-				enemyBulletFire((*_viEm),RIGHT);
+				
+				if ((*_viEm)->getEnemyInfo().speed < 0)
+				{
+					enemyBulletFire((*_viEm), RIGHT);
+				}
+				else
+				{
+					enemyBulletFire((*_viEm), LEFT);
+				}
 			}
-			else
-			{
-				enemyBulletFire((*_viEm),LEFT);
-			}
+		
+
 		}
 		if ((*_viEm)->getEnemyInfo().name == robot)
-		{
-			if ((*_viEm)->getEnemyInfo().speed < 0)
+		{	
+			if (getDistance((*_viEm)->getEnemyRect().left,
+				(*_viEm)->getEnemyRect().top,
+				_playerManager->get_nPlayer()->getRect().left,
+				_playerManager->get_nPlayer()->getRect().top) < 400)
 			{
-				enemyBulletFire((*_viEm), RIGHT);
-			}
-			else
-			{
-				enemyBulletFire((*_viEm), LEFT);
+				if ((*_viEm)->getEnemyInfo().speed < 0)
+				{
+
+					enemyBulletFire((*_viEm), RIGHT);
+				}
+				else
+				{
+					enemyBulletFire((*_viEm), LEFT);
+				}
 			}
 		}
 		if ((*_viEm)->getEnemyInfo().name == redtower)
@@ -65,7 +78,7 @@ void EnemyManager::update()
 
 	_Ebullet->update();
 	collision();
-
+	
 	
 }
 
@@ -185,6 +198,14 @@ void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
 	}
 }
 
+void EnemyManager::removeEnemy(int arrNum)
+{
+	EFFECTMANAGER->play("EnemyDead", (*(_vEm.begin() + arrNum))->getEnemyInfo().x , (*(_vEm.begin() + arrNum))->getEnemyInfo().y );
+	
+	_vEm.erase(_vEm.begin() + arrNum);
+
+}
+
 
 void EnemyManager::collision()
 {
@@ -197,7 +218,7 @@ void EnemyManager::collision()
 		{
 			if (IntersectRect(&temp, &_Ebullet->getVBullet()[i].rc, &_mapManager->getColWall()[j]->getRect()))
 			{
-				_Ebullet->removeBullet(i);
+				_Ebullet->removeEnemyBullet(i);
 			}
 
 		}
@@ -210,7 +231,7 @@ void EnemyManager::collision()
 
 			if (IntersectRect(&temp, &_Ebullet->getVBullet()[i].rc,&_playerManager->get_vPlayer()[j]->getRect()))
 			{
-				_Ebullet->removeBullet(i);
+				_Ebullet->removeEnemyBullet(i);
 			}
 
 		}

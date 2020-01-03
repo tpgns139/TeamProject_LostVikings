@@ -22,7 +22,7 @@ void Tower::update()
 {
 	_count++;
 	_enemy.img->setFrameX(_currentFrameX);
-	if (_currentFrameX==0 &&_count % 100== 0)
+	if (_currentFrameX==0 &&_count % 50== 0)
 	{
 		
 		
@@ -30,7 +30,7 @@ void Tower::update()
 		_count = 0;
 		
 	}
-	else if (_currentFrameX == 1 && _count %40 == 0)
+	else if (_currentFrameX == 1 && _count %20 == 0)
 	{
 		_currentFrameX = 2;
 		_count = 0;
@@ -48,7 +48,7 @@ bool Tower::bulletCountFire()
 {
 	_firecount++;
 
-	if (_firecount % 142 == 0)
+	if (_firecount % 72 == 0)
 	{
 		_firecount = 0;
 		return true;

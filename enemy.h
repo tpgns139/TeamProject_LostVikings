@@ -3,6 +3,8 @@
 #include "Wall.h"
 
 
+
+class PlayerManager;
 class MapManager;
 enum enemyName
 {
@@ -30,7 +32,7 @@ class Enemy : public gameNode
 
 protected:
 
-
+	PlayerManager* _playerManager;
 	MapManager* _mapManager;
 	ENEMY _enemy;
 	int _bulletMax;
@@ -50,16 +52,16 @@ public:
 	void release();
 	virtual void update();
    	void render();
-	virtual void move();
+	virtual void AttackStart();
 	virtual bool bulletCountFire();
-
+	
 	float getX() { return _enemy.x; }
 	float getY() { return _enemy.y; }
 	ENEMY getEnemyInfo() { return _enemy; }
 	RECT getEnemyRect() { return _enemy.rc; }
-	
+
 	void setMemoryAddressLink(MapManager* mm) { _mapManager = mm; }
-	
+	void setplayerMemoryAddressLink(PlayerManager* pm) { _playerManager = pm; }
 
 };
 

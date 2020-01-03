@@ -42,6 +42,7 @@ void Enemy::release()
 
 void Enemy::update()
 {
+
 	_enemy.rc = RectMakeCenter(_enemy.x ,
 		_enemy.y, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
 	_enemy.leftcolcheckrc = RectMakeCenter(_enemy.x , _enemy.y + _enemy.img->getFrameHeight() / 2
@@ -75,9 +76,11 @@ void Enemy::render()
 
 }
 
-void Enemy::move()
+void Enemy::AttackStart()
 {
 }
+
+
 
 bool Enemy::bulletCountFire()
 {
