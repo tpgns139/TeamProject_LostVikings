@@ -92,16 +92,7 @@ void GameScene::update()
 		}
 			
 	}
-	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
-	{
-		 
-	}
-	_im->update();
-	_pm->update();
-
-	_mm->update();
-	_em->update();
-	_ui->update();
+	
 
 	
 }
@@ -113,8 +104,8 @@ void GameScene::render()
 	_mm->render();
 	_pm->render();
 	_im->render();
-	_mm->zOrderRender();
 	_em->render();
+	_mm->zOrderRender();
 	_ui->render();
 }
 

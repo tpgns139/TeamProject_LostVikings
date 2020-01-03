@@ -60,7 +60,7 @@ void Camera::moveTo(float endX, float endY, float time)
 			_endX = 0;
 		}
 
-		if (endY - WINSIZEY / 2 > 0&& endX + WINSIZEY / 2 < _backGroundHeight)
+		if (endY - WINSIZEY / 2 > 0&& endY + WINSIZEY / 2 < _backGroundHeight)
 		{
 			_endY = endY - WINSIZEY / 2;
 		}

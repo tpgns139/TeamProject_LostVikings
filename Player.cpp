@@ -99,50 +99,51 @@ void Player::update()
 				}
 				break;
 			case PN_BALEOG:
-				if (((Baleog*)(this))->getState() == BALEOG_RIGHTMOVE||
+				if (((Baleog*)(this))->getState() == BALEOG_RIGHTMOVE ||
 					((Baleog*)(this))->getState() == BALEOG_LEFTMOVE)
 				{
 					((Baleog*)(this))->setState(BALEOG_PUSH);
 				}
 				break;
 			case PN_OLAF:
-				if (((Olaf*)(this))->getState() == O_front_run||
+				if (((Olaf*)(this))->getState() == O_front_run ||
 					((Olaf*)(this))->getState() == O_top_run)
 				{
 					((Olaf*)(this))->setState(O_push);
 				}
 				break;
 			}
-			//_playerInfo._leftRc.left = _MapManager->getWall()[i]->getRect().right;
-			if (_Direction == LEFT)
-			{
-				
-				if ( _MapManager->getColWall()[i]->getRect().right < _playerInfo.position.x) 
-				{
-					_playerInfo.position.x = 
-						_MapManager->getColWall()[i]->getRect().right+_playerInfo._image->getFrameWidth()/2;
-				}
-				else
-				{
-					_playerInfo.position.x = 
-						_MapManager->getColWall()[i]->getRect().left - _playerInfo._image->getFrameWidth() / 2;
-				}
-			}
-			else if(_Direction == RIGHT)
-			{
-				if (_MapManager->getColWall()[i]->getRect().right < _playerInfo.position.x)
-				{
-					_playerInfo.position.x =
-						_MapManager->getColWall()[i]->getRect().right + _playerInfo._image->getFrameWidth() / 2;
-				}
-				else
-				{
-					_playerInfo.position.x = _MapManager->getColWall()[i]->getRect().left -
-						_playerInfo._image->getFrameWidth() / 2;
-				}
-			}
-
 		}
+		//_playerInfo._leftRc.left = _MapManager->getWall()[i]->getRect().right;
+		if (_Direction == LEFT)
+		{
+
+			if (_MapManager->getColWall()[i]->getRect().right < _playerInfo.position.x)
+			{
+				_playerInfo.position.x =
+					_MapManager->getColWall()[i]->getRect().right + _playerInfo._image->getFrameWidth() / 2;
+			}
+			else
+			{
+				_playerInfo.position.x =
+					_MapManager->getColWall()[i]->getRect().left - _playerInfo._image->getFrameWidth() / 2;
+			}
+		}
+		else if (_Direction == RIGHT)
+		{
+			if (_MapManager->getColWall()[i]->getRect().right < _playerInfo.position.x)
+			{
+				_playerInfo.position.x =
+					_MapManager->getColWall()[i]->getRect().right + _playerInfo._image->getFrameWidth() / 2;
+			}
+			else
+			{
+				_playerInfo.position.x = _MapManager->getColWall()[i]->getRect().left -
+					_playerInfo._image->getFrameWidth() / 2;
+			}
+		}
+
+	
 	}
 
 	

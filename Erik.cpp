@@ -102,7 +102,6 @@ void Erik::update()
 		}
 	}
 	Player::update();
-	cout << _state << endl;
 	stateImage();
 }
 
