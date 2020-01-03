@@ -63,14 +63,14 @@ void PlayerManager::update()
 	if (!CAMERA->isMoving()) 
 	{
 		_nowPlayer->KeyControl();
-		CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
+		//CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
 	}
 	RECT temp;
 	//IntersectRect(&temp)
 		
 	
 		
-	
+	                                                                                                                                              
 
 	for (int i = 0;i < _vPlayer.size();i++)
 	{
