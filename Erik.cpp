@@ -30,8 +30,8 @@ HRESULT Erik::init(PlayerName playerNme)
 	_playerInfo.count = _playerInfo._CurrentFrameX = _playerInfo._CurrentFrameY = 0;
 	_playerInfo.HP = 3;
 	_playerInfo.MaxHP = 3;
-	_playerInfo.position.x = WINSIZEX / 2 - 100;
-	_playerInfo.position.y = WINSIZEY / 2 - 45;
+	_playerInfo.position.x = 2066;
+	_playerInfo.position.y = 1116;
 	_playerInfo.speed = 1.0f;
 
 	PlusSpeed = 0;
@@ -104,9 +104,7 @@ void Erik::update()
 			}
 		}
 	}
-
-
-
+	
 	Player::update();
 
 }
@@ -137,13 +135,20 @@ void Erik::KeyControl()
 		headingCount++;
 		_Direction = LEFT;
 		_playerInfo._image->setFrameY(2);
-		if ((_state != E_atk) && (_state != E_jump)) _state = E_run;
+
+		if (_playerInfo.isPush)
+		{
+			_state = E_push;
+		}
+
+		if ((_state != E_atk) && (_state != E_jump)&&(_state != E_push)) _state = E_run;
 
 		_playerInfo.position.x -= _playerInfo.speed - PlusSpeed;
 		if ((_state!=E_jump)&&(headingCount>100) &&(KEYMANAGER->isOnceKeyDown('F')))
 		{
 			_state = E_atk;
 		}
+
 
 		_playerInfo.position.x -= _playerInfo.speed;
 	}
@@ -237,6 +242,8 @@ void Erik::KeyControl()
 		if (_state != E_atk)_state = E_idle1;
 	}
 
+
+	cout << _state << endl;
 		
 }
 	

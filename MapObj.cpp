@@ -25,4 +25,5 @@ void MapObj::update()
 
 void MapObj::render()
 {
+	
 }

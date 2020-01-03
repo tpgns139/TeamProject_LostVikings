@@ -47,7 +47,7 @@ void EnemyManager::update()
 			}
 
 
-			cout << (*_viEm)->getEnemyInfo().speed << endl;
+			//cout << (*_viEm)->getEnemyInfo().speed << endl;
 		}
 		
 	}

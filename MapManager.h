@@ -48,6 +48,7 @@ public:
 	void charArraySeparationforMap(char charArray[]);
 	void zOrderRender();
 	vector<MapObj*> getWall() { return _wall; }
+	vector<MapObj*> getLadder() { return _ladder; }
 	vector<MapObj*> getColWall() { return _colWall; }
 };
 
