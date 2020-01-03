@@ -46,8 +46,7 @@ HRESULT GameScene::init()
 
 	_pm->setAddressEnemyManager(_em);
 	_changeNowPlayer = false;
-	_fadeout = 255;
-	_fadein = 0;
+
 	return S_OK;
 }
 

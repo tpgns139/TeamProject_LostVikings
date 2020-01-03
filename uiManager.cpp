@@ -283,64 +283,25 @@ void uiManager::setState()
 	case PN_OLAF:
 		Olaf = IMAGEMANAGER->findImage("울라프활성");
 		_selectNum = 2;
-		if (_baleog == false)
-		{
-			Baleog = IMAGEMANAGER->findImage("벨로그흑백");
-		}
-		if (_olaf== false)
-		{
-			Olaf = IMAGEMANAGER->findImage("울라프흑백");
-		}
-		if (KEYMANAGER->isOnceKeyDown(VK_F1))
-		{
-			_pm->get_nPlayer()->getPlayerInfo()->HP = 0;
-		}
-
-		_selectNum = 0;
 		break;
-	case PN_BALEOG:
-		
-			Baleog = IMAGEMANAGER->findImage("벨로그활성");
-			if (_eric == false)
-			{
-				Erik = IMAGEMANAGER->findImage("에릭흑백");
-			}
-			if (_olaf==false)
-			{
-				Olaf = IMAGEMANAGER->findImage("울라프흑백");
-			}
-			
-			if (KEYMANAGER->isOnceKeyDown(VK_F2))
-			{
-				_pm->get_nPlayer()->getPlayerInfo()->HP = 0;
-			}
-			_selectNum = 1;
-			break;
+	
 
-		
-	case PN_OLAF:
-			if (_baleog == false)
-			{
-				Baleog = IMAGEMANAGER->findImage("벨로그흑백");
-			}
-			if (_eric == false)
-			{
-				Erik = IMAGEMANAGER->findImage("에릭흑백");
-			}
-			Olaf = IMAGEMANAGER->findImage("울라프활성");
-			
-			if (KEYMANAGER->isOnceKeyDown(VK_F3))
-			{
-				_pm->get_nPlayer()->getPlayerInfo()->HP = 0;
-			}
-			_selectNum = 2;
-			break;
-		
-		
 		
 	}
 
 
+	if (_baleog == false)
+	{
+		Baleog = IMAGEMANAGER->findImage("벨로그흑백");
+	}
+	if (_olaf == false)
+	{
+		Olaf = IMAGEMANAGER->findImage("울라프흑백");
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_F1))
+	{
+		_pm->get_nPlayer()->getPlayerInfo()->HP = 0;
+	}
 
 
 
