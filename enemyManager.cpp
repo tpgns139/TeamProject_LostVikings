@@ -45,12 +45,6 @@ void EnemyManager::update()
 			{
 				enemyBulletFire((*_viEm),LEFT);
 			}
-
-
-
-			//cout << (*_viEm)->getEnemyInfo().speed << endl;
-
-
 		}
 		if ((*_viEm)->getEnemyInfo().name == robot)
 		{
@@ -72,11 +66,6 @@ void EnemyManager::update()
 	_Ebullet->update();
 	collision();
 
-	
-	
-	
-	
-	
 	
 }
 
@@ -214,7 +203,6 @@ void EnemyManager::collision()
 		{
 			if (IntersectRect(&temp, &_Ebullet->getVBullet()[i].rc, &_mapManager->getColWall()[j]->getRect()))
 			{
-				cout << i << endl;
 				_Ebullet->removeBullet(i);
 			}
 

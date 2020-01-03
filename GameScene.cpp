@@ -60,6 +60,8 @@ HRESULT GameScene::init()
 	_ui->setPlayerManager(_pm);
 	_ui->init();
 
+
+	_pm->setAddressEnemyManager(_em);
 	_changeNowPlayer = false;
 	
 	return S_OK;
