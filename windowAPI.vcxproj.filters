@@ -64,9 +64,6 @@
     <Filter Include="playGround\Player">
       <UniqueIdentifier>{22c09428-5108-40b5-b019-4aed9941c236}</UniqueIdentifier>
     </Filter>
-    <Filter Include="playGround\Player\Bullet">
-      <UniqueIdentifier>{470db5c8-b1b1-465b-8b02-dbf48fc15795}</UniqueIdentifier>
-    </Filter>
     <Filter Include="playGround\EnemyManager">
       <UniqueIdentifier>{893a3053-7486-4f6d-8065-5fd308840bfd}</UniqueIdentifier>
     </Filter>

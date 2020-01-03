@@ -36,5 +36,6 @@ public:
 	void setAddressMapManager(MapManager* MapManager) { _MapManager = MapManager; }
 	Player* get_nPlayer() { return _nowPlayer; }
 	void setNowPlayer();
+	void Bulletcollsion();
 };
 
