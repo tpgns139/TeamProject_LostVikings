@@ -36,7 +36,6 @@ void Bullet::render()
 		if (KEYMANAGER->isToggleKey(VK_F1))
 		{
 			
-			
 			(_backBuffer->getMemDC(), _viBullet->rc);
 		}
 		_viBullet->img->render(getMemDC(), _viBullet->rc.left - CAMERA->getCameraXpos(),_viBullet->rc.top - CAMERA->getCameraYpos());
@@ -46,7 +45,22 @@ void Bullet::render()
 		
 	}
 }
+void Bullet::frameRender()
+{
+	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end(); ++_viBullet)
+	{
+		if (KEYMANAGER->isToggleKey(VK_F1))
+		{
 
+			(_backBuffer->getMemDC(), _viBullet->rc);
+		}
+		_viBullet->img->frameRender(getMemDC(), _viBullet->rc.left - CAMERA->getCameraXpos(), _viBullet->rc.top - CAMERA->getCameraYpos(),_viBullet->img->getFrameX(), _viBullet->img->getFrameY());
+
+
+
+
+	}
+}
 void Bullet::bulletFire(float x, float y, float speed)
 {
 	
@@ -61,7 +75,22 @@ void Bullet::bulletFire(float x, float y, float speed)
 	bullet.rc = RectMakeCenter(bullet.x, bullet.y, bullet.img->getWidth(), bullet.img->getHeight());
 	_vBullet.push_back(bullet);
 }
+void Bullet::FramebulletFire(float x, float y, float speed,int frameX,int frameY)
+{
 
+
+	tagBullet bullet;
+	ZeroMemory(&bullet, sizeof(tagBullet));
+	bullet.img = IMAGEMANAGER->findImage(_imgname);
+	bullet.img->setFrameX(frameX);
+	bullet.img->setFrameY(frameY);
+	bullet.speed = speed;
+	bullet.x = bullet.fireX = x;
+	bullet.y = bullet.fireY = y;
+
+	bullet.rc = RectMakeCenter(bullet.x, bullet.y, bullet.img->getWidth(), bullet.img->getHeight());
+	_vBullet.push_back(bullet);
+}
 void Bullet::bulletMove()
 {
 	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end();)
