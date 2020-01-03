@@ -32,7 +32,6 @@ HRESULT PlayerManager::init()
 
 	_Pbullet = new Bullet;
 	_Pbullet->init("왼쪽화살");
-
 	PlayerNumber = 2; //일단 올라프테스트하기위에 넣음 나중에지워야함
 
 	_nowPlayer = _vPlayer[PlayerNumber];
@@ -52,18 +51,12 @@ void PlayerManager::update()
 	}
 	
 	_Pbullet->update();
-	if (_nowPlayer->getPlayerInfo()->_playerName == PN_BALEOG)
-	{
-		cout << _nowPlayer->getPlayerDirection() << endl;
-	}
-	if (KEYMANAGER->isOnceKeyUp('F'))
+	if (KEYMANAGER->isOnceKeyUp('D'))
 	{
 		
 		if (_nowPlayer->getPlayerInfo()->_playerName == PN_BALEOG) 
 		{
 			playerBulletFire();
-			((Baleog*)_nowPlayer)->clickedFbutton();
-			cout << _nowPlayer->getPlayerDirection() << endl;
 		}
 
 	}
@@ -71,7 +64,7 @@ void PlayerManager::update()
 	if (!CAMERA->isMoving()) 
 	{
 		_nowPlayer->KeyControl();
-		CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
+		//CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
 	}
 
 
@@ -101,12 +94,12 @@ void PlayerManager::playerBulletFire()
 	if (_nowPlayer->getPlayerDirection() == RIGHT) 
 	{
 		_Pbullet->bulletFire(rc.right,
-			(rc.top + rc.bottom) / 2 + 50, -5.0f);
+			(rc.top + rc.bottom) / 2 , -5.0f);
 	}
 	else if (_nowPlayer->getPlayerDirection() == LEFT)
 	{
 		_Pbullet->bulletFire(rc.left,
-			(rc.top + rc.bottom) / 2 + 50, 5.0f);
+			(rc.top + rc.bottom) / 2 , 5.0f);
 	}
 	
 }

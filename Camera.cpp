@@ -20,7 +20,26 @@ HRESULT Camera::init(float x, float y)
 
 void Camera::update()
 {
-
+	if (KEYMANAGER->isStayKeyDown('L'))
+	{
+		_cameraXPos += 10;
+	}
+	if (KEYMANAGER->isStayKeyDown('J'))
+	{
+		_cameraXPos -= 10;
+	}
+	if (KEYMANAGER->isStayKeyDown('I'))
+	{
+		_cameraYPos -= 10;
+	}
+	if (KEYMANAGER->isStayKeyDown('K'))
+	{
+		_cameraYPos += 10;
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
+	{
+		cout << "x:" << _ptMouse.x+ _cameraXPos << "y:" << _ptMouse.y+ _cameraYPos << endl;
+	}
 	movingPoint();
 }
 

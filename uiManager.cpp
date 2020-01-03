@@ -83,7 +83,6 @@ void uiManager::update()
 				ins->_itemList.push_back(_pm->get_vPlayer()[i]->getPlayerInfo()->_vPlayerItem[j]);
 				ins->_itemPos.push_back(PointMake(198 + (j%2) * 39, 639 + (j/2) * 20));
 				_playerItemVector[0]=ins;
-				cout << j << endl;
 			}
 			break;
 		case PN_BALEOG:
@@ -177,6 +176,8 @@ void uiManager::render()
 	Erik->render(getMemDC(), 117, 641);
 	Baleog->render(getMemDC(), 296, 641);
 	Olaf->render(getMemDC(), 475, 641);
+
+
 
 	if (_select)
 	{
@@ -272,22 +273,57 @@ void uiManager::setState()
 	{
 	case PN_ERIK:
 		Erik = IMAGEMANAGER->findImage("에릭활성");
-		Baleog = IMAGEMANAGER->findImage("벨로그흑백");
-		Olaf = IMAGEMANAGER->findImage("울라프흑백");
 		_selectNum = 0;
 		break;
 	case PN_BALEOG:
 		Baleog = IMAGEMANAGER->findImage("벨로그활성");
-		Erik = IMAGEMANAGER->findImage("에릭흑백");
-		Olaf = IMAGEMANAGER->findImage("울라프흑백");
 		_selectNum = 1;
 		break;
 	case PN_OLAF:
-		Baleog = IMAGEMANAGER->findImage("벨로그흑백");
-		Erik = IMAGEMANAGER->findImage("에릭흑백");
 		Olaf = IMAGEMANAGER->findImage("울라프활성");
 		_selectNum = 2;
 		break;
 
+	}
+	for (int i = 0;i < _pm->get_vPlayer().size();i++)
+	{
+		if (_pm->get_vPlayer()[i]->getPlayerInfo()->_playerName 
+			!= _pm->get_nPlayer()->getPlayerInfo()->_playerName)
+		{
+			switch (_pm->get_vPlayer()[i]->getPlayerInfo()->_playerName)
+			{
+			case PN_BALEOG:
+				if (_pm->get_vPlayer()[i]->getPlayerInfo()->HP == 0)
+				{
+					Baleog = IMAGEMANAGER->findImage("벨로그죽음");
+				}
+				else
+				{
+					Baleog = IMAGEMANAGER->findImage("벨로그흑백");
+				}
+				
+				break;
+			case PN_ERIK:
+				if (_pm->get_vPlayer()[i]->getPlayerInfo()->HP == 0)
+				{
+
+				}
+				else
+				{
+					Erik = IMAGEMANAGER->findImage("에릭흑백");
+				}
+				break;
+			case PN_OLAF:
+				if (_pm->get_vPlayer()[i]->getPlayerInfo()->HP == 0)
+				{
+
+				}
+				else
+				{
+					Olaf = IMAGEMANAGER->findImage("울라프흑백");
+				}
+				break;
+			}
+		}
 	}
 }

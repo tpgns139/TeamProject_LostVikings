@@ -122,7 +122,6 @@ void Erik::update()
 	{
 		jumpCount++;
 	}
-	cout << "ÂÀÇÁÄ«¿îÆ®"<<jumpCount << endl;
 }
 
 void Erik::render()

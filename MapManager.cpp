@@ -63,6 +63,10 @@ void MapManager::update()
 	{
 		_wall[i]->update();
 	}
+	for (int i = 0;i < _colWall.size();i++)
+	{
+		_colWall[i]->update();
+	}
 	
 }
 void MapManager::render()
@@ -93,6 +97,10 @@ void MapManager::render()
 	for (int i = 0;i < _ladder.size();i++)
 	{
 		_ladder[i]->render();
+	}
+	for (int i = 0;i < _colWall.size();i++)
+	{
+		_colWall[i]->render();
 	}
 }
 void MapManager::charArraySeparationforMap(char charArray[])
@@ -204,6 +212,10 @@ void MapManager::charArraySeparationforMap(char charArray[])
 		((column*)mapIns)->setImage(colKinds);
 		_notColObj.push_back(mapIns);
 		break;
+	case colWall:
+		mapIns = new ColWall;
+		mapIns->init(ins);
+		_colWall.push_back(mapIns);
 	}
 
 }

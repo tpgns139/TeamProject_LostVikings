@@ -13,6 +13,7 @@
 #include"Ladder.h"
 #include"column.h"
 #include "EnemyManager.h"
+#include"ColWall.h"
 
 class EnemyManager;
 class Player;
@@ -32,6 +33,8 @@ private:
 	vector<MapObj*> _wall;
 	vector<MapObj*> _elevator;
 	vector<MapObj*> _gravityZone;
+	vector<MapObj*> _colWall;
+
 	int colCount;
 
 

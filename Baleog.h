@@ -20,14 +20,16 @@ class Baleog :public Player
 {
 private:
 	BALEOGSTATE _BaleogState;
+	bool _isShooting;
+	bool _canShoot;
 public:
 	Baleog();
 	~Baleog();
 	virtual HRESULT init(PlayerName playerName);
 	virtual void update();
 	virtual void render();
-	void clickedFbutton();
 	void KeyControl();
 	void Frame();
+	BALEOGSTATE getBalState() { return _BaleogState; }
 };
 

@@ -13,7 +13,8 @@ enum mapKinds
 	gravityZone,
 	electricFieldTwoType,
 	ladder,
-	Column
+	Column,
+	colWall
 };
 struct mapInfo
 {
