@@ -21,6 +21,7 @@ HRESULT SecurityRobot::init(const char * imagename, POINT position, int num,floa
 	IMAGEMANAGER->addFrameImage("SecurityRobotAtk3", "경비로봇공격.bmp", 210, 135, 3, 2, true, RGB(255, 0, 255));
 	Enemy::init(imagename, position, num, speed);
 	_enemy.speed = speed;
+	_enemy.name = robot;
 	return S_OK;
 }
 
@@ -61,5 +62,14 @@ void SecurityRobot::update()
 
 bool SecurityRobot::bulletCountFire()
 {
+
+	_firecount++;
+
+	if (_firecount % 42 == 0)
+	{
+		_firecount = 0;
+		return true;
+	}
 	return false;
+	
 }

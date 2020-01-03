@@ -19,7 +19,7 @@ HRESULT EnemyManager::init()
 	_Ebullet = new Bullet;
 	_Ebullet->init("¿¡³Ê¹ÌºÒ¸´");
 	collisionTestRect = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2, 30, 30);
-
+	
 	return S_OK;
 }
 
@@ -33,11 +33,30 @@ void EnemyManager::update()
 	for (_viEm = _vEm.begin(); _viEm != _vEm.end(); ++_viEm)
 	{
 		(*_viEm)->update();
+
+		if ((*_viEm)->getEnemyInfo().name == slime)
+		{
+			
+			if ((*_viEm)->getEnemyInfo().speed < 0)
+			{
+				enemyBulletFire((*_viEm),RIGHT);
+			}
+			else
+			{
+				enemyBulletFire((*_viEm),LEFT);
+			}
+
+
+			cout << (*_viEm)->getEnemyInfo().speed << endl;
+		}
+		
 	}
 	_Ebullet->update();
 	
-	enemyBulletFire();
-	towerBulletFire();
+	
+	
+	
+	
 	
 }
 
@@ -76,7 +95,6 @@ void EnemyManager::setEnemy()
 		Sl->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sl);
 	}
-
 	{
 		Enemy* Sr;
 		Sr = new SecurityRobot;
@@ -120,32 +138,29 @@ void EnemyManager::setEnemy()
 
 }
 
-void EnemyManager::enemyBulletFire()
-{
-	/*for (int i = 0; i < _vEm.size(); i++)
-	{
-		if (_vEm[i]->bulletCountFire())
-		{
-			RECT rc = _vEm[i]->getEnemyRect();
 
-			_Ebullet->bulletFire(_vEm[i]->getX() + _vEm[i]->getEnemyInfo().img->getFrameWidth(), _vEm[i]->getY() + _vEm[i]->getEnemyInfo().img->getFrameHeight() / 2, 2.0f);
+
+void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
+{
+
+	if (enemy->bulletCountFire())
+
+	{
+		RECT rc = enemy->getEnemyRect();
+
+		if (_direction == LEFT)
+		{
+			_Ebullet->bulletFire(enemy->getX(),
+				enemy->getY() + 20, -5.0f);
 		}
-	}*/
-}
-
-void EnemyManager::towerBulletFire()
-{
-	for (int i = 0; i < _vEm.size(); i++)
-	{
-		if (_vEm[i]->bulletCountFire())
+		else
 		{
-			RECT rc = _vEm[i]->getEnemyRect();
-
-			_Ebullet->bulletFire(_vEm[i]->getX(),
-				_vEm[i]->getY() + 20, 5.0f);
+			_Ebullet->bulletFire(enemy->getX(),
+				enemy->getY() + 20, 5.0f);
 		}
 	}
 }
+
 
 void EnemyManager::collision()
 {

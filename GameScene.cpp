@@ -51,9 +51,11 @@ HRESULT GameScene::init()
 
 	_em = new EnemyManager;
 	_em->setMemoryAddressLink(_mm);
+	_em->setplayerMemoryAddressLink(_pm);
 	_em->init();
 	
 	_selectUi = false;
+
 
 	_ui = new uiManager;
 	_ui->setPlayerManager(_pm);
@@ -98,7 +100,18 @@ void GameScene::update()
 			_changeNowPlayer = true;
 		}
 	}
+	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+	{
+		 
+	}
+	_im->update();
+	_pm->update();
+
+	_mm->update();
+	_em->update();
 	_ui->update();
+
+	
 }
 
 void GameScene::render()
