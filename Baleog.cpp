@@ -64,6 +64,14 @@ void Baleog::render()
 
 void Baleog::KeyControl()
 {
+	if (_Direction == LEFT)
+	{
+		_playerInfo._image->setFrameY(1);
+	}
+	if (_Direction == RIGHT)
+	{
+		_playerInfo._image->setFrameY(0);
+	}
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
 		if (_BaleogState == BALEOG_RIGHTIDLE || _BaleogState == BALEOG_RIGHTMOVE)							//벨로그 공격키 
@@ -130,7 +138,6 @@ void Baleog::KeyControl()
 		//isAttack = false;
 	}
 
-
 	if (!isAttack)
 	{
 		if (KEYMANAGER->isStayKeyDown(VK_LEFT))
@@ -150,7 +157,7 @@ void Baleog::KeyControl()
 			_BaleogState = BALEOG_LEFTIDLE;
 			_playerInfo.position.x -= _playerInfo.speed;
 		}
-		if (KEYMANAGER->isStayKeyDown(VK_RIGHT) && !KEYMANAGER->isStayKeyDown(VK_LEFT))
+		if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 		{
 			_Direction = RIGHT;															//벨로그 오른쪽이동
 			_playerInfo._image->setFrameY(0);
