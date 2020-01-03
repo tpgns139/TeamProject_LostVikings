@@ -85,6 +85,7 @@ void GameScene::update()
 		{
 			_selectUi = true;
 		}
+		EFFECTMANAGER->update();
 	}
 	else
 	{
@@ -99,16 +100,7 @@ void GameScene::update()
 			_changeNowPlayer = true;
 		}
 	}
-	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
-	{
-		 
-	}
-	_im->update();
-	_pm->update();
 
-	_mm->update();
-	_em->update();
-	_ui->update();
 
 	
 }
@@ -116,6 +108,7 @@ void GameScene::update()
 void GameScene::render()
 {
 	IMAGEMANAGER->findImage("¹è°æ")->render(getMemDC(), 0, 0, CAMERA->getCameraXpos(), CAMERA->getCameraYpos(), WINSIZEX, WINSIZEY);
+	EFFECTMANAGER->render();
 	_mm->render();
 	_pm->render();
 	_im->render();

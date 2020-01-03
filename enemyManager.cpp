@@ -199,6 +199,7 @@ void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
 void EnemyManager::removeEnemy(int arrNum)
 {
 	_vEm.erase(_vEm.begin() + arrNum);
+
 }
 
 

@@ -15,8 +15,7 @@ HRESULT Bullet::init(const char * imagename)
 {
 	
 	_imgname = imagename;
-
-
+	EFFECTMANAGER->addEffect("EnemyBulletDestroy", "¿¡³Ê¹ÌºÒ¸´ÀÌÆåÆ®.bmp", 150, 50, 50, 50, 1.0f, 1.0f, 50);
 	return S_OK;
 }
 
@@ -106,6 +105,7 @@ void Bullet::bulletMove()
 
 void Bullet::removeBullet(int arrNum)
 {
+	EFFECTMANAGER->play("EnemyBulletDestroy", (_vBullet.begin() + arrNum)->x-CAMERA->getCameraXpos(), (_vBullet.begin() + arrNum)->y-CAMERA->getCameraYpos());
 	_vBullet.erase(_vBullet.begin() + arrNum); 
 }
 
