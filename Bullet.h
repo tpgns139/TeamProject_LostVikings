@@ -35,6 +35,8 @@ public:
 	void bulletFire(float x, float y, float speed);
 	void bulletMove();
 	void removeBullet(int arrNum);
+	void frameRender();
+	void FramebulletFire(float x, float y, float speed, int frameX, int frameY);
 	
 	vector<tagBullet> getVBullet() { return _vBullet; }
 	vector<tagBullet> ::iterator getViBullet() { return _viBullet; }

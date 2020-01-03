@@ -145,6 +145,7 @@ void Baleog::KeyControl()
 		}
 		isAttack = false;
 	}
+	
 	if (KEYMANAGER->isOnceKeyDown('D'))							//벨로그 화살공격
 	{
 		if (_BaleogState == BALEOG_RIGHTIDLE || _BaleogState == BALEOG_RIGHTMOVE)
@@ -197,7 +198,7 @@ void Baleog::KeyControl()
 			_BaleogState = BALEOG_LEFTIDLE;
 			_playerInfo.position.x -= _playerInfo.speed;
 		}
-		if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+		if (KEYMANAGER->isStayKeyDown(VK_RIGHT)&& !KEYMANAGER->isStayKeyDown(VK_LEFT))
 		{
 			_Direction = RIGHT;															//벨로그 오른쪽이동
 			_playerInfo._image->setFrameY(0);
