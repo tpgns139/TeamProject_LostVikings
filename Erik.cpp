@@ -105,8 +105,6 @@ void Erik::update()
 		}
 	}
 
-
-
 	Player::update();
 
 }

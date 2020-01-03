@@ -54,7 +54,7 @@ void Baleog::update()
 	
 	Player::update();
 	Player::move();
-	
+	cout << _BaleogState <<","<< _playerInfo._image->getFrameY() << endl;
 }
 
 void Baleog::render()
@@ -70,14 +70,12 @@ void Baleog::KeyControl()
 		{
 			_Direction = RIGHT;
 			_playerInfo._CurrentFrameX = 0;
-			_playerInfo._CurrentFrameY = 0;
 			_BaleogState = BALEOG_RIGHTATTACK;
 		}
 		if (_BaleogState == BALEOG_LEFTIDLE || _BaleogState == BALEOG_LEFTMOVE)
 		{
 			_Direction = LEFT;
 			_playerInfo._CurrentFrameX = 0;
-			_playerInfo._CurrentFrameY = 1;
 			_BaleogState = BALEOG_LEFTATTACK;
 		}
 		isAttack = true;
@@ -129,7 +127,7 @@ void Baleog::KeyControl()
 			_playerInfo._CurrentFrameX = 0;
 			_BaleogState = BALEOG_LEFTIDLE;
 		}
-		isAttack = false;
+		//isAttack = false;
 	}
 
 
@@ -138,7 +136,7 @@ void Baleog::KeyControl()
 		if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 		{
 			_Direction = LEFT;
-			_playerInfo._CurrentFrameY = 1;												//벨로그 왼쪽이동
+			_playerInfo._image->setFrameY(1);											//벨로그 왼쪽이동
 			_BaleogState = BALEOG_LEFTMOVE;
 			_playerInfo.position.x -= _playerInfo.speed;
 
@@ -148,14 +146,14 @@ void Baleog::KeyControl()
 			_Direction = LEFT;
 			_playerInfo._image->getMaxFrameX();											//벨로그 왼쪽 눌렀다 떼었을때
 			_playerInfo._CurrentFrameX = 0;
-			_playerInfo._CurrentFrameY = 1;
+			_playerInfo._image->setFrameY(1);
 			_BaleogState = BALEOG_LEFTIDLE;
 			_playerInfo.position.x -= _playerInfo.speed;
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_RIGHT) && !KEYMANAGER->isStayKeyDown(VK_LEFT))
 		{
 			_Direction = RIGHT;															//벨로그 오른쪽이동
-			_playerInfo._CurrentFrameY = 0;
+			_playerInfo._image->setFrameY(0);
 			_BaleogState = BALEOG_RIGHTMOVE;
 			_playerInfo.position.x += _playerInfo.speed;
 		}
@@ -164,7 +162,7 @@ void Baleog::KeyControl()
 
 			_Direction = RIGHT;
 			_playerInfo._CurrentFrameX = 0;												//벨로그 오른쪽 눌렀다 떼었을때
-			_playerInfo._CurrentFrameY = 0;
+			_playerInfo._image->setFrameY(0);
 			_BaleogState = BALEOG_RIGHTIDLE;
 			_playerInfo.position.x += _playerInfo.speed;
 		}
