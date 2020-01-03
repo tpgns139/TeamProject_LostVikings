@@ -53,10 +53,6 @@ HRESULT Erik::init(PlayerName playerNme)
 
 	_playerInfo._image = IMAGEMANAGER->findImage("E_run");
 	
-	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x ,
-		_playerInfo.position.y ,
-		_playerInfo._image->getFrameWidth(),
-		_playerInfo._image->getFrameHeight());
 
 	Player::MakeRect();
 
@@ -109,40 +105,12 @@ void Erik::update()
 		}
 	}
 
-
-	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, 
-		_playerInfo.position.y ,
-		_playerInfo._image->getFrameWidth(),
-		_playerInfo._image->getFrameHeight());
-
-
 	Player::update();
 
 }
 
 void Erik::render()
 {
-
-	if (KEYMANAGER->isToggleKey('1'))
-	{
-
-	RectangleMake(getMemDC(), _playerInfo.position.x - CAMERA->getCameraXpos(),
-		_playerInfo.position.y - CAMERA->getCameraYpos(),
-		_playerInfo._image->getFrameWidth(),
-		_playerInfo._image->getFrameHeight());
-	}
-
-
-	char str[128];
-	sprintf_s(str, "헤딩 카운트 :%d", headingCount);
-	TextOut(getMemDC(), WINSIZEX / 2, 100, str, strlen(str));
-	_playerInfo._image->frameRender(getMemDC(),
-		_playerInfo.position.x-CAMERA->getCameraXpos(),
-		_playerInfo.position.y - CAMERA->getCameraYpos(),
-		_playerInfo._CurrentFrameX,
-		_playerInfo._image->getFrameY());
-
-
 
 	Player::render();
 }
@@ -177,11 +145,7 @@ void Erik::KeyControl()
 
 		_playerInfo.position.x -= _playerInfo.speed;
 	}
-	if (KEYMANAGER->isOnceKeyDown('D'))
-	{
-		_state = E_atk;
-
-	}
+	
 
 	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 	{
@@ -269,7 +233,6 @@ void Erik::KeyControl()
 		jumpCount = 0;
 		PlusJump = 0;
 		if (_state != E_atk)_state = E_idle1;
-
 	}
 
 		

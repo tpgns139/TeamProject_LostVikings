@@ -3,6 +3,7 @@
 #include "Erik.h"
 #include"Baleog.h"
 #include "Olaf.h"
+
 #include "Bullet.h"
 class MapManager;
 class EnemyManager;
@@ -14,6 +15,8 @@ private:
 	EnemyManager* _em;
 	MapManager* _MapManager;
 	vector<Player*> _vPlayer;
+
+
 	Player* _nowPlayer;
 	Playerinfo _playerinfo;
 	Bullet* _Pbullet;
