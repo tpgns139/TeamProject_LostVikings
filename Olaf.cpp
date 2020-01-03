@@ -89,7 +89,8 @@ void Olaf::update()
 
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
-
+	RECT temp;
+	//IntersectRect(&temp,&shieldUp,)
 
 
 }
@@ -290,8 +291,6 @@ void Olaf::_dis()
 
 void Olaf::shiedMake()
 {
-	//_playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos()
-
 	if (shieldPosision)
 	{
 		shieldUp = RectMakeCenter(_playerInfo.position.x - CAMERA->getCameraXpos() + _playerInfo._image->getFrameWidth()/2,

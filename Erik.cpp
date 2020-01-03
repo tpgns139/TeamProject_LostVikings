@@ -3,14 +3,6 @@
 #include "MapManager.h" //이거
 
 
-Erik::Erik()
-{
-}
-
-
-Erik::~Erik()
-{
-}
 
 HRESULT Erik::init(PlayerName playerNme)
 {
@@ -40,10 +32,12 @@ HRESULT Erik::init(PlayerName playerNme)
 	_playerInfo.MaxHP = 3;
 	_playerInfo.position.x = WINSIZEX / 2 - 100;
 	_playerInfo.position.y = WINSIZEY / 2 - 45;
-	_playerInfo.speed = 3.0f;
+	_playerInfo.speed = 1.0f;
 
 	PlusSpeed = 0;
+	PlusJump = 0;
 	jumpCount = 0;
+	SuperJumpCount = 0;
 	_playerInfo.isLadder = false;
 	isJump = false;
 
@@ -66,14 +60,16 @@ HRESULT Erik::init(PlayerName playerNme)
 
 	Player::MakeRect();
 
+	_mm = new MapManager;
+
 
 	return S_OK;
 }
 
 void Erik::update()
 {
+	
 
-	//Player::collsion();
 
 
 	if (_state != E_attack_after)
@@ -82,7 +78,7 @@ void Erik::update()
 	}
 	
 
-	if((_state != E_up)&&(_state != E_attack_after))
+	if((_state != E_up)&&(_state != E_attack_after)&&(_state != E_jump))
 	{
 		Frame(10);
 	}
@@ -105,10 +101,10 @@ void Erik::update()
 	if (_state == E_jump)
 	{
 		_playerInfo.count++;
-		if (_playerInfo.count % 20 == 0)
+		if (_playerInfo.count % 20== 0)
 		{
 			_playerInfo._CurrentFrameX++;
-			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX() - 1)
+			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX() )
 			{
 				_playerInfo._CurrentFrameX = 0;
 				_state = E_idle1;
@@ -122,9 +118,6 @@ void Erik::update()
 		_playerInfo._image->getFrameWidth(),
 		_playerInfo._image->getFrameHeight());
 
-
-
-	
 
 	Player::update();
 
@@ -163,47 +156,48 @@ void Erik::KeyControl()
 
 	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
 	{
-		_playerInfo._CurrentFrameX = 0;
-		_Direction = LEFT;
 		headingCount = 0;
-		_state = E_idle1;
+		_Direction = LEFT;
+		_playerInfo._image->setFrameY(2);
+		if ((_state != E_atk) && (_state != E_jump)) _state = E_run;
 		_playerInfo.position.x -= _playerInfo.speed;
 	}
 
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 
+		if(PlusSpeed>-3)PlusSpeed -= 0.1f;
 		headingCount++;
 		_Direction = LEFT;
 		_playerInfo._image->setFrameY(2);
-
 		if ((_state != E_atk) && (_state != E_jump)) _state = E_run;
-		_playerInfo.position.x -= _playerInfo.speed;
-	}
-	if (KEYMANAGER->isOnceKeyDown('F'))
-	{
-		_state = E_atk;
+		_playerInfo.position.x -= _playerInfo.speed - PlusSpeed;
+		if ((_state!=E_jump)&&(headingCount>100) &&(KEYMANAGER->isOnceKeyDown('F')))
+		{
+			_state = E_atk;
+		}
 	}
 
 	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 	{
 		_Direction = LEFT;
 		headingCount = 0;
-		_state = E_idle1;
+	
 		_playerInfo.position.x -= _playerInfo.speed;
 		_playerInfo._CurrentFrameX = 0;
 	}
 
 
-
 	if ((_state != E_up) && (KEYMANAGER->isStayKeyDown(VK_RIGHT)))
 	{
+		if (PlusSpeed<3)PlusSpeed += 0.1f;
+		
 		_Direction = RIGHT;
 		_playerInfo._image->setFrameY(0);
 		headingCount++;
-		_playerInfo.position.x += _playerInfo.speed;
-		if (_state != E_atk) _state = E_run;
-		if (KEYMANAGER->isOnceKeyDown('F'))
+		if ((_state != E_atk) && (_state != E_jump)) _state = E_run;
+		_playerInfo.position.x += _playerInfo.speed + PlusSpeed;
+		if ((headingCount > 100) && (KEYMANAGER->isOnceKeyDown('F'))) //박치기하려면 움직임 카운트가 100이상
 		{
 			_state = E_atk;
 		}
@@ -214,28 +208,42 @@ void Erik::KeyControl()
 		_Direction = RIGHT;
 		_playerInfo._image->setFrameY(0);
 		headingCount = 0;
-		_state = E_idle1;
 		_playerInfo._CurrentFrameX = 0;
 		_playerInfo.position.x += _playerInfo.speed;
 
 	}
 
-	if (KEYMANAGER->isOnceKeyDown(VK_SPACE) && (jumpCount == 0))
+		if (_Direction == LEFT)
+		{
+			_playerInfo._image->setFrameY(2);
+		}
+		else if (_Direction == RIGHT)
+		{
+			_playerInfo._image->setFrameY(0);
+		}
+
+	if(jumpCount==0)
 	{
+		jumpCount = 1;
 
 
-		_Direction = LEFT;
-		jumpCount++;
-		_state = E_jump;
-		isJump = true;
-		_playerInfo.jumpPower = 5.0f;
-		_playerInfo.gravity = 0.05f;
+			
+		
 
+		 if((KEYMANAGER->isStayKeyDown(VK_SPACE)))
+		{
+			 PlusJump++;
+			 headingCount = 0;
+			 _playerInfo._CurrentFrameX = 0;
+			
+			_state = E_jump;
+			isJump = true;
+			_playerInfo.jumpPower =3.0f + PlusJump;
+			_playerInfo.gravity = 0.02f;
+		}
 	}
-
-
+	
 	stateImage();
-
 	//점프용//
 	if (isJump)
 	{
@@ -244,13 +252,17 @@ void Erik::KeyControl()
 		if (_playerInfo.jumpPower <= 0)
 		{
 			isJump = false;
-			_state = E_idle1;
 		}
 	}
-	if (!isJump)
+	if (_playerInfo.isGround)
 	{
 		jumpCount = 0;
+		PlusJump = 0;
+		if(_state!=E_atk)_state = E_idle1;
+
 	}
+
+	cout <<"상태 값:"<< _state << endl;
 }
 
 

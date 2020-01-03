@@ -1,6 +1,7 @@
 #pragma once
 #include"gameNode.h"
 #include "item.h"
+#define RCSIZE 15
 enum PlayerName {
 	PN_ERIK,
 	PN_BALEOG,
@@ -16,7 +17,7 @@ struct Playerinfo
 {
 	image* _image;
 	PlayerName _playerName;
-	RECT _rc, _underRc, _leftRc,_rightRc;
+	RECT _rc, _underRc, _leftRc,_rightRc,_topRC;
 
 	POINT position;
 	int HP;
@@ -27,6 +28,7 @@ struct Playerinfo
 	float speed;
 	float jumpPower;
 	bool isDrop; //떨어지는중이니
+	bool isGround; //땅이니?
 	bool isLadder; //사다리 상태니?
 
 	vector<item*> _vPlayerItem;

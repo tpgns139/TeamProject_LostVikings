@@ -19,6 +19,7 @@ HRESULT Player::init(PlayerName playerName)
 
 	_playerInfo.gravity = 0;
 	_playerInfo.isDrop = true;
+	_playerInfo.isGround = false;
 
 	return S_OK;
 }
@@ -27,17 +28,21 @@ void Player::MakeRect()
 {
 	//플레이어 중력값
 
+	_playerInfo._topRC = RectMakeCenter(_playerInfo.position.x + _playerInfo._image->getFrameWidth() / 2,
+		_playerInfo.position.y ,
+		_playerInfo._image->getFrameWidth(), RCSIZE);
 
 	_playerInfo._underRc = RectMakeCenter(_playerInfo.position.x  + _playerInfo._image->getFrameWidth() / 2,
 		_playerInfo.position.y  + _playerInfo._image->getFrameHeight() + 7,
-		_playerInfo._image->getFrameWidth(), 5);
+		_playerInfo._image->getFrameWidth(), RCSIZE);
+
 	_playerInfo._leftRc = RectMakeCenter(_playerInfo.position.x ,
 		_playerInfo.position.y  + _playerInfo._image->getFrameHeight() / 2,
-		5, _playerInfo._image->getFrameWidth());
+		RCSIZE, _playerInfo._image->getFrameWidth());
 
 	_playerInfo._rightRc = RectMakeCenter(_playerInfo.position.x  + _playerInfo._image->getFrameWidth(),
 		_playerInfo.position.y + _playerInfo._image->getFrameHeight() / 2,
-		5, _playerInfo._image->getFrameWidth());
+		RCSIZE, _playerInfo._image->getFrameWidth());
 }
 
 void Player::update()
@@ -80,18 +85,22 @@ void Player::render()
 {
 	if(KEYMANAGER->isToggleKey('1'))
 	{
+		RectangleMake(getMemDC(),
+			_playerInfo._topRC.left - CAMERA->getCameraXpos(),
+			_playerInfo._topRC.top - CAMERA->getCameraYpos(),
+			_playerInfo._image->getFrameWidth(), RCSIZE);			//캐릭터 바닥렉트
 		RectangleMake(getMemDC(), 
 			_playerInfo._underRc.left-CAMERA->getCameraXpos(),
 			_playerInfo._underRc.top-CAMERA->getCameraYpos(),
-			_playerInfo._image->getFrameWidth(),5);			//캐릭터 바닥렉트
+			_playerInfo._image->getFrameWidth(), RCSIZE);			//캐릭터 바닥렉트
 		RectangleMake(getMemDC(),
 			_playerInfo._leftRc.left - CAMERA->getCameraXpos(),
 			_playerInfo._leftRc.top - CAMERA->getCameraYpos(),
-			5, _playerInfo._image->getFrameHeight());
+			RCSIZE, _playerInfo._image->getFrameHeight());
 		RectangleMake(getMemDC(),
 			_playerInfo._rightRc.left - CAMERA->getCameraXpos(),
 			_playerInfo._rightRc.top - CAMERA->getCameraYpos(),
-			5, _playerInfo._image->getFrameHeight());
+			RCSIZE, _playerInfo._image->getFrameHeight());
 
 		//Rectangle(getMemDC(), _playerInfo._leftRc);				//캐릭터 왼쪽 충돌렉트
 		//Rectangle(getMemDC(), _playerInfo._rightRc);			//캐릭터 오른쪽 충돌렉트
@@ -113,12 +122,13 @@ void Player::collsion()
 		{
 			_playerInfo._underRc.bottom = _MapManager->getWall()[i]->getRect().top;
 			_playerInfo.isDrop = false;
-
+			_playerInfo.isGround = true;
 			break;
 		}
 		else
 		{
 			_playerInfo.isDrop = true;
+			_playerInfo.isGround = false;
 		}
 	}
 }

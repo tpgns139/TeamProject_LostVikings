@@ -33,7 +33,10 @@ HRESULT PlayerManager::init()
 	_Pbullet = new Bullet;
 	_Pbullet->init("왼쪽화살");
 
-	PlayerNumber = 2; //일단 올라프테스트하기위에 넣음 나중에지워야함
+
+	
+
+	PlayerNumber = 0; //일단 올라프테스트하기위에 넣음 나중에지워야함
 
 	_nowPlayer = _vPlayer[PlayerNumber];
 	CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
@@ -62,13 +65,17 @@ void PlayerManager::update()
 		_nowPlayer->KeyControl();
 		CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
 	}
-
-
+	RECT temp;
+	//IntersectRect(&temp)
+		
+	
+		
 	
 
 	for (int i = 0;i < _vPlayer.size();i++)
 	{
 		_vPlayer[i]->update();
+
 	}
 	
 

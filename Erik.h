@@ -1,6 +1,6 @@
 #pragma once
 #include"Player.h"
-
+#include "MapManager.h"
 
 enum ERIKSTATE
 {
@@ -33,7 +33,12 @@ private:
 	int headingCount;
 	int stunCount;
 	int jumpCount;
+
+	int SuperJumpCount;
+	float PlusJump;
+
 	float PlusSpeed;
+	
 	
 	bool isJump;	//점프중이니
 	bool isAtk;	    //공격이니?
@@ -41,8 +46,8 @@ private:
 
 
 public:
-	Erik();
-	~Erik();
+	Erik() {};
+	~Erik() {};
 	 HRESULT init(PlayerName playerName);
 	void update();
 	void render();
