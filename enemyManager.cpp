@@ -45,24 +45,27 @@ void EnemyManager::update()
 			{
 				enemyBulletFire((*_viEm),LEFT);
 			}
-
-
-
-			//cout << (*_viEm)->getEnemyInfo().speed << endl;
-
 		}
-
-		
+		if ((*_viEm)->getEnemyInfo().name == robot)
+		{
+			if ((*_viEm)->getEnemyInfo().speed < 0)
+			{
+				enemyBulletFire((*_viEm), RIGHT);
+			}
+			else
+			{
+				enemyBulletFire((*_viEm), LEFT);
+			}
+		}
+		if ((*_viEm)->getEnemyInfo().name == redtower)
+		{
+			enemyBulletFire((*_viEm), RIGHT);
+		}
 	}
 
 	_Ebullet->update();
 	collision();
 
-	
-	
-	
-	
-	
 	
 }
 
@@ -81,7 +84,7 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* Sl;
 		Sl = new Slime;
-		Sl->init("SlimeMove", PointMake(3560, 1310), 0,3);
+		Sl->init("SlimeMove", PointMake(3560, 1310), 0,2);
 		Sl->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sl);
 	}
@@ -89,7 +92,7 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* Sl;
 		Sl = new Slime;
-		Sl->init("SlimeMove1", PointMake(2200, 1460), 1,3);
+		Sl->init("SlimeMove1", PointMake(2200, 1460), 1,2);
 		Sl->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sl);
 	}
@@ -97,14 +100,14 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* Sl;
 		Sl = new Slime;
-		Sl->init("SlimeMove2", PointMake(1400, 1460), 2,-3);
+		Sl->init("SlimeMove2", PointMake(1400, 1460), 2,-2);
 		Sl->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sl);
 	}
 	{
 		Enemy* Sr;
 		Sr = new SecurityRobot;
-		Sr->init("SecurityRobotMove", PointMake(500, 1375), 0,3);
+		Sr->init("SecurityRobotMove", PointMake(500, 1375), 0,2);
 		Sr->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sr);
 	}
@@ -113,7 +116,7 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* Sr;
 		Sr = new SecurityRobot;
-		Sr->init("SecurityRobotMove1", PointMake(3400, 375), 1,-3);
+		Sr->init("SecurityRobotMove1", PointMake(3400, 375), 1,-2);
 		Sr->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sr);
 	}
@@ -121,7 +124,7 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* Sr;
 		Sr = new SecurityRobot;
-		Sr->init("SecurityRobotMove2", PointMake(2700, 375), 2,-3);
+		Sr->init("SecurityRobotMove2", PointMake(2700, 375), 2, -2);
 		Sr->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sr);
 	}
@@ -129,14 +132,14 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* Sr;
 		Sr = new SecurityRobot;
-		Sr->init("SecurityRobotMove3", PointMake(2000, 375), 3,3);
+		Sr->init("SecurityRobotMove3", PointMake(2000, 375), 3,2);
 		Sr->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sr);
 	}
 	{
 		Enemy* To;
 		To = new Tower;
-		To->init("Tower", PointMake(3850, 1760),0,-3);
+		To->init("Tower", PointMake(3850, 1760),0,-2);
 		To->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(To);
 	}
@@ -153,16 +156,31 @@ void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
 
 	{
 		RECT rc = enemy->getEnemyRect();
-
-		if (_direction == LEFT)
+		if (enemy->getEnemyInfo().name == slime)
 		{
-			_Ebullet->bulletFire(enemy->getX(),
-				enemy->getY(), -5.0f);
+			if (_direction == LEFT)
+			{
+				_Ebullet->bulletFire(enemy->getX()+60,
+					enemy->getY()+10, -5.0f);
+			}
+			else
+			{
+				_Ebullet->bulletFire(enemy->getX(),
+					enemy->getY()+10, 5.0f);
+			}
 		}
-		else
+		if (enemy->getEnemyInfo().name == robot)
 		{
-			_Ebullet->bulletFire(enemy->getX(),
-				enemy->getY(), 5.0f);
+			if (_direction == LEFT)
+			{
+				_Ebullet->bulletFire(enemy->getX(),
+					enemy->getY(), -5.0f);
+			}
+			else
+			{
+				_Ebullet->bulletFire(enemy->getX(),
+					enemy->getY(), 5.0f);
+			}
 		}
 	}
 }
@@ -179,7 +197,19 @@ void EnemyManager::collision()
 		{
 			if (IntersectRect(&temp, &_Ebullet->getVBullet()[i].rc, &_mapManager->getColWall()[j]->getRect()))
 			{
-				cout << i << endl;
+				_Ebullet->removeBullet(i);
+			}
+
+		}
+	}
+
+	for (int j = 0; j < _playerManager->get_vPlayer().size(); j++)
+	{
+		for (int i = 0; i < _Ebullet->getVBullet().size(); i++)
+		{
+
+			if (IntersectRect(&temp, &_Ebullet->getVBullet()[i].rc,&_playerManager->get_vPlayer()[j]->getRect()))
+			{
 				_Ebullet->removeBullet(i);
 			}
 

@@ -204,8 +204,6 @@ void Erik::KeyControl()
 				_playerInfo.gravity = 0.02f;
 			}
 		}
-
-	cout <<"점프카운트?"<< jumpCount << endl;
 	
 
 	//점프용//
@@ -226,7 +224,6 @@ void Erik::KeyControl()
 	}
 
 
-	cout <<"상태값?"<< _state << endl;
 		
 }
 	

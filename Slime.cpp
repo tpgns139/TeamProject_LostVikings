@@ -64,7 +64,7 @@ void Slime::update()
 	
 		_enemy.img->setFrameY(1);
 
-		if ((_currentFrameX == 2 ||_currentFrameX ==3 )&& _count2 % 36== 0)
+		if ((_currentFrameX == 2 ||_currentFrameX ==3 )&& _count2 % 40== 0)
 		{
 
 			_currentFrameX =1;
@@ -72,12 +72,12 @@ void Slime::update()
 
 		}
 
-		else if (_currentFrameX == 1 && _count2 % 20 == 0)
+		else if (_currentFrameX == 1 && _count2 % 25== 0)
 		{
 			_currentFrameX = 0;
 			_count2 = 0;
 		}
-		else if (_currentFrameX == 0 && _count2 % 20 == 0)
+		else if (_currentFrameX == 0 && _count2 % 25 == 0)
 		{
 			_currentFrameX = 2;
 			_count2 = 0;
@@ -100,7 +100,7 @@ bool Slime::bulletCountFire()
 
 	_firecount++;
 
-	if (_firecount % 70 == 0)
+	if (_firecount % 90 == 0)
 	{
 		_firecount = 0;
 		return true;

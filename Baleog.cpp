@@ -55,7 +55,6 @@ void Baleog::update()
 	Player::update();
 	Player::move();
 	setImage();
-	cout << _BaleogState <<","<< _playerInfo._image->getFrameY() << endl;
 }
 
 void Baleog::render()
