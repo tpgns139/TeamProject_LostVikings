@@ -2,19 +2,25 @@
 #include "gameNode.h"
 #include "Wall.h"
 
+
 class MapManager;
+enum enemyName
+{
+	slime,
+	redtower,
+	robot
+};
 
 struct ENEMY
 {
 	image* img;
 	float  x, y;
-
+	enemyName name;
 	float speed;
 	float angle;
 	RECT rc, leftcolcheckrc, rightcolcheckrc;
 	int count;
 	bool isMove = false;
-	
 };
 
 

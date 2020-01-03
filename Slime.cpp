@@ -19,7 +19,8 @@ HRESULT Slime::init(const char * imagename, POINT position, int num, float speed
 	IMAGEMANAGER->addFrameImage("SlimeAtk12", "슬라임공격.bmp", 168, 152, 2, 2, true, RGB(255, 0, 255));
 	Enemy::init(imagename,position,num,speed);
 	_enemy.speed = speed;
-	
+	_enemy.name = slime;
+
 	return S_OK;
 }
 
@@ -98,6 +99,15 @@ void Slime::move()
 
 bool Slime::bulletCountFire()
 {
+
+	_firecount++;
+
+	if (_firecount % 42 == 0)
+	{
+		_firecount = 0;
+		return true;
+	}
 	return false;
+
 }
 

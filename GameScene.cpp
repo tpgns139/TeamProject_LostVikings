@@ -51,9 +51,11 @@ HRESULT GameScene::init()
 
 	_em = new EnemyManager;
 	_em->setMemoryAddressLink(_mm);
+	_em->setplayerMemoryAddressLink(_pm);
 	_em->init();
 	
-	
+	A = WINSIZEX / 2;
+	B = WINSIZEY / 2;
 
 	_ui = new uiManager;
 	_ui->init();
@@ -68,13 +70,35 @@ void GameScene::update()
 	{
 		cout << CAMERA->getCameraXpos() + _ptMouse.x << "," << CAMERA->getCameraYpos() + _ptMouse.y << endl;
 	}
-
+	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+	{
+		 
+	}
 	_im->update();
 	_pm->update();
 
 	_mm->update();
 	_em->update();
 	_ui->update();
+
+	CAMERA->setCameraPos(A, B);
+
+	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+	{
+		A += 20;
+	}
+	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+	{
+		A -= 20;
+	}
+	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+	{
+		B += 20;
+	}
+	if (KEYMANAGER->isStayKeyDown(VK_UP))
+	{
+		B -= 20;
+	}
 }
 
 void GameScene::render()

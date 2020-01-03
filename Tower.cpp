@@ -11,6 +11,13 @@ Tower::~Tower()
 {
 }
 
+HRESULT Tower::init(const char * imagename, POINT position, int num, float speed)
+{
+	Enemy::init(imagename, position, num, speed);
+	_enemy.name = redtower;
+	return S_OK;
+}
+
 void Tower::update()
 {
 	_count++;

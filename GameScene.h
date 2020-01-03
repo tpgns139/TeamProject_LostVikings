@@ -16,6 +16,7 @@ private:
 	MapManager* _mm;
 	EnemyManager* _em;
 	uiManager* _ui;
+	int  A,B;
 public:
 	
 	GameScene();

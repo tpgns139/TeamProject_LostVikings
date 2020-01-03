@@ -74,13 +74,13 @@ void PlayerManager::update()
 
 	}
 	_nowPlayer->KeyControl();
-	if (!CAMERA->isMoving()) 
-	{
-		_nowPlayer->KeyControl();
-		CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
+	//if (!CAMERA->isMoving()) 
+	{//¿¡³Ê¹Ì ¸¶¹«¸®ÇÏ±âÀ§ÇØ Àá±ñ ¹­¾îµÒ
+		//_nowPlayer->KeyControl();
+		//CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
 	}
 
-
+	
 	
 
 	for (int i = 0;i < _vPlayer.size();i++)
