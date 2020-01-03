@@ -110,11 +110,6 @@ void Erik::update()
 	}
 
 
-	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, 
-		_playerInfo.position.y ,
-		_playerInfo._image->getFrameWidth(),
-		_playerInfo._image->getFrameHeight());
-
 
 	Player::update();
 

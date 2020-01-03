@@ -48,7 +48,6 @@ void Player::MakeRect()
 void Player::update()
 {
 	//캐릭터 충돌렉트 설정
-
 	MakeRect();
 
 
@@ -60,21 +59,20 @@ void Player::update()
 		_playerInfo.gravity += 0.01f;								// 중력값을 ++해서 더빨리떨어지게
 	}
 
-	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y,
+	//플레이어 렉트
+	_playerInfo._rc = RectMake(_playerInfo.position.x, _playerInfo.position.y,
 		_playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 	collsion();
-	Jumpcollsion();
 	_playerInfo._underRcBottom = _playerInfo._underRc.bottom;
-	for (int i = 0; i < _MapManager->getWall().size(); i++)
-	{
-		
-		RECT temp2;
-		if (IntersectRect(&temp2, &_playerInfo._leftRc, &_MapManager->getWall()[i]->getRect()))
-		{
-			_playerInfo._leftRc.left = _MapManager->getWall()[i]->getRect().right;
-			
-		}
 
+	//플레이어 옆 벽면 충돌
+	for (int i = 0; i < _MapManager->getColWall().size(); i++)
+	{
+		RECT temp2;
+		if (IntersectRect(&temp2, &_playerInfo._rc, &_MapManager->getColWall()[i]->getRect()))
+		{
+			_playerInfo.position.x = _MapManager->getColWall()[i]->getRect().right;
+		}
 	}
 	//KeyControl();
 }
@@ -99,7 +97,6 @@ void Player::render()
 			_playerInfo._rightRc.left - CAMERA->getCameraXpos(),
 			_playerInfo._rightRc.top - CAMERA->getCameraYpos(),
 			RCSIZE, _playerInfo._image->getFrameHeight());
-
 		//Rectangle(getMemDC(), _playerInfo._leftRc);				//캐릭터 왼쪽 충돌렉트
 		//Rectangle(getMemDC(), _playerInfo._rightRc);			//캐릭터 오른쪽 충돌렉트
 	}
@@ -132,18 +129,6 @@ void Player::collsion()
 	}
 }
 
-void Player::Jumpcollsion()
-{
-	for (int i = 0; i < _MapManager->getWall().size(); i++)
-	{
-		RECT temp;
-		if (IntersectRect(&temp, &_playerInfo._rc, &_MapManager->getWall()[i]->getRect()))
-		{
-			_playerInfo._rc.bottom = _MapManager->getWall()[i]->getRect().top;
-			_playerInfo.isJump = false;
-		}
-	}
-}
 
 void Player::move()
 {
