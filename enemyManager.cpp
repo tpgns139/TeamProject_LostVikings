@@ -34,7 +34,7 @@ void EnemyManager::update()
 	{
 		(*_viEm)->update();
 
-		if ((*_viEm)->getEnemyInfo().name == slime)
+		//if ((*_viEm)->getEnemyInfo().name == slime)
 		{
 			
 			if ((*_viEm)->getEnemyInfo().speed < 0)
@@ -178,6 +178,19 @@ void EnemyManager::collision()
 			if (IntersectRect(&temp, &_Ebullet->getVBullet()[i].rc, &_mapManager->getColWall()[j]->getRect()))
 			{
 				cout << i << endl;
+				_Ebullet->removeBullet(i);
+			}
+
+		}
+	}
+
+	for (int j = 0; j < _playerManager->get_vPlayer().size(); j++)
+	{
+		for (int i = 0; i < _Ebullet->getVBullet().size(); i++)
+		{
+
+			if (IntersectRect(&temp, &_Ebullet->getVBullet()[i].rc,&_playerManager->get_vPlayer()[j]->getRect()))
+			{
 				_Ebullet->removeBullet(i);
 			}
 
