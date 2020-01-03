@@ -18,7 +18,7 @@ HRESULT EnemyManager::init()
 	setEnemy(); //에너미를 세팅해주는 함수
 	_Ebullet = new Bullet;
 	_Ebullet->init("에너미불릿");
-	collisionTestRect = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2, 30, 30);
+	
 	
 	return S_OK;
 }
@@ -47,11 +47,17 @@ void EnemyManager::update()
 			}
 
 
+
 			//cout << (*_viEm)->getEnemyInfo().speed << endl;
+
 		}
+
 		
 	}
+
 	_Ebullet->update();
+	collision();
+
 	
 	
 	
@@ -67,7 +73,7 @@ void EnemyManager::render()
 		(*_viEm)->render();
 	}
 	_Ebullet->render();
-	//Rectangle(getMemDC(),collisionTestRect);
+	
 }
 
 void EnemyManager::setEnemy()
@@ -130,7 +136,7 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* To;
 		To = new Tower;
-		To->init("Tower", PointMake(3850, 1760),0,0);
+		To->init("Tower", PointMake(3850, 1760),0,-3);
 		To->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(To);
 	}
@@ -151,12 +157,12 @@ void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
 		if (_direction == LEFT)
 		{
 			_Ebullet->bulletFire(enemy->getX(),
-				enemy->getY() + 20, -5.0f);
+				enemy->getY(), -5.0f);
 		}
 		else
 		{
 			_Ebullet->bulletFire(enemy->getX(),
-				enemy->getY() + 20, 5.0f);
+				enemy->getY(), 5.0f);
 		}
 	}
 }
@@ -165,16 +171,19 @@ void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
 void EnemyManager::collision()
 {
 	RECT temp;
-
-	for (int i = 0; i <_Ebullet->getVBullet().size();i++)
+	for (int j = 0; j < _mapManager->getColWall().size(); j++)
 	{
-		if (IntersectRect(&temp, &_Ebullet->getVBullet()[i].rc, &collisionTestRect))
-		{
-			_Ebullet->removeBullet(i);
-		}
-	}
 
 	
+		for (int i = 0; i < _Ebullet->getVBullet().size(); i++)
+		{
+			if (IntersectRect(&temp, &_Ebullet->getVBullet()[i].rc, &_mapManager->getColWall()[j]->getRect()))
+			{
+				cout << i << endl;
+				_Ebullet->removeBullet(i);
+			}
 
+		}
+	}
 
 }

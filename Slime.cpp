@@ -31,25 +31,24 @@ void Slime::update()
 	_count2++;
 	
 	_enemy.img->setFrameX(_currentFrameX);
-	move();
 
 	if (_enemy.speed > 1)
 	{
 		_enemy.img->setFrameY(0);
 
-		if ((_currentFrameX == 0 ||_currentFrameX ==1 )&& _count % 18 == 0)
+		if ((_currentFrameX == 0 ||_currentFrameX ==1 )&& _count % 36 == 0)
 		{
 
 			_currentFrameX = 2;
 			_count = 0;
 
 		}
-		else if (_currentFrameX == 2 && _count % 10 == 0)
+		else if (_currentFrameX == 2 && _count % 20 == 0)
 		{
 			_currentFrameX = 3;
 			_count = 0;
 		}
-		else if (_currentFrameX == 3 && _count % 10 == 0)
+		else if (_currentFrameX == 3 && _count % 20 == 0)
 		{
 			_currentFrameX = 0;
 			_count = 0;
@@ -65,7 +64,7 @@ void Slime::update()
 	
 		_enemy.img->setFrameY(1);
 
-		if ((_currentFrameX == 2 ||_currentFrameX ==3 )&& _count2 % 18 == 0)
+		if ((_currentFrameX == 2 ||_currentFrameX ==3 )&& _count2 % 36== 0)
 		{
 
 			_currentFrameX =1;
@@ -73,12 +72,12 @@ void Slime::update()
 
 		}
 
-		else if (_currentFrameX == 1 && _count2 % 10 == 0)
+		else if (_currentFrameX == 1 && _count2 % 20 == 0)
 		{
 			_currentFrameX = 0;
 			_count2 = 0;
 		}
-		else if (_currentFrameX == 0 && _count2 % 10 == 0)
+		else if (_currentFrameX == 0 && _count2 % 20 == 0)
 		{
 			_currentFrameX = 2;
 			_count2 = 0;
@@ -88,7 +87,6 @@ void Slime::update()
 			_enemy.x += _enemy.speed;
 		}
 	}
-
 	
 }
 
@@ -102,7 +100,7 @@ bool Slime::bulletCountFire()
 
 	_firecount++;
 
-	if (_firecount % 42 == 0)
+	if (_firecount % 70 == 0)
 	{
 		_firecount = 0;
 		return true;

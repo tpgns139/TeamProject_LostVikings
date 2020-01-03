@@ -31,7 +31,7 @@ HRESULT PlayerManager::init()
 	
 
 	_Pbullet = new Bullet;
-	_Pbullet->init("왼쪽화살");
+	_Pbullet->init("화살");
 
 
 	
@@ -65,16 +65,18 @@ void PlayerManager::update()
 	if (!CAMERA->isMoving()) 
 	{
 		_nowPlayer->KeyControl();
-		//CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
+		CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
 	}
 
 		
-	
+	                                                                                                                                              
 
 	for (int i = 0;i < _vPlayer.size();i++)
 	{
 		_vPlayer[i]->update();
-		//static_cast<Olaf*>(_vPlayer[2])->getShield();
+
+
+		//((Olaf*)(_vPlayer[2]))->getShieldFront();
 		
 	}
 
@@ -86,9 +88,9 @@ void PlayerManager::render()
 	{
 		_vPlayer[i]->render();
 	}
-	_Pbullet->render();
-	
 
+
+	_Pbullet->frameRender();
 }
 
 void PlayerManager::playerBulletFire()
@@ -98,9 +100,16 @@ void PlayerManager::playerBulletFire()
 		if (_vPlayer[i]->getPlayerInfo()->_playerName == PN_BALEOG)
 		{
 			RECT rc = _vPlayer[i]->getRect();
-
-			_Pbullet->bulletFire(rc.left,
-				(rc.top + rc.bottom) / 2 + 50, 5.0f);
+			if (_vPlayer[i]->getPlayerDirection() == LEFT) 
+			{
+				_Pbullet->FramebulletFire(_vPlayer[i]->getPlayerInfo()->position.x,
+					_vPlayer[i]->getPlayerInfo()->position.y, 5.0f,0,1);
+			}
+			else
+			{
+				_Pbullet->FramebulletFire(_vPlayer[i]->getPlayerInfo()->position.x,
+					_vPlayer[i]->getPlayerInfo()->position.y, -5.0f,0,0);
+			}
 		}
 	}
 }

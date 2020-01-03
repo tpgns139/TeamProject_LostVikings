@@ -33,7 +33,8 @@ void Player::MakeRect()
 		_playerInfo.position.y - _playerInfo._image->getFrameHeight() / 2 - 7,
 		_playerInfo._image->getFrameWidth()
 		, RCSIZE);
-	if (_playerInfo.isDrop) {
+	if (_playerInfo.isDrop)
+	{
 		_playerInfo._underRc = RectMakeCenter(_playerInfo.position.x,
 			_playerInfo.position.y + _playerInfo._image->getFrameHeight() / 2 + 7,
 			_playerInfo._image->getFrameWidth()
@@ -83,12 +84,68 @@ void Player::update()
 	collsion();
 	_playerInfo._underRcBottom = _playerInfo._underRc.bottom;
 
-	
+	//플레이어 옆 벽면 충돌
+	for (int i = 0; i < _MapManager->getColWall().size(); i++)
+	{
+		RECT temp2;
+		if (IntersectRect(&temp2, &_playerInfo._rc, &_MapManager->getColWall()[i]->getRect()))
+		{
+			switch (_playerInfo._playerName)
+			{
+			case PN_ERIK:
+				if (((Erik*)(this))->getState() == E_run)
+				{
+					((Erik*)(this))->setState(E_push);
+				}
+				break;
+			case PN_BALEOG:
+				if (((Baleog*)(this))->getState() == BALEOG_RIGHTMOVE||
+					((Baleog*)(this))->getState() == BALEOG_LEFTMOVE)
+				{
+					((Baleog*)(this))->setState(BALEOG_PUSH);
+				}
+				break;
+			case PN_OLAF:
+				if (((Olaf*)(this))->getState() == O_front_run||
+					((Olaf*)(this))->getState() == O_top_run)
+				{
+					((Olaf*)(this))->setState(O_push);
+				}
+				break;
+			}
+			_playerInfo._leftRc.left = _MapManager->getWall()[i]->getRect().right;
+			if (_Direction == LEFT)
+			{
+				
+				if ( _MapManager->getColWall()[i]->getRect().right < _playerInfo.position.x) 
+				{
+					_playerInfo.position.x = 
+						_MapManager->getColWall()[i]->getRect().right+_playerInfo._image->getFrameWidth()/2;
+				}
+				else
+				{
+					_playerInfo.position.x = 
+						_MapManager->getColWall()[i]->getRect().left - _playerInfo._image->getFrameWidth() / 2;
+				}
+			}
+			else if(_Direction == RIGHT)
+			{
+				if (_MapManager->getColWall()[i]->getRect().right < _playerInfo.position.x)
+				{
+					_playerInfo.position.x =
+						_MapManager->getColWall()[i]->getRect().right + _playerInfo._image->getFrameWidth() / 2;
+				}
+				else
+				{
+					_playerInfo.position.x = _MapManager->getColWall()[i]->getRect().left -
+						_playerInfo._image->getFrameWidth() / 2;
+				}
+			}
 
+		}
+	}
 
 	
-	
-	cout <<"push?"<< _playerInfo.isPush << endl;
 	//KeyControl();
 }
 
@@ -140,6 +197,7 @@ void Player::collsion()
 		{
 			_playerInfo.position.y = _MapManager->getWall()[i]->getRect().top-_playerInfo._image->getFrameHeight()/2;
 			_playerInfo._underRc.bottom = _MapManager->getWall()[i]->getRect().top;
+			_playerInfo._underRc.top = _MapManager->getWall()[i]->getRect().top;
 			_playerInfo.isDrop = false;
 			_playerInfo.isGround = true;
 
