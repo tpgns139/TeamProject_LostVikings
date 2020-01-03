@@ -56,6 +56,7 @@ void PlayerManager::update()
 	
 	_Pbullet->update();
 	_nowPlayer->KeyControl();
+	
 
 	if (KEYMANAGER->isOnceKeyDown('P'))
 	{
@@ -76,11 +77,6 @@ void PlayerManager::update()
 		//static_cast<Olaf*>(_vPlayer[2])->getShield();
 		
 	}
-	
-	/*RECT temp; //ÀÛ¼ºÁß
-	IntersectRect(&temp,_vPlayer)*/
-
-
 
 }
 
@@ -91,6 +87,8 @@ void PlayerManager::render()
 		_vPlayer[i]->render();
 	}
 	_Pbullet->render();
+	
+
 }
 
 void PlayerManager::playerBulletFire()

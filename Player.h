@@ -66,6 +66,11 @@ public:
 	POINT getPlayerPos() { return _playerInfo.position; }
 
 	void setPlayerPosY(float y) { _playerInfo.position.y = y; }
+	
+
+	void setDrop(bool check) { _playerInfo.isDrop = check; }
+	void setGround(bool check) { _playerInfo.isGround = check; }
+
 
 	Playerinfo* getPlayerInfo() { return &_playerInfo; }
 	Direction getPlayerDirection() { return _Direction; }

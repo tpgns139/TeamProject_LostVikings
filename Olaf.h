@@ -58,7 +58,8 @@ public:
 	void _dis();
 	void shiedMake();
 
-	RECT getShield() { return shieldUp; }
+	RECT getShieldUp() { return shieldUp; }
+	RECT getShieldFront() { return shieldFront; }
 	
 };
 

@@ -73,6 +73,7 @@ void Player::update()
 		{
 			_playerInfo._leftRc.left = _MapManager->getWall()[i]->getRect().right;
 			
+			
 		}
 	}
 

@@ -265,7 +265,6 @@ void Erik::KeyControl()
 		jumpCount = 0;
 		PlusJump = 0;
 		if (_state != E_atk)_state = E_idle1;
-
 	}
 
 		
