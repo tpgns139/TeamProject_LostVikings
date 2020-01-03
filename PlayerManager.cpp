@@ -28,7 +28,7 @@ HRESULT PlayerManager::init()
 	_Olaf->init(PN_OLAF);
 	_Olaf->setLink(_MapManager);
 	_vPlayer.push_back(_Olaf);
-	PlayerNumber = 0;
+	
 
 	_Pbullet = new Bullet;
 	_Pbullet->init("왼쪽화살");
@@ -36,7 +36,7 @@ HRESULT PlayerManager::init()
 
 	
 
-	PlayerNumber = 0; //일단 올라프테스트하기위에 넣음 나중에지워야함
+	PlayerNumber = 0; 
 
 	_nowPlayer = _vPlayer[PlayerNumber];
 	CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
@@ -56,6 +56,8 @@ void PlayerManager::update()
 	
 	_Pbullet->update();
 	_nowPlayer->KeyControl();
+	
+
 	if (KEYMANAGER->isOnceKeyDown('P'))
 	{
 		playerBulletFire();
@@ -65,19 +67,16 @@ void PlayerManager::update()
 		_nowPlayer->KeyControl();
 		//CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
 	}
-	RECT temp;
-	//IntersectRect(&temp)
-		
-	
+
 		
 	                                                                                                                                              
 
 	for (int i = 0;i < _vPlayer.size();i++)
 	{
 		_vPlayer[i]->update();
-
+		//static_cast<Olaf*>(_vPlayer[2])->getShield();
+		
 	}
-	
 
 }
 
@@ -88,6 +87,8 @@ void PlayerManager::render()
 		_vPlayer[i]->render();
 	}
 	_Pbullet->render();
+	
+
 }
 
 void PlayerManager::playerBulletFire()

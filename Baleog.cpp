@@ -68,10 +68,11 @@ void Baleog::KeyControl()
 	{
 		_playerInfo._image->setFrameY(1);
 	}
-	if (_Direction == RIGHT)
+	else if (_Direction == RIGHT)
 	{
 		_playerInfo._image->setFrameY(0);
 	}
+
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
 		if (_BaleogState == BALEOG_RIGHTIDLE || _BaleogState == BALEOG_RIGHTMOVE)							//벨로그 공격키 
