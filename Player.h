@@ -32,6 +32,7 @@ struct Playerinfo
 	bool isLadder; //사다리 상태니?
 	bool isJump;
 	float _underRcBottom;
+
 	vector<item*> _vPlayerItem;
 };
 
@@ -63,7 +64,11 @@ public:
 	void Jumpcollsion();
 	void setLink(MapManager* MapManager) { _MapManager = MapManager; }
 	POINT getPlayerPos() { return _playerInfo.position; }
+
+	void setPlayerPosY(float y) { _playerInfo.position.y = y; }
+
 	Playerinfo* getPlayerInfo() { return &_playerInfo; }
 	Direction getPlayerDirection() { return _Direction; }
+	
 
 };

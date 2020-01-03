@@ -1,7 +1,8 @@
 #pragma once
 #include"Player.h"
-#define SIZE 15
 #include "Erik.h"
+#include "Baleog.h"
+#define SIZE 15
 
 enum OLAFSTATE
 {
@@ -39,6 +40,7 @@ private:
 	bool shieldPosision; //true일때 top //false일때 정면
 	
 
+
 	RECT shieldUp;	//방패
 	RECT shieldFront;	//방패
 	
@@ -55,10 +57,9 @@ public:
 	void Frame(int FrameX);
 	void _dis();
 	void shiedMake();
-	
-	RECT getShildUp() {return shieldUp;}
-	RECT getShildFront() { return shieldFront; }
 
+	RECT getShield() { return shieldUp; }
+	
 };
 
 

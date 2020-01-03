@@ -177,11 +177,7 @@ void Erik::KeyControl()
 
 		_playerInfo.position.x -= _playerInfo.speed;
 	}
-	if (KEYMANAGER->isOnceKeyDown('D'))
-	{
-		_state = E_atk;
-
-	}
+	
 
 	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 	{

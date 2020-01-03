@@ -56,7 +56,8 @@ HRESULT Olaf::init(PlayerName playerName)
 
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x,_playerInfo.position.y,_playerInfo._image->getFrameWidth(),_playerInfo._image->getFrameHeight());
 
-	
+	Erik* _erikO = new Erik;
+	Baleog* _baleogO = new Baleog;
 
 	shieldPosision = false;
 
@@ -89,8 +90,10 @@ void Olaf::update()
 
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x , _playerInfo.position.y, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
-	RECT temp;
-	//IntersectRect(&temp,&shieldUp,)
+	//RECT temp;
+	//if (IntersectRect(&temp, &shieldUp,
+	
+	
 
 
 }

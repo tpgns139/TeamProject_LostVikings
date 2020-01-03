@@ -55,8 +55,6 @@ public:
 	void Frame(int FrameX);
 	void stateImage();
 	
-	int getJC() { return jumpCount; }
-	int setJC(int x) { jumpCount = x; }
 	
 };
 
