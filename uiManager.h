@@ -92,9 +92,7 @@ public:
 	int setSelectUi() { int _SelectUiX; }
 	void setPlayerManager(PlayerManager* pm) { _pm = pm; }
 	void setSelect(bool select) { _select = select; }
-	bool getEric() { return _eric; }
-	void getBaleog(bool baleog) { _baleog = baleog; }
-	void getOlaf(bool olaf) { _olaf = olaf; }
+
 
 };
 

@@ -5,6 +5,7 @@
 #include"MapManager.h"
 #include "EnemyManager.h"
 #include "uiManager.h"
+
 class GameScene:public gameNode
 {
 private:
@@ -18,8 +19,7 @@ private:
 	uiManager* _ui;
 	bool _changeNowPlayer;
 	bool _selectUi;
-	bool eric;
-	int pNum;
+	int _fadeout, _fadein;
 public:
 	
 	GameScene();

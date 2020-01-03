@@ -18,7 +18,7 @@ private:
 	Playerinfo _playerinfo;
 	Bullet* _Pbullet;
 	int PlayerNumber;
-	bool eric;
+
 public:
 	PlayerManager();
 	~PlayerManager();
