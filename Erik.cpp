@@ -201,6 +201,7 @@ void Erik::KeyControl()
 		if ((_state!=E_jump)&&(headingCount>100) &&(KEYMANAGER->isOnceKeyDown('F')))
 		{
 			_state = E_atk;
+			_playerInfo._CurrentFrameX = IMAGEMANAGER->findImage("E_atk")->getMaxFrameX();
 		}
 	}
 	if ((_state != E_up) && (KEYMANAGER->isStayKeyDown(VK_RIGHT)))
@@ -215,9 +216,15 @@ void Erik::KeyControl()
 		if ((headingCount > 100) && (KEYMANAGER->isOnceKeyDown('F'))) //박치기하려면 움직임 카운트가 100이상
 		{
 			_state = E_atk;
+			_playerInfo._CurrentFrameX = 0;
+			
 		}
 	}
-	
+	if (KEYMANAGER->isOnceKeyUp('F'))
+	{
+		headingCount = 0;
+		_state = E_run;
+	}
 
 	if (_Direction == LEFT)
 	{
@@ -288,13 +295,34 @@ void Erik::Frame(int FrameX)
 		if (_Direction == RIGHT)
 		{
 			_playerInfo._CurrentFrameX++;
-			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX() - 1) _playerInfo._CurrentFrameX =0;
+			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX()) 
+			{
+				if (_state != E_atk) 
+				{
+					_playerInfo._CurrentFrameX = 0;
+				}
+				else
+				{
+					_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX()-2;
+				}
+			}
+				
 			_playerInfo.count = 0;
 		}
 		else if (_Direction == LEFT)
 		{
 			_playerInfo._CurrentFrameX--;
-			if (_playerInfo._CurrentFrameX <= 0)_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
+			if (_playerInfo._CurrentFrameX <= 0)
+			{
+				if (_state != E_atk)
+				{
+					_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
+				}
+				else
+				{
+					_playerInfo._CurrentFrameX = 2;
+				}
+			}
 			_playerInfo.count = 0;
 		}
 	}

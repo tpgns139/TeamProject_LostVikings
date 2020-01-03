@@ -118,7 +118,6 @@ void Player::update()
 				}
 				break;
 			}
-			_playerInfo._leftRc.left = _MapManager->getWall()[i]->getRect().right;
 			if (_Direction == LEFT)
 			{
 				
