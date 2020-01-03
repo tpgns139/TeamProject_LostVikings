@@ -68,7 +68,7 @@ void Baleog::KeyControl()
 	{
 		_playerInfo._image->setFrameY(1);
 	}
-	if (_Direction == RIGHT)
+	else if (_Direction == RIGHT)
 	{
 		_playerInfo._image->setFrameY(0);
 	}

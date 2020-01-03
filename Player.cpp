@@ -32,7 +32,8 @@ void Player::MakeRect()
 		_playerInfo.position.y - _playerInfo._image->getFrameHeight() / 2 - 7,
 		_playerInfo._image->getFrameWidth()
 		, RCSIZE);
-	if (_playerInfo.isDrop) {
+	if (_playerInfo.isDrop)
+	{
 		_playerInfo._underRc = RectMakeCenter(_playerInfo.position.x,
 			_playerInfo.position.y + _playerInfo._image->getFrameHeight() / 2 + 7,
 			_playerInfo._image->getFrameWidth()
@@ -156,6 +157,7 @@ void Player::collsion()
 		{
 			_playerInfo.position.y = _MapManager->getWall()[i]->getRect().top-_playerInfo._image->getFrameHeight()/2;
 			_playerInfo._underRc.bottom = _MapManager->getWall()[i]->getRect().top;
+			_playerInfo._underRc.top = _MapManager->getWall()[i]->getRect().top;
 			_playerInfo.isDrop = false;
 			_playerInfo.isGround = true;
 
