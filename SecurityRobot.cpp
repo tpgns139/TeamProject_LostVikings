@@ -31,18 +31,10 @@ void SecurityRobot::update()
 
 	_count++;
 
-	if (_count %12 == 0)
+	if (_count %24 == 0)
 	{
-		if (_enemy.speed > 0)
-		{
-			_enemy.img->setFrameY(0);
-			if (_currentFrameX > _enemy.img->getMaxFrameX()) _currentFrameX = 0;
-			_enemy.img->setFrameX(_currentFrameX);
-			_currentFrameX++;
-			_count = 0;
-			
-		}
-		else
+
+		if (_enemy.speed < 0)
 		{
 			_enemy.img->setFrameY(1);
 			if (_currentFrameX <0) _currentFrameX =5;
@@ -51,12 +43,18 @@ void SecurityRobot::update()
 			_count = 0;
 			
 		}
-	
+		else
+		{
+			_enemy.img->setFrameY(0);
+			if (_currentFrameX > _enemy.img->getMaxFrameX()) _currentFrameX = 0;
+			_enemy.img->setFrameX(_currentFrameX);
+			_currentFrameX++;
+			_count = 0;
+
+		}
 	}
 	_enemy.x += _enemy.speed;
-	move();
 
-	
 	
 }
 
@@ -65,7 +63,7 @@ bool SecurityRobot::bulletCountFire()
 
 	_firecount++;
 
-	if (_firecount % 42 == 0)
+	if (_firecount % 70 == 0)
 	{
 		_firecount = 0;
 		return true;

@@ -41,33 +41,37 @@ void Enemy::release()
 
 void Enemy::update()
 {
-	/*_enemy.rc = RectMakeCenter(_enemy.x - CAMERA->getCameraXpos() + _enemy.img->getFrameWidth() / 2,
-		_enemy.y - CAMERA->getCameraYpos() + _enemy.img->getFrameHeight() / 2, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());*/
-	_enemy.leftcolcheckrc = RectMakeCenter(_enemy.x , _enemy.y + _enemy.img->getFrameHeight() / 2
+	_enemy.rc = RectMake(_enemy.x  ,
+		_enemy.y , _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
+	_enemy.leftcolcheckrc = RectMakeCenter(_enemy.x , _enemy.y+_enemy.img->getFrameHeight()/2
 		, 10, _enemy.img->getFrameHeight()-10);
-	_enemy.rightcolcheckrc = RectMakeCenter(_enemy.x + _enemy.img->getFrameWidth(), _enemy.y  + _enemy.img->getFrameHeight() / 2
+	_enemy.rightcolcheckrc = RectMakeCenter(_enemy.x + _enemy.img->getFrameWidth(), _enemy.y + _enemy.img->getFrameHeight() / 2
 		, 10, _enemy.img->getFrameHeight()-10);
 	RECT temp;
-	for (int i = 0; i < _mapManager->getWall().size(); i++)
+	for (int i = 0; i < _mapManager->getColWall().size(); i++)
 	{
-		if (IntersectRect(&temp, &_mapManager->getWall()[i]->getRect(), &_enemy.rightcolcheckrc))//||_enemy.x + (_enemy.img->getFrameWidth()) >WINSIZEX+CAMERA->getCameraXpos()) <-플레이어 무브랑 같이 처리해야함,카메라가 움직이지 않는 조건 추가
+		if (IntersectRect(&temp, & _mapManager->getColWall()[i] ->getRect(), &_enemy.rightcolcheckrc))//||_enemy.x + (_enemy.img->getFrameWidth()) >WINSIZEX+CAMERA->getCameraXpos()) <-플레이어 무브랑 같이 처리해야함,카메라가 움직이지 않는 조건 추가
 		{
 			_enemy.speed *= -1;
 			_currentFrameX = 1;
 		}
-		if (IntersectRect(&temp, &_mapManager->getWall()[i]->getRect(), &_enemy.leftcolcheckrc))//||_enemy.x<0+CAMERA->getCameraXpos())
+		if (IntersectRect(&temp, &_mapManager->getColWall()[i]->getRect(), &_enemy.leftcolcheckrc))//||_enemy.x<0+CAMERA->getCameraXpos())
 		{
 			_enemy.speed *= -1;
 			_currentFrameX = 2;
 		}
 	
 	}
+
 }
 
 void Enemy::render()
 {
+	
 
-	_enemy.img->frameRender(getMemDC(), _enemy.x - CAMERA->getCameraXpos(), _enemy.y - CAMERA->getCameraYpos());
+	_enemy.img->frameRender(getMemDC(), _enemy.rc.left - CAMERA->getCameraXpos(), _enemy.rc.top - CAMERA->getCameraYpos());
+
+
 }
 
 void Enemy::move()

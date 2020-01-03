@@ -26,9 +26,9 @@ void Wall::update()
 }
 void Wall::render()
 {
-	RectangleMake(_backBuffer->getMemDC(),
+	/*RectangleMake(_backBuffer->getMemDC(),
 		_mapInfo._x - CAMERA->getCameraXpos(),
 		_mapInfo._y - CAMERA->getCameraYpos(),
 		_mapInfo.width,
-		_mapInfo.height);
+		_mapInfo.height);*/
 }

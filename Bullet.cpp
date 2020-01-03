@@ -33,16 +33,9 @@ void Bullet::render()
 {
 	for (_viBullet = _vBullet.begin(); _viBullet != _vBullet.end(); ++_viBullet)
 	{
-		if (KEYMANAGER->isToggleKey(VK_F1))
-		{
-			
-			
-			(_backBuffer->getMemDC(), _viBullet->rc);
-		}
-		_viBullet->img->render(getMemDC(), _viBullet->rc.left - CAMERA->getCameraXpos(),_viBullet->rc.top - CAMERA->getCameraYpos());
+		
+		_viBullet->img->render(getMemDC(),_viBullet->rc.left-CAMERA->getCameraXpos(),_viBullet->rc.top-CAMERA->getCameraYpos());
 
-		
-		
 		
 	}
 }
@@ -51,8 +44,7 @@ void Bullet::bulletFire(float x, float y, float speed)
 {
 	
 
-	tagBullet bullet;
-	ZeroMemory(&bullet, sizeof(tagBullet));
+	tagBullet bullet;	ZeroMemory(&bullet, sizeof(tagBullet));
 	bullet.img = IMAGEMANAGER->findImage(_imgname);
 	bullet.speed = speed;
 	bullet.x = bullet.fireX = x;
