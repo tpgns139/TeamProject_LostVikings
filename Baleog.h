@@ -16,20 +16,21 @@ enum BALEOGSTATE
 
 };
 
-class Baleog :public Player
+class Baleog:public Player
 {
 private:
 	BALEOGSTATE _BaleogState;
-	bool _isShooting;
-	bool _canShoot;
+
+	bool isAttack;
+	RECT rc;
 public:
 	Baleog();
 	~Baleog();
 	virtual HRESULT init(PlayerName playerName);
 	virtual void update();
 	virtual void render();
+	
 	void KeyControl();
 	void Frame();
-	BALEOGSTATE getBalState() { return _BaleogState; }
 };
 

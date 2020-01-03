@@ -1,6 +1,7 @@
 #pragma once
 #include"gameNode.h"
 #include "item.h"
+#define RCSIZE 15
 enum PlayerName {
 	PN_ERIK,
 	PN_BALEOG,
@@ -16,7 +17,7 @@ struct Playerinfo
 {
 	image* _image;
 	PlayerName _playerName;
-	RECT _rc, _underRc, _leftRc,_rightRc;
+	RECT _rc, _underRc, _leftRc,_rightRc,_topRC;
 
 	POINT position;
 	int HP;
@@ -27,6 +28,7 @@ struct Playerinfo
 	float speed;
 	float jumpPower;
 	bool isDrop; //떨어지는중이니
+	bool isGround; //땅이니?
 	bool isLadder; //사다리 상태니?
 	bool isJump;
 	float _underRcBottom;
@@ -58,6 +60,7 @@ public:
 	void move();				//공통으로 움직일 함수;
 	virtual RECT getRect() { return _playerInfo._rc; }
 	void collsion();
+	void Jumpcollsion();
 	void setLink(MapManager* MapManager) { _MapManager = MapManager; }
 	POINT getPlayerPos() { return _playerInfo.position; }
 	Playerinfo* getPlayerInfo() { return &_playerInfo; }

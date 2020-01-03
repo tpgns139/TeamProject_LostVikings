@@ -18,6 +18,7 @@ private:
 	Playerinfo _playerinfo;
 	Bullet* _Pbullet;
 	int PlayerNumber;
+
 	
 public:
 	PlayerManager();

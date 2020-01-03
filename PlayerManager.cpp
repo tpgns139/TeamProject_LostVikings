@@ -32,7 +32,11 @@ HRESULT PlayerManager::init()
 
 	_Pbullet = new Bullet;
 	_Pbullet->init("왼쪽화살");
-	PlayerNumber = 2; //일단 올라프테스트하기위에 넣음 나중에지워야함
+
+
+	
+
+	PlayerNumber = 0; //일단 올라프테스트하기위에 넣음 나중에지워야함
 
 	_nowPlayer = _vPlayer[PlayerNumber];
 	CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
@@ -51,27 +55,27 @@ void PlayerManager::update()
 	}
 	
 	_Pbullet->update();
-	if (KEYMANAGER->isOnceKeyUp('D'))
+	_nowPlayer->KeyControl();
+	if (KEYMANAGER->isOnceKeyDown('P'))
 	{
-		
-		if (_nowPlayer->getPlayerInfo()->_playerName == PN_BALEOG) 
-		{
-			playerBulletFire();
-		}
-
+		playerBulletFire();
 	}
 	if (!CAMERA->isMoving()) 
-	{//에너미 마무리하기위해 잠깐 묶어둠
+	{
 		_nowPlayer->KeyControl();
 		CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
 	}
-
+	RECT temp;
+	//IntersectRect(&temp)
+		
 	
+		
 	
 
 	for (int i = 0;i < _vPlayer.size();i++)
 	{
 		_vPlayer[i]->update();
+
 	}
 	
 
@@ -88,19 +92,16 @@ void PlayerManager::render()
 
 void PlayerManager::playerBulletFire()
 {
+	for (int i = 0; i < _vPlayer.size(); i++)
+	{
+		if (_vPlayer[i]->getPlayerInfo()->_playerName == PN_BALEOG)
+		{
+			RECT rc = _vPlayer[i]->getRect();
 
-	RECT rc = _nowPlayer->getRect();
-	if (_nowPlayer->getPlayerDirection() == RIGHT) 
-	{
-		_Pbullet->bulletFire(rc.right,
-			(rc.top + rc.bottom) / 2 , -5.0f);
+			_Pbullet->bulletFire(rc.left,
+				(rc.top + rc.bottom) / 2 + 50, 5.0f);
+		}
 	}
-	else if (_nowPlayer->getPlayerDirection() == LEFT)
-	{
-		_Pbullet->bulletFire(rc.left,
-			(rc.top + rc.bottom) / 2 , 5.0f);
-	}
-	
 }
 
 void PlayerManager::setNowPlayer()

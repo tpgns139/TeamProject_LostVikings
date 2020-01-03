@@ -87,9 +87,10 @@ void Olaf::update()
 
 	shiedMake();
 
-	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x , _playerInfo.position.y , _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
+	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x , _playerInfo.position.y, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
-
+	RECT temp;
+	//IntersectRect(&temp,&shieldUp,)
 
 
 }
@@ -169,23 +170,23 @@ void Olaf::KeyControl()
 		_playerInfo.position.x += _playerInfo.speed;
 	}
 
-
+	if (_Direction == LEFT)
+	{
+		_playerInfo._image->setFrameY(1);
+	}
+	else if (_Direction == RIGHT)
+	{
+		_playerInfo._image->setFrameY(0);
+	}
 
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
-		if (_Direction == LEFT)
-		{
-			_playerInfo._image->setFrameY(1);
-		}
-		if (_Direction == RIGHT)
-		{
-			_playerInfo._image->setFrameY(0);
-		}
-
 		shieldPosision = !shieldPosision;
 		if(!shieldPosision)_Ostate = O_front_idle1;
 		if(shieldPosision)_Ostate =  O_top_idle1;
 	}
+
+
 
 	switch (_Ostate)
 	{
@@ -290,8 +291,6 @@ void Olaf::_dis()
 
 void Olaf::shiedMake()
 {
-	//_playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos()
-
 	if (shieldPosision)
 	{
 		shieldUp = RectMakeCenter(_playerInfo.position.x - CAMERA->getCameraXpos() + _playerInfo._image->getFrameWidth()/2,
