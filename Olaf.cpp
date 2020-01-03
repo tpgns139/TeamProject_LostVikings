@@ -169,23 +169,23 @@ void Olaf::KeyControl()
 		_playerInfo.position.x += _playerInfo.speed;
 	}
 
-
+	if (_Direction == LEFT)
+	{
+		_playerInfo._image->setFrameY(1);
+	}
+	else if (_Direction == RIGHT)
+	{
+		_playerInfo._image->setFrameY(0);
+	}
 
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
-		if (_Direction == LEFT)
-		{
-			_playerInfo._image->setFrameY(1);
-		}
-		if (_Direction == RIGHT)
-		{
-			_playerInfo._image->setFrameY(0);
-		}
-
 		shieldPosision = !shieldPosision;
 		if(!shieldPosision)_Ostate = O_front_idle1;
 		if(shieldPosision)_Ostate =  O_top_idle1;
 	}
+
+
 
 	switch (_Ostate)
 	{

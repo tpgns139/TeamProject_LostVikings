@@ -161,7 +161,7 @@ void Erik::KeyControl()
 {
 	//¿ÞÂÊ
 
-	if (KEYMANAGER->isOnceKeyDown('A'))
+	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
 	{
 		_playerInfo._CurrentFrameX = 0;
 		_Direction = LEFT;
@@ -170,7 +170,7 @@ void Erik::KeyControl()
 		_playerInfo.position.x -= _playerInfo.speed;
 	}
 
-	if (KEYMANAGER->isStayKeyDown('A'))
+	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 
 		headingCount++;
@@ -185,7 +185,7 @@ void Erik::KeyControl()
 		_state = E_atk;
 	}
 
-	if (KEYMANAGER->isOnceKeyUp('A'))
+	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 	{
 		_Direction = LEFT;
 		headingCount = 0;
@@ -196,7 +196,7 @@ void Erik::KeyControl()
 
 
 
-	if ((_state != E_up) && (KEYMANAGER->isStayKeyDown('D')))
+	if ((_state != E_up) && (KEYMANAGER->isStayKeyDown(VK_RIGHT)))
 	{
 		_Direction = RIGHT;
 		_playerInfo._image->setFrameY(0);
@@ -209,7 +209,7 @@ void Erik::KeyControl()
 		}
 	}
 
-	if (KEYMANAGER->isOnceKeyUp('D'))
+	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 	{
 		_Direction = RIGHT;
 		_playerInfo._image->setFrameY(0);
