@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "PlayerManager.h"
 #include "MapManager.h"
+#include "enemyManager.h"
 
 
 PlayerManager::PlayerManager()
@@ -67,7 +68,7 @@ void PlayerManager::update()
 	}
 	RECT temp;
 	//IntersectRect(&temp)
-		
+	Bulletcollsion();
 	
 		
 	
@@ -120,5 +121,36 @@ void PlayerManager::setNowPlayer()
 	}
 
 	_nowPlayer = _vPlayer[PlayerNumber];
+	
+}
+
+void PlayerManager::Bulletcollsion()
+{
+	for (int i = 0; i < _MapManager->getColWall().size(); i++)
+	{
+		for (int j = 0; j < _Pbullet->getVBullet().size(); j++)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_Pbullet->getVBullet()[j].rc, &_MapManager->getColWall()[i]->getRect()))
+			{
+				_Pbullet->removeBullet(j);
+
+			}
+
+		}
+	}
+	for (int i = 0; i < _em->getEnemy().size(); i++)
+	{
+		for (int j = 0; j < _Pbullet->getVBullet().size(); j++)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_Pbullet->getVBullet()[j].rc, &_em->getEnemy()[i]->getEnemyRect()))
+			{
+				_Pbullet->removeBullet(j);
+
+			}
+
+		}
+	}
 	
 }

@@ -41,8 +41,8 @@ void Enemy::release()
 
 void Enemy::update()
 {
-	/*_enemy.rc = RectMakeCenter(_enemy.x - CAMERA->getCameraXpos() + _enemy.img->getFrameWidth() / 2,
-		_enemy.y - CAMERA->getCameraYpos() + _enemy.img->getFrameHeight() / 2, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());*/
+	_enemy.rc = RectMakeCenter(_enemy.x ,
+		_enemy.y, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
 	_enemy.leftcolcheckrc = RectMakeCenter(_enemy.x , _enemy.y + _enemy.img->getFrameHeight() / 2
 		, 10, _enemy.img->getFrameHeight()-10);
 	_enemy.rightcolcheckrc = RectMakeCenter(_enemy.x + _enemy.img->getFrameWidth(), _enemy.y  + _enemy.img->getFrameHeight() / 2
