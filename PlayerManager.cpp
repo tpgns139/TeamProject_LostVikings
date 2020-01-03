@@ -54,6 +54,9 @@ void PlayerManager::update()
 		setNowPlayer();
 		CAMERA->moveTo(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y, 0.5f);
 	}
+
+
+	
 	
 	_Pbullet->update();
 	_nowPlayer->KeyControl();

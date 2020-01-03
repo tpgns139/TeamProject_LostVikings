@@ -18,7 +18,8 @@ HRESULT playGround::init()
 
 
 	SCENEMANAGER->addScene("GameScene", new GameScene);
-	SCENEMANAGER->changeScene("GameScene");
+	SCENEMANAGER->addScene("IntroScene", new IntroScene);
+	SCENEMANAGER->changeScene("IntroScene");
 	
 	return S_OK;
 }
@@ -42,7 +43,7 @@ void playGround::update()
 //여기다 그려라!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 void playGround::render()
 {
-	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
+	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
 	//==================================================
 
 
