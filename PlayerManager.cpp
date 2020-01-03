@@ -65,7 +65,7 @@ void PlayerManager::update()
 	if (!CAMERA->isMoving()) 
 	{
 		_nowPlayer->KeyControl();
-		//CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
+		CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
 	}
 
 		

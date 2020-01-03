@@ -68,7 +68,7 @@ void Baleog::KeyControl()
 	{
 		_playerInfo._image->setFrameY(1);
 	}
-	else if (_Direction == RIGHT)
+	if (_Direction == RIGHT)
 	{
 		_playerInfo._image->setFrameY(0);
 	}
@@ -136,7 +136,7 @@ void Baleog::KeyControl()
 			_playerInfo._CurrentFrameX = 0;
 			_BaleogState = BALEOG_LEFTIDLE;
 		}
-		//isAttack = false;
+		isAttack = false;
 	}
 
 	if (!isAttack)
