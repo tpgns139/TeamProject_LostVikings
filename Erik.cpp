@@ -22,7 +22,9 @@ HRESULT Erik::init(PlayerName playerNme)
 	IMAGEMANAGER->addFrameImage("E_die_divide", "image/erikImage/die_divide.bmp", 0, 0, 763, 200, 7, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("E_up_end", "image/erikImage/up_end.bmp", 194, 100, 2, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("E_die_electric", "image/erikImage/die_electric.bmp", 194, 200, 2, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("E_push", "image/erikImage/push.bmp", 388, 200, 4, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("E_push", "image/erikImage/push2.bmp", 400, 200, 4, 2, true, RGB(255, 0, 255));
+	
+
 	IMAGEMANAGER->addFrameImage("E_die_fall", "image/erikImage/die_fall.bmp", 640, 200, 6, 2, true, RGB(255, 0, 255));
 
 	_playerInfo._playerName = PN_ERIK;
@@ -30,7 +32,7 @@ HRESULT Erik::init(PlayerName playerNme)
 	_playerInfo.count = _playerInfo._CurrentFrameX = _playerInfo._CurrentFrameY = 0;
 	_playerInfo.HP = 3;
 	_playerInfo.MaxHP = 3;
-	_playerInfo.position.x = 2066;
+	_playerInfo.position.x = 1300;
 	_playerInfo.position.y = 1116;
 	//_playerInfo.speed = 1.0f;
 
@@ -101,6 +103,9 @@ void Erik::update()
 			}
 		}
 	}
+
+
+
 	Player::update();
 	stateImage();
 }
@@ -113,26 +118,59 @@ void Erik::render()
 
 void Erik::KeyControl()
 {
-	//왼쪽
 
-	/*if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
-	{
-		headingCount = 0;
-		_Direction = LEFT;
-		_playerInfo._image->setFrameY(2);
-		if ((_state != E_atk) && (_state != E_jump)) _state = E_run;
-		_playerInfo.position.x -= _playerInfo.speed;
-	}*/
-
+	//사다리 처리중
 	if (_playerInfo.isLadder)
-	{
-		_state = E_up;
+	{	
+		if (KEYMANAGER->isStayKeyDown(VK_UP))
+		{
+			_Direction = RIGHT;
+			if (_playerInfo.isLadderEnd)
+			{
+			_playerInfo._CurrentFrameX = 0;
+				_state = E_up_end;
+				Frame(25);
+			}
+
+			if (!_playerInfo.isLadderEnd)
+			{
+				_state = E_up;
+				Frame(25);
+			}
+			if(!_playerInfo.isLadderEnd2)
+			_playerInfo.position.y -= 1;
+
+		}
+		 else if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+		{
+			_Direction = LEFT;
+			if (_playerInfo.isLadderEnd)
+			{
+			_playerInfo._CurrentFrameX = 0;
+				_state = E_up_end;
+				Frame(25);
+			}
+
+			if (!_playerInfo.isLadderEnd)
+			{
+				_state = E_up;
+				Frame(25);
+			}
+			
+
+			
+			_playerInfo.position.y += 1;
+		}
+	
 	}
 
 
+
+	cout << "사다리니?" << _playerInfo.isLadder << endl;
+
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
-
+		
 		if(PlusSpeed>-3)PlusSpeed -= 0.1f;
 		headingCount++;
 		_Direction = LEFT;
@@ -185,31 +223,44 @@ void Erik::KeyControl()
 		_playerInfo._CurrentFrameX = 0;
 	}
 
-		if (_Direction == LEFT)
-		{
-			_playerInfo._image->setFrameY(2);
-		}
-		else if (_Direction == RIGHT)
-		{
-			_playerInfo._image->setFrameY(0);
-		}
+	if (_Direction == LEFT)
+	{
+		_playerInfo._image->setFrameY(2);
+	}
+	else if (_Direction == RIGHT)
+	{
+		_playerInfo._image->setFrameY(0);
+	}
 
-		if (jumpCount == 0)
-		{
-				jumpCount = 1;
+	if (jumpCount == 0)
+	{
+			jumpCount = 1;
 
-			if ((KEYMANAGER->isStayKeyDown(VK_SPACE)))
+		
+
+		if(KEYMANAGER->isStayKeyDown(VK_SPACE))
+		{
+		
+			PlusJump++;
+			headingCount = 0;
+			_playerInfo._CurrentFrameX = 0;
+
+			_state = E_jump;
+			isJump = true;
+
+			if (_playerInfo.isLadder)
 			{
-				PlusJump++;
-				headingCount = 0;
-				_playerInfo._CurrentFrameX = 0;
-
-				_state = E_jump;
-				isJump = true;
-				_playerInfo.jumpPower = 3.0f + PlusJump;
-				_playerInfo.gravity = 0.02f;
+				_playerInfo.jumpPower = 1.0f;
 			}
+			else
+			{
+				_playerInfo.jumpPower = 3.0f + PlusJump;
+			}
+
+			_playerInfo.gravity = 0.02f;
 		}
+	}
+
 	
 
 	//점프용//
@@ -226,10 +277,8 @@ void Erik::KeyControl()
 	{
 		jumpCount = 0;
 		PlusJump = 0;
-	//	if (_state != E_atk)_state = E_idle1;
+		if (_state == E_jump)_state = E_idle1;
 	}
-
-		
 }
 	
 
