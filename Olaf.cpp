@@ -79,16 +79,15 @@ void Olaf::update()
 
 	if (_Direction == LEFT)
 	{
-		shieldX = _playerInfo.position.x - CAMERA->getCameraXpos();
+		shieldX = _playerInfo.position.x -_playerInfo._image->getFrameWidth()/2- CAMERA->getCameraXpos();
 	}
 	if (_Direction == RIGHT)
 	{
-		shieldX = _playerInfo.position.x - CAMERA->getCameraXpos() + _playerInfo._image->getFrameWidth();
+		shieldX = _playerInfo.position.x - CAMERA->getCameraXpos() + _playerInfo._image->getFrameWidth()/2;
 	}
 
 	shiedMake();
 
-	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x , _playerInfo.position.y, _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
 
 	//RECT temp;
 	//if (IntersectRect(&temp, &shieldUp,
@@ -100,13 +99,9 @@ void Olaf::update()
 
 void Olaf::render()
 {//µð¹ö±ë¿ë
-	if (KEYMANAGER->isToggleKey('1'))
-	{
-		RectangleMake(getMemDC(), _playerInfo.position.x - CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
-	}
-	_playerInfo._image->frameRender(getMemDC(), _playerInfo.position.x-CAMERA->getCameraXpos(), _playerInfo.position.y - CAMERA->getCameraYpos(), _playerInfo._CurrentFrameX,_playerInfo._image->getFrameY());
-	
 	Player::render();
+	
+	
 
 	if(shieldPosision)Rectangle(getMemDC(), shieldUp);
 	if(!shieldPosision)Rectangle(getMemDC(), shieldFront);
@@ -296,15 +291,15 @@ void Olaf::shiedMake()
 {
 	if (shieldPosision)
 	{
-		shieldUp = RectMakeCenter(_playerInfo.position.x - CAMERA->getCameraXpos() + _playerInfo._image->getFrameWidth()/2,
-			_playerInfo.position.y - CAMERA->getCameraYpos(),
+		shieldUp = RectMakeCenter(_playerInfo.position.x - CAMERA->getCameraXpos() ,
+			_playerInfo.position.y -_playerInfo._image->getFrameHeight()/2- CAMERA->getCameraYpos(),
 			_playerInfo._image->getFrameWidth(),
 			SIZE);
 	}
 	if (!shieldPosision)
 	{
 		shieldFront = RectMakeCenter(shieldX,
-			_playerInfo.position.y - CAMERA->getCameraYpos() + _playerInfo._image->getFrameHeight() / 2,
+			_playerInfo.position.y - CAMERA->getCameraYpos() ,
 			SIZE,
 			_playerInfo._image->getFrameWidth());
 	}
