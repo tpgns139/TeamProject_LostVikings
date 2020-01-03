@@ -210,68 +210,26 @@ void Player::collsion()
 		}
 	}
 
-	//플레이어 옆 벽면 충돌
-	for (int i = 0; i < _MapManager->getColWall().size(); i++)
-	{
-		RECT temp2;
-		if (IntersectRect(&temp2, &_playerInfo._rc, &_MapManager->getColWall()[i]->getRect()))
-		{
-			_playerInfo.isPush = true;
-			_playerInfo._leftRc.left = _MapManager->getWall()[i]->getRect().right;
-
-			if (_Direction == LEFT)
-			{
-
-				if (_MapManager->getColWall()[i]->getRect().right < _playerInfo.position.x)
-				{
-					_playerInfo.position.x =
-						_MapManager->getColWall()[i]->getRect().right + _playerInfo._image->getFrameWidth() / 2;
-				}
-				else
-				{
-					_playerInfo.position.x =
-						_MapManager->getColWall()[i]->getRect().left - _playerInfo._image->getFrameWidth() / 2;
-				}
-			}
-			else if (_Direction == RIGHT)
-			{
-				if (_MapManager->getColWall()[i]->getRect().right < _playerInfo.position.x)
-				{
-					_playerInfo.position.x =
-						_MapManager->getColWall()[i]->getRect().right + _playerInfo._image->getFrameWidth() / 2;
-				}
-				else
-				{
-					_playerInfo.position.x = _MapManager->getColWall()[i]->getRect().left -
-						_playerInfo._image->getFrameWidth() / 2;
-				}
-			}
-		}
-		else
-			_playerInfo.isPush = false;
-	}
+	
+	
 	//사다리충돌 미완성
 	for (int i = 0;i < _MapManager->getLadder().size();i++)
 	{
 		RECT temp;
 		if (IntersectRect(&temp, &_playerInfo._ladderRC, &_MapManager->getLadder()[i]->getRect()))
 		{
-			_playerInfo.isLadder = true;
 			_playerInfo.isDrop = false;
 			_playerInfo.isGround = true;
 			ladderMoving();
-
-			
 		}
 		else
 		{
-			_playerInfo.isDrop = true;
-			_playerInfo.isGround = false;
 			_playerInfo.isLadder = false;
+
 		}
 	}
 
-	cout << "사다리 충돌?" << _playerInfo.isLadder << endl;
+	//cout << "사다리 충돌?" << _playerInfo.isLadder << endl;
 }
 
 
@@ -282,11 +240,12 @@ void Player::move()
 
 void Player::ladderMoving()
 {
+	_playerInfo.isLadder = true;
 	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
 		_playerInfo.position.y -= 2;
 	}
-	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+	else if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
 		_playerInfo.position.y += 2;
 	}

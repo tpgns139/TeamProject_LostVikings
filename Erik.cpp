@@ -30,8 +30,8 @@ HRESULT Erik::init(PlayerName playerNme)
 	_playerInfo.count = _playerInfo._CurrentFrameX = _playerInfo._CurrentFrameY = 0;
 	_playerInfo.HP = 3;
 	_playerInfo.MaxHP = 3;
-	_playerInfo.position.x = WINSIZEX/2-200; //2066;
-	_playerInfo.position.y = WINSIZEY/2; //1116;
+	_playerInfo.position.x = 2066;
+	_playerInfo.position.y = 1116;
 	//_playerInfo.speed = 1.0f;
 
 	PlusSpeed = 0;
@@ -124,6 +124,13 @@ void Erik::KeyControl()
 		_playerInfo.position.x -= _playerInfo.speed;
 	}*/
 
+	if (_playerInfo.isLadder)
+	{
+		_state = E_up;
+	}
+
+	cout << "상태?" << _state << endl;
+
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 
@@ -190,7 +197,7 @@ void Erik::KeyControl()
 
 		if (jumpCount == 0)
 		{
-			jumpCount = 1;
+				jumpCount = 1;
 
 			if ((KEYMANAGER->isStayKeyDown(VK_SPACE)))
 			{
@@ -205,7 +212,6 @@ void Erik::KeyControl()
 			}
 		}
 
-	cout <<"점프카운트?"<< jumpCount << endl;
 	
 
 	//점프용//
@@ -225,8 +231,7 @@ void Erik::KeyControl()
 		if (_state != E_atk)_state = E_idle1;
 	}
 
-
-	cout <<"상태값?"<< _state << endl;
+	
 		
 }
 	
@@ -241,13 +246,13 @@ void Erik::Frame(int FrameX)
 		if (_Direction == RIGHT)
 		{
 			_playerInfo._CurrentFrameX++;
-			if (_playerInfo._CurrentFrameX >= _playerInfo._image->getMaxFrameX() - 1) _playerInfo._CurrentFrameX =0;
+			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX() - 1) _playerInfo._CurrentFrameX =0;
 			_playerInfo.count = 0;
 		}
 		else if (_Direction == LEFT)
 		{
 			_playerInfo._CurrentFrameX--;
-			if (_playerInfo._CurrentFrameX < 0)_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
+			if (_playerInfo._CurrentFrameX <= 0)_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
 			_playerInfo.count = 0;
 		}
 	}
