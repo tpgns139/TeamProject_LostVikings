@@ -79,11 +79,11 @@ void Player::update()
 		RECT temp2;
 		if (IntersectRect(&temp2, &_playerInfo._rc, &_MapManager->getColWall()[i]->getRect()))
 		{
-<<<<<<< HEAD
+
 			_playerInfo._leftRc.left = _MapManager->getWall()[i]->getRect().right;
 			
-			
-=======
+
+
 			if (_Direction == LEFT)
 			{
 				if ( _MapManager->getColWall()[i]->getRect().right < _playerInfo.position.x) 
@@ -110,7 +110,7 @@ void Player::update()
 						_playerInfo._image->getFrameWidth() / 2;
 				}
 			}
->>>>>>> 2b6dec6cf27fb06faab4ebad391e0364198e5dae
+
 		}
 	}
 
