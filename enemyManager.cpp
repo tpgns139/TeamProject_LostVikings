@@ -34,27 +34,40 @@ void EnemyManager::update()
 	{
 		(*_viEm)->update();
 
+		RECT temp;
 		if ((*_viEm)->getEnemyInfo().name == slime)
 		{
-			
-			if ((*_viEm)->getEnemyInfo().speed < 0)
+			if (IntersectRect(&temp, &(*_viEm)->getEnemyRect() , &_playerManager->get_nPlayer()->getRect()))
 			{
-				enemyBulletFire((*_viEm),RIGHT);
+				
+				if ((*_viEm)->getEnemyInfo().speed < 0)
+				{
+					enemyBulletFire((*_viEm), RIGHT);
+				}
+				else
+				{
+					enemyBulletFire((*_viEm), LEFT);
+				}
 			}
-			else
-			{
-				enemyBulletFire((*_viEm),LEFT);
-			}
+		
+
 		}
 		if ((*_viEm)->getEnemyInfo().name == robot)
-		{
-			if ((*_viEm)->getEnemyInfo().speed < 0)
+		{	
+			if (getDistance((*_viEm)->getEnemyRect().left,
+				(*_viEm)->getEnemyRect().top,
+				_playerManager->get_nPlayer()->getRect().left,
+				_playerManager->get_nPlayer()->getRect().top) < 400)
 			{
-				enemyBulletFire((*_viEm), RIGHT);
-			}
-			else
-			{
-				enemyBulletFire((*_viEm), LEFT);
+				if ((*_viEm)->getEnemyInfo().speed < 0)
+				{
+
+					enemyBulletFire((*_viEm), RIGHT);
+				}
+				else
+				{
+					enemyBulletFire((*_viEm), LEFT);
+				}
 			}
 		}
 		if ((*_viEm)->getEnemyInfo().name == redtower)

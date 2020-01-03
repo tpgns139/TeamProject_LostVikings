@@ -24,6 +24,7 @@ private:
 	Bullet* _Ebullet;
 	vEnemy _vEm;
 	viEnemy _viEm;
+	bool AttackStart = false;
 	RECT collisionTestRect;
 	bool EnemyAtk;
 

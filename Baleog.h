@@ -22,6 +22,7 @@ private:
 
 	bool isAttack;
 	RECT rc;
+	int arrowcount = 0;
 public:
 	Baleog();
 	~Baleog();

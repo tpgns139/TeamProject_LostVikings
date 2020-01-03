@@ -90,12 +90,16 @@ void Slime::update()
 	
 }
 
-void Slime::move()
+
+
+void Slime::AttackStart()
 {
-	
+	/*RECT temp;
+	if (IntersectRect(&temp, &_enemy.rc, & _playerManager->get_vPlayer*/
 }
 
 bool Slime::bulletCountFire()
+
 {
 
 	_firecount++;

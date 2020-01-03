@@ -58,6 +58,11 @@ void SecurityRobot::update()
 	
 }
 
+void SecurityRobot::AttackStart()
+{
+	
+}
+
 bool SecurityRobot::bulletCountFire()
 {
 

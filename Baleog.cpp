@@ -43,6 +43,8 @@ HRESULT Baleog::init(PlayerName playerName)
 	_playerInfo.speed = 2.0f;
 	_playerInfo.gravity = 0;
 	isAttack = false;
+	_playerInfo.HP = 3;
+	_playerInfo.MaxHP = 3;
 	Player::MakeRect();
 
 	return S_OK;
@@ -147,7 +149,8 @@ void Baleog::KeyControl()
 	
 	if (KEYMANAGER->isOnceKeyDown('D'))							//벨로그 화살공격
 	{
-		if (_BaleogState == BALEOG_RIGHTIDLE || _BaleogState == BALEOG_RIGHTMOVE)
+
+		if (_BaleogState == BALEOG_RIGHTIDLE || _BaleogState == BALEOG_RIGHTMOVE  )
 		{
 			_playerInfo._image->setFrameY(0);
 			_BaleogState = BALEOG_RIGHTBOWATTACK;
@@ -157,11 +160,14 @@ void Baleog::KeyControl()
 			_playerInfo._image->setFrameY(1);
 			_playerInfo._image->setFrameX(0);
 			_BaleogState = BALEOG_LEFTBOWATTACK;
+			
 		}
 		isAttack = true;
 	}
 	if (KEYMANAGER->isOnceKeyUp('D'))							//벨로그 화살공격 떼었을때
 	{
+		arrowcount = 0;
+		
 		if (_BaleogState == BALEOG_RIGHTBOWATTACK)
 		{
 			_playerInfo._image->setFrameY(0);

@@ -23,6 +23,6 @@ public:
 	virtual void draw();
 	image* getImage() { return _imageName; }
 	POINT get_position() { return _position; }
-
+	POINT set_position() { return _position; }
 };
 

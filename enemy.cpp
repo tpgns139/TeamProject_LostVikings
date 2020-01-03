@@ -76,9 +76,11 @@ void Enemy::render()
 
 }
 
-void Enemy::move()
+void Enemy::AttackStart()
 {
 }
+
+
 
 bool Enemy::bulletCountFire()
 {

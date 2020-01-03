@@ -85,7 +85,6 @@ void Olaf::update()
 	{
 		shieldX = _playerInfo.position.x - CAMERA->getCameraXpos() + _playerInfo._image->getFrameWidth()/2;
 	}
-
 	shiedMake();
 
 
