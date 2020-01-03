@@ -20,7 +20,8 @@ class Baleog:public Player
 {
 private:
 	BALEOGSTATE _BaleogState;
-	Direction _Direction;
+
+	bool isAttack;
 	RECT rc;
 public:
 	Baleog();
@@ -28,7 +29,7 @@ public:
 	virtual HRESULT init(PlayerName playerName);
 	virtual void update();
 	virtual void render();
-
+	
 	void KeyControl();
 	void Frame();
 };

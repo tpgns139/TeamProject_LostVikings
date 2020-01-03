@@ -18,6 +18,7 @@ private:
 	Playerinfo _playerinfo;
 
 	int PlayerNumber;
+
 	
 public:
 	PlayerManager();

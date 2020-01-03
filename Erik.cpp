@@ -73,13 +73,6 @@ HRESULT Erik::init(PlayerName playerNme)
 void Erik::update()
 {
 
-	//Player::collsion();
-
-
-	if (_state != E_attack_after)
-	{
-		KeyControl();
-	}
 	
 
 	if((_state != E_up)&&(_state != E_attack_after))
@@ -237,8 +230,8 @@ void Erik::KeyControl()
 	{
 		_playerInfo.position.y -= _playerInfo.jumpPower;
 		_playerInfo.jumpPower -= _playerInfo.gravity;
-
-		if (jumpCount > 27)
+		
+		if (jumpCount > 32)
 		{
 			_playerInfo.isJump = false;
 			jumpCount = 0;
