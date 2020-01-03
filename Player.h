@@ -30,7 +30,8 @@ struct Playerinfo
 	bool isDrop; //떨어지는중이니
 	bool isGround; //땅이니?
 	bool isLadder; //사다리 상태니?
-
+	bool isJump;
+	float _underRcBottom;
 	vector<item*> _vPlayerItem;
 };
 
@@ -59,6 +60,7 @@ public:
 	void move();				//공통으로 움직일 함수;
 	virtual RECT getRect() { return _playerInfo._rc; }
 	void collsion();
+	void Jumpcollsion();
 	void setLink(MapManager* MapManager) { _MapManager = MapManager; }
 	POINT getPlayerPos() { return _playerInfo.position; }
 	Playerinfo* getPlayerInfo() { return &_playerInfo; }

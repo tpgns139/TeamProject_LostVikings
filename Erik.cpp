@@ -60,8 +60,6 @@ HRESULT Erik::init(PlayerName playerNme)
 
 	Player::MakeRect();
 
-	_mm = new MapManager;
-
 
 	return S_OK;
 }
@@ -69,7 +67,6 @@ HRESULT Erik::init(PlayerName playerNme)
 void Erik::update()
 {
 	
-
 
 
 	if (_state != E_attack_after)
@@ -171,11 +168,19 @@ void Erik::KeyControl()
 		_Direction = LEFT;
 		_playerInfo._image->setFrameY(2);
 		if ((_state != E_atk) && (_state != E_jump)) _state = E_run;
+
 		_playerInfo.position.x -= _playerInfo.speed - PlusSpeed;
 		if ((_state!=E_jump)&&(headingCount>100) &&(KEYMANAGER->isOnceKeyDown('F')))
 		{
 			_state = E_atk;
 		}
+
+		_playerInfo.position.x -= _playerInfo.speed;
+	}
+	if (KEYMANAGER->isOnceKeyDown('D'))
+	{
+		_state = E_atk;
+
 	}
 
 	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
@@ -186,7 +191,6 @@ void Erik::KeyControl()
 		_playerInfo.position.x -= _playerInfo.speed;
 		_playerInfo._CurrentFrameX = 0;
 	}
-
 
 	if ((_state != E_up) && (KEYMANAGER->isStayKeyDown(VK_RIGHT)))
 	{
@@ -226,10 +230,6 @@ void Erik::KeyControl()
 	{
 		jumpCount = 1;
 
-
-			
-		
-
 		 if((KEYMANAGER->isStayKeyDown(VK_SPACE)))
 		{
 			 PlusJump++;
@@ -243,6 +243,16 @@ void Erik::KeyControl()
 		}
 	}
 	
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE) && isJump == false &&jumpCount ==0)
+	{
+		_Direction = LEFT;
+	
+		_state = E_jump;
+		_playerInfo.isJump = true;
+		_playerInfo.jumpPower = 5.0f;
+		_playerInfo.gravity = 0.05f;
+	}
+
 	stateImage();
 	//점프용//
 	if (isJump)
@@ -258,12 +268,13 @@ void Erik::KeyControl()
 	{
 		jumpCount = 0;
 		PlusJump = 0;
-		if(_state!=E_atk)_state = E_idle1;
+		if (_state != E_atk)_state = E_idle1;
 
 	}
 
-	cout <<"상태 값:"<< _state << endl;
+		
 }
+	
 
 
 

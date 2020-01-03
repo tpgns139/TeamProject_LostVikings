@@ -62,11 +62,9 @@ void Player::update()
 
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y,
 		_playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
-
-
-
 	collsion();
-
+	Jumpcollsion();
+	_playerInfo._underRcBottom = _playerInfo._underRc.bottom;
 	for (int i = 0; i < _MapManager->getWall().size(); i++)
 	{
 		
@@ -123,12 +121,26 @@ void Player::collsion()
 			_playerInfo._underRc.bottom = _MapManager->getWall()[i]->getRect().top;
 			_playerInfo.isDrop = false;
 			_playerInfo.isGround = true;
+
 			break;
 		}
 		else
 		{
 			_playerInfo.isDrop = true;
 			_playerInfo.isGround = false;
+		}
+	}
+}
+
+void Player::Jumpcollsion()
+{
+	for (int i = 0; i < _MapManager->getWall().size(); i++)
+	{
+		RECT temp;
+		if (IntersectRect(&temp, &_playerInfo._rc, &_MapManager->getWall()[i]->getRect()))
+		{
+			_playerInfo._rc.bottom = _MapManager->getWall()[i]->getRect().top;
+			_playerInfo.isJump = false;
 		}
 	}
 }
