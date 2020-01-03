@@ -57,7 +57,7 @@ public:
 	float getY() { return _enemy.y; }
 	ENEMY getEnemyInfo() { return _enemy; }
 	RECT getEnemyRect() { return _enemy.rc; }
-	
+
 	void setMemoryAddressLink(MapManager* mm) { _mapManager = mm; }
 	
 

@@ -45,6 +45,12 @@ void EnemyManager::update()
 			{
 				enemyBulletFire((*_viEm),LEFT);
 			}
+
+
+
+			//cout << (*_viEm)->getEnemyInfo().speed << endl;
+
+
 		}
 		if ((*_viEm)->getEnemyInfo().name == robot)
 		{
@@ -188,6 +194,11 @@ void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
 			}
 		}
 	}
+}
+
+void EnemyManager::removeEnemy(int arrNum)
+{
+	_vEm.erase(_vEm.begin() + arrNum);
 }
 
 

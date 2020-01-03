@@ -30,6 +30,11 @@ public:
 	virtual void update();
 	virtual void render();
 	
+	void setImage();
+	BALEOGSTATE getState() {
+		return _BaleogState;
+	}
+	void setState(BALEOGSTATE state) { _BaleogState = state; }
 	void KeyControl();
 	void Frame();
 };

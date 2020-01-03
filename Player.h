@@ -17,7 +17,7 @@ struct Playerinfo
 {
 	image* _image;
 	PlayerName _playerName;
-	RECT _rc, _underRc, _leftRc,_rightRc,_topRC;
+	RECT _rc, _underRc, _leftRc, _rightRc, _topRC, _ladderRC;
 
 	POINT position;
 	int HP;
@@ -31,6 +31,7 @@ struct Playerinfo
 	bool isGround; //땅이니?
 	bool isLadder; //사다리 상태니?
 	bool isJump;
+	bool isPush;
 	float _underRcBottom;
 
 	vector<item*> _vPlayerItem;
@@ -59,6 +60,7 @@ public:
 	virtual void render();
 	virtual void KeyControl();	//각자 입력받을 KeyControl()함수
 	void move();				//공통으로 움직일 함수;
+	void ladderMoving();
 	virtual RECT getRect() { return _playerInfo._rc; }
 	void collsion();
 	void Jumpcollsion();

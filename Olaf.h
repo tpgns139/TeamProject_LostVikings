@@ -60,6 +60,11 @@ public:
 
 	RECT getShieldUp() { return shieldUp; }
 	RECT getShieldFront() { return shieldFront; }
+
+	OLAFSTATE getState() { return _Ostate; }
+	void setState(OLAFSTATE state) { _Ostate = state; }
+
+	void setImage();
 	
 };
 

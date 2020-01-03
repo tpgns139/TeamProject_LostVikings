@@ -92,7 +92,7 @@ void Olaf::update()
 	//RECT temp;
 	//if (IntersectRect(&temp, &shieldUp,
 	
-	
+	setImage();
 
 
 }
@@ -186,6 +186,65 @@ void Olaf::KeyControl()
 
 
 
+	
+
+}
+
+
+
+void Olaf::Frame(int FrameX)
+{
+	_playerInfo.count++;
+	if (_playerInfo.count % FrameX == 0)
+	{
+		if (_Direction == RIGHT)
+		{
+			_playerInfo._CurrentFrameX++;
+			if (_playerInfo._CurrentFrameX >= _playerInfo._image->getMaxFrameX() - 1) _playerInfo._CurrentFrameX = 0;
+			_playerInfo.count = 0;
+		}
+		else if (_Direction == LEFT)
+		{
+			_playerInfo._CurrentFrameX--;
+			if (_playerInfo._CurrentFrameX < 0)_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
+			_playerInfo.count = 0;
+		}
+	}
+}
+
+void Olaf::_dis()
+{
+	if (_Direction == LEFT)
+	{
+		_playerInfo._image->setFrameY(2);
+	}
+	if (_Direction == RIGHT)
+	{
+		_playerInfo._image->setFrameY(0);
+	}
+
+}
+
+void Olaf::shiedMake()
+{
+	if (shieldPosision)
+	{
+		shieldUp = RectMakeCenter(_playerInfo.position.x - CAMERA->getCameraXpos() ,
+			_playerInfo.position.y -_playerInfo._image->getFrameHeight()/2- CAMERA->getCameraYpos(),
+			_playerInfo._image->getFrameWidth(),
+			SIZE);
+	}
+	if (!shieldPosision)
+	{
+		shieldFront = RectMakeCenter(shieldX,
+			_playerInfo.position.y - CAMERA->getCameraYpos() ,
+			SIZE,
+			_playerInfo._image->getFrameWidth());
+	}
+}
+
+void Olaf::setImage()
+{
 	switch (_Ostate)
 	{
 	case O_front_idle1:
@@ -248,60 +307,6 @@ void Olaf::KeyControl()
 	case O_up_end:
 		_playerInfo._image = IMAGEMANAGER->findImage("O_up_end");
 		break;
-	}
-
-}
-
-
-
-void Olaf::Frame(int FrameX)
-{
-	_playerInfo.count++;
-	if (_playerInfo.count % FrameX == 0)
-	{
-		if (_Direction == RIGHT)
-		{
-			_playerInfo._CurrentFrameX++;
-			if (_playerInfo._CurrentFrameX >= _playerInfo._image->getMaxFrameX() - 1) _playerInfo._CurrentFrameX = 0;
-			_playerInfo.count = 0;
-		}
-		else if (_Direction == LEFT)
-		{
-			_playerInfo._CurrentFrameX--;
-			if (_playerInfo._CurrentFrameX < 0)_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
-			_playerInfo.count = 0;
-		}
-	}
-}
-
-void Olaf::_dis()
-{
-	if (_Direction == LEFT)
-	{
-		_playerInfo._image->setFrameY(2);
-	}
-	if (_Direction == RIGHT)
-	{
-		_playerInfo._image->setFrameY(0);
-	}
-
-}
-
-void Olaf::shiedMake()
-{
-	if (shieldPosision)
-	{
-		shieldUp = RectMakeCenter(_playerInfo.position.x - CAMERA->getCameraXpos() ,
-			_playerInfo.position.y -_playerInfo._image->getFrameHeight()/2- CAMERA->getCameraYpos(),
-			_playerInfo._image->getFrameWidth(),
-			SIZE);
-	}
-	if (!shieldPosision)
-	{
-		shieldFront = RectMakeCenter(shieldX,
-			_playerInfo.position.y - CAMERA->getCameraYpos() ,
-			SIZE,
-			_playerInfo._image->getFrameWidth());
 	}
 }
 

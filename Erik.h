@@ -54,7 +54,7 @@ public:
 	void KeyControl();
 	void Frame(int FrameX);
 	void stateImage();
-	
-	
+	ERIKSTATE getState() { return _state; }
+	void setState(ERIKSTATE state) { _state = state; }
 };
 

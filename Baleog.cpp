@@ -54,12 +54,51 @@ void Baleog::update()
 	
 	Player::update();
 	Player::move();
+	setImage();
 	cout << _BaleogState <<","<< _playerInfo._image->getFrameY() << endl;
 }
 
 void Baleog::render()
 {
 	Player::render();	//벨로그 사다리충돌 렉트
+}
+
+void Baleog::setImage()
+{
+	switch (_BaleogState)											//벨로그 스테이트 
+	{
+	case BALEOG_RIGHTIDLE:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_idle1");
+		break;
+	case BALEOG_LEFTIDLE:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_idle1");
+		break;
+	case BALEOG_RIGHTMOVE:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_run");
+		break;
+	case BALEOG_LEFTMOVE:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_run");
+		break;
+	case BALEOG_LEFTATTACK:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_attak1");
+		break;
+	case BALEOG_RIGHTATTACK:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_attak1");
+		break;
+	case BALEOG_RIGHTBOWATTACK:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_attack_bow");
+		break;
+	case BALEOG_LEFTBOWATTACK:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_attack_bow");
+		break;
+	case BALEOG_PUSH:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_push");
+		break;
+	case BALEOG_UP:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_up");
+	default:
+		break;
+	}
 }
 
 void Baleog::KeyControl()
@@ -106,6 +145,7 @@ void Baleog::KeyControl()
 		}
 		isAttack = false;
 	}
+	
 	if (KEYMANAGER->isOnceKeyDown('D'))							//벨로그 화살공격
 	{
 		if (_BaleogState == BALEOG_RIGHTIDLE || _BaleogState == BALEOG_RIGHTMOVE)
@@ -158,7 +198,7 @@ void Baleog::KeyControl()
 			_BaleogState = BALEOG_LEFTIDLE;
 			_playerInfo.position.x -= _playerInfo.speed;
 		}
-		if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+		if (KEYMANAGER->isStayKeyDown(VK_RIGHT)&& !KEYMANAGER->isStayKeyDown(VK_LEFT))
 		{
 			_Direction = RIGHT;															//벨로그 오른쪽이동
 			_playerInfo._image->setFrameY(0);
@@ -176,40 +216,7 @@ void Baleog::KeyControl()
 		}
 	}
 
-	switch (_BaleogState)											//벨로그 스테이트 
-	{
-	case BALEOG_RIGHTIDLE:
-		_playerInfo._image = IMAGEMANAGER->findImage("B_idle1");
-		break;
-	case BALEOG_LEFTIDLE:
-		_playerInfo._image = IMAGEMANAGER->findImage("B_idle1");
-		break;
-	case BALEOG_RIGHTMOVE:
-		_playerInfo._image = IMAGEMANAGER->findImage("B_run");
-		break;
-	case BALEOG_LEFTMOVE:
-		_playerInfo._image = IMAGEMANAGER->findImage("B_run");
-		break;
-	case BALEOG_LEFTATTACK:
-		_playerInfo._image = IMAGEMANAGER->findImage("B_attak1");
-		break;
-	case BALEOG_RIGHTATTACK:
-		_playerInfo._image = IMAGEMANAGER->findImage("B_attak1");
-		break;
-	case BALEOG_RIGHTBOWATTACK:
-		_playerInfo._image = IMAGEMANAGER->findImage("B_attack_bow");
-		break;
-	case BALEOG_LEFTBOWATTACK:
-		_playerInfo._image = IMAGEMANAGER->findImage("B_attack_bow");
-		break;
-	case BALEOG_PUSH:
-		_playerInfo._image = IMAGEMANAGER->findImage("B_push");
-		break;
-	case BALEOG_UP:
-		_playerInfo._image = IMAGEMANAGER->findImage("B_up");
-	default:
-		break;
-	}
+	
 }
 
 void Baleog::Frame()

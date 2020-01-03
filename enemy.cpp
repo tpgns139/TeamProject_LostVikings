@@ -24,7 +24,7 @@ HRESULT Enemy::init(const char* imagename, POINT position, int num,float speed)
 	_enemy.y = position.y;
 
 	_enemy.img = IMAGEMANAGER->findImage(imagename);
-	_enemy.rc = RectMakeCenter(position.x, position.y, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
+	_enemy.rc = RectMakeCenter(position.x, position.y + _enemy.img->getFrameHeight() / 2, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
 	_enemy.leftcolcheckrc = RectMakeCenter(position.x- _enemy.img->getFrameWidth()/2, position.y, 3, _enemy.img->getFrameHeight()-10);
 	_enemy.rightcolcheckrc = RectMakeCenter(position.x - _enemy.img->getFrameWidth() / 2, position.y, 3, _enemy.img->getFrameHeight()-10);
 	_count = 0;
@@ -42,7 +42,7 @@ void Enemy::release()
 void Enemy::update()
 {
 	_enemy.rc = RectMake(_enemy.x  ,
-		_enemy.y , _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
+		_enemy.y + _enemy.img->getFrameHeight() / 2, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
 	_enemy.leftcolcheckrc = RectMakeCenter(_enemy.x , _enemy.y+_enemy.img->getFrameHeight()/2
 		, 10, _enemy.img->getFrameHeight()-10);
 	_enemy.rightcolcheckrc = RectMakeCenter(_enemy.x + _enemy.img->getFrameWidth(), _enemy.y + _enemy.img->getFrameHeight() / 2
