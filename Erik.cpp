@@ -79,18 +79,27 @@ void Erik::update()
 			if (_Direction == LEFT)
 			{
 				_playerInfo.position.x += 3.0f;
+				_playerInfo._CurrentFrameX--;
+
+				if (_playerInfo._CurrentFrameX < 0)
+				{
+					_state = E_idle1;
+					_playerInfo._CurrentFrameX = IMAGEMANAGER->findImage("E_idle1")->getMaxFrameX();
+				}
 			}
 			else
 			{
 				_playerInfo.position.x -= 3.0f;
+				_playerInfo._CurrentFrameX++;
+
+				if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX())
+				{
+					_playerInfo._CurrentFrameX = 0;
+					_state = E_idle1;
+				}
+				
 			}
-			_playerInfo._CurrentFrameX++;
 			
-			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX() - 1)
-			{
-				_playerInfo._CurrentFrameX = 0;
-				_state = E_idle1;
-			}
 		}
 	}
 
@@ -101,7 +110,7 @@ void Erik::update()
 		if (_playerInfo.count % 20== 0)
 		{
 			_playerInfo._CurrentFrameX++;
-			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX() )
+			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX())
 			{
 				_playerInfo._CurrentFrameX = 0;
 				_state = E_idle1;
@@ -309,14 +318,13 @@ void Erik::Frame(int FrameX)
 			_playerInfo._CurrentFrameX++;
 			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX()) 
 			{
-				if (_state != E_atk) 
+				_playerInfo._CurrentFrameX = 0;
+				if (_state == E_atk) 
 				{
-					_playerInfo._CurrentFrameX = 0;
+					_state = E_run;
+					headingCount = 0;
 				}
-				else
-				{
-					_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX()-2;
-				}
+				
 			}
 				
 			_playerInfo.count = 0;
@@ -326,13 +334,11 @@ void Erik::Frame(int FrameX)
 			_playerInfo._CurrentFrameX--;
 			if (_playerInfo._CurrentFrameX <= 0)
 			{
-				if (_state != E_atk)
+				_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
+				if (_state == E_atk)
 				{
-					_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
-				}
-				else
-				{
-					_playerInfo._CurrentFrameX = 2;
+					_state = E_run;
+					headingCount = 0;
 				}
 			}
 			_playerInfo.count = 0;
@@ -395,5 +401,23 @@ void Erik::stateImage()
 		break;
 	}
 }
+
+void Erik::colAction()
+{
+	setState(E_attack_after);
+	if (_Direction == LEFT)
+	{
+		setFrameX(IMAGEMANAGER->findImage("E_attack_after")->getMaxFrameX());
+		IMAGEMANAGER->findImage("E_attack_after")->setFrameY(1);
+	}
+	else
+	{
+		setFrameX(0);
+		IMAGEMANAGER->findImage("E_attack_after")->setFrameY(0);
+	}
+	setSpeed(0.0f);
+}
+
+
 
 

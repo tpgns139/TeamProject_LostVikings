@@ -2,7 +2,6 @@
 #include "Player.h"
 #include "MapManager.h"
 
-
 Player::Player()
 {
 }
@@ -104,8 +103,7 @@ void Player::update()
 				}
 				else if ((((Erik*)(this))->getState() == E_atk))
 				{
-					((Erik*)(this))->setState(E_attack_after);
-					((Erik*)(this))->setSpeed(0.0f);
+					((Erik*)(this))->colAction();
 				}
 				break;
 			case PN_BALEOG:

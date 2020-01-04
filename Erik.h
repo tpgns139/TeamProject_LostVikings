@@ -60,5 +60,6 @@ public:
 	void setSpeed(float speed) { PlusSpeed = speed; }
 	void setFrameX(int x) { _playerInfo._CurrentFrameX = x; }
 	void setFrameY(int y) { _playerInfo._CurrentFrameY; }
+	void colAction();
 };
 
