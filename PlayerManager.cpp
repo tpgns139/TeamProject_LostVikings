@@ -80,7 +80,7 @@ void PlayerManager::update()
 
 	Bulletcollsion();
 	gravityzonecollsion();
-
+	potalcollsion();
 	//º§·Î±× Ä® Ãæµ¹
 	if (_nowPlayer->getPlayerInfo()->_playerName == PN_BALEOG)
 	{	
@@ -244,5 +244,40 @@ void PlayerManager::gravityzonecollsion()
 			}
 		}
 	}
+}
+
+//Æ÷Å» Ã³¸®
+void PlayerManager::potalcollsion()
+{
+	for (int i = 0; i < _MapManager->getportal().size(); i++)
+	{
+		RECT temp;
+		if (IntersectRect(&temp, &_nowPlayer->getPlayerInfo()->_rc, &_MapManager->getportal()[i]->getRect()))
+		{
+			if (!_potalCheck)
+			{
+			    if (KEYMANAGER->isOnceKeyDown(VK_UP))
+			    {
+			      _nowPlayer->getPlayerInfo()->position.x = 249;
+			      _nowPlayer->getPlayerInfo()->position.y = 1690;
+				  _potalCheckTwo = true;
+				  _potalCheck = true;
+			    }
+
+			}
+
+			if (_potalCheckTwo)
+			{
+				if (KEYMANAGER->isOnceKeyDown(VK_UP))
+				{
+					_nowPlayer->getPlayerInfo()->position.x = 299;
+					_nowPlayer->getPlayerInfo()->position.y = 1290;
+					_potalCheck = false;
+				}
+
+			}
+		}
+	}
+
 }
 

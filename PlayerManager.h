@@ -20,6 +20,9 @@ private:
 	Player* _nowPlayer;
 	Bullet* _Pbullet;
 	int PlayerNumber;
+	bool _potalCheck;
+	bool _potalCheckTwo;
+
 public:
 	PlayerManager();
 	~PlayerManager();
@@ -37,6 +40,7 @@ public:
 	void colErikWithEnemy();
 	void Swordcollsion();
 	void gravityzonecollsion();
+	void potalcollsion();
 
 };
 

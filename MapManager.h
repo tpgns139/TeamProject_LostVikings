@@ -51,5 +51,6 @@ public:
 	vector<MapObj*> getLadder() { return _ladder; }
 	vector<MapObj*> getColWall() { return _colWall; }
 	vector<MapObj*> getgravityZone() { return _gravityZone; }
+	vector<MapObj*> getportal() { return _portal; }
 };
 
