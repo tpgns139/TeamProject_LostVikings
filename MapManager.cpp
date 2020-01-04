@@ -38,43 +38,22 @@ HRESULT MapManager::init()
 }
 void MapManager::update()
 {
-	for (int i = 0;i < _notColObj.size();i++)
-	{
-		_notColObj[i]->update();
-	}
+	
 	for (int i = 0;i < _colObj.size();i++)
 	{
 		_colObj[i]->update();
 	}
 	
-	for (int i = 0;i < _gravityZone.size();i++)
-	{
-		_gravityZone[i]->update();
-	}
 	for (int i = 0;i < _elevator.size();i++)
 	{
 		_elevator[i]->update();
 	}
-	for (int i = 0;i < _ladder.size();i++)
-	{
-		_ladder[i]->update();
-	}
-	for (int i = 0;i < _wall.size();i++)
-	{
-		_wall[i]->update();
-	}
-	for (int i = 0;i < _colWall.size();i++)
-	{
-		_colWall[i]->update();
-	}
+
 	
 }
 void MapManager::render()
 {
-	for (int i = 0;i < _wall.size();i++)
-	{
-		_wall[i]->render();
-	}
+	
 	for (int i = 0;i < _notColObj.size();i++)
 	{
 		if (_notColObj[i]->getMapType() != Column) 
@@ -94,14 +73,11 @@ void MapManager::render()
 	{
 		_elevator[i]->render();
 	}
-	for (int i = 0;i < _ladder.size();i++)
+	for (int i = 0;i < _portal.size();i++)
 	{
-		_ladder[i]->render();
+		_portal[i]->render();
 	}
-	for (int i = 0;i < _colWall.size();i++)
-	{
-		_colWall[i]->render();
-	}
+	
 }
 void MapManager::charArraySeparationforMap(char charArray[])
 {

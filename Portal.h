@@ -6,5 +6,6 @@ public:
 	Portal();
 	~Portal();
 	virtual HRESULT init(mapInfo info);
+	virtual void render();
 };
 

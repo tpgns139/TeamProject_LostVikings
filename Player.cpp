@@ -119,6 +119,7 @@ void Player::update()
 					((Baleog*)(this))->getState() == BALEOG_LEFTMOVE)
 				{
 					((Baleog*)(this))->setState(BALEOG_PUSH);
+					((Baleog*)(this))->setImage();
 				}
 				break;
 			case PN_OLAF:

@@ -14,6 +14,10 @@ column::~column()
 HRESULT column::init(mapInfo info)
 {
 	MapObj::init(info);
+	_mapInfo._rc = RectMake(_mapInfo._x,
+		_mapInfo._y,
+		_mapInfo.width,
+		_mapInfo.height);
 	return S_OK;
 }
 
