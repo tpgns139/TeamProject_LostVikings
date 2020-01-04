@@ -34,8 +34,8 @@ HRESULT Baleog::init(PlayerName playerName)
 	IMAGEMANAGER->addFrameImage("B_up", "image/baleogImage/up.bmp", 325, 100, 4, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("B_up_end", "image/baleogImage/up_end.bmp", 200, 100, 2, 1, true, RGB(255, 0, 255));
 	_playerInfo._image = IMAGEMANAGER->findImage("B_idle1");
-	_playerInfo.position.x = WINSIZEX / 2;		//벨로그 x좌표
-	_playerInfo.position.y = WINSIZEY / 2-45;		//벨로그 y좌표
+	_playerInfo.position.x = 1300;	//벨로그 x좌표
+	_playerInfo.position.y = 1116;		//벨로그 y좌표
 	_playerInfo.count = 0;						//벨로그 프레임 카운트0;
 	_playerInfo._CurrentFrameX = _playerInfo._CurrentFrameY = 0;		//벨로그 프레임 x,y 초기화
 	_playerInfo._playerName = playerName;		//캐릭터 이미지 설정
@@ -43,7 +43,7 @@ HRESULT Baleog::init(PlayerName playerName)
 	_playerInfo.speed = 2.0f;
 	_playerInfo.gravity = 0;
 	isAttack = false;
-	_playerInfo.HP = 3;
+
 	_playerInfo.MaxHP = 3;
 	Player::MakeRect();
 
@@ -51,7 +51,10 @@ HRESULT Baleog::init(PlayerName playerName)
 }
 void Baleog::update()
 {
-	Frame();
+	if (_BaleogState != BALEOG_UP)
+	{
+		Frame();
+	}
 
 	
 	Player::update();
@@ -104,14 +107,8 @@ void Baleog::setImage()
 
 void Baleog::KeyControl()
 {
-	if (_Direction == LEFT)
-	{
-		_playerInfo._image->setFrameY(1);
-	}
-	if (_Direction == RIGHT)
-	{
-		_playerInfo._image->setFrameY(0);
-	}
+	
+
 
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
@@ -239,6 +236,36 @@ void Baleog::Frame()
 			_playerInfo._CurrentFrameX--;
 			if (_playerInfo._CurrentFrameX < 0)_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
 
+		}
+	}
+}
+
+void Baleog::ladder()
+{
+	if (_Direction == LEFT)
+	{
+		_playerInfo._image->setFrameY(1);
+	}
+	if (_Direction == RIGHT)
+	{
+		_playerInfo._image->setFrameY(0);
+	}
+
+	if (_playerInfo.isLadder)
+	{
+		if (KEYMANAGER->isStayKeyDown(VK_UP))
+		{
+			_Direction = LEFT;
+			Frame();
+			_BaleogState = BALEOG_UP;
+			_playerInfo.position.y -= 2;
+		}
+		else if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+		{
+			_Direction = RIGHT;
+			Frame();
+			_BaleogState = BALEOG_UP;
+			_playerInfo.position.y += 2;
 		}
 	}
 }

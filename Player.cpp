@@ -13,7 +13,9 @@ Player::~Player()
 
 HRESULT Player::init(PlayerName playerName)
 {
-
+	_playerInfo.Erik_HP = 3;
+	_playerInfo.Olaf_HP = 3;
+	_playerInfo.Baleog_HP = 3;
 
 
 	_playerInfo.gravity = 0;
@@ -55,6 +57,8 @@ void Player::MakeRect()
 		_playerInfo._image->getFrameWidth()
 		, RCSIZE);
 
+
+
 	_playerInfo._midRC = RectMakeCenter(_playerInfo.position.x,
 		_playerInfo.position.y + _playerInfo._image->getFrameHeight() / 4-30,
 		_playerInfo._image->getFrameWidth()
@@ -81,6 +85,10 @@ void Player::update()
 		_playerInfo.position.y -= _playerInfo.jumpPower;			//위와 동일
 		_playerInfo.jumpPower -= _playerInfo.gravity;				//중력값만큼 파워를 빼줌
 		_playerInfo.gravity += 0.01f;								// 중력값을 ++해서 더빨리떨어지게
+	}
+	if (!_playerInfo.isDrop)
+	{
+		_playerInfo.gravity = 0;
 	}
 
 	//플레이어 렉트
@@ -152,8 +160,6 @@ void Player::update()
 		}
 	}
 
-	
-	//KeyControl();
 }
 
 void Player::render()
@@ -168,6 +174,7 @@ void Player::render()
 			_playerInfo._ladderRC.left - CAMERA->getCameraXpos(),
 			_playerInfo._ladderRC.top - CAMERA->getCameraYpos(),
 			_playerInfo._image->getFrameWidth(), RCSIZE);			//캐릭터 사다리 렉트
+
 		//RectangleMake(getMemDC(), 
 		//	_playerInfo._underRc.left-CAMERA->getCameraXpos(),
 		//	_playerInfo._underRc.top-CAMERA->getCameraYpos(),
@@ -216,6 +223,7 @@ void Player::collsion()
 			_playerInfo._underRc.top = _MapManager->getWall()[i]->getRect().top;
 			_playerInfo.isDrop = false;
 			_playerInfo.isGround = true;
+			_playerInfo.isLadder = false; //사다리false로
 
 			break;
 		}
@@ -225,42 +233,37 @@ void Player::collsion()
 			_playerInfo.isGround = false;
 		}
 	}
-
 	
-	
-	//사다리충돌 미완성
+	//사다리충돌
 	for (int i = 0;i < _MapManager->getLadder().size();i++)
 	{
 		RECT temp;
-		if (IntersectRect(&temp, &_playerInfo._ladderRC, &_MapManager->getLadder()[i]->getRect()))
+		if ((IntersectRect(&temp, &_playerInfo._ladderRC, &_MapManager->getLadder()[i]->getRect()) ||
+			(IntersectRect(&temp, &_playerInfo._midRC, &_MapManager->getLadder()[i]->getRect()))))
 		{
-			if (KEYMANAGER->isStayKeyDown(VK_UP) || (KEYMANAGER->isStayKeyDown(VK_DOWN)))
-			{
-				_playerInfo.position.x = _MapManager->getLadder()[i]->getRect().right - _playerInfo._image->getFrameWidth() / 2;
+		
 
-
-				if (_playerInfo._midRC.bottom < _MapManager->getLadder()[i]->getRect().top)
-				{
-					_playerInfo.isLadderEnd = true;
-				}
-				if (_playerInfo._midRC.bottom > _MapManager->getLadder()[i]->getRect().top)
-				{
-					_playerInfo.isLadderEnd = false;
-				}
-				else if (_playerInfo._ladderRC.bottom >= _MapManager->getLadder()[i]->getRect().top)
-				{
-					_playerInfo.isLadderEnd = true;
-				}
-				else
-					_playerInfo.isLadderEnd = false;
-			}
 			_playerInfo.isLadder = true;
 			_playerInfo.isDrop = false;
 			_playerInfo.isGround = true;
+			
+			if (KEYMANAGER->isStayKeyDown(VK_UP))
+			{
+				_playerInfo.position.x = _MapManager->getLadder()[i]->getRect().right - _playerInfo._image->getFrameWidth() / 2;//사다리 중앙으로 이동
+				//_playerInfo.position.y -= 2;
+							
+			}
+			else if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+			{
+				
+				_playerInfo.position.x = _MapManager->getLadder()[i]->getRect().right - _playerInfo._image->getFrameWidth() / 2;//사다리 중앙으로 이동
+				//_playerInfo.position.y += 2;
+			}
 		}
-		else
-			_playerInfo.isLadder = false;
+		
 	}
+
+
 		
 		
 
@@ -273,5 +276,41 @@ void Player::collsion()
 void Player::move()
 {
 
+}
+
+void Player::Frame(int FrameX)
+{
+	
+	_playerInfo.count++;
+	if (_playerInfo.count % FrameX == 0)
+	{
+		if (_Direction == RIGHT)
+		{
+			_playerInfo._CurrentFrameX++;
+			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX())
+			{
+				_playerInfo._CurrentFrameX = 0;
+			
+	
+			}
+	
+			_playerInfo.count = 0;
+		}
+		else if (_Direction == LEFT)
+		{
+			_playerInfo._CurrentFrameX--;
+			if (_playerInfo._CurrentFrameX <= 0)
+			{
+				_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
+		
+			}
+			_playerInfo.count = 0;
+		}
+	}
+	
+}
+
+void Player::ladder()
+{
 }
 

@@ -41,18 +41,18 @@ HRESULT Olaf::init(PlayerName playerName)
 	IMAGEMANAGER->addFrameImage("O_top_run", "image/olafImage/top_run.bmp", 848, 200, 8, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("O_jump", "image/olafImage/jump.bmp", 200, 200, 2, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("O_push", "image/olafImage/push.bmp", 413, 200, 4, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("O_up", "image/olafImage/up.bmp", 350, 100, 4, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("O_up", "image/olafImage/up.bmp", 352, 100, 4, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("O_up_end", "image/olafImage/up_end.bmp", 200, 100, 2, 1, true, RGB(255, 0, 255));
 
 	_playerInfo._playerName = PN_OLAF;
 	_playerInfo._image = IMAGEMANAGER->findImage("O_front_idle2");
 	_playerInfo.count = _playerInfo._CurrentFrameX = _playerInfo._CurrentFrameY = 0;
-	_playerInfo.HP = 3;
+
 	_playerInfo.MaxHP = 3;
 	_playerInfo.isDrop = true;
 	_playerInfo.speed = 3.0f;
-	_playerInfo.position.x = WINSIZEX / 2 + 200;
-	_playerInfo.position.y = WINSIZEY / 2 - 45;
+	_playerInfo.position.x = 1300;//WINSIZEX / 2 + 200;
+	_playerInfo.position.y = 1116;//WINSIZEY / 2 - 45;
 
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x,_playerInfo.position.y,_playerInfo._image->getFrameWidth(),_playerInfo._image->getFrameHeight());
 
@@ -71,8 +71,10 @@ HRESULT Olaf::init(PlayerName playerName)
 
 void Olaf::update()
 {
-	
-	Frame(20);
+	if (_Ostate != O_up)
+	{
+		Frame(20);
+	}
 	//KeyControl();
 	Player::update();
 	//Player::move();
@@ -109,6 +111,9 @@ void Olaf::render()
 
 void Olaf::KeyControl()
 {
+	
+
+
 	//¿ÞÂÊ//
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
@@ -176,8 +181,9 @@ void Olaf::KeyControl()
 		_playerInfo._image->setFrameY(0);
 	}
 
-	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE)&&(_Ostate!=O_up))
 	{
+		_playerInfo._CurrentFrameX = 0;
 		shieldPosision = !shieldPosision;
 		if(!shieldPosision)_Ostate = O_front_idle1;
 		if(shieldPosision)_Ostate =  O_top_idle1;
@@ -193,20 +199,32 @@ void Olaf::KeyControl()
 
 void Olaf::Frame(int FrameX)
 {
-	_playerInfo.count++;
-	if (_playerInfo.count % FrameX == 0)
 	{
-		if (_Direction == RIGHT)
+		_playerInfo.count++;
+		if (_playerInfo.count % FrameX == 0)
 		{
-			_playerInfo._CurrentFrameX++;
-			if (_playerInfo._CurrentFrameX >= _playerInfo._image->getMaxFrameX() - 1) _playerInfo._CurrentFrameX = 0;
-			_playerInfo.count = 0;
-		}
-		else if (_Direction == LEFT)
-		{
-			_playerInfo._CurrentFrameX--;
-			if (_playerInfo._CurrentFrameX < 0)_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
-			_playerInfo.count = 0;
+			if (_Direction == RIGHT)
+			{
+				_playerInfo._CurrentFrameX++;
+				if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX())
+				{
+					_playerInfo._CurrentFrameX = 0;
+					
+
+				}
+
+				_playerInfo.count = 0;
+			}
+			else if (_Direction == LEFT)
+			{
+				_playerInfo._CurrentFrameX--;
+				if (_playerInfo._CurrentFrameX <= 0)
+				{
+					_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
+					
+				}
+				_playerInfo.count = 0;
+			}
 		}
 	}
 }
@@ -307,5 +325,61 @@ void Olaf::setImage()
 		_playerInfo._image = IMAGEMANAGER->findImage("O_up_end");
 		break;
 	}
+}
+
+void Olaf::ladder()
+{
+	if (_playerInfo.isLadder)
+	{
+		
+		if (KEYMANAGER->isStayKeyDown(VK_UP))
+		{
+			_Direction = LEFT;
+			Frame(20);
+			_Ostate = O_up;
+			_playerInfo.position.y -= 2;
+		}
+		else if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+		{
+			_Direction = RIGHT;
+			Frame(20);
+			_Ostate = O_up;
+			_playerInfo.position.y += 2;
+		}
+		
+		if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+		{
+			_Direction = LEFT;
+			_playerInfo.position.x -= 5;
+		}
+		if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+		{
+			_Direction = RIGHT;			
+			_playerInfo.position.x += 5;
+		}
+		if (_playerInfo.isDrop)dropState();
+	}
+}
+
+void Olaf::dropState()
+{
+	if (shieldPosision)
+	{
+		_Ostate = O_fly2;
+		if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+		{
+			_Direction = LEFT;
+			Frame(20);
+			_Ostate = O_fly1;
+		}
+		else if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+		{
+			_Direction = RIGHT;
+			Frame(20);
+			_Ostate = O_fly1;
+		}
+	}
+	else if (!shieldPosision)_Ostate = O_jump;
+	Frame(20);
 }
 

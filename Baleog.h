@@ -37,5 +37,6 @@ public:
 	void setState(BALEOGSTATE state) { _BaleogState = state; }
 	void KeyControl();
 	void Frame();
+	void ladder();
 };
 

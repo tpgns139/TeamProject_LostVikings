@@ -65,7 +65,8 @@ public:
 	void setState(OLAFSTATE state) { _Ostate = state; }
 
 	void setImage();
-	
+	void ladder();
+	void dropState();
 };
 
 

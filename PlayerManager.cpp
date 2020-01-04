@@ -59,7 +59,10 @@ void PlayerManager::update()
 	
 	
 	_Pbullet->update();
+
 	_nowPlayer->KeyControl();
+	_nowPlayer->ladder();
+
 	colErikWithEnemy();
 
 	if (KEYMANAGER->isOnceKeyDown('P'))
