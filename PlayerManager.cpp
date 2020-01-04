@@ -62,9 +62,12 @@ void PlayerManager::update()
 	_nowPlayer->KeyControl();
 	
 
-	if (KEYMANAGER->isOnceKeyDown('P'))
+	if (_nowPlayer->getPlayerInfo()->_playerName==PN_BALEOG)
 	{
-		playerBulletFire();
+		if (((Baleog*)_nowPlayer)->getFire())
+		{
+			playerBulletFire();
+		}
 	}
 	if (!CAMERA->isMoving()) 
 	{
@@ -73,6 +76,7 @@ void PlayerManager::update()
 	}
 
 	Bulletcollsion();
+
 
 		
 	                                                                                                                                              
@@ -109,12 +113,12 @@ void PlayerManager::playerBulletFire()
 			if (_vPlayer[i]->getPlayerDirection() == LEFT) 
 			{
 				_Pbullet->FramebulletFire(_vPlayer[i]->getPlayerInfo()->position.x,
-					_vPlayer[i]->getPlayerInfo()->position.y, 5.0f,0,1);
+					_vPlayer[i]->getPlayerInfo()->position.y+10, 5.0f,0,1);
 			}
 			else
 			{
 				_Pbullet->FramebulletFire(_vPlayer[i]->getPlayerInfo()->position.x,
-					_vPlayer[i]->getPlayerInfo()->position.y, -5.0f,0,0);
+					_vPlayer[i]->getPlayerInfo()->position.y+10, -5.0f,0,0);
 			}
 		}
 	}

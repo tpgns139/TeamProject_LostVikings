@@ -23,6 +23,8 @@ private:
 	bool isAttack;
 	RECT rc;
 	int arrowcount = 0;
+	bool _isshoot;
+
 public:
 	Baleog();
 	~Baleog();
@@ -37,5 +39,7 @@ public:
 	void setState(BALEOGSTATE state) { _BaleogState = state; }
 	void KeyControl();
 	void Frame();
+	bool getFire() { return _isshoot; }
+
 };
 

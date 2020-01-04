@@ -45,6 +45,7 @@ HRESULT Baleog::init(PlayerName playerName)
 	isAttack = false;
 	_playerInfo.HP = 3;
 	_playerInfo.MaxHP = 3;
+	_isshoot = false;
 	Player::MakeRect();
 
 	return S_OK;
@@ -52,11 +53,10 @@ HRESULT Baleog::init(PlayerName playerName)
 void Baleog::update()
 {
 	Frame();
-
 	
 	Player::update();
 	Player::move();
-	setImage();
+	//setImage();
 }
 
 void Baleog::render()
@@ -100,32 +100,35 @@ void Baleog::setImage()
 	default:
 		break;
 	}
+	if (_Direction == LEFT)
+	{
+		_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
+		_playerInfo._image->setFrameY(1);
+	}
+	else
+	{
+
+		_playerInfo._CurrentFrameX = 0;
+		_playerInfo._image->setFrameY(0);
+	}
 }
 
 void Baleog::KeyControl()
 {
-	if (_Direction == LEFT)
-	{
-		_playerInfo._image->setFrameY(1);
-	}
-	if (_Direction == RIGHT)
-	{
-		_playerInfo._image->setFrameY(0);
-	}
 
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 	{
 		if (_BaleogState == BALEOG_RIGHTIDLE || _BaleogState == BALEOG_RIGHTMOVE)							//벨로그 공격키 
 		{
 			_Direction = RIGHT;
-			_playerInfo._CurrentFrameX = 0;
 			_BaleogState = BALEOG_RIGHTATTACK;
+			setImage();
 		}
 		if (_BaleogState == BALEOG_LEFTIDLE || _BaleogState == BALEOG_LEFTMOVE)
 		{
 			_Direction = LEFT;
-			_playerInfo._CurrentFrameX = 0;
 			_BaleogState = BALEOG_LEFTATTACK;
+			setImage();
 		}
 		isAttack = true;
 	}
@@ -133,95 +136,96 @@ void Baleog::KeyControl()
 	{
 		if (_BaleogState == BALEOG_RIGHTATTACK)
 		{
-			_playerInfo._image->setFrameY(0);
-			_playerInfo._CurrentFrameX = 0;
-			_BaleogState = BALEOG_RIGHTIDLE;
+			if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+			{
+				_BaleogState = BALEOG_RIGHTMOVE;
+			}
+			else
+			{
+				_BaleogState = BALEOG_RIGHTIDLE;
+			}
+			setImage();
+
 
 		}
 		if (_BaleogState == BALEOG_LEFTATTACK)
 		{
-			_playerInfo._image->setFrameY(1);
-			_playerInfo._CurrentFrameX = 0;
-			_BaleogState = BALEOG_LEFTIDLE;
+
+			if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+			{
+				_BaleogState = BALEOG_LEFTMOVE;
+			}
+			else
+			{
+				_BaleogState = BALEOG_LEFTIDLE;
+			}
+			setImage();
 		}
 		isAttack = false;
 	}
+
 	
 	if (KEYMANAGER->isOnceKeyDown('D'))							//벨로그 화살공격
 	{
 
 		if (_BaleogState == BALEOG_RIGHTIDLE || _BaleogState == BALEOG_RIGHTMOVE  )
 		{
-			_playerInfo._image->setFrameY(0);
+			
 			_BaleogState = BALEOG_RIGHTBOWATTACK;
+			setImage();
 		}
 		if (_BaleogState == BALEOG_LEFTIDLE || _BaleogState == BALEOG_LEFTMOVE)
 		{
-			_playerInfo._image->setFrameY(1);
-			_playerInfo._image->setFrameX(0);
+			
 			_BaleogState = BALEOG_LEFTBOWATTACK;
+			setImage();
 			
 		}
 		isAttack = true;
 	}
-	if (KEYMANAGER->isOnceKeyUp('D'))							//벨로그 화살공격 떼었을때
-	{
-		arrowcount = 0;
-		
-		if (_BaleogState == BALEOG_RIGHTBOWATTACK)
-		{
-			_playerInfo._image->setFrameY(0);
-			_playerInfo._CurrentFrameX = 0;
-			_BaleogState = BALEOG_RIGHTIDLE;
 
-		}
-		if (_BaleogState == BALEOG_LEFTBOWATTACK)
-		{
-			_playerInfo._image->setFrameY(1);
-			_playerInfo._CurrentFrameX = 0;
-			_BaleogState = BALEOG_LEFTIDLE;
-		}
-		isAttack = false;
-	}
 
 	if (!isAttack)
 	{
+		if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
+		{
+			_Direction = LEFT;
+			_BaleogState = BALEOG_LEFTMOVE;
+			setImage();
+		}
+		if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
+		{
+			_Direction = RIGHT;
+			_BaleogState = BALEOG_RIGHTMOVE;
+			setImage();
+		}
 		if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 		{
 			_Direction = LEFT;
-			_playerInfo._image->setFrameY(1);											//벨로그 왼쪽이동
-			_BaleogState = BALEOG_LEFTMOVE;
 			_playerInfo.position.x -= _playerInfo.speed;
 
 		}
-		if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
+		if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 		{
-			_Direction = LEFT;
-			_playerInfo._image->getMaxFrameX();											//벨로그 왼쪽 눌렀다 떼었을때
-			_playerInfo._CurrentFrameX = 0;
-			_playerInfo._image->setFrameY(1);
-			_BaleogState = BALEOG_LEFTIDLE;
-			_playerInfo.position.x -= _playerInfo.speed;
-		}
-		if (KEYMANAGER->isStayKeyDown(VK_RIGHT)&& !KEYMANAGER->isStayKeyDown(VK_LEFT))
-		{
-			_Direction = RIGHT;															//벨로그 오른쪽이동
-			_playerInfo._image->setFrameY(0);
-			_BaleogState = BALEOG_RIGHTMOVE;
-			_playerInfo.position.x += _playerInfo.speed;
-		}
-		if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
-		{
-
 			_Direction = RIGHT;
-			_playerInfo._CurrentFrameX = 0;												//벨로그 오른쪽 눌렀다 떼었을때
-			_playerInfo._image->setFrameY(0);
-			_BaleogState = BALEOG_RIGHTIDLE;
 			_playerInfo.position.x += _playerInfo.speed;
 		}
-	}
+	
 
 	
+		if (KEYMANAGER->isOnceKeyUp(VK_LEFT) && _BaleogState != BALEOG_RIGHTMOVE)
+		{
+			_Direction = LEFT;
+			_BaleogState = BALEOG_LEFTIDLE;
+			setImage();
+		}
+		if (KEYMANAGER->isOnceKeyUp(VK_RIGHT)&&_BaleogState!=BALEOG_LEFTMOVE)
+		{
+			_Direction = RIGHT;
+			_BaleogState = BALEOG_RIGHTIDLE;
+			setImage();
+		}
+	}
 }
 
 void Baleog::Frame()
@@ -232,14 +236,86 @@ void Baleog::Frame()
 		if (_Direction == RIGHT)
 		{
 			_playerInfo._CurrentFrameX++;
-			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX()) _playerInfo._CurrentFrameX = 0;
+			if (_BaleogState != BALEOG_LEFTBOWATTACK && _BaleogState != BALEOG_RIGHTBOWATTACK)
+			{
+				if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX()) _playerInfo._CurrentFrameX = 0;
+			}
+			else
+			{
+				if (KEYMANAGER->isStayKeyDown('D'))
+				{
+					if (_playerInfo._CurrentFrameX > 5) 
+					{
+						_playerInfo._CurrentFrameX = 5;
+					}
+				}
+				else
+				{
+					if (_playerInfo._CurrentFrameX == 6)
+					{
+						_isshoot = true;
+					}
+					
+					if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX())
+					{
+						if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+						{
+							_BaleogState = BALEOG_RIGHTMOVE;
+						}
+						else
+						{
+							_BaleogState = BALEOG_RIGHTIDLE;
+						}
+						setImage();
+					
+						isAttack = false;
+					}
+				}
+			}
 		}
 		else if (_Direction == LEFT)
 		{
 			_playerInfo._CurrentFrameX--;
-			if (_playerInfo._CurrentFrameX < 0)_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
-
+			if (_BaleogState != BALEOG_LEFTBOWATTACK && _BaleogState != BALEOG_RIGHTBOWATTACK)
+			{
+				if (_playerInfo._CurrentFrameX < 0)_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
+			}
+			else
+			{
+				if (KEYMANAGER->isStayKeyDown('D'))
+				{
+					if (_playerInfo._CurrentFrameX < 2)
+					{
+						_playerInfo._CurrentFrameX = 2;
+					}
+				}
+				else
+				{
+					if (_playerInfo._CurrentFrameX == 1)
+					{
+						_isshoot = true;
+					}
+					if (_playerInfo._CurrentFrameX < 0)
+					{
+						
+						if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+						{
+							_BaleogState = BALEOG_LEFTMOVE;
+						}
+						else
+						{
+							_BaleogState = BALEOG_LEFTIDLE;
+						}
+						setImage();
+						isAttack = false;
+					}
+				}
+			}
 		}
+	}
+	else
+	{
+		_isshoot = false;
 	}
 }
 
