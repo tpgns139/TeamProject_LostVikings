@@ -99,7 +99,6 @@ void GameScene::update()
 
 void GameScene::render()
 {
-
 	IMAGEMANAGER->findImage("¹è°æ")->render(getMemDC(), 0, 0, CAMERA->getCameraXpos(), CAMERA->getCameraYpos(), WINSIZEX, WINSIZEY);
 	
 	_mm->render();
