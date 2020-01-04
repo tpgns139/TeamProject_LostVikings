@@ -46,6 +46,7 @@ HRESULT Baleog::init(PlayerName playerName)
 	_playerInfo.HP = 3;
 	_playerInfo.MaxHP = 3;
 	_isshoot = false;
+	_isSword = false;
 	Player::MakeRect();
 
 	return S_OK;
@@ -123,12 +124,14 @@ void Baleog::KeyControl()
 			_Direction = RIGHT;
 			_BaleogState = BALEOG_RIGHTATTACK;
 			setImage();
+			_isSword = true;
 		}
 		if (_BaleogState == BALEOG_LEFTIDLE || _BaleogState == BALEOG_LEFTMOVE)
 		{
 			_Direction = LEFT;
 			_BaleogState = BALEOG_LEFTATTACK;
 			setImage();
+			_isSword = true;
 		}
 		isAttack = true;
 	}
@@ -139,10 +142,12 @@ void Baleog::KeyControl()
 			if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 			{
 				_BaleogState = BALEOG_RIGHTMOVE;
+				_isSword = false;
 			}
 			else
 			{
 				_BaleogState = BALEOG_RIGHTIDLE;
+				_isSword = false;
 			}
 			setImage();
 
@@ -154,10 +159,12 @@ void Baleog::KeyControl()
 			if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 			{
 				_BaleogState = BALEOG_LEFTMOVE;
+				_isSword = false;
 			}
 			else
 			{
 				_BaleogState = BALEOG_LEFTIDLE;
+				_isSword = false;
 			}
 			setImage();
 		}

@@ -77,6 +77,15 @@ void PlayerManager::update()
 
 	Bulletcollsion();
 
+	//벨로그 칼 충돌
+	if (_nowPlayer->getPlayerInfo()->_playerName == PN_BALEOG)
+	{	
+		if (((Baleog*)_nowPlayer)->getSword())
+		{
+			Swordcollsion();
+		}
+		
+	}
 
 		
 	                                                                                                                                              
@@ -165,3 +174,29 @@ void PlayerManager::Bulletcollsion()
 	}
 	
 }
+
+void PlayerManager::Swordcollsion()
+{
+	for (int i = 0; i < _em->getEnemy().size(); i++)
+	{
+
+		if (_nowPlayer->getPlayerDirection() == RIGHT)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_nowPlayer->getPlayerInfo()->_rightRc, &_em->getEnemy()[i]->getEnemyRect()))
+			{
+				_em->removeEnemy(i);
+			}
+		}
+		if (_nowPlayer->getPlayerDirection() == LEFT)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_nowPlayer->getPlayerInfo()->_leftRc, &_em->getEnemy()[i]->getEnemyRect()))
+			{
+				_em->removeEnemy(i);
+			}
+		}
+	}
+
+}
+
