@@ -53,7 +53,7 @@ void Player::MakeRect()
 		_playerInfo._image->getFrameWidth());
 
 	_playerInfo._ladderRC = RectMakeCenter(_playerInfo.position.x,
-		_playerInfo.position.y + _playerInfo._image->getFrameHeight() / 2 + 7,
+		_playerInfo.position.y + _playerInfo._image->getFrameHeight() / 2 -4,
 		_playerInfo._image->getFrameWidth()
 		, RCSIZE);
 
@@ -91,9 +91,11 @@ void Player::update()
 		_playerInfo.gravity = 0;
 	}
 
+
 	//플레이어 렉트
 	
 	collsion();
+	LadderCollsion();
 	_playerInfo._underRcBottom = _playerInfo._underRc.bottom;
 
 	//플레이어 옆 벽면 충돌
@@ -233,7 +235,11 @@ void Player::collsion()
 			_playerInfo.isGround = false;
 		}
 	}
-	
+
+}
+
+void Player::LadderCollsion()
+{
 	//사다리충돌
 	for (int i = 0;i < _MapManager->getLadder().size();i++)
 	{
@@ -241,35 +247,35 @@ void Player::collsion()
 		if ((IntersectRect(&temp, &_playerInfo._ladderRC, &_MapManager->getLadder()[i]->getRect()) ||
 			(IntersectRect(&temp, &_playerInfo._midRC, &_MapManager->getLadder()[i]->getRect()))))
 		{
-		
 
 			_playerInfo.isLadder = true;
 			_playerInfo.isDrop = false;
 			_playerInfo.isGround = true;
-			
-			if (KEYMANAGER->isStayKeyDown(VK_UP))
+
+			if ((KEYMANAGER->isStayKeyDown(VK_DOWN) && _playerInfo._ladderRC.bottom <= _MapManager->getLadder()[i]->getRect().bottom))
 			{
+				_playerInfo.isLadder = true;
+
 				_playerInfo.position.x = _MapManager->getLadder()[i]->getRect().right - _playerInfo._image->getFrameWidth() / 2;//사다리 중앙으로 이동
-				//_playerInfo.position.y -= 2;
-							
+
+
 			}
-			else if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+			if ((KEYMANAGER->isStayKeyDown(VK_UP) && _playerInfo._ladderRC.bottom - 10 >= _MapManager->getLadder()[i]->getRect().top))
 			{
-				
-				_playerInfo.position.x = _MapManager->getLadder()[i]->getRect().right - _playerInfo._image->getFrameWidth() / 2;//사다리 중앙으로 이동
-				//_playerInfo.position.y += 2;
+
+
+				_playerInfo.position.x = _MapManager->getLadder()[i]->getRect().right - _playerInfo._image->getFrameWidth() / 2;//사다리 중앙으로 이동							
 			}
 		}
+		else
+		{
+			_playerInfo.isDrop = true;
+			_playerInfo.isLadder = false;
+		}
+
 		
+
 	}
-
-
-		
-		
-
-	
-
-	cout << "사다리 충돌?" << _playerInfo.isLadder << endl;
 }
 
 
@@ -290,8 +296,6 @@ void Player::Frame(int FrameX)
 			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX())
 			{
 				_playerInfo._CurrentFrameX = 0;
-			
-	
 			}
 	
 			_playerInfo.count = 0;

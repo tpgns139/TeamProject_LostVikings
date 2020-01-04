@@ -13,6 +13,7 @@ enum BALEOGSTATE
 	BALEOG_LEFTBOWATTACK,
 	BALEOG_PUSH,
 	BALEOG_UP,
+	B_fly
 };
 
 class Baleog:public Player

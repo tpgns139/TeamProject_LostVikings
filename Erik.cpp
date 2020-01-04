@@ -34,7 +34,7 @@ HRESULT Erik::init(PlayerName playerNme)
 	_playerInfo.MaxHP = 3;
 	_playerInfo.position.x = 1300;
 	_playerInfo.position.y = 1116;
-	//_playerInfo.speed = 1.0f;
+	_playerInfo.speed = 0.0f;
 
 	PlusSpeed = 0;
 	PlusJump = 0;
@@ -71,26 +71,12 @@ void Erik::update()
 		Frame(10);
 	}
 
-	
-	
-	if (_state == E_jump)
-	{
-		_playerInfo.count++;
-		if (_playerInfo.count % 20== 0)
-		{
-			_playerInfo._CurrentFrameX++;
-			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX())
-			{
-				_playerInfo._CurrentFrameX = 0;
-				_state = E_idle1;
-			}
-		}
-	}
+
 	
 	if (_state == E_attack_after)
 	{
 		_playerInfo.count++;
-		if (_playerInfo.count % 5 == 0)
+		if (_playerInfo.count % 10 == 0)
 		{
 			if (_Direction == LEFT)
 			{
@@ -129,25 +115,40 @@ void Erik::render()
 
 void Erik::KeyControl()
 {
+
 	if (_state != E_attack_after&&_state!=E_up)
 	{
-		
-
 		if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 		{
 			_Direction = LEFT;
+		
+			_playerInfo._image->setFrameY(2);
 			headingCount = 0;
-
 			if (_state == E_push)
 			{
 				setSpeed(0.0f);
 			}
 			if (_state != E_jump)_state = E_idle1;
-			_playerInfo._CurrentFrameX = 0;
+			
+		}
+		if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
+		{
+			PlusSpeed = 0;
+			_Direction = LEFT;
+			_playerInfo._image->setFrameY(2);
+			_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
+
+		}
+		if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
+		{
+			PlusSpeed = 0;
+			_Direction = RIGHT;
+			_playerInfo._image->setFrameY(0);
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 		{
 			_Direction = RIGHT;
+			_playerInfo._CurrentFrameX = 0;
 			_playerInfo._image->setFrameY(0);
 			headingCount = 0;
 			if (_state == E_push)
@@ -155,15 +156,15 @@ void Erik::KeyControl()
 				setSpeed(0.0f);
 			}
 			if (_state != E_jump)_state = E_idle1;
-			_playerInfo._CurrentFrameX = 0;
+			
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 		{
-
-			if (PlusSpeed > -3)PlusSpeed -= 0.1f;
-			headingCount++;
 			_Direction = LEFT;
 			_playerInfo._image->setFrameY(2);
+			if (PlusSpeed > -3)PlusSpeed -= 0.2f;
+			headingCount++;
+			
 
 			if (_playerInfo.isPush)
 			{
@@ -179,15 +180,16 @@ void Erik::KeyControl()
 				_playerInfo._CurrentFrameX = IMAGEMANAGER->findImage("E_atk")->getMaxFrameX();
 			}
 		}
-		if ((_state != E_up) && (KEYMANAGER->isStayKeyDown(VK_RIGHT)))
+		if(KEYMANAGER->isStayKeyDown(VK_RIGHT) && !KEYMANAGER->isStayKeyDown(VK_LEFT))
 		{
-			if (PlusSpeed < 2)PlusSpeed += 0.1f;
+
+			if (PlusSpeed < 3)PlusSpeed += 0.2f;
 
 			_Direction = RIGHT;
 			_playerInfo._image->setFrameY(0);
 			headingCount++;
-			if ((_state != E_atk) && (_state != E_jump)) _state = E_run;
 			_playerInfo.position.x += PlusSpeed;
+			if ((_state != E_atk) && (_state != E_jump)) _state = E_run;
 			if ((headingCount > 100) && (KEYMANAGER->isOnceKeyDown('F'))) //박치기하려면 움직임 카운트가 100이상
 			{
 				_state = E_atk;
@@ -195,52 +197,22 @@ void Erik::KeyControl()
 
 			}
 		}
-		if (KEYMANAGER->isOnceKeyUp('F') && _state == E_atk)
-		{
-			headingCount = 0;
-			_state = E_run;
-		}
 
 
-		if ((_state != E_up) && (KEYMANAGER->isStayKeyDown(VK_RIGHT)))
-		{
-			if (PlusSpeed < 2)PlusSpeed += 0.1f;
-
-			_Direction = RIGHT;
-			_playerInfo._image->setFrameY(0);
-			headingCount++;
-			if ((_state != E_atk) && (_state != E_jump)) _state = E_run;
-			_playerInfo.position.x += _playerInfo.speed + PlusSpeed;
-			if ((headingCount > 100) && (KEYMANAGER->isOnceKeyDown('F'))) //박치기하려면 움직임 카운트가 100이상
-
-				if (_Direction == LEFT)
-				{
-					_playerInfo._image->setFrameY(2);
-				}
-				else if (_Direction == RIGHT)
-				{
-					_playerInfo._image->setFrameY(0);
-				}
-
-		}
+		
+		//점프
 		if (jumpCount == 0)
 		{
 			jumpCount = 1;
-
 			if (KEYMANAGER->isStayKeyDown(VK_SPACE))
 			{
-
-			
 				headingCount = 0;
 				_playerInfo._CurrentFrameX = 0;
-
 				_state = E_jump;
 				isJump = true;
-
 				if (_playerInfo.isLadder)
 				{
 					_playerInfo.jumpPower = 2.0f;
-
 				}
 				else
 				{
@@ -286,7 +258,7 @@ void Erik::KeyControl()
 
 
 	
-	void Erik::Frame(int FrameX)
+void Erik::Frame(int FrameX)
 	{
 		_playerInfo.count++;
 		if (_playerInfo.count % FrameX == 0)
@@ -402,15 +374,25 @@ void Erik::ladder()
 {
 	if (_playerInfo.isLadder)
 	{
+		if (KEYMANAGER->isOnceKeyDown(VK_UP))
+		{
+			_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
+		}
+		if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
+		{
+			_playerInfo.count = 0;
+
+		}
 		if (KEYMANAGER->isStayKeyDown(VK_UP))
 		{
-			_Direction = LEFT;
+			_Direction = LEFT;			
 			Frame(20);
 			_state = E_up;
 			_playerInfo.position.y -= 2;
 
 			if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 			{
+				
 				_Direction = LEFT;
 				_state = E_jump;
 				_playerInfo.position.x -= 5;

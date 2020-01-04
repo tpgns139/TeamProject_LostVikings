@@ -69,6 +69,7 @@ public:
 	virtual RECT getRect() { return _playerInfo._rc; }
 	void collsion();
 	void Jumpcollsion();
+	void LadderCollsion();
 	void setLink(MapManager* MapManager) { _MapManager = MapManager; }
 	POINT getPlayerPos() { return _playerInfo.position; }
 

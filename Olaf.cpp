@@ -94,7 +94,7 @@ void Olaf::update()
 	//if (IntersectRect(&temp, &shieldUp,
 	
 	setImage();
-
+	
 
 }
 
@@ -111,19 +111,18 @@ void Olaf::render()
 
 void Olaf::KeyControl()
 {
-	
-
-
+	if(_Ostate!=O_up)
+	{
 	//¿ÞÂÊ//
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
-	{
-		
+	{	
 		_Direction = LEFT;
 		_playerInfo._image->setFrameY(2);
+		
+	
 		if (!shieldPosision)_Ostate = O_front_run;
 		if (shieldPosision)_Ostate = O_top_run;
 		_playerInfo.position.x -= _playerInfo.speed;
-
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
 	{
@@ -140,9 +139,7 @@ void Olaf::KeyControl()
 		if (!shieldPosision)_Ostate = O_front_idle1;
 		if (shieldPosision)_Ostate = O_top_idle1;
 		_playerInfo.position.x -= _playerInfo.speed;
-
 	}
-
 
 	//¿À¸¥ÂÊ
 	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
@@ -190,9 +187,25 @@ void Olaf::KeyControl()
 	}
 
 
-
+	}
 	
+	if (_playerInfo.isGround)
+	{
 
+		if (_Direction == LEFT)
+		{
+			_playerInfo._image->setFrameY(2);
+			if ((_Ostate == O_jump) && (!_playerInfo.isLadder))_Ostate = O_front_idle1;
+		}
+		else if (_Direction == RIGHT)
+		{
+			_playerInfo._image->setFrameY(0);
+			if ((_Ostate == O_jump) && (!_playerInfo.isLadder))_Ostate = O_front_idle1;
+		}
+
+
+	}
+	
 }
 
 
@@ -330,34 +343,40 @@ void Olaf::setImage()
 void Olaf::ladder()
 {
 	if (_playerInfo.isLadder)
-	{
-		
+	{	
 		if (KEYMANAGER->isStayKeyDown(VK_UP))
 		{
 			_Direction = LEFT;
 			Frame(20);
 			_Ostate = O_up;
 			_playerInfo.position.y -= 2;
+
+			
 		}
-		else if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+		if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 		{
 			_Direction = RIGHT;
 			Frame(20);
 			_Ostate = O_up;
 			_playerInfo.position.y += 2;
+			
+
+			
 		}
-		
-		if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+		/*if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 		{
 			_Direction = LEFT;
+			_Ostate = O_jump;
 			_playerInfo.position.x -= 5;
 		}
 		if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 		{
-			_Direction = RIGHT;			
+			_Direction = RIGHT;
+			_Ostate = O_jump;
 			_playerInfo.position.x += 5;
-		}
-		if (_playerInfo.isDrop)dropState();
+		}*/
+		
+		
 	}
 }
 

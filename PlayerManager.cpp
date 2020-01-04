@@ -62,6 +62,7 @@ void PlayerManager::update()
 
 	_nowPlayer->KeyControl();
 	_nowPlayer->ladder();
+	
 
 	colErikWithEnemy();
 

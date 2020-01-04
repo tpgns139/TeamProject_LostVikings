@@ -100,6 +100,9 @@ void Baleog::setImage()
 		break;
 	case BALEOG_UP:
 		_playerInfo._image = IMAGEMANAGER->findImage("B_up");
+		break;
+	case B_fly:
+		_playerInfo._image = IMAGEMANAGER->findImage("B_fly");
 	default:
 		break;
 	}
@@ -107,7 +110,8 @@ void Baleog::setImage()
 
 void Baleog::KeyControl()
 {
-	
+	if((_BaleogState != BALEOG_UP ))
+	{
 
 
 	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
@@ -209,14 +213,17 @@ void Baleog::KeyControl()
 		}
 		if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 		{
-
 			_Direction = RIGHT;
 			_playerInfo._CurrentFrameX = 0;												//벨로그 오른쪽 눌렀다 떼었을때
 			_playerInfo._image->setFrameY(0);
 			_BaleogState = BALEOG_RIGHTIDLE;
 			_playerInfo.position.x += _playerInfo.speed;
 		}
+		
 	}
+
+
+ }
 
 	
 }
@@ -259,14 +266,24 @@ void Baleog::ladder()
 			Frame();
 			_BaleogState = BALEOG_UP;
 			_playerInfo.position.y -= 2;
+
+			
 		}
-		else if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+		if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 		{
 			_Direction = RIGHT;
 			Frame();
 			_BaleogState = BALEOG_UP;
 			_playerInfo.position.y += 2;
+
+	
 		}
+		
+
+
 	}
+
+
+		
 }
 
