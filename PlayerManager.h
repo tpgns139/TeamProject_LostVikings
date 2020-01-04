@@ -34,6 +34,7 @@ public:
 	Player* get_nPlayer() { return _nowPlayer; }
 	void setNowPlayer();
 	void Bulletcollsion();
+	void colErikWithEnemy();
 	void Swordcollsion();
 	void gravityzonecollsion();
 

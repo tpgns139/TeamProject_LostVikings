@@ -300,115 +300,20 @@ void uiManager::setState()
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_F1))
 	{
-		_pm->get_nPlayer()->getPlayerInfo()->HP = 0;
+		
 	}
 
 
 
-	switch (_pm->get_nPlayer()->getPlayerInfo()->_playerName)
-	{
-	case PN_ERIK:
-
-		if (_pm->get_nPlayer()->getPlayerInfo()->HP == 0)
-		{
-			_eric = true;
-			if (_eric == true)
-			{
-				Erik = IMAGEMANAGER->findImage("에릭죽음");	
-			}
-		}
-		break;
-
-	case PN_BALEOG:
-		if (_pm->get_nPlayer()->getPlayerInfo()->HP == 0)
-		{
-			_baleog = true;
-			if (_baleog = true)
-			{
-				Baleog = IMAGEMANAGER->findImage("벨로그죽음");
-			}
-			
-		}
-		break;
-	case PN_OLAF:
-		if (_pm->get_nPlayer()->getPlayerInfo()->HP == 0)
-		{
-			_olaf = true;
-			if (_olaf==true)
-			{
-				Olaf = IMAGEMANAGER->findImage("울라프죽음");
-			}
-		}
-		break;
-	}
+	
+		
+	
 }
 
 void uiManager::keyControl()
 {
 
 
-	switch (_selectNum)
-	{
-	case 0:
-		for (int i = 0;i < _vSelctUi.size();i++)
-		{
-			if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
-			{
-				_vSelctUi[i]->set_position().x;
-				
 
-				
-			}
-		}
-		break;
-
-	case 1:
-
-		break;
-
-	case 2:
-		break;
-
-	}
-	for (int i = 0;i < _pm->get_vPlayer().size();i++)
-	{
-		if (_pm->get_vPlayer()[i]->getPlayerInfo()->_playerName 
-			!= _pm->get_nPlayer()->getPlayerInfo()->_playerName)
-		{
-			switch (_pm->get_vPlayer()[i]->getPlayerInfo()->_playerName)
-			{
-			case PN_BALEOG:
-				if (_pm->get_vPlayer()[i]->getPlayerInfo()->HP == 0)
-				{
-					Baleog = IMAGEMANAGER->findImage("벨로그죽음");
-				}
-				else
-				{
-					Baleog = IMAGEMANAGER->findImage("벨로그흑백");
-				}
-				
-				break;
-			case PN_ERIK:
-				if (_pm->get_vPlayer()[i]->getPlayerInfo()->HP == 0)
-				{
-
-				}
-				else
-				{
-					Erik = IMAGEMANAGER->findImage("에릭흑백");
-				}
-				break;
-			case PN_OLAF:
-				if (_pm->get_vPlayer()[i]->getPlayerInfo()->HP == 0)
-				{
-
-				}
-				else
-				{
-					Olaf = IMAGEMANAGER->findImage("울라프흑백");
-				}
-				break;
-			}
-		}
-	}
+	
 }

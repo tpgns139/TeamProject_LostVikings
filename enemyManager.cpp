@@ -1,6 +1,6 @@
 #include "stdafx.h"
+#include "PlayerManager.h"
 
-#include "EnemyManager.h"
 
 
 
@@ -40,6 +40,7 @@ void EnemyManager::update()
 			if (IntersectRect(&temp, &(*_viEm)->getEnemyRect() , &_playerManager->get_nPlayer()->getRect()))
 			{
 				
+				
 				if ((*_viEm)->getEnemyInfo().speed < 0)
 				{
 					enemyBulletFire((*_viEm), RIGHT);
@@ -48,25 +49,25 @@ void EnemyManager::update()
 				{
 					enemyBulletFire((*_viEm), LEFT);
 				}
+
+				
 			}
 		
 
 		}
 		if ((*_viEm)->getEnemyInfo().name == robot)
 		{	
-			if (getDistance((*_viEm)->getEnemyRect().left,
-				(*_viEm)->getEnemyRect().top,
-				_playerManager->get_nPlayer()->getRect().left,
-				_playerManager->get_nPlayer()->getRect().top) < 400)
+			
 			{
-				if ((*_viEm)->getEnemyInfo().speed < 0)
+				if ((*_viEm)->getenemyDir() == e_Left)
 				{
-
-					enemyBulletFire((*_viEm), RIGHT);
-				}
-				else
-				{
+					
 					enemyBulletFire((*_viEm), LEFT);
+				}
+				else if((*_viEm)->getenemyDir() == e_Right)
+				{
+					
+					enemyBulletFire((*_viEm), RIGHT);
 				}
 			}
 		}
@@ -98,6 +99,7 @@ void EnemyManager::setEnemy()
 		Enemy* Sl;
 		Sl = new Slime;
 		Sl->init("SlimeMove", PointMake(3560, 1310), 0,2);
+		
 		Sl->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sl);
 	}
@@ -121,6 +123,7 @@ void EnemyManager::setEnemy()
 		Enemy* Sr;
 		Sr = new SecurityRobot;
 		Sr->init("SecurityRobotMove", PointMake(500, 1375), 0,2);
+		
 		Sr->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sr);
 	}
@@ -129,7 +132,7 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* Sr;
 		Sr = new SecurityRobot;
-		Sr->init("SecurityRobotMove1", PointMake(3400, 375), 1,-2);
+		Sr->init("SecurityRobotMove", PointMake(3400, 375), 1,-2);
 		Sr->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sr);
 	}
@@ -137,7 +140,7 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* Sr;
 		Sr = new SecurityRobot;
-		Sr->init("SecurityRobotMove2", PointMake(2700, 375), 2, -2);
+		Sr->init("SecurityRobotMove", PointMake(2700, 375), 2, -2);
 		Sr->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sr);
 	}
@@ -145,7 +148,7 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* Sr;
 		Sr = new SecurityRobot;
-		Sr->init("SecurityRobotMove3", PointMake(2000, 375), 3,2);
+		Sr->init("SecurityRobotMove", PointMake(2000, 375), 3,2);
 		Sr->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sr);
 	}
@@ -168,33 +171,77 @@ void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
 	if (enemy->bulletCountFire())
 
 	{
+		RECT temp;
 		RECT rc = enemy->getEnemyRect();
-		if (enemy->getEnemyInfo().name == slime)
-		{
-			if (_direction == LEFT)
+		
+		
+			if (enemy->getEnemyInfo().name == slime)
 			{
-				_Ebullet->bulletFire(enemy->getX()+60,
-					enemy->getY()+10, -5.0f);
+				if (IntersectRect(&temp, &rc, &_playerManager->get_nPlayer()->getRect()))
+				{
+					enemy->setEnemySpeed(0);
+
+					if (_direction == LEFT)
+					{
+						_Ebullet->bulletFire(enemy->getX() + 60,
+							enemy->getY() + 10, -5.0f);
+					}
+					else
+					{
+						_Ebullet->bulletFire(enemy->getX(),
+							enemy->getY() + 10, 5.0f);
+					}
+				}
+
 			}
-			else
+	
+			if (enemy->getEnemyInfo().name == robot)
 			{
-				_Ebullet->bulletFire(enemy->getX(),
-					enemy->getY()+10, 5.0f);
+				
+				for (int i = 0; i < _playerManager->get_vPlayer().size(); i++)
+				{
+					if (_direction == RIGHT)
+					{
+
+						if (getDistance(enemy->getX(),
+							enemy->getY(),
+							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x,
+							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.y) < 400
+							&& enemy->getX() < _playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x)
+						{
+							enemy->setEnemySpeed(0.0f);
+							_Ebullet->bulletFire(enemy->getX(),
+								enemy->getY(), -5.0f);
+							break;
+						}
+						else
+						{
+							enemy->setEnemySpeed(2.0f);
+						}
+					}
+					else
+					{
+						if (getDistance(enemy->getX(),
+							enemy->getY(),
+							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x,
+							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.y) < 400
+							&& enemy->getX() > _playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x)
+						{
+							enemy->setEnemySpeed(0.0f);
+							_Ebullet->bulletFire(enemy->getX(),
+								enemy->getY(), 5.0f);
+							break;
+						}
+						else
+						{
+							enemy->setEnemySpeed(-2.0f);
+						}
+					}
+
+				}
+
+
 			}
-		}
-		if (enemy->getEnemyInfo().name == robot)
-		{
-			if (_direction == LEFT)
-			{
-				_Ebullet->bulletFire(enemy->getX(),
-					enemy->getY(), -5.0f);
-			}
-			else
-			{
-				_Ebullet->bulletFire(enemy->getX(),
-					enemy->getY(), 5.0f);
-			}
-		}
 	}
 }
 

@@ -40,6 +40,7 @@ public:
 	void setState(BALEOGSTATE state) { _BaleogState = state; }
 	void KeyControl();
 	void Frame();
+	void ladder();
 	bool getFire() { return _isshoot; }
 	bool getSword() { return _isSword; }
 };

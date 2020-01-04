@@ -59,8 +59,11 @@ void PlayerManager::update()
 	
 	
 	_Pbullet->update();
+
 	_nowPlayer->KeyControl();
-	
+	_nowPlayer->ladder();
+
+	colErikWithEnemy();
 
 	if (_nowPlayer->getPlayerInfo()->_playerName==PN_BALEOG)
 	{
@@ -93,13 +96,17 @@ void PlayerManager::update()
 
 	for (int i = 0;i < _vPlayer.size();i++)
 	{
-		_vPlayer[i]->update();
-
-
-		//((Olaf*)(_vPlayer[2]))->getShieldFront();
-		
+		_vPlayer[i]->update();		
 	}
+	
+		RECT temp;
+		if (IntersectRect(&temp, &((Olaf*)(_vPlayer[2]))->getShieldUp(), &_vPlayer[0]->getRect()))
+		{
+			_vPlayer[0]->setPlayerPosY(((Olaf*)(_vPlayer[2]))->getShieldUp().top);
+			
+		}
 
+	
 }
 
 void PlayerManager::render()
@@ -174,6 +181,25 @@ void PlayerManager::Bulletcollsion()
 		}
 	}
 	
+}
+
+void PlayerManager::colErikWithEnemy()
+{
+	if (_nowPlayer->getPlayerInfo()->_playerName == PN_ERIK)
+	{
+		if (((Erik*)_nowPlayer)->getState() == E_atk)
+		{
+			for (int i = 0; i < _em->getEnemy().size(); i++)
+			{
+				RECT temp;
+				if (IntersectRect(&temp, &_nowPlayer->getPlayerInfo()->_rc, &_em->getEnemy()[i]->getEnemyRect()))
+				{
+					_em->removeEnemy(i);
+					((Erik*)_nowPlayer)->colAction();
+				}
+			}
+		}
+	}
 }
 
 void PlayerManager::Swordcollsion()

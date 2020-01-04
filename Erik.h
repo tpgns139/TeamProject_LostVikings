@@ -59,6 +59,9 @@ public:
 	void setState(ERIKSTATE state) { _state = state; }
 	void setSpeed(float speed) { PlusSpeed = speed; }
 	void setFrameX(int x) { _playerInfo._CurrentFrameX = x; }
-	void setFrameY(int y) { _playerInfo._CurrentFrameY; }
+	void setFrameY(int y) { _playerInfo._CurrentFrameY = y; }
+	void colAction();
+	void ladder();
+	
 };
 

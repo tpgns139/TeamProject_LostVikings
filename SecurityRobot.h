@@ -12,5 +12,6 @@ public:
 	virtual void update();
 	virtual void AttackStart();
 	virtual bool bulletCountFire();
+	
 };
 

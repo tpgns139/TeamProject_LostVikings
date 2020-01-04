@@ -20,7 +20,7 @@ struct Playerinfo
 	RECT _rc, _underRc, _leftRc, _rightRc, _topRC, _ladderRC,_midRC;
 
 	POINT position;
-	int HP;
+	int Erik_HP,Baleog_HP,Olaf_HP;
 	int MaxHP;
 	int count;
 	int _CurrentFrameX, _CurrentFrameY;
@@ -41,7 +41,6 @@ struct Playerinfo
 };
 
 class MapManager;
-
 class Player :public gameNode
 {
 protected:
@@ -49,7 +48,6 @@ protected:
 	Playerinfo _playerInfo;
 	Direction _Direction;
 	MapManager* _MapManager;
-
 	
 
 
@@ -63,6 +61,10 @@ public:
 	virtual void render();
 	virtual void KeyControl();	//각자 입력받을 KeyControl()함수
 	void move();				//공통으로 움직일 함수;
+	
+	void Frame(int FrameX);
+	virtual void ladder();
+
 
 
 	virtual RECT getRect() { return _playerInfo._rc; }
@@ -71,7 +73,9 @@ public:
 	void setLink(MapManager* MapManager) { _MapManager = MapManager; }
 	POINT getPlayerPos() { return _playerInfo.position; }
 
-	void setPlayerPosY(float y) { _playerInfo.position.y = y; }
+	void setPlayerPosY(float y) { _playerInfo._rc.bottom = y; }
+
+
 	
 
 	void setDrop(bool check) { _playerInfo.isDrop = check; }
