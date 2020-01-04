@@ -36,19 +36,19 @@ void Slime::update()
 	{
 		_enemy.img->setFrameY(0);
 
-		if ((_currentFrameX == 0 ||_currentFrameX ==1 )&& _count % 36 == 0)
+		if ((_currentFrameX == 0 ||_currentFrameX ==1 )&& _count % 20 == 0)
 		{
 
 			_currentFrameX = 2;
 			_count = 0;
 
 		}
-		else if (_currentFrameX == 2 && _count % 20 == 0)
+		else if (_currentFrameX == 2 && _count % 12 == 0)
 		{
 			_currentFrameX = 3;
 			_count = 0;
 		}
-		else if (_currentFrameX == 3 && _count % 20 == 0)
+		else if (_currentFrameX == 3 && _count % 12 == 0)
 		{
 			_currentFrameX = 0;
 			_count = 0;
@@ -64,7 +64,7 @@ void Slime::update()
 	
 		_enemy.img->setFrameY(1);
 
-		if ((_currentFrameX == 2 ||_currentFrameX ==3 )&& _count2 % 36== 0)
+		if ((_currentFrameX == 2 ||_currentFrameX ==3 )&& _count2 % 20== 0)
 		{
 
 			_currentFrameX =1;
@@ -72,12 +72,12 @@ void Slime::update()
 
 		}
 
-		else if (_currentFrameX == 1 && _count2 % 20 == 0)
+		else if (_currentFrameX == 1 && _count2 % 12== 0)
 		{
 			_currentFrameX = 0;
 			_count2 = 0;
 		}
-		else if (_currentFrameX == 0 && _count2 % 20 == 0)
+		else if (_currentFrameX == 0 && _count2 % 12 == 0)
 		{
 			_currentFrameX = 2;
 			_count2 = 0;
@@ -90,17 +90,21 @@ void Slime::update()
 	
 }
 
-void Slime::move()
+
+
+void Slime::AttackStart()
 {
-	
+	/*RECT temp;
+	if (IntersectRect(&temp, &_enemy.rc, & _playerManager->get_vPlayer*/
 }
 
 bool Slime::bulletCountFire()
+
 {
 
 	_firecount++;
 
-	if (_firecount % 70 == 0)
+	if (_firecount % 44 == 0)
 	{
 		_firecount = 0;
 		return true;

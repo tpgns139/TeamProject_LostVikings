@@ -2,7 +2,6 @@
 #include "Player.h"
 #include "MapManager.h"
 
-
 Player::Player()
 {
 }
@@ -102,6 +101,10 @@ void Player::update()
 				{
 					((Erik*)(this))->setState(E_push);
 				}
+				else if ((((Erik*)(this))->getState() == E_atk))
+				{
+					((Erik*)(this))->colAction();
+				}
 				break;
 			case PN_BALEOG:
 				if (((Baleog*)(this))->getState() == BALEOG_RIGHTMOVE||
@@ -118,7 +121,6 @@ void Player::update()
 				}
 				break;
 			}
-			_playerInfo._leftRc.left = _MapManager->getWall()[i]->getRect().right;
 			if (_Direction == LEFT)
 			{
 				

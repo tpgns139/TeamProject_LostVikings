@@ -11,25 +11,8 @@ GameScene::~GameScene()
 }
 HRESULT GameScene::init()
 {
-	/*IMAGEMANAGER->addFrameImage("ericIdle", "ericIdle.bmp", 0, 0, 336, 200, 4, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("character", "character.bmp", 0, 0, 325, 200, 4, 2, true, RGB(255, 0, 255));
-
-
-	IMAGEMANAGER->addFrameImage("character", "character.bmp", 0, 0, 325, 200, 4, 2, true, RGB(255, 0, 255));
-
-	IMAGEMANAGER->addFrameImage("묘비", "묘비.bmp", 0, 0, 891, 73, 11, 1, true, RGB(255, 0, 255));
-
-	
-
 	
 	
-
-	count = 0;
-	IMAGEMANAGER->addImage("고기", "고기.bmp", 70, 75, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("과일", "과일.bmp", 50, 56, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("신발", "신발.bmp", 50, 56, true, RGB(255, 0, 255));
-
-	*/
 	IMAGEMANAGER->addImage("에너미불릿", "에너미불릿.bmp", 43, 19, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("배경", "Map.bmp", 4000, 1984, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("화살", "arrow.bmp", 37, 40,1,2, true, RGB(255, 0, 255));
@@ -60,21 +43,29 @@ HRESULT GameScene::init()
 	_ui->setPlayerManager(_pm);
 	_ui->init();
 
+
+	_pm->setAddressEnemyManager(_em);
 	_changeNowPlayer = false;
-	
+
 	return S_OK;
 }
 
 void GameScene::update()
 {
-	if (!_selectUi) 
+
+
+
+
+	if (!_selectUi)
 	{
+
 		CAMERA->update();
-		if (_changeNowPlayer) 
+		if (_changeNowPlayer)
 		{
 			CAMERA->moveTo(_pm->get_nPlayer()->getPlayerPos().x, _pm->get_nPlayer()->getPlayerPos().y, 0.5f);
 			_changeNowPlayer = false;
 		}
+
 		_im->update();
 		_pm->update();
 
@@ -85,6 +76,7 @@ void GameScene::update()
 		{
 			_selectUi = true;
 		}
+		EFFECTMANAGER->update();
 	}
 	else
 	{
@@ -93,22 +85,14 @@ void GameScene::update()
 		{
 			_selectUi = false;
 		}
+
 		if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
 		{
 			_pm->setNowPlayer();
 			_changeNowPlayer = true;
 		}
+			
 	}
-	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
-	{
-		 
-	}
-	_im->update();
-	_pm->update();
-
-	_mm->update();
-	_em->update();
-	_ui->update();
 
 	
 }
@@ -116,12 +100,14 @@ void GameScene::update()
 void GameScene::render()
 {
 	IMAGEMANAGER->findImage("배경")->render(getMemDC(), 0, 0, CAMERA->getCameraXpos(), CAMERA->getCameraYpos(), WINSIZEX, WINSIZEY);
+	
 	_mm->render();
 	_pm->render();
 	_im->render();
-	_mm->zOrderRender();
 	_em->render();
+	_mm->zOrderRender();
 	_ui->render();
+	EFFECTMANAGER->render();
 }
 
 void GameScene::release()

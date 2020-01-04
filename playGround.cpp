@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "playGround.h"
-#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+//#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 
 playGround::playGround()
 {
@@ -18,6 +18,7 @@ HRESULT playGround::init()
 
 
 	SCENEMANAGER->addScene("GameScene", new GameScene);
+	SCENEMANAGER->addScene("IntroScene", new IntroScene);
 	SCENEMANAGER->changeScene("GameScene");
 	
 	return S_OK;
@@ -42,7 +43,7 @@ void playGround::update()
 //여기다 그려라!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 void playGround::render()
 {
-	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, WHITENESS);
+	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
 	//==================================================
 
 

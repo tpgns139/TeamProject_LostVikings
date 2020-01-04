@@ -317,7 +317,7 @@ void image::render(HDC hdc)
 			0, 0,					//복사해올 좌표
 			_imageInfo->width,		//복사해올 크기
 			_imageInfo->height,
-			_transColor);			//복사해올때 제외할 칼라
+			_transColor);			//복사해올때 제외할 칼라p
 
 	}
 	//아니냐

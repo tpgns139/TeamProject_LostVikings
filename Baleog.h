@@ -13,7 +13,6 @@ enum BALEOGSTATE
 	BALEOG_LEFTBOWATTACK,
 	BALEOG_PUSH,
 	BALEOG_UP,
-
 };
 
 class Baleog:public Player
@@ -23,6 +22,7 @@ private:
 
 	bool isAttack;
 	RECT rc;
+	int arrowcount = 0;
 public:
 	Baleog();
 	~Baleog();

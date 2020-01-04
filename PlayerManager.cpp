@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "PlayerManager.h"
 #include "MapManager.h"
+#include "enemyManager.h"
 
 
 PlayerManager::PlayerManager()
@@ -53,10 +54,13 @@ void PlayerManager::update()
 		setNowPlayer();
 		CAMERA->moveTo(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y, 0.5f);
 	}
+
+
+	
 	
 	_Pbullet->update();
 	_nowPlayer->KeyControl();
-	
+	colErikWithEnemy();
 
 	if (KEYMANAGER->isOnceKeyDown('P'))
 	{
@@ -67,6 +71,8 @@ void PlayerManager::update()
 		_nowPlayer->KeyControl();
 		CAMERA->setCameraPos(_nowPlayer->getPlayerPos().x, _nowPlayer->getPlayerPos().y);
 	}
+
+	Bulletcollsion();
 
 		
 	                                                                                                                                              
@@ -128,4 +134,53 @@ void PlayerManager::setNowPlayer()
 
 	_nowPlayer = _vPlayer[PlayerNumber];
 	
+}
+
+void PlayerManager::Bulletcollsion()
+{
+	for (int i = 0; i < _MapManager->getColWall().size(); i++)
+	{
+		for (int j = 0; j < _Pbullet->getVBullet().size(); j++)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_Pbullet->getVBullet()[j].rc, &_MapManager->getColWall()[i]->getRect()))
+			{
+				_Pbullet->removePlayerBullet(j);
+
+			}
+
+		}
+	}
+	for (int i = 0; i < _em->getEnemy().size(); i++)
+	{
+		for (int j = 0; j < _Pbullet->getVBullet().size(); j++)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_Pbullet->getVBullet()[j].rc, &_em->getEnemy()[i]->getEnemyRect()))
+			{
+				_Pbullet->removeBullet(j); 
+				_em->removeEnemy(i);
+			}
+		}
+	}
+	
+}
+
+void PlayerManager::colErikWithEnemy()
+{
+	if (_nowPlayer->getPlayerInfo()->_playerName == PN_ERIK)
+	{
+		if (((Erik*)_nowPlayer)->getState() == E_atk)
+		{
+			for (int i = 0;i < _em->getEnemy().size();i++)
+			{
+				RECT temp;
+				if (IntersectRect(&temp, &_nowPlayer->getPlayerInfo()->_rc, &_em->getEnemy()[i]->getEnemyRect()))
+				{
+					_em->removeEnemy(i);
+					((Erik*)_nowPlayer)->colAction();
+				}
+			}
+		}
+	}
 }

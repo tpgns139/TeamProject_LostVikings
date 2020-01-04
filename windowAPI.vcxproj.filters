@@ -64,9 +64,6 @@
     <Filter Include="playGround\Player">
       <UniqueIdentifier>{22c09428-5108-40b5-b019-4aed9941c236}</UniqueIdentifier>
     </Filter>
-    <Filter Include="playGround\Player\Bullet">
-      <UniqueIdentifier>{470db5c8-b1b1-465b-8b02-dbf48fc15795}</UniqueIdentifier>
-    </Filter>
     <Filter Include="playGround\EnemyManager">
       <UniqueIdentifier>{893a3053-7486-4f6d-8065-5fd308840bfd}</UniqueIdentifier>
     </Filter>
@@ -81,6 +78,9 @@
     </Filter>
     <Filter Include="playGround\Inven">
       <UniqueIdentifier>{e74c9dc4-41e5-402e-8edb-c7274640a7a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Scene">
+      <UniqueIdentifier>{0fdf54fe-c9e5-413d-8dc4-c70593825a7a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -161,9 +161,6 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>2DGameFramework\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="GameScene.h">
-      <Filter>playGround</Filter>
     </ClInclude>
     <ClInclude Include="Shoes.h">
       <Filter>playGround\item</Filter>
@@ -282,6 +279,12 @@
     <ClInclude Include="ColWall.h">
       <Filter>playGround\Map</Filter>
     </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>playGround\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>playGround\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -349,9 +352,6 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>2DGameFramework\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="GameScene.cpp">
-      <Filter>playGround</Filter>
     </ClCompile>
     <ClCompile Include="Fruit.cpp">
       <Filter>playGround\item</Filter>
@@ -466,6 +466,12 @@
     </ClCompile>
     <ClCompile Include="ColWall.cpp">
       <Filter>playGround\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>playGround\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>playGround\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -20,13 +20,14 @@ HRESULT Enemy::init(const char* imagename, POINT position, int num,float speed)
 	IMAGEMANAGER->addFrameImage("Tower", "Æ÷Å¾.bmp", 200, 80, 2, 1, true, RGB(255, 0, 255));
 
 	_currentFrameX = _currentFrameY = 0;
-	_enemy.x = position.x;
-	_enemy.y = position.y;
+	
 
 	_enemy.img = IMAGEMANAGER->findImage(imagename);
-	_enemy.rc = RectMakeCenter(position.x, position.y, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
-	_enemy.leftcolcheckrc = RectMakeCenter(position.x- _enemy.img->getFrameWidth()/2, position.y, 3, _enemy.img->getFrameHeight()-10);
-	_enemy.rightcolcheckrc = RectMakeCenter(position.x - _enemy.img->getFrameWidth() / 2, position.y, 3, _enemy.img->getFrameHeight()-10);
+	_enemy.x = position.x;
+	_enemy.y = position.y+_enemy.img->getFrameHeight()/2;
+	_enemy.rc = RectMakeCenter(_enemy.x, _enemy.y, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
+	_enemy.leftcolcheckrc = RectMakeCenter(_enemy.x- _enemy.img->getFrameWidth()/2, _enemy.y, 3, _enemy.img->getFrameHeight()-10);
+	_enemy.rightcolcheckrc = RectMakeCenter(_enemy.x - _enemy.img->getFrameWidth() / 2, _enemy.y, 3, _enemy.img->getFrameHeight()-10);
 	_count = 0;
 	_count2 = 0;
 
@@ -41,9 +42,10 @@ void Enemy::release()
 
 void Enemy::update()
 {
-	_enemy.rc = RectMake(_enemy.x  ,
-		_enemy.y , _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
-	_enemy.leftcolcheckrc = RectMakeCenter(_enemy.x , _enemy.y+_enemy.img->getFrameHeight()/2
+
+	_enemy.rc = RectMakeCenter(_enemy.x ,
+		_enemy.y, _enemy.img->getFrameWidth(), _enemy.img->getFrameHeight());
+	_enemy.leftcolcheckrc = RectMakeCenter(_enemy.x , _enemy.y + _enemy.img->getFrameHeight() / 2
 		, 10, _enemy.img->getFrameHeight()-10);
 	_enemy.rightcolcheckrc = RectMakeCenter(_enemy.x + _enemy.img->getFrameWidth(), _enemy.y + _enemy.img->getFrameHeight() / 2
 		, 10, _enemy.img->getFrameHeight()-10);
@@ -74,9 +76,11 @@ void Enemy::render()
 
 }
 
-void Enemy::move()
+void Enemy::AttackStart()
 {
 }
+
+
 
 bool Enemy::bulletCountFire()
 {

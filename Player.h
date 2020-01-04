@@ -40,7 +40,6 @@ struct Playerinfo
 };
 
 class MapManager;
-
 class Player :public gameNode
 {
 protected:
@@ -48,7 +47,6 @@ protected:
 	Playerinfo _playerInfo;
 	Direction _Direction;
 	MapManager* _MapManager;
-
 	
 
 

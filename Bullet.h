@@ -34,6 +34,8 @@ public:
 
 	void bulletFire(float x, float y, float speed);
 	void bulletMove();
+	void removeEnemyBullet(int arrNum);
+	void removePlayerBullet(int arrNum);
 	void removeBullet(int arrNum);
 	void frameRender();
 	void FramebulletFire(float x, float y, float speed, int frameX, int frameY);
