@@ -57,19 +57,17 @@ void EnemyManager::update()
 		}
 		if ((*_viEm)->getEnemyInfo().name == robot)
 		{	
-			if (getDistance((*_viEm)->getEnemyRect().left,
-				(*_viEm)->getEnemyRect().top,
-				_playerManager->get_nPlayer()->getRect().left,
-				_playerManager->get_nPlayer()->getRect().top) < 400)
+			
 			{
-				if ((*_viEm)->getEnemyInfo().speed < 0)
+				if ((*_viEm)->getenemyDir() == e_Left)
 				{
-
-					enemyBulletFire((*_viEm), RIGHT);
-				}
-				else
-				{
+					
 					enemyBulletFire((*_viEm), LEFT);
+				}
+				else if((*_viEm)->getenemyDir() == e_Right)
+				{
+					
+					enemyBulletFire((*_viEm), RIGHT);
 				}
 			}
 		}
@@ -173,7 +171,7 @@ void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
 	{
 		RECT temp;
 		RECT rc = enemy->getEnemyRect();
-
+		
 		
 			if (enemy->getEnemyInfo().name == slime)
 			{
@@ -197,36 +195,50 @@ void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
 	
 			if (enemy->getEnemyInfo().name == robot)
 			{
-
-				if ((getDistance(rc.left, rc.top, _playerManager->get_nPlayer()->getRect().left,
-					_playerManager->get_nPlayer()->getRect().top) < 400))
+				
+				for (int i = 0; i < _playerManager->get_vPlayer().size(); i++)
 				{
-					
-					if (_direction == LEFT)
+					if (_direction == RIGHT)
 					{
-						enemy->setEnemySpeed(0);
-						_Ebullet->bulletFire(enemy->getX(),
-							enemy->getY(), -5.0f);
+
+						if (getDistance(enemy->getX(),
+							enemy->getY(),
+							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x,
+							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.y) < 200
+							&& enemy->getX() < _playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x)
+						{
+							enemy->setEnemySpeed(0.0f);
+							_Ebullet->bulletFire(enemy->getX(),
+								enemy->getY(), -5.0f);
+							break;
+						}
+						else
+						{
+							enemy->setEnemySpeed(2.0f);
+						}
 					}
 					else
 					{
-						enemy->setEnemySpeed(0);
+						if (getDistance(enemy->getX(),
+							enemy->getY(),
+							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x,
+							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.y) < 200
+							&& enemy->getX() > _playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x)
+						{
+							enemy->setEnemySpeed(0.0f);
+							_Ebullet->bulletFire(enemy->getX(),
+								enemy->getY(), 5.0f);
+							break;
+						}
+						else
+						{
+							enemy->setEnemySpeed(-2.0f);
+						}
+					}
 
-						_Ebullet->bulletFire(enemy->getX(),
-							enemy->getY(), 5.0f);
-					}
 				}
-				else
-				{
-					if (_direction == LEFT)
-					{
-						enemy->setEnemySpeed(-2);
-					}
-					else
-					{
-						enemy->setEnemySpeed(2);
-					}
-				}
+
+
 			}
 	}
 }

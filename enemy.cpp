@@ -30,7 +30,7 @@ HRESULT Enemy::init(const char* imagename, POINT position, int num,float speed)
 	_enemy.rightcolcheckrc = RectMakeCenter(_enemy.x - _enemy.img->getFrameWidth() / 2, _enemy.y, 3, _enemy.img->getFrameHeight()-10);
 	_count = 0;
 	_count2 = 0;
-
+	_enemy._enemyDirection = e_Left;
 	
 
 	return S_OK;
@@ -54,11 +54,13 @@ void Enemy::update()
 	{
 		if (IntersectRect(&temp, & _mapManager->getColWall()[i] ->getRect(), &_enemy.rightcolcheckrc))//||_enemy.x + (_enemy.img->getFrameWidth()) >WINSIZEX+CAMERA->getCameraXpos()) <-플레이어 무브랑 같이 처리해야함,카메라가 움직이지 않는 조건 추가
 		{
+			_enemy._enemyDirection = e_Left;
 			_enemy.speed *= -1;
 			_currentFrameX = 1;
 		}
 		if (IntersectRect(&temp, &_mapManager->getColWall()[i]->getRect(), &_enemy.leftcolcheckrc))//||_enemy.x<0+CAMERA->getCameraXpos())
 		{
+			_enemy._enemyDirection = e_Right;
 			_enemy.speed *= -1;
 			_currentFrameX = 2;
 		}

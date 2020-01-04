@@ -36,7 +36,7 @@ void SecurityRobot::update()
 		if (_count % 12 == 0)
 		{
 
-			if (_enemy.speed < 0)
+			if (_enemy._enemyDirection==e_Left)
 			{
 				_enemy.img->setFrameY(1);
 				if (_currentFrameX < 0) _currentFrameX = 5;
@@ -45,7 +45,7 @@ void SecurityRobot::update()
 				_count = 0;
 
 			}
-			else
+			else 
 			{
 				_enemy.img->setFrameY(0);
 				if (_currentFrameX > _enemy.img->getMaxFrameX()) _currentFrameX = 0;

@@ -14,7 +14,11 @@ enum enemyName
 	robot,
 	robotatk
 };
-
+enum enemyDirection
+{
+	e_Left,
+	e_Right
+};
 struct ENEMY
 {
 	image* img;
@@ -25,6 +29,7 @@ struct ENEMY
 	RECT rc, leftcolcheckrc, rightcolcheckrc;
 	int count;
 	bool isMove;
+	enemyDirection _enemyDirection;
 };
 
 
@@ -61,9 +66,12 @@ public:
 	float getY() { return _enemy.y; }
 	ENEMY getEnemyInfo() { return _enemy; }
 	RECT getEnemyRect() { return _enemy.rc; }
+	RECT getRightRect() { return _enemy.rightcolcheckrc; }
+	RECT getLeftRect() { return _enemy.leftcolcheckrc; }
+
 	void setEnemySpeed(float speed) { _enemy.speed = speed;}
 	void setMemoryAddressLink(MapManager* mm) { _mapManager = mm; }
 	virtual void setplayerMemoryAddressLink(PlayerManager* pm) { _playerManager = pm; }
-
+	enemyDirection getenemyDir() { return _enemy._enemyDirection; }
 };
 
