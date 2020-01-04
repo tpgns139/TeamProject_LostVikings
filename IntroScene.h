@@ -13,8 +13,7 @@ class IntroScene:public gameNode
 private:
 	startState _startState;
 	int _fadeout, _fadein;
-	bool start;
-	bool start1;
+	bool _changeFadeState,_changeScene;
 	image* _nowScene;
 public:
 	IntroScene();

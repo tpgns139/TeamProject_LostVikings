@@ -162,6 +162,7 @@
     <ClInclude Include="ElectricField.h" />
     <ClInclude Include="ElectricFieldTwoType.h" />
     <ClInclude Include="Elevator.h" />
+    <ClInclude Include="EndScene.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="EnemyManager.h" />
@@ -229,6 +230,7 @@
     <ClCompile Include="ElectricField.cpp" />
     <ClCompile Include="ElectricFieldTwoType.cpp" />
     <ClCompile Include="Elevator.cpp" />
+    <ClCompile Include="EndScene.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="EnemyManager.cpp" />

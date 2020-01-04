@@ -115,10 +115,11 @@ void uiManager::render()
 {
 	_ui->render(getMemDC(), 0, WINSIZEY);
 	setState();
-	for (_viUi = _vUi.begin(); _viUi != _vUi.end(); ++_viUi)
+	
+	/*for (_viUi = _vUi.begin(); _viUi != _vUi.end(); ++_viUi)
 	{
 		(*_viUi)->render();
-	}
+	}*/
 	for (int i = 0;i < _playerItemVector.size();i++)
 	{
 		
@@ -166,7 +167,7 @@ void uiManager::render()
 	Erik->render(getMemDC(), 117, 641);
 	Baleog->render(getMemDC(), 296, 641);
 	Olaf->render(getMemDC(), 475, 641);
-
+	setHp();
 
 
 	if (_select)
@@ -181,7 +182,7 @@ void uiManager::render()
 					_currentFrameX, 0
 				);
 			}
-			else
+			 else
 			{
 				_vSelctUi[i]->getImage()->frameRender(getMemDC(),
 					_vSelctUi[i]->get_position().x,
@@ -219,7 +220,7 @@ void uiManager::setUi()
 {
 
 
-	for (int i = 0; i < 3; i++)
+	/*for (int i = 0; i < 3; i++)
 	{
 		ui* ui4;
 		ui4 = new PlayerHpUi;
@@ -240,7 +241,7 @@ void uiManager::setUi()
 		ui6 = new PlayerHpUi;
 		ui6->init("체력", PointMake(479 + i * 20, 706), Hp);
 		_vUi.push_back(ui6);
-	}
+	}*/
 
 	ui* ui7;
 	ui7 = new SelectUi;
@@ -300,7 +301,7 @@ void uiManager::setState()
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_F1))
 	{
-		_pm->get_nPlayer()->getPlayerInfo()->HP = 0;
+		_pm->get_nPlayer()->getPlayerInfo()->Erik_HP -= 1;
 	}
 
 
@@ -309,7 +310,7 @@ void uiManager::setState()
 	{
 	case PN_ERIK:
 
-		if (_pm->get_nPlayer()->getPlayerInfo()->HP == 0)
+		if (_pm->get_nPlayer()->getPlayerInfo()->Erik_HP == 0)
 		{
 			_eric = true;
 			if (_eric == true)
@@ -320,7 +321,7 @@ void uiManager::setState()
 		break;
 
 	case PN_BALEOG:
-		if (_pm->get_nPlayer()->getPlayerInfo()->HP == 0)
+		if (_pm->get_nPlayer()->getPlayerInfo()->Baleog_HP == 0)
 		{
 			_baleog = true;
 			if (_baleog = true)
@@ -331,7 +332,7 @@ void uiManager::setState()
 		}
 		break;
 	case PN_OLAF:
-		if (_pm->get_nPlayer()->getPlayerInfo()->HP == 0)
+		if (_pm->get_nPlayer()->getPlayerInfo()->Olaf_HP == 0)
 		{
 			_olaf = true;
 			if (_olaf==true)
@@ -354,7 +355,7 @@ void uiManager::keyControl()
 		{
 			if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
 			{
-				_vSelctUi[i]->set_position().x;
+				_vSelctUi[i]->set_position().x + 43;
 				
 
 				
@@ -378,7 +379,7 @@ void uiManager::keyControl()
 			switch (_pm->get_vPlayer()[i]->getPlayerInfo()->_playerName)
 			{
 			case PN_BALEOG:
-				if (_pm->get_vPlayer()[i]->getPlayerInfo()->HP == 0)
+				if (_pm->get_vPlayer()[i]->getPlayerInfo()->Baleog_HP == 0)
 				{
 					Baleog = IMAGEMANAGER->findImage("벨로그죽음");
 				}
@@ -389,9 +390,9 @@ void uiManager::keyControl()
 				
 				break;
 			case PN_ERIK:
-				if (_pm->get_vPlayer()[i]->getPlayerInfo()->HP == 0)
+				if (_pm->get_vPlayer()[i]->getPlayerInfo()->Erik_HP == 0)
 				{
-
+					Erik = IMAGEMANAGER->findImage("에릭죽음");
 				}
 				else
 				{
@@ -399,9 +400,9 @@ void uiManager::keyControl()
 				}
 				break;
 			case PN_OLAF:
-				if (_pm->get_vPlayer()[i]->getPlayerInfo()->HP == 0)
+				if (_pm->get_vPlayer()[i]->getPlayerInfo()->Olaf_HP == 0)
 				{
-
+					Olaf = IMAGEMANAGER->findImage("울라프죽음");
 				}
 				else
 				{
@@ -412,3 +413,28 @@ void uiManager::keyControl()
 		}
 	}
 }
+
+void uiManager::setHp()
+{
+	for (int i = 0; i < _pm->get_vPlayer()[i]->getPlayerInfo()->Erik_HP;i++)
+	{
+		IMAGEMANAGER->findImage("체력")->render(getMemDC(), 121 + i * 20, 706);
+	}
+
+	for (int i = 0; i < _pm->get_vPlayer()[i]->getPlayerInfo()->Baleog_HP; i++)
+	{
+		IMAGEMANAGER->findImage("체력")->render(getMemDC(), 300 + i * 20, 706);
+	}
+
+	for (int i = 0; i < _pm->get_vPlayer()[i]->getPlayerInfo()->Olaf_HP; i++)
+	{
+		IMAGEMANAGER->findImage("체력")->render(getMemDC(), 479 + i * 20, 706);
+	}
+
+	
+	
+
+	
+}
+
+

@@ -6,6 +6,7 @@
 #include "EnemyManager.h"
 #include "uiManager.h"
 
+
 class GameScene:public gameNode
 {
 private:
@@ -17,6 +18,7 @@ private:
 	MapManager* _mm;
 	EnemyManager* _em;
 	uiManager* _ui;
+	
 
 	bool _changeNowPlayer;
 	bool _selectUi;

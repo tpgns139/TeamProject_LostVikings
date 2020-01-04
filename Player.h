@@ -20,7 +20,9 @@ struct Playerinfo
 	RECT _rc, _underRc, _leftRc, _rightRc, _topRC, _ladderRC,_midRC;
 
 	POINT position;
-	int HP;
+	int Erik_HP;
+	int Baleog_HP;
+	int Olaf_HP;
 	int MaxHP;
 	int count;
 	int _CurrentFrameX, _CurrentFrameY;

@@ -23,6 +23,8 @@ HRESULT IntroScene::init()
 	_nowScene = IMAGEMANAGER->findImage("intro1");
 	_fadeout = 255;
 	_fadein = 0;
+	_changeFadeState = false;
+	_changeScene = false;
 	return S_OK;
 }
 
@@ -30,93 +32,32 @@ void IntroScene::update()
 {
 	if (_startState != intro4) 
 	{
-		if (_fadein <= 256)
+		if (!_changeScene) 
 		{
-			_fadein += 3;
-		}
-		if (_fadeout >= 1)
-		{
-			_fadeout -= 3;
-		}
-			/*if (_fadeout >= 0 && _fadeout <= 254)
+			if (!_changeFadeState)
 			{
-				start = false;
+				if (_fadein < 255)
+				{
+					_fadein += 1;
+				}
+				else
+				{
+					
+					_changeFadeState = true;
+				}
 			}
 			else
 			{
-				start = true;
-			}
-			if (_fadeout <= 255 && _fadeout >=1)
-			{
-				start1 = false;
-			}
-			else
-			{
-				start1 = true;
-			}
-				if (start1 == true)
+				if (_fadeout > 0)
 				{
-					if (_fadeout >= 1)
-					{
-						_fadeout -= 3;
-					}
+					_fadeout -= 1;
 				}
-
-				if (start = true)
+				else
 				{
-					if (_fadeout <= 254)
-					{
-						_fadeout += 3;
-					}
-				}*/
-
-
-
-		/*if (_fadeout >= -1 &&_fadeout <= 254)
-		{
-			start = true;
-		}
-
-		else
-		{
-			start = false;
-		}
-		if (_fadeout < 256 && _fadeout >= 1)
-		{
-			start1 = true;
-		}
-		else
-		{
-			start1 = false;
-		}
-
-			if (start = true)
-			{
-				if (_fadeout > -1)
-				{
-					_fadeout += 3;
+					_changeScene = true;
 				}
 			}
-			if (start1 = true)
-			{
-				if (_fadeout > 254)
-				{
-					_fadeout -= 3;
-				}
-			}*/
-				/*if (start == true && _fadeout <= 1)
-				{
-				
-					_fadeout += 3;
-				}
-				if (start1 == true)
-				{
-				
-					_fadeout -= 3;
-				}*/
-			
-
-		
+		}
 		else
 		{
 			switch (_startState)
@@ -125,19 +66,26 @@ void IntroScene::update()
 				_nowScene = IMAGEMANAGER->findImage("intro1sizeUp");
 				_startState = intro2;
 				_fadeout = 255;
-		
+				_fadein = 0;
+				_changeFadeState = false;
+				_changeScene = false;
 				break;
 			case intro2:
 				_nowScene = IMAGEMANAGER->findImage("intro2siezeUp");
 				_startState = intro3;
 				_fadeout = 255;
-		
+				_fadein = 0;
+				_changeFadeState = false;
+				_changeScene = false;
 				break;
 			
 			case intro3:
-				_startState = intro4;
 				_nowScene = IMAGEMANAGER->findImage("intro4sizeUp");
+				_startState = intro4;
 				_fadeout = 255;
+				_fadein = 0;
+				_changeFadeState = false;
+				_changeScene = false;
 			
 			
 			case intro4:
@@ -149,13 +97,22 @@ void IntroScene::update()
 			}
 		}
 	}
+	else
+	{
+		_changeFadeState = true;
+	}
 }
 
 void IntroScene::render()
 {
-	
-	_nowScene->alphaRender(getMemDC(), 0, 0, _fadeout);
-
+	if (_changeFadeState) 
+	{
+		_nowScene->alphaRender(getMemDC(), 0, 0, _fadeout);
+	}
+	else
+	{
+		_nowScene->alphaRender(getMemDC(), 0, 0, _fadein);
+	}
 }
 
 void IntroScene::release()

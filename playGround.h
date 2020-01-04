@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include"GameScene.h"
 #include"IntroScene.h"
+#include"EndScene.h"
 class playGround : public gameNode
 {
 private:

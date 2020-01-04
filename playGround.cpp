@@ -19,7 +19,8 @@ HRESULT playGround::init()
 
 	SCENEMANAGER->addScene("GameScene", new GameScene);
 	SCENEMANAGER->addScene("IntroScene", new IntroScene);
-	SCENEMANAGER->changeScene("GameScene");
+	SCENEMANAGER->addScene("EndScene", new EndScene);
+	SCENEMANAGER->changeScene("EndScene");
 	
 	return S_OK;
 }

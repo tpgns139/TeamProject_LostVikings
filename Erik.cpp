@@ -30,7 +30,6 @@ HRESULT Erik::init(PlayerName playerNme)
 	_playerInfo._playerName = PN_ERIK;
 
 	_playerInfo.count = _playerInfo._CurrentFrameX = _playerInfo._CurrentFrameY = 0;
-	_playerInfo.HP = 3;
 	_playerInfo.MaxHP = 3;
 	_playerInfo.position.x = 1300;
 	_playerInfo.position.y = 1116;

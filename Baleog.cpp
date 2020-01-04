@@ -43,7 +43,6 @@ HRESULT Baleog::init(PlayerName playerName)
 	_playerInfo.speed = 2.0f;
 	_playerInfo.gravity = 0;
 	isAttack = false;
-	_playerInfo.HP = 3;
 	_playerInfo.MaxHP = 3;
 	Player::MakeRect();
 

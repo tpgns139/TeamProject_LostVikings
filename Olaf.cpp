@@ -47,7 +47,6 @@ HRESULT Olaf::init(PlayerName playerName)
 	_playerInfo._playerName = PN_OLAF;
 	_playerInfo._image = IMAGEMANAGER->findImage("O_front_idle2");
 	_playerInfo.count = _playerInfo._CurrentFrameX = _playerInfo._CurrentFrameY = 0;
-	_playerInfo.HP = 3;
 	_playerInfo.MaxHP = 3;
 	_playerInfo.isDrop = true;
 	_playerInfo.speed = 3.0f;
