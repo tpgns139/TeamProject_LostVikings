@@ -35,6 +35,7 @@ public:
 	void setNowPlayer();
 	void Bulletcollsion();
 	void Swordcollsion();
+	void gravityzonecollsion();
 
 };
 

@@ -76,6 +76,7 @@ void PlayerManager::update()
 	}
 
 	Bulletcollsion();
+	gravityzonecollsion();
 
 	//벨로그 칼 충돌
 	if (_nowPlayer->getPlayerInfo()->_playerName == PN_BALEOG)
@@ -198,5 +199,24 @@ void PlayerManager::Swordcollsion()
 		}
 	}
 
+}
+
+//중력장 충돌 처리
+
+void PlayerManager::gravityzonecollsion()
+{
+	for (int i = 0; i < _MapManager->getgravityZone().size(); i++)
+	{
+		RECT temp;
+		if (IntersectRect(&temp, &_nowPlayer->getPlayerInfo()->_rc, &_MapManager->getgravityZone()[i]->getRect()))
+		{
+			_nowPlayer->getPlayerInfo()->isDrop = false;
+			if (!_nowPlayer->getPlayerInfo()->isDrop)
+			{
+				_nowPlayer->getPlayerInfo()->position.y += _nowPlayer->getPlayerInfo()->gravity;
+				_nowPlayer->getPlayerInfo()->gravity -= 0.1f;
+			}
+		}
+	}
 }
 
