@@ -2,7 +2,6 @@
 #include "Player.h"
 #include "MapManager.h"
 
-
 Player::Player()
 {
 }
@@ -21,6 +20,7 @@ HRESULT Player::init(PlayerName playerName)
 	_playerInfo.isDrop = true;
 	_playerInfo.isGround = false;
 	_playerInfo.isPush = false;
+	_playerInfo.isLadderEnd = false;
 
 	return S_OK;
 }
@@ -55,6 +55,10 @@ void Player::MakeRect()
 		_playerInfo._image->getFrameWidth()
 		, RCSIZE);
 
+	_playerInfo._midRC = RectMakeCenter(_playerInfo.position.x,
+		_playerInfo.position.y + _playerInfo._image->getFrameHeight() / 4-30,
+		_playerInfo._image->getFrameWidth()
+		, RCSIZE);
 
 
 
@@ -93,57 +97,59 @@ void Player::update()
 			switch (_playerInfo._playerName)
 			{
 			case PN_ERIK:
-				if (((Erik*)(this))->getState() == E_run)
+				if ((((Erik*)(this))->getState() == E_run))
 				{
 					((Erik*)(this))->setState(E_push);
 				}
+				else if ((((Erik*)(this))->getState() == E_atk))
+				{
+					((Erik*)(this))->colAction();
+				}
 				break;
 			case PN_BALEOG:
-				if (((Baleog*)(this))->getState() == BALEOG_RIGHTMOVE ||
+				if (((Baleog*)(this))->getState() == BALEOG_RIGHTMOVE||
 					((Baleog*)(this))->getState() == BALEOG_LEFTMOVE)
 				{
 					((Baleog*)(this))->setState(BALEOG_PUSH);
 				}
 				break;
 			case PN_OLAF:
-				if (((Olaf*)(this))->getState() == O_front_run ||
+				if (((Olaf*)(this))->getState() == O_front_run||
 					((Olaf*)(this))->getState() == O_top_run)
 				{
 					((Olaf*)(this))->setState(O_push);
 				}
 				break;
 			}
-		}
-		//_playerInfo._leftRc.left = _MapManager->getWall()[i]->getRect().right;
-		if (_Direction == LEFT)
-		{
+			if (_Direction == LEFT)
+			{
+				
+				if ( _MapManager->getColWall()[i]->getRect().right < _playerInfo.position.x) 
+				{
+					_playerInfo.position.x = 
+						_MapManager->getColWall()[i]->getRect().right+_playerInfo._image->getFrameWidth()/2;
+				}
+				else
+				{
+					_playerInfo.position.x = 
+						_MapManager->getColWall()[i]->getRect().left - _playerInfo._image->getFrameWidth() / 2;
+				}
+			}
+			else if(_Direction == RIGHT)
+			{
+				if (_MapManager->getColWall()[i]->getRect().right < _playerInfo.position.x)
+				{
+					_playerInfo.position.x =
+						_MapManager->getColWall()[i]->getRect().right + _playerInfo._image->getFrameWidth() / 2;
+				}
+				else
+				{
+					_playerInfo.position.x = _MapManager->getColWall()[i]->getRect().left -
+						_playerInfo._image->getFrameWidth() / 2;
+				}
+			}
 
-			if (_MapManager->getColWall()[i]->getRect().right < _playerInfo.position.x)
-			{
-				_playerInfo.position.x =
-					_MapManager->getColWall()[i]->getRect().right + _playerInfo._image->getFrameWidth() / 2;
-			}
-			else
-			{
-				_playerInfo.position.x =
-					_MapManager->getColWall()[i]->getRect().left - _playerInfo._image->getFrameWidth() / 2;
-			}
 		}
-		else if (_Direction == RIGHT)
-		{
-			if (_MapManager->getColWall()[i]->getRect().right < _playerInfo.position.x)
-			{
-				_playerInfo.position.x =
-					_MapManager->getColWall()[i]->getRect().right + _playerInfo._image->getFrameWidth() / 2;
-			}
-			else
-			{
-				_playerInfo.position.x = _MapManager->getColWall()[i]->getRect().left -
-					_playerInfo._image->getFrameWidth() / 2;
-			}
-		}
-
-	
 	}
 
 	
@@ -162,10 +168,10 @@ void Player::render()
 			_playerInfo._ladderRC.left - CAMERA->getCameraXpos(),
 			_playerInfo._ladderRC.top - CAMERA->getCameraYpos(),
 			_playerInfo._image->getFrameWidth(), RCSIZE);			//캐릭터 사다리 렉트
-		RectangleMake(getMemDC(), 
-			_playerInfo._rc.left-CAMERA->getCameraXpos(),
-			_playerInfo._rc.top-CAMERA->getCameraYpos(),
-			_playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());			//캐릭터 바닥렉트
+		//RectangleMake(getMemDC(), 
+		//	_playerInfo._underRc.left-CAMERA->getCameraXpos(),
+		//	_playerInfo._underRc.top-CAMERA->getCameraYpos(),
+		//	_playerInfo._image->getFrameWidth(), RCSIZE);			//캐릭터 바닥렉트
 		RectangleMake(getMemDC(),
 			_playerInfo._leftRc.left - CAMERA->getCameraXpos(),
 			_playerInfo._leftRc.top - CAMERA->getCameraYpos(),
@@ -174,7 +180,16 @@ void Player::render()
 			_playerInfo._rightRc.left - CAMERA->getCameraXpos(),
 			_playerInfo._rightRc.top - CAMERA->getCameraYpos(),
 			RCSIZE, _playerInfo._image->getFrameHeight());
+
+		RectangleMake(getMemDC(),
+			_playerInfo._midRC.left - CAMERA->getCameraXpos(),
+			_playerInfo._midRC.top - CAMERA->getCameraYpos(),
+			_playerInfo._image->getFrameWidth(), RCSIZE);
 	}
+
+	
+
+
 	_playerInfo._image->frameRender(getMemDC(), 
 		_playerInfo._rc.left - CAMERA->getCameraXpos(),
 		_playerInfo._rc.top - CAMERA->getCameraYpos(),
@@ -219,17 +234,43 @@ void Player::collsion()
 		RECT temp;
 		if (IntersectRect(&temp, &_playerInfo._ladderRC, &_MapManager->getLadder()[i]->getRect()))
 		{
+			if (KEYMANAGER->isStayKeyDown(VK_UP) || (KEYMANAGER->isStayKeyDown(VK_DOWN)))
+			{
+				_playerInfo.position.x = _MapManager->getLadder()[i]->getRect().right - _playerInfo._image->getFrameWidth() / 2;
+
+
+				if (_playerInfo._midRC.bottom < _MapManager->getLadder()[i]->getRect().top)
+				{
+					_playerInfo.isLadderEnd = true;
+				}
+				if (_playerInfo._midRC.bottom > _MapManager->getLadder()[i]->getRect().top)
+				{
+					_playerInfo.isLadderEnd = false;
+				}
+				else if (_playerInfo._ladderRC.bottom >= _MapManager->getLadder()[i]->getRect().top)
+				{
+					_playerInfo.isLadderEnd = true;
+				}
+				else
+					_playerInfo.isLadderEnd = false;
+			}
+			_playerInfo.isLadder = true;
 			_playerInfo.isDrop = false;
 			_playerInfo.isGround = true;
-			ladderMoving();
 		}
 		else
-		{
 			_playerInfo.isLadder = false;
 
-		}
-	}
+	
+		
 
+	}
+		
+		
+
+	
+
+	cout << "사다리 충돌?" << _playerInfo.isLadder << endl;
 }
 
 
@@ -238,15 +279,3 @@ void Player::move()
 
 }
 
-void Player::ladderMoving()
-{
-	_playerInfo.isLadder = true;
-	if (KEYMANAGER->isStayKeyDown(VK_UP))
-	{
-		_playerInfo.position.y -= 2;
-	}
-	else if (KEYMANAGER->isStayKeyDown(VK_DOWN))
-	{
-		_playerInfo.position.y += 2;
-	}
-}

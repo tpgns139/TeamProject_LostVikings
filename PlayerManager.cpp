@@ -60,7 +60,7 @@ void PlayerManager::update()
 	
 	_Pbullet->update();
 	_nowPlayer->KeyControl();
-	
+	colErikWithEnemy();
 
 	if (KEYMANAGER->isOnceKeyDown('P'))
 	{
@@ -160,4 +160,23 @@ void PlayerManager::Bulletcollsion()
 		}
 	}
 	
+}
+
+void PlayerManager::colErikWithEnemy()
+{
+	if (_nowPlayer->getPlayerInfo()->_playerName == PN_ERIK)
+	{
+		if (((Erik*)_nowPlayer)->getState() == E_atk)
+		{
+			for (int i = 0;i < _em->getEnemy().size();i++)
+			{
+				RECT temp;
+				if (IntersectRect(&temp, &_nowPlayer->getPlayerInfo()->_rc, &_em->getEnemy()[i]->getEnemyRect()))
+				{
+					_em->removeEnemy(i);
+					((Erik*)_nowPlayer)->colAction();
+				}
+			}
+		}
+	}
 }

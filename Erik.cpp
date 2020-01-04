@@ -22,7 +22,9 @@ HRESULT Erik::init(PlayerName playerNme)
 	IMAGEMANAGER->addFrameImage("E_die_divide", "image/erikImage/die_divide.bmp", 0, 0, 763, 200, 7, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("E_up_end", "image/erikImage/up_end.bmp", 194, 100, 2, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("E_die_electric", "image/erikImage/die_electric.bmp", 194, 200, 2, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("E_push", "image/erikImage/push.bmp", 388, 200, 4, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("E_push", "image/erikImage/push2.bmp", 400, 200, 4, 2, true, RGB(255, 0, 255));
+	
+
 	IMAGEMANAGER->addFrameImage("E_die_fall", "image/erikImage/die_fall.bmp", 640, 200, 6, 2, true, RGB(255, 0, 255));
 
 	_playerInfo._playerName = PN_ERIK;
@@ -30,7 +32,7 @@ HRESULT Erik::init(PlayerName playerNme)
 	_playerInfo.count = _playerInfo._CurrentFrameX = _playerInfo._CurrentFrameY = 0;
 	_playerInfo.HP = 3;
 	_playerInfo.MaxHP = 3;
-	_playerInfo.position.x = 2066;
+	_playerInfo.position.x = 1300;
 	_playerInfo.position.y = 1116;
 	//_playerInfo.speed = 1.0f;
 
@@ -62,11 +64,6 @@ HRESULT Erik::init(PlayerName playerNme)
 
 void Erik::update()
 {
-	if (_state != E_attack_after)
-	{
-	//	KeyControl();
-	}
-	
 
 	if((_state != E_up)&&(_state != E_attack_after)&&(_state != E_jump))
 	{
@@ -76,14 +73,33 @@ void Erik::update()
 	if (_state == E_attack_after)
 	{
 		_playerInfo.count++;
+		
 		if (_playerInfo.count % 20 == 0)
 		{
-			_playerInfo._CurrentFrameX++;
-			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX() - 1)
+			if (_Direction == LEFT)
 			{
-				_playerInfo._CurrentFrameX = 0;
-				_state = E_idle1;
+				_playerInfo.position.x += 3.0f;
+				_playerInfo._CurrentFrameX--;
+
+				if (_playerInfo._CurrentFrameX < 0)
+				{
+					_state = E_idle1;
+					_playerInfo._CurrentFrameX = IMAGEMANAGER->findImage("E_idle1")->getMaxFrameX();
+				}
 			}
+			else
+			{
+				_playerInfo.position.x -= 3.0f;
+				_playerInfo._CurrentFrameX++;
+
+				if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX())
+				{
+					_playerInfo._CurrentFrameX = 0;
+					_state = E_idle1;
+				}
+				
+			}
+			
 		}
 	}
 
@@ -94,13 +110,16 @@ void Erik::update()
 		if (_playerInfo.count % 20== 0)
 		{
 			_playerInfo._CurrentFrameX++;
-			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX() )
+			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX())
 			{
 				_playerInfo._CurrentFrameX = 0;
 				_state = E_idle1;
 			}
 		}
 	}
+
+
+
 	Player::update();
 	stateImage();
 }
@@ -113,77 +132,119 @@ void Erik::render()
 
 void Erik::KeyControl()
 {
-	//왼쪽
-
-	/*if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
+	if (_state != E_attack_after) 
 	{
-		headingCount = 0;
-		_Direction = LEFT;
-		_playerInfo._image->setFrameY(2);
-		if ((_state != E_atk) && (_state != E_jump)) _state = E_run;
-		_playerInfo.position.x -= _playerInfo.speed;
-	}*/
-
-	if (_playerInfo.isLadder)
-	{
-		_state = E_up;
-	}
-
-
-	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
-	{
-
-		if(PlusSpeed>-3)PlusSpeed -= 0.1f;
-		headingCount++;
-		_Direction = LEFT;
-		_playerInfo._image->setFrameY(2);
-
-		if (_playerInfo.isPush)
+		//사다리 처리중
+		if (_playerInfo.isLadder)
 		{
-			_state = E_push;
+			if (KEYMANAGER->isStayKeyDown(VK_UP))
+			{
+				_Direction = RIGHT;
+				if (_playerInfo.isLadderEnd)
+				{
+					_playerInfo._CurrentFrameX = 0;
+					_state = E_up_end;
+					Frame(25);
+				}
+
+				if (!_playerInfo.isLadderEnd)
+				{
+					_state = E_up;
+					Frame(25);
+				}
+				if (!_playerInfo.isLadderEnd2)
+					_playerInfo.position.y -= 1;
+
+			}
+			else if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+			{
+				_Direction = LEFT;
+				if (_playerInfo.isLadderEnd)
+				{
+					_playerInfo._CurrentFrameX = 0;
+					_state = E_up_end;
+					Frame(25);
+				}
+
+				if (!_playerInfo.isLadderEnd)
+				{
+					_state = E_up;
+					Frame(25);
+				}
+
+
+
+				_playerInfo.position.y += 1;
+			}
+
 		}
-
-		if ((_state != E_atk) && (_state != E_jump)&&(_state != E_push)) _state = E_run;
-
-		_playerInfo.position.x -= _playerInfo.speed - PlusSpeed;
-		if ((_state!=E_jump)&&(headingCount>100) &&(KEYMANAGER->isOnceKeyDown('F')))
+		if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 		{
-			_state = E_atk;
+			_Direction = LEFT;
+			headingCount = 0;
+
+			if (_state == E_push)
+			{
+				setSpeed(0.0f);
+			}
+			_state = E_idle1;
+			_playerInfo._CurrentFrameX = 0;
 		}
-	}
-
-	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
-	{
-		_Direction = LEFT;
-		headingCount = 0;
-		_state = E_idle1;
-
-		_playerInfo._CurrentFrameX = 0;
-	}
-
-	if ((_state != E_up) && (KEYMANAGER->isStayKeyDown(VK_RIGHT)))
-	{
-		if (PlusSpeed<3)PlusSpeed += 0.1f;
-		
-		_Direction = RIGHT;
-		_playerInfo._image->setFrameY(0);
-		headingCount++;
-		if ((_state != E_atk) && (_state != E_jump)) _state = E_run;
-		_playerInfo.position.x += _playerInfo.speed + PlusSpeed;
-		if ((headingCount > 100) && (KEYMANAGER->isOnceKeyDown('F'))) //박치기하려면 움직임 카운트가 100이상
+		if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 		{
-			_state = E_atk;
+			_Direction = RIGHT;
+			_playerInfo._image->setFrameY(0);
+			headingCount = 0;
+			if (_state == E_push)
+			{
+				setSpeed(0.0f);
+			}
+			_state = E_idle1;
+			_playerInfo._CurrentFrameX = 0;
 		}
-	}
+		if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+		{
 
-	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
-	{
-		_Direction = RIGHT;
-		_playerInfo._image->setFrameY(0);
-		headingCount = 0;
-		_state = E_idle1;
-		_playerInfo._CurrentFrameX = 0;
-	}
+			if (PlusSpeed > -3)PlusSpeed -= 0.1f;
+			headingCount++;
+			_Direction = LEFT;
+			_playerInfo._image->setFrameY(2);
+
+			if (_playerInfo.isPush)
+			{
+				_state = E_push;
+			}
+
+			if ((_state != E_atk) && (_state != E_jump) && (_state != E_push)) _state = E_run;
+
+			_playerInfo.position.x += PlusSpeed;
+			if ((_state != E_jump) && (headingCount > 100) && (KEYMANAGER->isOnceKeyDown('F')))
+			{
+				_state = E_atk;
+				_playerInfo._CurrentFrameX = IMAGEMANAGER->findImage("E_atk")->getMaxFrameX();
+			}
+		}
+		if ((_state != E_up) && (KEYMANAGER->isStayKeyDown(VK_RIGHT)))
+		{
+			if (PlusSpeed < 3)PlusSpeed += 0.1f;
+
+			_Direction = RIGHT;
+			_playerInfo._image->setFrameY(0);
+			headingCount++;
+			if ((_state != E_atk) && (_state != E_jump)) _state = E_run;
+			_playerInfo.position.x += PlusSpeed;
+			if ((headingCount > 100) && (KEYMANAGER->isOnceKeyDown('F'))) //박치기하려면 움직임 카운트가 100이상
+			{
+				_state = E_atk;
+				_playerInfo._CurrentFrameX = 0;
+
+			}
+		}
+		if (KEYMANAGER->isOnceKeyUp('F')&&_state==E_atk)
+		{
+			headingCount = 0;
+			_state = E_run;
+		}
 
 		if (_Direction == LEFT)
 		{
@@ -196,40 +257,52 @@ void Erik::KeyControl()
 
 		if (jumpCount == 0)
 		{
-				jumpCount = 1;
+			jumpCount = 1;
 
-			if ((KEYMANAGER->isStayKeyDown(VK_SPACE)))
+
+
+			if (KEYMANAGER->isStayKeyDown(VK_SPACE))
 			{
+
 				PlusJump++;
 				headingCount = 0;
 				_playerInfo._CurrentFrameX = 0;
 
 				_state = E_jump;
 				isJump = true;
-				_playerInfo.jumpPower = 3.0f + PlusJump;
+
+				if (_playerInfo.isLadder)
+				{
+					_playerInfo.jumpPower = 1.0f;
+				}
+				else
+				{
+					_playerInfo.jumpPower = 3.0f + PlusJump;
+				}
+
 				_playerInfo.gravity = 0.02f;
 			}
 		}
-	
 
-	//점프용//
-	if (isJump)
-	{
-		_playerInfo.position.y -= _playerInfo.jumpPower;
-		_playerInfo.jumpPower -= _playerInfo.gravity;
-		if (_playerInfo.jumpPower <= 0)
+
+
+		//점프용//
+		if (isJump)
 		{
-			isJump = false;
+			_playerInfo.position.y -= _playerInfo.jumpPower;
+			_playerInfo.jumpPower -= _playerInfo.gravity;
+			if (_playerInfo.jumpPower <= 0)
+			{
+				isJump = false;
+			}
+		}
+		if (_playerInfo.isGround)
+		{
+			jumpCount = 0;
+			PlusJump = 0;
+			if (_state == E_jump)_state = E_idle1;
 		}
 	}
-	if (_playerInfo.isGround)
-	{
-		jumpCount = 0;
-		PlusJump = 0;
-	//	if (_state != E_atk)_state = E_idle1;
-	}
-
-		
 }
 	
 
@@ -243,16 +316,35 @@ void Erik::Frame(int FrameX)
 		if (_Direction == RIGHT)
 		{
 			_playerInfo._CurrentFrameX++;
-			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX() - 1) _playerInfo._CurrentFrameX =0;
+			if (_playerInfo._CurrentFrameX > _playerInfo._image->getMaxFrameX()) 
+			{
+				_playerInfo._CurrentFrameX = 0;
+				if (_state == E_atk) 
+				{
+					_state = E_run;
+					headingCount = 0;
+				}
+				
+			}
+				
 			_playerInfo.count = 0;
 		}
 		else if (_Direction == LEFT)
 		{
 			_playerInfo._CurrentFrameX--;
-			if (_playerInfo._CurrentFrameX <= 0)_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
+			if (_playerInfo._CurrentFrameX <= 0)
+			{
+				_playerInfo._CurrentFrameX = _playerInfo._image->getMaxFrameX();
+				if (_state == E_atk)
+				{
+					_state = E_run;
+					headingCount = 0;
+				}
+			}
 			_playerInfo.count = 0;
 		}
 	}
+
 }
 
 void Erik::stateImage()
@@ -309,5 +401,23 @@ void Erik::stateImage()
 		break;
 	}
 }
+
+void Erik::colAction()
+{
+	setState(E_attack_after);
+	if (_Direction == LEFT)
+	{
+		setFrameX(IMAGEMANAGER->findImage("E_attack_after")->getMaxFrameX());
+		IMAGEMANAGER->findImage("E_attack_after")->setFrameY(1);
+	}
+	else
+	{
+		setFrameX(0);
+		IMAGEMANAGER->findImage("E_attack_after")->setFrameY(0);
+	}
+	setSpeed(0.0f);
+}
+
+
 
 

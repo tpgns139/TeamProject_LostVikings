@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "playGround.h"
-#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+//#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 
 playGround::playGround()
 {
