@@ -65,9 +65,12 @@ void PlayerManager::update()
 
 	colErikWithEnemy();
 
-	if (KEYMANAGER->isOnceKeyDown('P'))
+	if (_nowPlayer->getPlayerInfo()->_playerName==PN_BALEOG)
 	{
-		playerBulletFire();
+		if (((Baleog*)_nowPlayer)->getFire())
+		{
+			playerBulletFire();
+		}
 	}
 	if (!CAMERA->isMoving()) 
 	{
@@ -76,6 +79,16 @@ void PlayerManager::update()
 	}
 
 	Bulletcollsion();
+
+	//벨로그 칼 충돌
+	if (_nowPlayer->getPlayerInfo()->_playerName == PN_BALEOG)
+	{	
+		if (((Baleog*)_nowPlayer)->getSword())
+		{
+			Swordcollsion();
+		}
+		
+	}
 
 		
 	                                                                                                                                              
@@ -116,12 +129,12 @@ void PlayerManager::playerBulletFire()
 			if (_vPlayer[i]->getPlayerDirection() == LEFT) 
 			{
 				_Pbullet->FramebulletFire(_vPlayer[i]->getPlayerInfo()->position.x,
-					_vPlayer[i]->getPlayerInfo()->position.y, 5.0f,0,1);
+					_vPlayer[i]->getPlayerInfo()->position.y+10, 5.0f,0,1);
 			}
 			else
 			{
 				_Pbullet->FramebulletFire(_vPlayer[i]->getPlayerInfo()->position.x,
-					_vPlayer[i]->getPlayerInfo()->position.y, -5.0f,0,0);
+					_vPlayer[i]->getPlayerInfo()->position.y+10, -5.0f,0,0);
 			}
 		}
 	}
@@ -186,4 +199,28 @@ void PlayerManager::colErikWithEnemy()
 			}
 		}
 	}
+}
+void PlayerManager::Swordcollsion()
+{
+	for (int i = 0; i < _em->getEnemy().size(); i++)
+	{
+
+		if (_nowPlayer->getPlayerDirection() == RIGHT)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_nowPlayer->getPlayerInfo()->_rightRc, &_em->getEnemy()[i]->getEnemyRect()))
+			{
+				_em->removeEnemy(i);
+			}
+		}
+		if (_nowPlayer->getPlayerDirection() == LEFT)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_nowPlayer->getPlayerInfo()->_leftRc, &_em->getEnemy()[i]->getEnemyRect()))
+			{
+				_em->removeEnemy(i);
+			}
+		}
+	}
+
 }

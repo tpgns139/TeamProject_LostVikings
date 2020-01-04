@@ -136,6 +136,7 @@ void Player::update()
 				{
 					_playerInfo.position.x = 
 						_MapManager->getColWall()[i]->getRect().right+_playerInfo._image->getFrameWidth()/2;
+					
 				}
 				else
 				{
@@ -265,11 +266,6 @@ void Player::collsion()
 
 
 		
-		
-
-	
-
-	cout << "사다리 충돌?" << _playerInfo.isLadder << endl;
 }
 
 

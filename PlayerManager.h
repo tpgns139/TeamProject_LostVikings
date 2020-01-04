@@ -18,7 +18,6 @@ private:
 
 
 	Player* _nowPlayer;
-	Playerinfo _playerinfo;
 	Bullet* _Pbullet;
 	int PlayerNumber;
 public:
@@ -36,5 +35,7 @@ public:
 	void setNowPlayer();
 	void Bulletcollsion();
 	void colErikWithEnemy();
+	void Swordcollsion();
+
 };
 

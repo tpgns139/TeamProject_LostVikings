@@ -23,6 +23,9 @@ private:
 	bool isAttack;
 	RECT rc;
 	int arrowcount = 0;
+	bool _isshoot;
+	bool _isSword;
+
 public:
 	Baleog();
 	~Baleog();
@@ -38,5 +41,7 @@ public:
 	void KeyControl();
 	void Frame();
 	void ladder();
+	bool getFire() { return _isshoot; }
+	bool getSword() { return _isSword; }
 };
 
