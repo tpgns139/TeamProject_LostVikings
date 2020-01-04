@@ -38,7 +38,7 @@ class Enemy : public gameNode
 {
 
 protected:
-
+	string KEY;
 	PlayerManager* _playerManager;
 	MapManager* _mapManager;
 	ENEMY _enemy;

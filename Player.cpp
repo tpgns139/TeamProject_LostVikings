@@ -270,7 +270,7 @@ void Player::collsion()
 
 	
 
-	cout << "사다리 충돌?" << _playerInfo.isLadder << endl;
+	
 }
 
 

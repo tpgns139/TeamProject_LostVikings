@@ -4,6 +4,8 @@
 class SecurityRobot :public Enemy
 
 {
+private:
+	
 public:
 	SecurityRobot();
 	~SecurityRobot();

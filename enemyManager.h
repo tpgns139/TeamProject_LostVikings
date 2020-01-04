@@ -39,6 +39,7 @@ public:
 	void setEnemy(); //에너미 세팅
 	
 	void enemyBulletFire(Enemy* enemy,Direction _direction);
+	
 	void removeEnemy(int arrNum);
 	void collision();
 	vector<Enemy*> getEnemy() { return _vEm; }

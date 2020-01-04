@@ -37,28 +37,24 @@ void EnemyManager::update()
 		RECT temp;
 		if ((*_viEm)->getEnemyInfo().name == slime)
 		{
-			if (IntersectRect(&temp, &(*_viEm)->getEnemyRect() , &_playerManager->get_nPlayer()->getRect()))
-			{
-				
-				
-				if ((*_viEm)->getEnemyInfo().speed < 0)
-				{
-					enemyBulletFire((*_viEm), RIGHT);
-				}
-				else
+
+				if ((*_viEm)->getenemyDir() == e_Left)
 				{
 					enemyBulletFire((*_viEm), LEFT);
 				}
+				else if ((*_viEm)->getenemyDir() == e_Right)
+				{
+					enemyBulletFire((*_viEm),RIGHT);
+				}
 
 				
-			}
+			
 		
 
 		}
 		if ((*_viEm)->getEnemyInfo().name == robot)
 		{	
 			
-			{
 				if ((*_viEm)->getenemyDir() == e_Left)
 				{
 					
@@ -69,7 +65,7 @@ void EnemyManager::update()
 					
 					enemyBulletFire((*_viEm), RIGHT);
 				}
-			}
+			
 		}
 		if ((*_viEm)->getEnemyInfo().name == redtower)
 		{
@@ -107,7 +103,7 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* Sl;
 		Sl = new Slime;
-		Sl->init("SlimeMove1", PointMake(2200, 1460), 1,2);
+		Sl->init("SlimeMove", PointMake(2200, 1460), 1,2);
 		Sl->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sl);
 	}
@@ -115,7 +111,7 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* Sl;
 		Sl = new Slime;
-		Sl->init("SlimeMove2", PointMake(1400, 1460), 2,-2);
+		Sl->init("SlimeMove", PointMake(1400, 1460), 2,-2);
 		Sl->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sl);
 	}
@@ -155,7 +151,7 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* To;
 		To = new Tower;
-		To->init("Tower", PointMake(3850, 1760),0,-2);
+		To->init("Tower", PointMake(3900, 1760),0,-2);
 		To->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(To);
 	}
@@ -177,20 +173,47 @@ void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
 		
 			if (enemy->getEnemyInfo().name == slime)
 			{
-				if (IntersectRect(&temp, &rc, &_playerManager->get_nPlayer()->getRect()))
+				
+				for (int i = 0; i < _playerManager->get_vPlayer().size(); i++)
 				{
-					enemy->setEnemySpeed(0);
-
-					if (_direction == LEFT)
+					if (_direction == RIGHT)
 					{
-						_Ebullet->bulletFire(enemy->getX() + 60,
-							enemy->getY() + 10, -5.0f);
+						if (getDistance(enemy->getX(),
+							enemy->getY(),
+							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x,
+							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.y) < 200
+							&& enemy->getX()< _playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x)
+						{
+							enemy->setEnemySpeed(0.0f);
+							_Ebullet->bulletFire(enemy->getX() + 50,
+								enemy->getY()-20, -5.0f);
+							break;
+						}
+						else
+						{
+							enemy->setEnemySpeed(2.0f);
+						}
 					}
+
 					else
 					{
-						_Ebullet->bulletFire(enemy->getX(),
-							enemy->getY() + 10, 5.0f);
+						if (getDistance(enemy->getX(),
+							enemy->getY(),
+							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x,
+							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.y) < 200
+							&& enemy->getX()> _playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x)
+						{
+							enemy->setEnemySpeed(0.0f);
+							_Ebullet->bulletFire(enemy->getX()-50,
+								enemy->getY()-20, 5.0f);
+							break;
+						}
+						else
+						{
+							enemy->setEnemySpeed(-2.0f);
+						}
 					}
+					
 				}
 
 			}
@@ -210,7 +233,7 @@ void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
 							&& enemy->getX() < _playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x)
 						{
 							enemy->setEnemySpeed(0.0f);
-							_Ebullet->bulletFire(enemy->getX(),
+							_Ebullet->bulletFire(enemy->getX()+30,
 								enemy->getY(), -5.0f);
 							break;
 						}
@@ -228,7 +251,7 @@ void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
 							&& enemy->getX() > _playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x)
 						{
 							enemy->setEnemySpeed(0.0f);
-							_Ebullet->bulletFire(enemy->getX(),
+							_Ebullet->bulletFire(enemy->getX()-30,
 								enemy->getY(), 5.0f);
 							break;
 						}
@@ -241,6 +264,11 @@ void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
 				}
 
 
+			}
+			if (enemy->getEnemyInfo().name == redtower)
+			{
+				_Ebullet->bulletFire(enemy->getX()-40,
+					enemy->getY()-17, 5.0f);
 			}
 	}
 }
