@@ -9,10 +9,16 @@ class MapManager;
 enum enemyName
 {
 	slime,
+	slimeatk,
 	redtower,
-	robot
+	robot,
+	robotatk
 };
-
+enum enemyDirection
+{
+	e_Left,
+	e_Right
+};
 struct ENEMY
 {
 	image* img;
@@ -22,7 +28,8 @@ struct ENEMY
 	float angle;
 	RECT rc, leftcolcheckrc, rightcolcheckrc;
 	int count;
-	bool isMove = false;
+	bool isMove;
+	enemyDirection _enemyDirection;
 };
 
 
@@ -59,9 +66,12 @@ public:
 	float getY() { return _enemy.y; }
 	ENEMY getEnemyInfo() { return _enemy; }
 	RECT getEnemyRect() { return _enemy.rc; }
+	RECT getRightRect() { return _enemy.rightcolcheckrc; }
+	RECT getLeftRect() { return _enemy.leftcolcheckrc; }
 
+	void setEnemySpeed(float speed) { _enemy.speed = speed;}
 	void setMemoryAddressLink(MapManager* mm) { _mapManager = mm; }
-	void setplayerMemoryAddressLink(PlayerManager* pm) { _playerManager = pm; }
-
+	virtual void setplayerMemoryAddressLink(PlayerManager* pm) { _playerManager = pm; }
+	enemyDirection getenemyDir() { return _enemy._enemyDirection; }
 };
 

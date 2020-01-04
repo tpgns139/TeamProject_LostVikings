@@ -1,8 +1,12 @@
 #pragma once
 #include "Enemy.h"
+
+
 class Slime :public Enemy
 
 {
+private :
+
 public:
 	Slime();
 	~Slime();
@@ -14,6 +18,7 @@ public:
 
 	virtual void AttackStart();
 	virtual bool bulletCountFire();
+
 
 };
 

@@ -13,6 +13,7 @@ Tower::~Tower()
 
 HRESULT Tower::init(const char * imagename, POINT position, int num, float speed)
 {
+	IMAGEMANAGER->addFrameImage("Tower", "Æ÷Å¾.bmp", 200, 80, 2, 1, true, RGB(255, 0, 255));
 	Enemy::init(imagename, position, num, speed);
 	_enemy.name = redtower;
 	return S_OK;
