@@ -102,6 +102,11 @@ void Player::update()
 				{
 					((Erik*)(this))->setState(E_push);
 				}
+				else if ((((Erik*)(this))->getState() == E_atk))
+				{
+					((Erik*)(this))->setState(E_attack_after);
+					((Erik*)(this))->setSpeed(0.0f);
+				}
 				break;
 			case PN_BALEOG:
 				if (((Baleog*)(this))->getState() == BALEOG_RIGHTMOVE||

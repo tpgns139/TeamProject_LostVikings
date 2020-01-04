@@ -58,5 +58,7 @@ public:
 	ERIKSTATE getState() { return _state; }
 	void setState(ERIKSTATE state) { _state = state; }
 	void setSpeed(float speed) { PlusSpeed = speed; }
+	void setFrameX(int x) { _playerInfo._CurrentFrameX = x; }
+	void setFrameY(int y) { _playerInfo._CurrentFrameY; }
 };
 
