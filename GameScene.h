@@ -19,7 +19,7 @@ private:
 	uiManager* _ui;
 	bool _changeNowPlayer;
 	bool _selectUi;
-	int _fadeout, _fadein;
+
 public:
 	
 	GameScene();
