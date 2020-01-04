@@ -258,10 +258,6 @@ void Player::collsion()
 		}
 		else
 			_playerInfo.isLadder = false;
-
-	
-		
-
 	}
 		
 		

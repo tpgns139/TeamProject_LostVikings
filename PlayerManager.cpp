@@ -73,13 +73,17 @@ void PlayerManager::update()
 
 	for (int i = 0;i < _vPlayer.size();i++)
 	{
-		_vPlayer[i]->update();
-
-
-		//((Olaf*)(_vPlayer[2]))->getShieldFront();
-		
+		_vPlayer[i]->update();		
 	}
+	
+		RECT temp;
+		if (IntersectRect(&temp, &((Olaf*)(_vPlayer[2]))->getShieldUp(), &_vPlayer[0]->getRect()))
+		{
+			_vPlayer[0]->setPlayerPosY(((Olaf*)(_vPlayer[2]))->getShieldUp().top);
+			
+		}
 
+	
 }
 
 void PlayerManager::render()

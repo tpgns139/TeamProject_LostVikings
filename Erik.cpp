@@ -32,14 +32,15 @@ HRESULT Erik::init(PlayerName playerNme)
 	_playerInfo.count = _playerInfo._CurrentFrameX = _playerInfo._CurrentFrameY = 0;
 	_playerInfo.HP = 3;
 	_playerInfo.MaxHP = 3;
-	_playerInfo.position.x = 1300;
-	_playerInfo.position.y = 1116;
+	_playerInfo.position.x = WINSIZEX / 2 - 200;//1300;
+		_playerInfo.position.y = WINSIZEY / 2;//1116;
 	//_playerInfo.speed = 1.0f;
 
 	PlusSpeed = 0;
 	PlusJump = 0;
 	jumpCount = 0;
 	SuperJumpCount = 0;
+
 	_playerInfo.isLadder = false;
 	isJump = false;
 
@@ -119,6 +120,7 @@ void Erik::render()
 void Erik::KeyControl()
 {
 
+
 	//사다리 처리중
 	if (_playerInfo.isLadder)
 	{	
@@ -166,7 +168,6 @@ void Erik::KeyControl()
 
 
 
-	cout << "사다리니?" << _playerInfo.isLadder << endl;
 
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
@@ -193,6 +194,7 @@ void Erik::KeyControl()
 	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 	{
 		_Direction = LEFT;
+
 		headingCount = 0;
 		_state = E_idle1;
 
@@ -235,8 +237,6 @@ void Erik::KeyControl()
 	if (jumpCount == 0)
 	{
 			jumpCount = 1;
-
-		
 
 		if(KEYMANAGER->isStayKeyDown(VK_SPACE))
 		{

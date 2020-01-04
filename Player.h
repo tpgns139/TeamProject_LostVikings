@@ -70,7 +70,9 @@ public:
 	void setLink(MapManager* MapManager) { _MapManager = MapManager; }
 	POINT getPlayerPos() { return _playerInfo.position; }
 
-	void setPlayerPosY(float y) { _playerInfo.position.y = y; }
+	void setPlayerPosY(float y) { _playerInfo._rc.bottom = y; }
+
+
 	
 
 	void setDrop(bool check) { _playerInfo.isDrop = check; }
