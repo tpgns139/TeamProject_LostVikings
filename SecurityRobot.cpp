@@ -13,13 +13,11 @@ SecurityRobot::~SecurityRobot()
 
 HRESULT SecurityRobot::init(const char * imagename, POINT position, int num,float speed)
 {
-	IMAGEMANAGER->addFrameImage("SecurityRobotMove1", "경비로봇이동.bmp", 420, 132, 6, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("SecurityRobotAtk1", "경비로봇공격.bmp", 210, 135, 3, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("SecurityRobotMove2", "경비로봇이동.bmp", 420, 132, 6, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("SecurityRobotAtk2", "경비로봇공격.bmp", 210, 135, 3, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("SecurityRobotMove3", "경비로봇이동.bmp", 420, 132, 6, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("SecurityRobotAtk3", "경비로봇공격.bmp", 210, 135, 3, 2, true, RGB(255, 0, 255));
-	Enemy::init(imagename, position, num, speed);
+	string ins = imagename + to_string(num);
+	string atkIns = "SecurityRobotAtk" + to_string(num);
+	IMAGEMANAGER->addFrameImage(imagename, "경비로봇이동.bmp", 420, 132, 6, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage(atkIns, "경비로봇공격.bmp", 210, 135, 3, 2, true, RGB(255, 0, 255));
+	Enemy::init(atkIns.c_str(), position, num, speed);
 	
 	_enemy.name = robot;
 	_enemy.isMove = true;

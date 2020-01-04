@@ -13,12 +13,7 @@ Enemy::~Enemy()
 
 HRESULT Enemy::init(const char* imagename, POINT position, int num,float speed)
 {
-	IMAGEMANAGER->addFrameImage("SlimeMove", "슬라임이동.bmp", 336, 163, 4, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("SlimeAtk", "슬라임공격.bmp", 168, 152, 2, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("SecurityRobotMove", "경비로봇이동.bmp", 420, 132, 6, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("SecurityRobotAtk", "경비로봇공격.bmp", 210, 135, 3, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("Tower", "포탑.bmp", 200, 80, 2, 1, true, RGB(255, 0, 255));
-
+	
 	_currentFrameX = _currentFrameY = 0;
 	
 	_enemy.speed = speed;

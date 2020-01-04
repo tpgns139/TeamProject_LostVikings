@@ -13,12 +13,13 @@ Slime::~Slime()
 
 HRESULT Slime::init(const char * imagename, POINT position, int num, float speed)
 {
-	IMAGEMANAGER->addFrameImage("SlimeMove1", "슬라임이동.bmp", 336, 163, 4, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("SlimeAtk1", "슬라임공격.bmp", 168, 152, 2, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("SlimeMove2", "슬라임이동.bmp", 336, 163, 4, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("SlimeAtk2", "슬라임공격.bmp", 168, 152, 2, 2, true, RGB(255, 0, 255));
 	
-	Enemy::init(imagename,position,num,speed);
+	string ins = imagename+ to_string(num);
+	string atkIns = "SlimeAtk" + to_string(num);
+	IMAGEMANAGER->addFrameImage(ins, "슬라임이동.bmp", 336, 163, 4, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage(atkIns, "슬라임공격.bmp", 168, 152, 2, 2, true, RGB(255, 0, 255));
+	
+	Enemy::init(ins.c_str(),position,num,speed);
 
 	
 	

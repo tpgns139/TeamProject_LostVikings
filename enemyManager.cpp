@@ -99,6 +99,7 @@ void EnemyManager::setEnemy()
 		Enemy* Sl;
 		Sl = new Slime;
 		Sl->init("SlimeMove", PointMake(3560, 1310), 0,2);
+		
 		Sl->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sl);
 	}
@@ -122,6 +123,7 @@ void EnemyManager::setEnemy()
 		Enemy* Sr;
 		Sr = new SecurityRobot;
 		Sr->init("SecurityRobotMove", PointMake(500, 1375), 0,2);
+		
 		Sr->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sr);
 	}
@@ -130,7 +132,7 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* Sr;
 		Sr = new SecurityRobot;
-		Sr->init("SecurityRobotMove1", PointMake(3400, 375), 1,-2);
+		Sr->init("SecurityRobotMove", PointMake(3400, 375), 1,-2);
 		Sr->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sr);
 	}
@@ -138,7 +140,7 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* Sr;
 		Sr = new SecurityRobot;
-		Sr->init("SecurityRobotMove2", PointMake(2700, 375), 2, -2);
+		Sr->init("SecurityRobotMove", PointMake(2700, 375), 2, -2);
 		Sr->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sr);
 	}
@@ -146,7 +148,7 @@ void EnemyManager::setEnemy()
 	{
 		Enemy* Sr;
 		Sr = new SecurityRobot;
-		Sr->init("SecurityRobotMove3", PointMake(2000, 375), 3,2);
+		Sr->init("SecurityRobotMove", PointMake(2000, 375), 3,2);
 		Sr->setMemoryAddressLink(_mapManager);
 		_vEm.push_back(Sr);
 	}
@@ -204,7 +206,7 @@ void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
 						if (getDistance(enemy->getX(),
 							enemy->getY(),
 							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x,
-							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.y) < 200
+							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.y) < 400
 							&& enemy->getX() < _playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x)
 						{
 							enemy->setEnemySpeed(0.0f);
@@ -222,7 +224,7 @@ void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
 						if (getDistance(enemy->getX(),
 							enemy->getY(),
 							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x,
-							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.y) < 200
+							_playerManager->get_vPlayer()[i]->getPlayerInfo()->position.y) < 400
 							&& enemy->getX() > _playerManager->get_vPlayer()[i]->getPlayerInfo()->position.x)
 						{
 							enemy->setEnemySpeed(0.0f);
