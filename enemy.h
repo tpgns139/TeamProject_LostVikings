@@ -9,8 +9,10 @@ class MapManager;
 enum enemyName
 {
 	slime,
+	slimeatk,
 	redtower,
-	robot
+	robot,
+	robotatk
 };
 
 struct ENEMY
@@ -22,7 +24,7 @@ struct ENEMY
 	float angle;
 	RECT rc, leftcolcheckrc, rightcolcheckrc;
 	int count;
-	bool isMove = false;
+	bool isMove;
 };
 
 
@@ -59,9 +61,9 @@ public:
 	float getY() { return _enemy.y; }
 	ENEMY getEnemyInfo() { return _enemy; }
 	RECT getEnemyRect() { return _enemy.rc; }
-
+	void setEnemySpeed(float speed) { _enemy.speed = speed;}
 	void setMemoryAddressLink(MapManager* mm) { _mapManager = mm; }
-	void setplayerMemoryAddressLink(PlayerManager* pm) { _playerManager = pm; }
+	virtual void setplayerMemoryAddressLink(PlayerManager* pm) { _playerManager = pm; }
 
 };
 

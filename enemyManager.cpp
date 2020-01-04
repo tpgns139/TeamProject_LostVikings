@@ -1,6 +1,6 @@
 #include "stdafx.h"
+#include "PlayerManager.h"
 
-#include "EnemyManager.h"
 
 
 
@@ -40,6 +40,7 @@ void EnemyManager::update()
 			if (IntersectRect(&temp, &(*_viEm)->getEnemyRect() , &_playerManager->get_nPlayer()->getRect()))
 			{
 				
+				
 				if ((*_viEm)->getEnemyInfo().speed < 0)
 				{
 					enemyBulletFire((*_viEm), RIGHT);
@@ -48,6 +49,8 @@ void EnemyManager::update()
 				{
 					enemyBulletFire((*_viEm), LEFT);
 				}
+
+				
 			}
 		
 
@@ -168,33 +171,63 @@ void EnemyManager::enemyBulletFire(Enemy* enemy, Direction _direction)
 	if (enemy->bulletCountFire())
 
 	{
+		RECT temp;
 		RECT rc = enemy->getEnemyRect();
-		if (enemy->getEnemyInfo().name == slime)
-		{
-			if (_direction == LEFT)
+
+		
+			if (enemy->getEnemyInfo().name == slime)
 			{
-				_Ebullet->bulletFire(enemy->getX()+60,
-					enemy->getY()+10, -5.0f);
+				if (IntersectRect(&temp, &rc, &_playerManager->get_nPlayer()->getRect()))
+				{
+					enemy->setEnemySpeed(0);
+
+					if (_direction == LEFT)
+					{
+						_Ebullet->bulletFire(enemy->getX() + 60,
+							enemy->getY() + 10, -5.0f);
+					}
+					else
+					{
+						_Ebullet->bulletFire(enemy->getX(),
+							enemy->getY() + 10, 5.0f);
+					}
+				}
+
 			}
-			else
+	
+			if (enemy->getEnemyInfo().name == robot)
 			{
-				_Ebullet->bulletFire(enemy->getX(),
-					enemy->getY()+10, 5.0f);
+
+				if ((getDistance(rc.left, rc.top, _playerManager->get_nPlayer()->getRect().left,
+					_playerManager->get_nPlayer()->getRect().top) < 400))
+				{
+					
+					if (_direction == LEFT)
+					{
+						enemy->setEnemySpeed(0);
+						_Ebullet->bulletFire(enemy->getX(),
+							enemy->getY(), -5.0f);
+					}
+					else
+					{
+						enemy->setEnemySpeed(0);
+
+						_Ebullet->bulletFire(enemy->getX(),
+							enemy->getY(), 5.0f);
+					}
+				}
+				else
+				{
+					if (_direction == LEFT)
+					{
+						enemy->setEnemySpeed(-2);
+					}
+					else
+					{
+						enemy->setEnemySpeed(2);
+					}
+				}
 			}
-		}
-		if (enemy->getEnemyInfo().name == robot)
-		{
-			if (_direction == LEFT)
-			{
-				_Ebullet->bulletFire(enemy->getX(),
-					enemy->getY(), -5.0f);
-			}
-			else
-			{
-				_Ebullet->bulletFire(enemy->getX(),
-					enemy->getY(), 5.0f);
-			}
-		}
 	}
 }
 

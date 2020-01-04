@@ -21,7 +21,7 @@ HRESULT Enemy::init(const char* imagename, POINT position, int num,float speed)
 
 	_currentFrameX = _currentFrameY = 0;
 	
-
+	_enemy.speed = speed;
 	_enemy.img = IMAGEMANAGER->findImage(imagename);
 	_enemy.x = position.x;
 	_enemy.y = position.y+_enemy.img->getFrameHeight()/2;
