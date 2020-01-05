@@ -17,7 +17,9 @@ HRESULT Player::init(PlayerName playerName)
 	_playerInfo.Olaf_HP = 3;
 	_playerInfo.Baleog_HP = 3;
 
-
+	_playerInfo.Erik_HP = 3;
+	_playerInfo.Baleog_HP = 3;
+	_playerInfo.Olaf_HP = 3;
 	_playerInfo.gravity = 0;
 	_playerInfo.isDrop = true;
 	_playerInfo.isGround = false;

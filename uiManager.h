@@ -88,6 +88,7 @@ public:
 	virtual void setUi();
 	virtual void setState();
 	virtual void keyControl();
+	virtual void setHp();
 	virtual image* getUiImage() { return _ui; }
 	int setSelectUi() { int _SelectUiX; }
 	void setPlayerManager(PlayerManager* pm) { _pm = pm; }

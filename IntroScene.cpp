@@ -21,6 +21,8 @@ HRESULT IntroScene::init()
 	_fadeout = 255;
 	_fadein = 0;
 	_startState = intro1;
+	_changeFadeState = false;
+	_changeScene = false;
 	return S_OK;
 }
 
@@ -29,10 +31,32 @@ void IntroScene::update()
 	if (_startState != intro4) 
 	{
 		
-		if (_fadeout >= 1)
+		if (!_changeScene) 
 		{
-			_fadeout -= 3;
-		}	
+			if (!_changeFadeState)
+			{
+				if (_fadein < 255)
+				{
+					_fadein += 1;
+				}
+				else
+				{
+					
+					_changeFadeState = true;
+				}
+			}
+			else
+			{
+				if (_fadeout > 0)
+				{
+					_fadeout -= 1;
+				}
+				else
+				{
+					_changeScene = true;
+				}
+			}
+		}
 		else
 		{
 			switch (_startState)
@@ -41,19 +65,26 @@ void IntroScene::update()
 				_nowScene = IMAGEMANAGER->findImage("intro1sizeUp");
 				_startState = intro2;
 				_fadeout = 255;
-		
+				_fadein = 0;
+				_changeFadeState = false;
+				_changeScene = false;
 				break;
 			case intro2:
 				_nowScene = IMAGEMANAGER->findImage("intro2siezeUp");
 				_startState = intro3;
 				_fadeout = 255;
-		
+				_fadein = 0;
+				_changeFadeState = false;
+				_changeScene = false;
 				break;
 			
 			case intro3:
-				_startState = intro4;
 				_nowScene = IMAGEMANAGER->findImage("intro4sizeUp");
+				_startState = intro4;
 				_fadeout = 255;
+				_fadein = 0;
+				_changeFadeState = false;
+				_changeScene = false;
 			
 			
 			case intro4:
@@ -65,13 +96,22 @@ void IntroScene::update()
 			}
 		}
 	}
+	else
+	{
+		_changeFadeState = true;
+	}
 }
 
 void IntroScene::render()
 {
-	
-	_nowScene->alphaRender(getMemDC(), 0, 0, _fadeout);
-
+	if (_changeFadeState) 
+	{
+		_nowScene->alphaRender(getMemDC(), 0, 0, _fadeout);
+	}
+	else
+	{
+		_nowScene->alphaRender(getMemDC(), 0, 0, _fadein);
+	}
 }
 
 void IntroScene::release()
