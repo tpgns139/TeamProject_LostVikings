@@ -75,7 +75,11 @@ private:
 	POINTS pos;
 	PlayerManager* _pm;
 
+	RECT _rc[3][4];
+	int _box[3];
 	vector<uiInfo*> _playerItemVector;
+
+	bool _goSelect;
 
 public:
 	uiManager();
@@ -93,7 +97,7 @@ public:
 	int setSelectUi() { int _SelectUiX; }
 	void setPlayerManager(PlayerManager* pm) { _pm = pm; }
 	void setSelect(bool select) { _select = select; }
-
+	void set_goSelect() { _goSelect = !_goSelect; }
 
 };
 

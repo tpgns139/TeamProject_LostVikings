@@ -58,6 +58,23 @@ HRESULT uiManager::init()
 		_playerItemVector.push_back(new uiInfo);
 	}
 	
+	for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; ++j)
+		{
+			if (j < 2)
+			{
+				_rc[i][j] = RectMake(198 + (j * 43) + (i * 178),  639, 39, 41);
+			}
+			else if(j < 4)
+				_rc[i][j] = RectMake(198 + ((j - 2) * 43) + (i * 178),   682, 39, 41);
+			
+
+			
+		}
+	}
+
+
 	return S_OK;
 }    
 
@@ -108,7 +125,11 @@ void uiManager::update()
 		}
 
 	}
-	keyControl();
+
+	if (_goSelect)
+	{
+		keyControl();
+	}
 }
 
 void uiManager::render()
@@ -170,7 +191,7 @@ void uiManager::render()
 	setHp();
 
 
-	if (_select)
+	/*if (_select)
 	{
 		for (int i = 0;i < _vSelctUi.size();i++)
 		{
@@ -201,19 +222,75 @@ void uiManager::render()
 		}
 		_timeTick++;
 		
-	}
-	else
+	}*/
+	//else
+	//{
+		//for (int i = 0;i < _vSelctUi.size();i++)
+		//{
+		//	//_vSelctUi[i]->getImage()->frameRender(getMemDC(),
+		//	//	_vSelctUi[i]->get_position().x,
+		//	//	_vSelctUi[i]->get_position().y,
+		//	//	0, 0
+		//	//);
+		//	if (_selectNum == i && _selectUi)
+		//	{
+		//		_vSelctUi[i]->getImage()->frameRender(getMemDC(), _rc[_selectNum][_box[_selectNum]].left, _rc[_selectNum][_box[_selectNum]].top,
+		//			0, 0);
+		//	}
+		//	else
+		//	{
+		//		_vSelctUi[i]->getImage()->frameRender(getMemDC(), _rc[i][_box[i]].left, _rc[i][_box[i]].top,
+		//			0, 0);
+		//
+		//	}
+		//
+		//}
+	//}
+
+
+	for (int i = 0;i < _vSelctUi.size();i++)
 	{
-		for (int i = 0;i < _vSelctUi.size();i++)
+		//_vSelctUi[i]->getImage()->frameRender(getMemDC(),
+		//	_vSelctUi[i]->get_position().x,
+		//	_vSelctUi[i]->get_position().y,
+		//	0, 0
+		//);
+		if (_selectNum == i && _goSelect)
 		{
-			_vSelctUi[i]->getImage()->frameRender(getMemDC(),
-				_vSelctUi[i]->get_position().x,
-				_vSelctUi[i]->get_position().y,
-				0, 0
-			);
+			_vSelctUi[i]->getImage()->frameRender(getMemDC(), _rc[_selectNum][_box[_selectNum]].left, _rc[_selectNum][_box[_selectNum]].top,
+				_currentFrameX, 0);
 		}
+		else
+		{
+			_vSelctUi[i]->getImage()->frameRender(getMemDC(), _rc[i][_box[i]].left, _rc[i][_box[i]].top,
+				0, 0);
+
+		}
+
+		if (_timeTick % 15 == 0)
+		{
+			_currentFrameX++;
+		}
+		if (_currentFrameX > IMAGEMANAGER->findImage("선택uiFrame")->getMaxFrameX())
+		{
+			_currentFrameX = 0;
+		}
+		_timeTick++;
+
 	}
-	keyControl();
+	
+
+	// 인벤 위치 렉트 테스트
+	/*for (int i = 0; i < 3; ++i)
+	{
+		for (int j = 0; j < 4; ++j)
+		{
+			Rectangle(getMemDC(), _rc[i][j]);
+		}
+	}*/
+	
+
+	
 }
 
 void uiManager::setUi()
@@ -428,11 +505,27 @@ void uiManager::setHp()
 	{
 		IMAGEMANAGER->findImage("체력")->render(getMemDC(), 479 + i * 20, 706);
 	}
+	if (KEYMANAGER->isOnceKeyDown(VK_UP))
+	{
+		if (_box[_selectNum] == 2 || _box[_selectNum] == 3) _box[_selectNum] -= 2;
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
+	{
+		if (_box[_selectNum] == 0 || _box[_selectNum] == 1) _box[_selectNum] += 2;
 
-	
-	
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
+	{
+		if (_box[_selectNum] == 0 || _box[_selectNum] == 2) _box[_selectNum] += 1;
 
-	
+	}
+	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
+	{
+		if (_box[_selectNum] == 1 || _box[_selectNum] == 3) _box[_selectNum] -= 1;
+
+	}
+
+	cout << _box[0] << " " << _box[1] << " " << _box[2] << endl;
 }
 
 

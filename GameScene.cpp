@@ -56,7 +56,6 @@ void GameScene::update()
 
 
 
-
 	if (!_selectUi)
 	{
 
@@ -69,15 +68,17 @@ void GameScene::update()
 
 		_im->update();
 		_pm->update();
-
+		
 		_mm->update();
 		_em->update();
 		_ui->setSelect(_selectUi);
 		if (KEYMANAGER->isOnceKeyDown(VK_TAB))
 		{
 			_selectUi = true;
+			_ui->set_goSelect();
 		}
 		EFFECTMANAGER->update();
+		//_ui->setSelect(_selectUi);
 	}
 	else
 	{
@@ -85,7 +86,9 @@ void GameScene::update()
 		if (KEYMANAGER->isOnceKeyDown(VK_TAB))
 		{
 			_selectUi = false;
+			_ui->set_goSelect();
 		}
+		//_ui->setSelect(_selectUi);
 
 		if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
 		{
