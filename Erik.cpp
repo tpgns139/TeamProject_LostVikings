@@ -32,8 +32,8 @@ HRESULT Erik::init(PlayerName playerNme)
 	_playerInfo.count = _playerInfo._CurrentFrameX = _playerInfo._CurrentFrameY = 0;
 
 	_playerInfo.MaxHP = 3;
-	_playerInfo.position.x = 1300;
-	_playerInfo.position.y = 1116;
+	_playerInfo.position.x =500;
+	_playerInfo.position.y = 1290;
 	//_playerInfo.speed = 1.0f;
 
 	PlusSpeed = 0;

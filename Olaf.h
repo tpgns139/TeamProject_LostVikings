@@ -30,7 +30,7 @@ enum OLAFSTATE
 	O_up_end
 };
 
-class Olaf:public Player
+class Olaf :public Player
 {
 private:
 
@@ -38,12 +38,12 @@ private:
 
 	RECT shield;
 	bool shieldPosision; //true일때 top //false일때 정면
-	
+
 
 
 	RECT shieldUp;	//방패
 	RECT shieldFront;	//방패
-	
+
 	int shieldX; //방패x좌표값
 
 
@@ -68,5 +68,3 @@ public:
 	void ladder();
 	void dropState();
 };
-
-

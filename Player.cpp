@@ -88,6 +88,7 @@ void Player::update()
 		_playerInfo.jumpPower -= _playerInfo.gravity;				//중력값만큼 파워를 빼줌
 		_playerInfo.gravity += 0.01f;								// 중력값을 ++해서 더빨리떨어지게
 	}
+
 	if (!_playerInfo.isDrop)
 	{
 		_playerInfo.gravity = 0;
@@ -120,7 +121,7 @@ void Player::update()
 				if (((Baleog*)(this))->getState() == BALEOG_RIGHTMOVE||
 					((Baleog*)(this))->getState() == BALEOG_LEFTMOVE)
 				{
-					((Baleog*)(this))->setState(BALEOG_PUSH);
+					((Baleog*)(this))->setState(BALEOG_PUSH);					
 					((Baleog*)(this))->setImage();
 				}
 				break;

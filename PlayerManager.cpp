@@ -79,7 +79,8 @@ void PlayerManager::update()
 	}
 
 	Bulletcollsion();
-
+	gravityzonecollsion();
+	potalcollsion();
 	//벨로그 칼 충돌
 	if (_nowPlayer->getPlayerInfo()->_playerName == PN_BALEOG)
 	{	
@@ -188,7 +189,7 @@ void PlayerManager::colErikWithEnemy()
 	{
 		if (((Erik*)_nowPlayer)->getState() == E_atk)
 		{
-			for (int i = 0;i < _em->getEnemy().size();i++)
+			for (int i = 0; i < _em->getEnemy().size(); i++)
 			{
 				RECT temp;
 				if (IntersectRect(&temp, &_nowPlayer->getPlayerInfo()->_rc, &_em->getEnemy()[i]->getEnemyRect()))
@@ -200,6 +201,7 @@ void PlayerManager::colErikWithEnemy()
 		}
 	}
 }
+
 void PlayerManager::Swordcollsion()
 {
 	for (int i = 0; i < _em->getEnemy().size(); i++)
@@ -224,3 +226,58 @@ void PlayerManager::Swordcollsion()
 	}
 
 }
+
+//중력장 충돌 처리
+
+void PlayerManager::gravityzonecollsion()
+{
+	for (int i = 0; i < _MapManager->getgravityZone().size(); i++)
+	{
+		RECT temp;
+		if (IntersectRect(&temp, &_nowPlayer->getPlayerInfo()->_rc, &_MapManager->getgravityZone()[i]->getRect()))
+		{
+			_nowPlayer->getPlayerInfo()->isDrop = false;
+			if (!_nowPlayer->getPlayerInfo()->isDrop)
+			{
+				_nowPlayer->getPlayerInfo()->position.y += _nowPlayer->getPlayerInfo()->gravity;
+				_nowPlayer->getPlayerInfo()->gravity -= 0.1f;
+			}
+		}
+	}
+}
+
+//포탈 처리
+void PlayerManager::potalcollsion()
+{
+	for (int i = 0; i < _MapManager->getportal().size(); i++)
+	{
+		RECT temp;
+		if (IntersectRect(&temp, &_nowPlayer->getPlayerInfo()->_rc, &_MapManager->getportal()[i]->getRect()))
+		{
+			if (!_potalCheck)
+			{
+			    if (KEYMANAGER->isOnceKeyDown(VK_UP))
+			    {
+			      _nowPlayer->getPlayerInfo()->position.x = 249;
+			      _nowPlayer->getPlayerInfo()->position.y = 1690;
+				  _potalCheckTwo = true;
+				  _potalCheck = true;
+			    }
+
+			}
+
+			if (_potalCheckTwo)
+			{
+				if (KEYMANAGER->isOnceKeyDown(VK_UP))
+				{
+					_nowPlayer->getPlayerInfo()->position.x = 299;
+					_nowPlayer->getPlayerInfo()->position.y = 1290;
+					_potalCheck = false;
+				}
+
+			}
+		}
+	}
+
+}
+

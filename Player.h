@@ -28,6 +28,7 @@ struct Playerinfo
 	float speed;
 	float jumpPower;
 	bool isDrop; //떨어지는중이니
+	
 	bool isGround; //땅이니?
 	bool isLadder; //사다리 상태니?
 	bool isJump;
