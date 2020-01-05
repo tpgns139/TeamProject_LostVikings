@@ -99,6 +99,10 @@ void IntroScene::update()
 	else
 	{
 		_changeFadeState = true;
+		if (KEYMANAGER->isOnceKeyDown(VK_RETURN))
+		{
+			SCENEMANAGER->changeScene("GameScene");
+		}
 	}
 }
 
