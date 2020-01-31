@@ -12,7 +12,9 @@
 #include "PlayerHpUi.h"
 #include "SelectUi.h"
 #include "Inven.h"
-
+#include "pointer.h"
+#include "itemManager.h"
+#include "skillPointer.h"
 enum Erik1
 {
 	E_ON,
@@ -43,8 +45,14 @@ private:
 	vector<ui*>				_vUi;
 	vector<ui*>::iterator	_viUi;
 
-	vector<ui*>				_vSelctUi;
-	vector<ui*>::iterator	_viSelctUi;
+	/*vector<ui*>				_vSelctUi;
+	vector<ui*>::iterator	_viSelctUi;*/
+
+	vector<ui*>				_vPointer;
+	vector<ui*>::iterator	_viPointer;
+
+	vector<ui*>				_vSkillPointer;
+	vector<ui*>::iterator	_viSkillPointer;
 
 	Erik1 _Erik1;
 	Baleog2 _Baleog2;
@@ -67,7 +75,7 @@ private:
 	bool _eric;
 	bool _baleog;
 	bool _olaf;
-
+	
 	bool _select;
 	int _selectNum;
 	int _timeTick;
@@ -76,11 +84,63 @@ private:
 	PlayerManager* _pm;
 
 	RECT _rc[3][4];
-	int _box[3];
+	int _box[3]; 
+	int _box2[3];
+
 	vector<uiInfo*> _playerItemVector;
 
 	bool _goSelect;
 
+
+	image* _inven;
+	bool stay = false;
+	image* _itemBox;
+	image* _pointer;
+	image* _pointer1;
+	image* _pointer2;
+	int _pointerX, _pointerY;
+	int _pointerX1, _pointerY1;
+	RECT _rc2[12];
+	int box[11];
+	int num;
+	int count;
+	bool item;
+	bool stay2;
+	bool stay3;
+	image* _list1;
+	image* _list2;
+	image* _skillInven;
+	image* itemOn;
+	image* itemOff;
+	image* wizardOn;
+	image* wizardOff;
+	image* worriorOn;
+	image* worriorOff;
+	image* weapon;
+	image* armor;
+	image* hat;
+	image* glasses;
+	image* shoes1;
+	image* shield;
+	image* accessories;
+	image* skillPointer1;
+	image* itemPointer;
+	RECT _rc3[12];
+	int box1[12];
+	int num1;
+	RECT _rc4[10];
+	int box2[10];
+	int num2;
+	image* goldBar;
+	image* worriorSkill1;
+	image* worriorSkill2;
+	image* worriorSkill3;
+	image* worriorSkill4;
+	image* hpUi;
+	image* frontHp;
+	image* mpBar;
+	image* backHp;
+	bool skill;
 public:
 	uiManager();
 	~uiManager();
@@ -98,5 +158,7 @@ public:
 	void setSelect(bool select) { _select = select; }
 	void set_goSelect() { _goSelect = !_goSelect; }
 
+	bool getStay();
+	
 };
 

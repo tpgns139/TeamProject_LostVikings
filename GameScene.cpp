@@ -19,8 +19,8 @@ HRESULT GameScene::init()
 	IMAGEMANAGER->addImage("왼쪽화살", "arrowleft.bmp", 37, 20, true, RGB(255, 0, 255));
 	CAMERA->setBackGroundWidth(IMAGEMANAGER->findImage("배경")->getWidth());
 	CAMERA->setBackGroundHeight(IMAGEMANAGER->findImage("배경")->getHeight());
-	_im = new itemManager;
-	_im->init();
+	
+	
 
 	_mm = new MapManager;
 	_mm->init();
@@ -29,8 +29,7 @@ HRESULT GameScene::init()
 	_pm->setAddressMapManager(_mm);
 	_pm->init();
 
-	_im->setPlayerMemoryAdrressLink(_pm);
-
+	
 
 	_em = new EnemyManager;
 	_em->setMemoryAddressLink(_mm);
@@ -42,6 +41,10 @@ HRESULT GameScene::init()
 	_ui->setPlayerManager(_pm);
 	_ui->init();
 
+	_im = new itemManager;
+	_im->setPlayerMemoryAdrressLink(_pm);
+	_im->setuiMemoryAdrressLink(_ui);
+	_im->init();
 	_changeNowPlayer = false;
 	
 	return S_OK;
@@ -62,18 +65,19 @@ void GameScene::update()
 			_changeNowPlayer = false;
 		}
 
-		_im->update();
+		
 		_pm->update();
 		
 		_mm->update();
 		_em->update();
 		_ui->setSelect(_selectUi);
+		_im->update();
 		if (KEYMANAGER->isOnceKeyDown(VK_TAB))
 		{
 			_selectUi = true;
 			_ui->set_goSelect();
 		}
-		//_ui->setSelect(_selectUi);
+	
 	}
 	else
 	{
@@ -83,7 +87,7 @@ void GameScene::update()
 			_selectUi = false;
 			_ui->set_goSelect();
 		}
-		//_ui->setSelect(_selectUi);
+	
 
 		if (KEYMANAGER->isOnceKeyDown(VK_CONTROL))
 		{
@@ -100,10 +104,11 @@ void GameScene::render()
 	IMAGEMANAGER->findImage("배경")->render(getMemDC(), 0, 0, CAMERA->getCameraXpos(), CAMERA->getCameraYpos(), WINSIZEX, WINSIZEY);
 	_mm->render();
 	_pm->render();
-	_im->render();
+
 	_mm->zOrderRender();
 	_em->render();
 	_ui->render();
+	_im->render();
 }
 
 void GameScene::release()

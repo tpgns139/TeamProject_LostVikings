@@ -37,7 +37,7 @@ private:
 
 	RECT shield;
 	bool shieldPosision; //true일때 top //false일때 정면
-	
+	RECT _rc1;
 
 	RECT shieldUp;	//방패
 	RECT shieldFront;	//방패

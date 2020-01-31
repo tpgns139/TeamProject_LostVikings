@@ -21,6 +21,19 @@ private:
 	POINT _chasePoint;
 
 	CALLBACK_FUNCTION _callbackFunction;
+
+	//
+
+	/*float* _x;
+	float* _y;
+
+	float _endX;
+	float _endY;
+	float _startX;
+	float _startY;*/
+
+
+
 	
 public:
 	action();
@@ -38,5 +51,10 @@ public:
 	void moving();
 	bool getimageMoving() { return _imageMoving; }
 	bool getPointMoving() { return _pointMoving; }
+
+	//
+	void moveTo(float* startX, float* startY, float startx, float starty, float endX, float endY, float time);
+	void itemMoving();
+
 };
 

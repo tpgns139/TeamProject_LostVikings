@@ -188,6 +188,7 @@
     <ClInclude Include="PlayerHpUi.h" />
     <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="playGround.h" />
+    <ClInclude Include="pointer.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
@@ -198,6 +199,7 @@
     <ClInclude Include="SelectUi.h" />
     <ClInclude Include="Shoes.h" />
     <ClInclude Include="singletonBase.h" />
+    <ClInclude Include="skillPointer.h" />
     <ClInclude Include="Slime.h" />
     <ClInclude Include="soundManager.h" />
     <ClInclude Include="stdafx.h" />
@@ -254,6 +256,7 @@
     <ClCompile Include="PlayerHpUi.cpp" />
     <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="playGround.cpp" />
+    <ClCompile Include="pointer.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="RedTile.cpp" />
@@ -261,6 +264,7 @@
     <ClCompile Include="SecurityRobot.cpp" />
     <ClCompile Include="SelectUi.cpp" />
     <ClCompile Include="Shoes.cpp" />
+    <ClCompile Include="skillPointer.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="soundManager.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -55,6 +55,7 @@ HRESULT Olaf::init(PlayerName playerName)
 	_playerInfo.position.y = WINSIZEY / 2 - 45;
 
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x,_playerInfo.position.y,_playerInfo._image->getFrameWidth(),_playerInfo._image->getFrameHeight());
+	//_playerInfo._rc1 = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y, 300, 300);
 
 	
 
@@ -88,6 +89,7 @@ void Olaf::update()
 	shiedMake();
 
 	_playerInfo._rc = RectMakeCenter(_playerInfo.position.x , _playerInfo.position.y , _playerInfo._image->getFrameWidth(), _playerInfo._image->getFrameHeight());
+	//_playerInfo._rc1 = RectMakeCenter(_playerInfo.position.x, _playerInfo.position.y, 300, 300);
 
 
 

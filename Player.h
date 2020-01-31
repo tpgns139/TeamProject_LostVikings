@@ -16,7 +16,7 @@ struct Playerinfo
 {
 	image* _image;
 	PlayerName _playerName;
-	RECT _rc, _underRc, _leftRc,_rightRc;
+	RECT _rc, _underRc, _leftRc, _rightRc;
 
 	POINT position;
 	int HP;
@@ -57,6 +57,7 @@ public:
 	virtual void KeyControl();	//각자 입력받을 KeyControl()함수
 	void move();				//공통으로 움직일 함수;
 	virtual RECT getRect() { return _playerInfo._rc; }
+
 	void collsion();
 	void setLink(MapManager* MapManager) { _MapManager = MapManager; }
 	POINT getPlayerPos() { return _playerInfo.position; }

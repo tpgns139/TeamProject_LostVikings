@@ -85,6 +85,9 @@
     <Filter Include="playGround\Scene">
       <UniqueIdentifier>{0fdf54fe-c9e5-413d-8dc4-c70593825a7a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\progressBar">
+      <UniqueIdentifier>{e4b64d43-1c33-4198-b63e-06b71341b46e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -285,6 +288,12 @@
     <ClInclude Include="GameScene.h">
       <Filter>playGround\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="pointer.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="skillPointer.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -469,6 +478,12 @@
     </ClCompile>
     <ClCompile Include="IntroScene.cpp">
       <Filter>playGround\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="pointer.cpp">
+      <Filter>playGround\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="skillPointer.cpp">
+      <Filter>playGround\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

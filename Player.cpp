@@ -96,6 +96,8 @@ void Player::render()
 		//Rectangle(getMemDC(), _playerInfo._leftRc);				//캐릭터 왼쪽 충돌렉트
 		//Rectangle(getMemDC(), _playerInfo._rightRc);			//캐릭터 오른쪽 충돌렉트
 	}
+
+	//Rectangle(getMemDC(), _playerInfo._rc);
 }
 
 void Player::KeyControl()
